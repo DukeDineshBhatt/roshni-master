@@ -56,13 +56,14 @@ public class REgister extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                personal frag = new personal();
+
+                professional frag = new professional();
                 frag.setData(pager);
                 return frag;
 
 
             } else {
-                return new professional();
+                return new personal();
 
             }
 

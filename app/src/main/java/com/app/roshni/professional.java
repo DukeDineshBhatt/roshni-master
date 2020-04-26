@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
@@ -49,8 +50,15 @@ public class professional extends Fragment {
     EditText employer;
 
     Button submit;
+    int hold;
 
     LinearLayout yes;
+
+    private CustomViewPager pager;
+
+    void setData(CustomViewPager pager) {
+        this.pager = pager;
+    }
 
     @Nullable
     @Override
@@ -120,6 +128,16 @@ public class professional extends Fragment {
         wor.add("20");
 
 
+        Bean b = (Bean) getContext().getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, exp);
 
@@ -139,42 +157,6 @@ public class professional extends Fragment {
         workers.setAdapter(adapter5);
         looms.setAdapter(adapter5);
 
-
-        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i > 0) {
-                    sect = sec1.get(i - 1);
-                } else {
-                    sect = "";
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i > 0) {
-                    skil = ski1.get(i - 1);
-                } else {
-                    skil = "";
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -299,17 +281,8 @@ public class professional extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(b.baseurl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-        Call<sectorBean> call = cr.getSectors();
+        final Call<sectorBean> call = cr.getSectors();
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -331,18 +304,6 @@ public class professional extends Fragment {
 
                     sector.setAdapter(adapter);
 
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("sector"));
-
-                    int gp = 0;
-                    for (int i = 0; i < sec1.size(); i++) {
-                        if (SharePreferenceUtils.getInstance().getString("sector").equals(sec1.get(i))) {
-                            gp = i;
-                        }
-                    }
-
-
-                    sector.setSelection(gp + 1);
-
                 }
 
                 progress.setVisibility(View.GONE);
@@ -355,55 +316,87 @@ public class professional extends Fragment {
             }
         });
 
-
-        Call<sectorBean> call2 = cr.getSkills();
-
-        call2.enqueue(new Callback<sectorBean>() {
+        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i > 0) {
+
+                    sect = sec1.get(i - 1);
+
+                    Call<skillsBean> call2 = cr.getSkills1(String.valueOf(i));
+                    call2.enqueue(new Callback<skillsBean>() {
+                        @Override
+                        public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                            if (response.body().getStatus().equals("1")) {
 
+                                ski.clear();
+
+                                ski.add("Select one --- ");
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    ski.add(response.body().getData().get(i).getTitle());
+                                    ski1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                        R.layout.spinner_model, ski);
+
+                                skills.setAdapter(adapter);
+
+                            }
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<skillsBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                } else {
+                    sect = "";
+
+                    ski.clear();
                     ski.add("Select one --- ");
-
-
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                        ski.add(response.body().getData().get(i).getTitle());
-                        ski1.add(response.body().getData().get(i).getId());
-
-                    }
-
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                             R.layout.spinner_model, ski);
 
                     skills.setAdapter(adapter);
-
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("skills"));
-
-                    int gp = 0;
-                    for (int i = 0; i < ski1.size(); i++) {
-                        if (SharePreferenceUtils.getInstance().getString("skills").equals(ski1.get(i))) {
-                            gp = i;
-                        }
-                    }
-
-
-                    skills.setSelection(gp + 1);
-
                 }
-
-                progress.setVisibility(View.GONE);
 
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
+        skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i > 0) {
+                    skil = ski1.get(i - 1);
+                } else {
+                    skil = "";
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         Call<sectorBean> call3 = cr.getLocations();
 
@@ -591,7 +584,7 @@ public class professional extends Fragment {
             }
         });
 
-        setPrevious();
+        //setPrevious();
 
         return view;
     }

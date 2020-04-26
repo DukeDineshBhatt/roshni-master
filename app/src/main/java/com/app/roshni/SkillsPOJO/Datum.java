@@ -1,12 +1,16 @@
-package com.app.roshni.sectorPOJO;
+package com.app.roshni.SkillsPOJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+public class Datum {
+
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("sector_id")
+    @Expose
+    private String sectorId;
     @SerializedName("title")
     @Expose
     private String title;
@@ -17,16 +21,20 @@ public class Data {
     @Expose
     private String created;
 
-    @SerializedName("sector_id")
-    @Expose
-    private String sector_id;
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSectorId() {
+        return sectorId;
+    }
+
+    public void setSectorId(String sectorId) {
+        this.sectorId = sectorId;
     }
 
     public String getTitle() {
@@ -53,11 +61,4 @@ public class Data {
         this.created = created;
     }
 
-    public String getSector_id() {
-        return sector_id;
-    }
-
-    public void setSector_id(String sector_id) {
-        this.sector_id = sector_id;
-    }
 }

@@ -1,5 +1,6 @@
 package com.app.roshni;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.allWorkContrJobListPOJO.allWorkContrJobBean;
 import com.app.roshni.contWorkerPOJO.contWorkerBeam;
 import com.app.roshni.contractorJobDetailsPOJO.contractorJobDetailsBean;
@@ -341,6 +342,12 @@ public interface AllApiIneterface {
 
     @GET("roshni/api/getSkills.php")
     Call<sectorBean> getSkills();
+
+    @Multipart
+    @POST("roshni/api/getSkills.php")
+    Call<skillsBean> getSkills1(
+            @Part("sector_id") String sector_id
+    );
 
     @GET("roshni/api/getLocations.php")
     Call<sectorBean> getLocations();

@@ -24,6 +24,7 @@ public class Register3 extends AppCompatActivity {
         pager = findViewById(R.id.pager);
 
         tabs.addTab(tabs.newTab().setText("CONTRACTOR"));
+        tabs.addTab(tabs.newTab().setText("SAMPLES"));
 
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
@@ -39,28 +40,34 @@ public class Register3 extends AppCompatActivity {
         }
 
         tabs.getTabAt(0).setText("CONTRACTOR");
+        tabs.getTabAt(1).setText("SAMPLES");
 
     }
 
     class PagerAdapter extends FragmentStatePagerAdapter
     {
 
-
-
-        PagerAdapter(FragmentManager fm) {
+        public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
 
-            return new contractor();
+            if (position == 0)
+            {
+                return new contractor();
+            }
+            else
+            {
+                return new Samples();
+            }
 
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
     }
 

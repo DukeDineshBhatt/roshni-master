@@ -57,13 +57,13 @@ public class REgister extends AppCompatActivity {
         public Fragment getItem(int position) {
             if (position == 0) {
 
-                professional frag = new professional();
+                personal frag = new personal();
                 frag.setData(pager);
                 return frag;
 
 
             } else {
-                return new personal();
+                return new professional();
 
             }
 

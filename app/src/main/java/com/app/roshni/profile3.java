@@ -16,10 +16,11 @@ import com.google.android.material.tabs.TabLayout;
 public class profile3 extends Fragment {
     TabLayout tabs;
     CustomViewPager pager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.profile_layout , container , false);
+        View view = inflater.inflate(R.layout.profile_layout, container, false);
 
         tabs = view.findViewById(R.id.tabLayout2);
         pager = view.findViewById(R.id.pager);
@@ -41,9 +42,7 @@ public class profile3 extends Fragment {
         return view;
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter
-    {
-
+    class PagerAdapter extends FragmentStatePagerAdapter {
 
 
         public PagerAdapter(FragmentManager fm) {
@@ -53,12 +52,9 @@ public class profile3 extends Fragment {
         @Override
         public Fragment getItem(int position) {
 
-            if (position == 0)
-            {
+            if (position == 0) {
                 return new contractor();
-            }
-            else
-            {
+            } else {
                 return new Samples();
             }
 

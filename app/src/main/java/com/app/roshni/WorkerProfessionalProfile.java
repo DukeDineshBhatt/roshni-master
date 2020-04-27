@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
@@ -49,11 +50,12 @@ public class WorkerProfessionalProfile extends Fragment {
 
     String user_id;
 
-    EditText employer;
+    EditText employer,editTextLoc;
     TextView txtStatus;
 
 
     LinearLayout yes;
+
 
     @Nullable
     @Override
@@ -84,6 +86,7 @@ public class WorkerProfessionalProfile extends Fragment {
         employer = view.findViewById(R.id.employer);
         yes = view.findViewById(R.id.yes);
         txtStatus = view.findViewById(R.id.textViewStatus);
+        editTextLoc = view.findViewById(R.id.editTxtLoc);
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
@@ -151,7 +154,6 @@ public class WorkerProfessionalProfile extends Fragment {
         workers.setAdapter(adapter5);
         looms.setAdapter(adapter5);
 
-
         Bean b = (Bean) getContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -160,9 +162,9 @@ public class WorkerProfessionalProfile extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<sectorBean> call = cr.getSectors();
+        final Call<sectorBean> call = cr.getSectors();
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -184,18 +186,6 @@ public class WorkerProfessionalProfile extends Fragment {
 
                     sector.setAdapter(adapter);
 
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("sector"));
-
-                    int gp = 0;
-                    for (int i = 0; i < sec1.size(); i++) {
-                        if (SharePreferenceUtils.getInstance().getString("sector").equals(sec1.get(i))) {
-                            gp = i;
-                        }
-                    }
-
-
-                    sector.setSelection(gp + 1);
-
                 }
 
                 progress.setVisibility(View.GONE);
@@ -207,56 +197,6 @@ public class WorkerProfessionalProfile extends Fragment {
                 progress.setVisibility(View.GONE);
             }
         });
-
-
-        Call<sectorBean> call2 = cr.getSkills();
-
-        call2.enqueue(new Callback<sectorBean>() {
-            @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-
-                if (response.body().getStatus().equals("1")) {
-
-                    ski.add("Select one --- ");
-
-
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                        ski.add(response.body().getData().get(i).getTitle());
-                        ski1.add(response.body().getData().get(i).getId());
-
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, ski);
-
-                    skills.setAdapter(adapter);
-
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("skills"));
-
-                    int gp = 0;
-                    for (int i = 0; i < ski1.size(); i++) {
-                        if (SharePreferenceUtils.getInstance().getString("skills").equals(ski1.get(i))) {
-                            gp = i;
-                        }
-                    }
-
-
-                    skills.setSelection(gp + 1);
-
-                }
-
-                progress.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
-            }
-        });
-
 
         Call<sectorBean> call3 = cr.getLocations();
 
@@ -264,11 +204,9 @@ public class WorkerProfessionalProfile extends Fragment {
             @Override
             public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
 
-
                 if (response.body().getStatus().equals("1")) {
 
                     loc.add("Select one --- ");
-
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -281,18 +219,6 @@ public class WorkerProfessionalProfile extends Fragment {
                             R.layout.spinner_model, loc);
 
                     location.setAdapter(adapter);
-
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("location"));
-
-                    int gp = 0;
-                    for (int i = 0; i < loc1.size(); i++) {
-                        if (SharePreferenceUtils.getInstance().getString("location").equals(loc1.get(i))) {
-                            gp = i;
-                        }
-                    }
-
-
-                    location.setSelection(gp + 1);
 
                 }
 
@@ -311,18 +237,15 @@ public class WorkerProfessionalProfile extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setPrevious();
+    }
+
     private void setPrevious() {
 
-        /*
-        int cp = 0;
-        for (int i = 0; i < ski.size(); i++) {
-            if (SharePreferenceUtils.getInstance().getString("skills").equals(ski.get(i))) {
-                cp = i;
-            }
-        }
-        skills.setSelection(cp);
-
-*/
         progress.setVisibility(View.VISIBLE);
 
         Bean b = (Bean) getContext().getApplicationContext();
@@ -333,10 +256,9 @@ public class WorkerProfessionalProfile extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
         Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id);
-
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
             public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
@@ -352,11 +274,27 @@ public class WorkerProfessionalProfile extends Fragment {
                     txtStatus.setText("YOUR PROFILE IS Rejected");
                 } else {
 
-                    txtStatus.setText(SharePreferenceUtils.getInstance().getString("status"));
-
+                    txtStatus.setText(item.get(0).getStatus());
                 }
 
                 employer.setText(item.get(0).getEmployer());
+
+                int sc = 0;
+                for (int i = 0; i < sec.size(); i++) {
+                    if (item.get(0).getSector().equals(sec.get(i))) {
+                        sc = i;
+                    }
+                }
+                sector.setSelection(sc);
+
+
+                int cp = 0;
+                for (int i = 0; i < ski.size(); i++) {
+                    if (item.get(0).getSkills().equals(ski.get(i))) {
+                        cp = i;
+                    }
+                }
+                skills.setSelection(cp);
 
                 int rp = 0;
                 for (int i = 0; i < exp.size(); i++) {
@@ -390,7 +328,6 @@ public class WorkerProfessionalProfile extends Fragment {
                 }
                 workers.setSelection(chp);
 
-
                 int bp = 0;
                 for (int i = 0; i < wor.size(); i++) {
                     if (item.get(0).getTools().equals(wor.get(i))) {
@@ -399,10 +336,19 @@ public class WorkerProfessionalProfile extends Fragment {
                 }
                 looms.setSelection(bp);
 
+
                 int sp = 0;
                 for (int i = 0; i < loc.size(); i++) {
+
                     if (item.get(0).getLocation().equals(loc.get(i))) {
                         sp = i;
+                        editTextLoc.setText("");
+                        editTextLoc.setVisibility(View.GONE);
+                        break;
+                    } else {
+                        editTextLoc.setVisibility(View.VISIBLE);
+                        editTextLoc.setText(item.get(0).getLocation());
+                        sp = 5;
                     }
                 }
                 location.setSelection(sp);

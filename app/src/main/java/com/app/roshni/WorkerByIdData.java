@@ -145,6 +145,14 @@ public class WorkerByIdData {
     @Expose
     private String location;
 
+    @SerializedName("skills")
+    @Expose
+    private String skills;
+
+    @SerializedName("sector")
+    @Expose
+    private String sector;
+
     public String getUser_id() {
         return user_id;
     }
@@ -423,5 +431,21 @@ public class WorkerByIdData {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 }

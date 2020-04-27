@@ -255,7 +255,7 @@ public class WorkerPersonalProfile extends Fragment {
                     txtStatus.setText("YOUR PROFILE IS Rejected");
                 } else {
 
-                    txtStatus.setText(SharePreferenceUtils.getInstance().getString("status"));
+                    txtStatus.setText(item.get(0).getStatus());
 
                 }
 
@@ -303,9 +303,11 @@ public class WorkerPersonalProfile extends Fragment {
 
                 int re = 0;
                 for (int i = 0; i < rel.size(); i++) {
+
                     if (item.get(0).getReligion().equals(rel.get(i))) {
                         re = i;
                         editTxtRelg.setText("");
+                        editTxtRelg.setVisibility(View.GONE);
                         break;
                     } else {
                         editTxtRelg.setVisibility(View.VISIBLE);
@@ -320,6 +322,7 @@ public class WorkerPersonalProfile extends Fragment {
                     if (item.get(0).getEducational().equals(edu.get(i))) {
                         ed = i;
                         editTxtedu.setText("");
+                        editTxtedu.setVisibility(View.GONE);
                         break;
                     } else {
                         editTxtedu.setVisibility(View.VISIBLE);

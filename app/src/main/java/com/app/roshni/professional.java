@@ -50,7 +50,8 @@ public class professional extends Fragment {
     EditText employer;
 
     Button submit;
-    int hold;
+    EditText editTxtLoc;
+    boolean loc_bool;
 
     LinearLayout yes;
 
@@ -89,6 +90,7 @@ public class professional extends Fragment {
         employer = view.findViewById(R.id.employer);
         submit = view.findViewById(R.id.submit);
         yes = view.findViewById(R.id.yes);
+        editTxtLoc = view.findViewById(R.id.editTxtLoc);
 
 
         exp.add("Select one --- ");
@@ -126,7 +128,6 @@ public class professional extends Fragment {
         wor.add("18");
         wor.add("19");
         wor.add("20");
-
 
         Bean b = (Bean) getContext().getApplicationContext();
 
@@ -264,10 +265,20 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    loca = loc.get(i - 1);
-                } else {
-                    loca = "";
+                loca = loc.get(i);
+
+                if (i == 5) {
+
+                    loc_bool = true;
+
+                    editTxtLoc.setVisibility(View.VISIBLE);
+
+
+                }else {
+
+                    loc_bool = false;
+                    editTxtLoc.setVisibility(View.GONE);
+
                 }
 
             }
@@ -424,14 +435,6 @@ public class professional extends Fragment {
 
                     Log.d("sec", SharePreferenceUtils.getInstance().getString("location"));
 
-                    int gp = 0;
-                    for (int i = 0; i < loc1.size(); i++) {
-                        if (SharePreferenceUtils.getInstance().getString("location").equals(loc1.get(i))) {
-                            gp = i;
-                        }
-                    }
-
-                    location.setSelection(gp + 1);
 
                 }
 
@@ -452,8 +455,12 @@ public class professional extends Fragment {
 
                 String emplo = employer.getText().toString();
 
-                if (sect.length() > 0) {
+                if (loc_bool) {
 
+                    loca = editTxtLoc.getText().toString();
+                }
+
+                if (sect.length() > 0) {
                     if (skil.length() > 0) {
                         if (expe.length() > 0) {
                             if (empl.length() > 0) {
@@ -461,7 +468,6 @@ public class professional extends Fragment {
                                     if (work.length() > 0) {
                                         if (loom.length() > 0) {
                                             if (loca.length() > 0) {
-
 
                                                 progress.setVisibility(View.VISIBLE);
 

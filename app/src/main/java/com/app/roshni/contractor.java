@@ -92,6 +92,11 @@ public class contractor extends Fragment {
     private LinearLayout permanent;
 
     private ProgressBar progress;
+    private CustomViewPager pager;
+
+    void setData(CustomViewPager pager) {
+        this.pager = pager;
+    }
 
 
     @Nullable
@@ -251,13 +256,11 @@ public class contractor extends Fragment {
         upload = view.findViewById(R.id.button7);
         submit = view.findViewById(R.id.submit);
 
-
         gender = view.findViewById(R.id.gender);
         establishment = view.findViewById(R.id.establishment);
         experience = view.findViewById(R.id.experience);
         work = view.findViewById(R.id.work);
         availability = view.findViewById(R.id.availability);
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_model, gen);
@@ -291,7 +294,6 @@ public class contractor extends Fragment {
         firm.setAdapter(adapter5);
         proof.setAdapter(adapter6);
         firmtype.setAdapter(adapter7);
-
 
         gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -689,9 +691,11 @@ public class contractor extends Fragment {
 
                                                                                                         LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
 
-                                                                                                        Intent intent = new Intent(getContext(), MainActivity3.class);
+                                                                                                        /*Intent intent = new Intent(getContext(), MainActivity3.class);
                                                                                                         startActivity(intent);
-                                                                                                        getActivity().finishAffinity();
+                                                                                                        getActivity().finishAffinity();*/
+
+                                                                                                        pager.setCurrentItem(1);
 
                                                                                                         Log.d("respo", response.body().getMessage());
 

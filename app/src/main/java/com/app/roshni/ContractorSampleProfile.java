@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,29 +29,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.app.roshni.contractorPOJO.Data;
+import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.samplePOJO.Datum;
 import com.app.roshni.samplePOJO.sampleBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ContractorSampleProfile extends Fragment {
 
@@ -62,10 +58,10 @@ public class ContractorSampleProfile extends Fragment {
     List<Datum> list;
     SampleAdapter adapter;
     ImageView nodata;
-    private Uri uri;
-    private File f1;
+    TextView txtStatus;
 
     private CustomViewPager pager;
+    String user_id;
 
     void setData(CustomViewPager pager) {
         this.pager = pager;
@@ -74,7 +70,7 @@ public class ContractorSampleProfile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.samples_layout , container , false);
+        View view = inflater.inflate(R.layout.contr_samp_prof , container , false);
 
         list = new ArrayList<>();
 
@@ -83,6 +79,9 @@ public class ContractorSampleProfile extends Fragment {
         finish = view.findViewById(R.id.button15);
         progress = view.findViewById(R.id.progressBar3);
         nodata = view.findViewById(R.id.imageView5);
+        txtStatus = view.findViewById(R.id.textViewStatus);
+
+        user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
         adapter = new SampleAdapter(getContext() , list);
@@ -90,12 +89,51 @@ public class ContractorSampleProfile extends Fragment {
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
 
+        Bean b = (Bean) getContext().getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
+        Call<contractorBean> call = cr.getContractorById(user_id);
 
 
+        call.enqueue(new Callback<contractorBean>() {
+            @Override
+            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
 
-        return view;
+                Data item = response.body().getData();
+
+
+                if (item.getStatus().equals("pending")) {
+
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+
+                } else if (item.getStatus().equals("rejected")) {
+
+                    txtStatus.setText("YOUR PROFILE IS Rejected");
+                } else {
+
+                    txtStatus.setText(item.getStatus());
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<contractorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+                return view;
     }
 
 
@@ -169,14 +207,14 @@ public class ContractorSampleProfile extends Fragment {
 
         @NonNull
         @Override
-        public SampleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sample_list_model , parent , false);
-            return new SampleAdapter.ViewHolder(view);
+            View view = inflater.inflate(R.layout.sample_list_model2 , parent , false);
+            return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull SampleAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
             final Datum item = list.get(position);
 
@@ -185,49 +223,6 @@ public class ContractorSampleProfile extends Fragment {
             loader.displayImage(item.getFile() , holder.image , options);
 
 
-            holder.delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    progress.setVisibility(View.VISIBLE);
-
-                    Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(b1.baseurl)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-
-                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                    Call<sampleBean> call = cr.deleteSample(
-                            item.getId()
-                    );
-
-
-                    call.enqueue(new Callback<sampleBean>() {
-                        @Override
-                        public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
-
-                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                            progress.setVisibility(View.GONE);
-
-                            onResume();
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<sampleBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                        }
-                    });
-
-
-                }
-            });
 
         }
 
@@ -240,17 +235,16 @@ public class ContractorSampleProfile extends Fragment {
         {
 
             ImageView image;
-            ImageButton delete;
+
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
                 image = itemView.findViewById(R.id.image);
-                delete = itemView.findViewById(R.id.delete);
+
 
             }
         }
     }
-
 
 }

@@ -84,8 +84,6 @@ public class ContractorPersonalProfile extends Fragment {
 
     private List<String> gen, est, exp, wty, ava, frm, frmtyp, prof;
 
-    private Uri uri;
-    private File f1;
 
     String user_id;
     private boolean che = false;

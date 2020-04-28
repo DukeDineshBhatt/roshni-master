@@ -66,7 +66,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
-public class contractor extends Fragment {
+public class ContractorPersonalProfile extends Fragment {
 
     private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype;
 
@@ -80,7 +80,7 @@ public class contractor extends Fragment {
 
     CheckBox check;
 
-    private Button upload, submit;
+    private Button upload;
 
     private List<String> gen, est, exp, wty, ava, frm, frmtyp, prof;
 
@@ -102,7 +102,7 @@ public class contractor extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.contractor_layout, container, false);
+        View view = inflater.inflate(R.layout.contractor_personal_profile, container, false);
 
         gen = new ArrayList<>();
         est = new ArrayList<>();
@@ -249,7 +249,6 @@ public class contractor extends Fragment {
         image = view.findViewById(R.id.imageView3);
 
         upload = view.findViewById(R.id.button7);
-        submit = view.findViewById(R.id.submit);
 
         gender = view.findViewById(R.id.gender);
         establishment = view.findViewById(R.id.establishment);
@@ -535,258 +534,6 @@ public class contractor extends Fragment {
             }
         });
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String n = name.getText().toString();
-                String d = dob.getText().toString();
-                String b = business.getText().toString();
-                String p = editTxtProof.getText().toString();
-                String r = reg_no.getText().toString();
-
-                String cp = cpin.getText().toString();
-                String cs = cstate.getText().toString();
-                String cd = cdistrict.getText().toString();
-                String ca = carea.getText().toString();
-                String cst = cstreet.getText().toString();
-                String ab = about.getText().toString();
-
-                String h = home_based.getText().toString();
-
-                List<String> loc = location.getTags();
-                String l = TextUtils.join(",", loc);
-
-                String m = male.getText().toString();
-                String f = female.getText().toString();
-                String e = employer.getText().toString();
-
-                String pp;
-                String ps;
-                String pd;
-                String pa;
-                String pst;
-
-                if (che) {
-                    pp = cp;
-                    ps = cs;
-                    pd = cd;
-                    pa = ca;
-                    pst = cst;
-                } else {
-                    pp = ppin.getText().toString();
-                    ps = pstate.getText().toString();
-                    pd = pdistrict.getText().toString();
-                    pa = parea.getText().toString();
-                    pst = pstreet.getText().toString();
-                }
-
-                if (n.length() > 0) {
-                    if (d.length() > 0) {
-                        if (gend.length() > 0) {
-                            if (cp.length() > 0) {
-                                if (cs.length() > 0) {
-                                    if (cd.length() > 0) {
-                                        if (ca.length() > 0) {
-                                            if (cst.length() > 0) {
-                                                if (pp.length() > 0) {
-                                                    if (ps.length() > 0) {
-                                                        if (pd.length() > 0) {
-                                                            if (pa.length() > 0) {
-                                                                if (pst.length() > 0) {
-                                                                    if (l.length() > 0) {
-                                                                        if (m.length() > 0) {
-                                                                            if (f.length() > 0) {
-                                                                                if (expe.length() > 0) {
-                                                                                    if (wtyp.length() > 0) {
-                                                                                        if (avai.length() > 0) {
-
-                                                                                            MultipartBody.Part body = null;
-
-                                                                                            try {
-
-                                                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                                                                body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
-
-
-                                                                                            } catch (Exception e1) {
-                                                                                                e1.printStackTrace();
-                                                                                            }
-
-                                                                                            progress.setVisibility(View.VISIBLE);
-
-                                                                                            Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                                                            Retrofit retrofit = new Retrofit.Builder()
-                                                                                                    .baseUrl(b1.baseurl)
-                                                                                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                                    .addConverterFactory(GsonConverterFactory.create())
-                                                                                                    .build();
-
-                                                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                                            Call<verifyBean> call = cr.update_contractor(
-                                                                                                    SharePreferenceUtils.getInstance().getString("user_id"),
-                                                                                                    n,
-                                                                                                    prf,
-                                                                                                    p,
-                                                                                                    frmy,
-                                                                                                    frmytyp,
-                                                                                                    r,
-                                                                                                    "",
-                                                                                                    "",
-                                                                                                    d,
-                                                                                                    gend,
-                                                                                                    b,
-                                                                                                    esta,
-                                                                                                    cp,
-                                                                                                    cs,
-                                                                                                    cd,
-                                                                                                    ca,
-                                                                                                    cst,
-                                                                                                    pp,
-                                                                                                    ps,
-                                                                                                    pd,
-                                                                                                    pa,
-                                                                                                    pst,
-                                                                                                    h,
-                                                                                                    l,
-                                                                                                    m,
-                                                                                                    f,
-                                                                                                    expe,
-                                                                                                    wtyp,
-                                                                                                    avai,
-                                                                                                    e,
-                                                                                                    ab,
-                                                                                                    body
-                                                                                            );
-
-                                                                                            call.enqueue(new Callback<verifyBean>() {
-                                                                                                @Override
-                                                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                                                                    assert response.body() != null;
-                                                                                                    if (response.body().getStatus().equals("1")) {
-                                                                                                        Data item = response.body().getData();
-
-
-                                                                                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
-
-
-                                                                                                        Intent registrationComplete = new Intent("photo");
-
-                                                                                                        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
-
-                                                                                                        /*Intent intent = new Intent(getContext(), MainActivity3.class);
-                                                                                                        startActivity(intent);
-                                                                                                        getActivity().finishAffinity();*/
-
-                                                                                                        pager.setCurrentItem(1);
-
-                                                                                                        Log.d("respo", response.body().getMessage());
-
-                                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                    } else {
-                                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                    }
-
-
-                                                                                                    progress.setVisibility(View.GONE);
-
-                                                                                                }
-
-                                                                                                @Override
-                                                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                                                    progress.setVisibility(View.GONE);
-                                                                                                }
-                                                                                            });
-
-                                                                                        } else {
-                                                                                            Toast.makeText(getActivity(), "Invalid availability", Toast.LENGTH_SHORT).show();
-                                                                                        }
-                                                                                    } else {
-                                                                                        Toast.makeText(getActivity(), "Invalid work type", Toast.LENGTH_SHORT).show();
-                                                                                    }
-                                                                                } else {
-                                                                                    Toast.makeText(getActivity(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                                                                                }
-                                                                            } else {
-                                                                                Toast.makeText(getActivity(), "Invalid female workers", Toast.LENGTH_SHORT).show();
-                                                                            }
-                                                                        } else {
-                                                                            Toast.makeText(getActivity(), "Invalid male workers", Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    } else {
-                                                                        Toast.makeText(getActivity(), "Invalid home based units location", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                } else {
-                                                                    Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            } else {
-                                                                Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        } else {
-                                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                } else {
-                                                    Toast.makeText(getContext(), "Invalid permanent PIN", Toast.LENGTH_SHORT).show();
-                                                }
-
-                                            } else {
-                                                Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else {
-                                        Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Invalid gender", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Invalid D.O.B.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
 
         //setPrevious();
 

@@ -53,7 +53,7 @@ public class profile3 extends Fragment {
         public Fragment getItem(int position) {
 
             if (position == 0) {
-                return new contractor();
+                return new ContractorPersonalProfile();
             } else {
                 return new Samples();
             }

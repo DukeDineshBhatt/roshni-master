@@ -56,7 +56,7 @@ public class Register3 extends AppCompatActivity {
 
             if (position == 0)
             {
-                return new contractor();
+                return new ContractorPersonalProfile();
             }
             else
             {

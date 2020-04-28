@@ -132,6 +132,13 @@ public interface AllApiIneterface {
     Call<verifyBean> update_contractor(
             @Part("user_id") String user_id,
             @Part("name") String name,
+            @Part("id_proof") String id_proof,
+            @Part("id_number") String id_number,
+            @Part("firm_type") String firm_type,
+            @Part("firm_registration_type") String firm_registration_type,
+            @Part("registration_no") String registration_no,
+            @Part("lat") String lat,
+            @Part("lng") String lng,
             @Part("dob") String dob,
             @Part("gender") String gender,
             @Part("business_name") String business_name,

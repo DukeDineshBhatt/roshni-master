@@ -154,6 +154,16 @@ public class WorkerProfessionalProfile extends Fragment {
         workers.setAdapter(adapter5);
         looms.setAdapter(adapter5);
 
+
+        setPrevious();
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         Bean b = (Bean) getContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -232,14 +242,7 @@ public class WorkerProfessionalProfile extends Fragment {
             }
         });
 
-        setPrevious();
 
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
         setPrevious();
     }
@@ -336,11 +339,10 @@ public class WorkerProfessionalProfile extends Fragment {
                 }
                 looms.setSelection(bp);
 
-
                 int sp = 0;
-                for (int i = 0; i < loc.size(); i++) {
+                for (int i = 0; i < loc1.size(); i++) {
 
-                    if (item.get(0).getLocation().equals(loc.get(i))) {
+                    if (item.get(0).getLocation().equals(loc1.get(i))) {
                         sp = i;
                         editTextLoc.setText("");
                         editTextLoc.setVisibility(View.GONE);
@@ -350,6 +352,7 @@ public class WorkerProfessionalProfile extends Fragment {
                         editTextLoc.setText(item.get(0).getLocation());
                         sp = 5;
                     }
+
                 }
                 location.setSelection(sp);
 

@@ -51,7 +51,7 @@ public class professional extends Fragment {
 
     Button submit;
     EditText editTxtLoc;
-    boolean loc_bool;
+    boolean loc_bool = false;
 
     LinearLayout yes;
 
@@ -415,11 +415,9 @@ public class professional extends Fragment {
             @Override
             public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
 
-
                 if (response.body().getStatus().equals("1")) {
 
                     loc.add("Select one --- ");
-
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -432,8 +430,6 @@ public class professional extends Fragment {
                             R.layout.spinner_model, loc);
 
                     location.setAdapter(adapter);
-
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("location"));
 
 
                 }

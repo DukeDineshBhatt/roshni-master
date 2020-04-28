@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,8 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.app.roshni.verifyPOJO.Data;
+import com.app.roshni.contractorPOJO.Data;
+import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -75,18 +77,17 @@ public class ContractorPersonalProfile extends Fragment {
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
 
     TagsEditText location;
+    TextView txtStatus;
 
     private CircleImageView image;
 
-    CheckBox check;
-
-    private Button upload;
 
     private List<String> gen, est, exp, wty, ava, frm, frmtyp, prof;
 
     private Uri uri;
     private File f1;
 
+    String user_id;
     private boolean che = false;
 
     private LinearLayout permanent;
@@ -138,6 +139,9 @@ public class ContractorPersonalProfile extends Fragment {
         proof = view.findViewById(R.id.proof);
         firmtype = view.findViewById(R.id.firmtype);
         reg_no = view.findViewById(R.id.reg_no);
+        txtStatus = view.findViewById(R.id.textViewStatus);
+
+        user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
         gen.add("Select one --- ");
         gen.add("Male");
@@ -244,11 +248,7 @@ public class ContractorPersonalProfile extends Fragment {
 
         permanent = view.findViewById(R.id.permanent);
 
-        check = view.findViewById(R.id.check);
-
         image = view.findViewById(R.id.imageView3);
-
-        upload = view.findViewById(R.id.button7);
 
         gender = view.findViewById(R.id.gender);
         establishment = view.findViewById(R.id.establishment);
@@ -280,6 +280,17 @@ public class ContractorPersonalProfile extends Fragment {
         ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, frmtyp);
 
+
+        gender.setEnabled(false);
+        establishment.setEnabled(false);
+        experience.setEnabled(false);
+        work.setEnabled(false);
+        availability.setEnabled(false);
+        firm.setEnabled(false);
+        proof.setEnabled(false);
+        firmtype.setEnabled(false);
+
+
         gender.setAdapter(adapter);
         establishment.setAdapter(adapter1);
         experience.setAdapter(adapter2);
@@ -288,6 +299,8 @@ public class ContractorPersonalProfile extends Fragment {
         firm.setAdapter(adapter5);
         proof.setAdapter(adapter6);
         firmtype.setAdapter(adapter7);
+
+
 
         gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -436,330 +449,169 @@ public class ContractorPersonalProfile extends Fragment {
             }
         });
 
-        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    che = true;
-                    permanent.setVisibility(View.GONE);
-                } else {
-                    che = false;
-                    permanent.setVisibility(View.VISIBLE);
-                }
-
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                final CharSequence[] items = {"Take Photo from Camera",
-                        "Choose from Gallery",
-                        "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
-                builder.setTitle("Add Photo!");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (items[item].equals("Take Photo from Camera")) {
-                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
-                            File newdir = new File(dir);
-                            try {
-                                newdir.mkdirs();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
-
-
-                            f1 = new File(file);
-                            try {
-                                f1.createNewFile();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            uri = FileProvider.getUriForFile(Objects.requireNonNull(getContext()), BuildConfig.APPLICATION_ID + ".provider", f1);
-
-                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            startActivityForResult(getpic, 1);
-                        } else if (items[item].equals("Choose from Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, 2);
-                        } else if (items[item].equals("Cancel")) {
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                builder.show();
-
-            }
-        });
-
-
-        dob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dob_popup);
-                dialog.setCancelable(true);
-                dialog.show();
-
-                Button submit = dialog.findViewById(R.id.button11);
-                final DatePicker dp = dialog.findViewById(R.id.view14);
-
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String dd = dp.getDayOfMonth() + "-" + (dp.getMonth() + 1) + "-" + dp.getYear();
-
-                        Log.d("dddd", dd);
-
-                        dob.setText(dd);
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-            }
-        });
-
-
-        //setPrevious();
+        setPrevious();
 
         return view;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
-            uri = data.getData();
-
-            Log.d("uri", String.valueOf(uri));
-
-            String ypath = getPath(getContext(), uri);
-            assert ypath != null;
-            f1 = new File(ypath);
-
-            Log.d("path", ypath);
-
-
-            ImageLoader loader = ImageLoader.getInstance();
-
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri));
-
-            Log.d("bitmap", String.valueOf(bmp));
-
-            image.setImageBitmap(bmp);
-
-        } else if (requestCode == 1 && resultCode == RESULT_OK) {
-            image.setImageURI(uri);
-        }
-
-
-    }
-
-    private static Bitmap decodeUriToBitmap(Context mContext, Uri sendUri) {
-        Bitmap getBitmap = null;
-        try {
-            InputStream image_stream;
-            try {
-                image_stream = mContext.getContentResolver().openInputStream(sendUri);
-                getBitmap = BitmapFactory.decodeStream(image_stream);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getBitmap;
-    }
-
-
-    private static String getPath(final Context context, final Uri uri) {
-
-        // DocumentProvider
-        if (DocumentsContract.isDocumentUri(context, uri)) {
-            // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-
-                // TODO handle non-primary volumes
-            }
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
-            }
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{
-                        split[1]
-                };
-
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-
-        return null;
-    }
-
-    private static boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    private static boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    private static boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    private static String getDataColumn(Context context, Uri uri, String selection,
-                                        String[] selectionArgs) {
-
-        final String column = "_data";
-        final String[] projection = {
-                column
-        };
-        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(column_index);
-            }
-        }
-        return null;
     }
 
 
     private void setPrevious() {
 
-        name.setText(SharePreferenceUtils.getInstance().getString("name"));
-        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
+        progress.setVisibility(View.VISIBLE);
 
-        ImageLoader loader = ImageLoader.getInstance();
-        loader.displayImage(SharePreferenceUtils.getInstance().getString("photo"), image, options);
+        Bean b = (Bean) getContext().getApplicationContext();
 
-        dob.setText(SharePreferenceUtils.getInstance().getString("dob"));
-        business.setText(SharePreferenceUtils.getInstance().getString("business_name"));
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        home_based.setText(SharePreferenceUtils.getInstance().getString("home_units"));
-
-        String ppp = SharePreferenceUtils.getInstance().getString("home_location");
-
-        location.setTags(ppp.split(","));
-
-        employer.setText(SharePreferenceUtils.getInstance().getString("employer"));
-        male.setText(SharePreferenceUtils.getInstance().getString("workers_male"));
-        female.setText(SharePreferenceUtils.getInstance().getString("workers_female"));
-        ppin.setText(SharePreferenceUtils.getInstance().getString("ppin"));
-        pstate.setText(SharePreferenceUtils.getInstance().getString("pstate"));
-        pdistrict.setText(SharePreferenceUtils.getInstance().getString("pdistrict"));
-        parea.setText(SharePreferenceUtils.getInstance().getString("parea"));
-        pstreet.setText(SharePreferenceUtils.getInstance().getString("pstreet"));
-        cpin.setText(SharePreferenceUtils.getInstance().getString("cpin"));
-        cstate.setText(SharePreferenceUtils.getInstance().getString("cstate"));
-        cdistrict.setText(SharePreferenceUtils.getInstance().getString("cdistrict"));
-        carea.setText(SharePreferenceUtils.getInstance().getString("carea"));
-        cstreet.setText(SharePreferenceUtils.getInstance().getString("cstreet"));
-        about.setText(SharePreferenceUtils.getInstance().getString("about"));
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        int gp = 0;
-        for (int i = 0; i < gen.size(); i++) {
-            if (SharePreferenceUtils.getInstance().getString("gender").equals(gen.get(i))) {
-                gp = i;
+        Call<contractorBean> call = cr.getContractorById(user_id);
+
+        //Log.d("jid" , id);
+
+        call.enqueue(new Callback<contractorBean>() {
+            @Override
+            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+
+                Data item = response.body().getData();
+
+
+                if (item.getStatus().equals("pending")) {
+
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+
+                } else if (item.getStatus().equals("rejected")) {
+
+                    txtStatus.setText("YOUR PROFILE IS Rejected");
+                } else {
+
+                    txtStatus.setText(item.getStatus());
+
+                }
+
+                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
+                ImageLoader loader = ImageLoader.getInstance();
+                loader.displayImage(item.getPhoto() , image , options);
+
+                //mw = item.getWorkersMale();
+                //fw = item.getWorkersFemale();
+
+                name.setText(item.getName());
+                editTxtProof.setText(item.getId_number());
+                cstreet.setText(item.getCstreet());
+                carea.setText(item.getCarea());
+                cdistrict.setText(item.getCdistrict());
+                cstate.setText(item.getCstate());
+                cpin.setText(item.getCpin());
+                pstreet.setText(item.getPstreet());
+                parea.setText(item.getParea());
+                pdistrict.setText(item.getPdistrict());
+                pstate.setText(item.getPstate());
+                ppin.setText(item.getPpin());
+
+                reg_no.setText(item.getRegistration_no());
+
+                //experience.setText(item.getExperience());
+                //availability.setText(item.getAvailability());
+                dob.setText(item.getDob());
+                home_based.setText(item.getHomeUnits());
+                //home_location.setText(item.getHomeLocation());
+                male.setText(item.getWorkersMale());
+                female.setText(item.getWorkersFemale());
+                //type.setText(item.getWorkType());
+                employer.setText(item.getEmployer());
+                about.setText(item.getAbout());
+
+
+                int gp = 0;
+                for (int i = 0; i < gen.size(); i++) {
+                    if (item.getGender().equals(gen.get(i))) {
+                        gp = i;
+                    }
+                }
+                gender.setSelection(gp);
+
+                int fm = 0;
+                for (int i = 0; i < frm.size(); i++) {
+                    if (item.getFirm_type().equals(frm.get(i))) {
+                        fm = i;
+                    }
+                }
+                firm.setSelection(fm);
+
+                int pf = 0;
+                for (int i = 0; i < prof.size(); i++) {
+                    if (item.getId_proof().equals(prof.get(i))) {
+                        pf = i;
+                    }
+                }
+                proof.setSelection(pf);
+
+                int pft = 0;
+                for (int i = 0; i < frmtyp.size(); i++) {
+                    if (item.getFirm_registration_type().equals(frmtyp.get(i))) {
+                        pft = i;
+                    }
+                }
+                firmtype.setSelection(pft);
+
+                int rp = 0;
+                for (int i = 0; i < exp.size(); i++) {
+                    if (item.getExperience().equals(exp.get(i))) {
+                        rp = i;
+                    }
+                }
+                experience.setSelection(rp);
+
+                int ap = 0;
+                for (int i = 0; i < ava.size(); i++) {
+                    if (item.getAvailability().equals(ava.get(i))) {
+                        ap = i;
+                    }
+                }
+                availability.setSelection(ap);
+
+
+                int wp = 0;
+                for (int i = 0; i < wty.size(); i++) {
+                    if (item.getWorkType().equals(wty.get(i))) {
+                        wp = i;
+                    }
+                }
+                work.setSelection(wp);
+
+               String ppp = item.getHomeLocation();
+
+                location.setTags(ppp.split(","));
+
+                /*int ep = 0;
+                for (int i = 0; i < est.size(); i++) {
+                    if (item.getEstablishment_year().equals(est.get(i))) {
+                        ep = i;
+                    }
+                }
+                establishment.setSelection(ep);
+
+
+*/
+
+                progress.setVisibility(View.GONE);
+
             }
-        }
-        gender.setSelection(gp);
 
-
-        int ep = 0;
-        for (int i = 0; i < est.size(); i++) {
-            if (SharePreferenceUtils.getInstance().getString("establishment_year").equals(est.get(i))) {
-                ep = i;
+            @Override
+            public void onFailure(Call<contractorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
             }
-        }
-        establishment.setSelection(ep);
-
-        int rp = 0;
-        for (int i = 0; i < exp.size(); i++) {
-            if (SharePreferenceUtils.getInstance().getString("experience").equals(exp.get(i))) {
-                rp = i;
-            }
-        }
-        experience.setSelection(rp);
-
-        int wp = 0;
-        for (int i = 0; i < wty.size(); i++) {
-            if (SharePreferenceUtils.getInstance().getString("work_type").equals(wty.get(i))) {
-                wp = i;
-            }
-        }
-        work.setSelection(wp);
+        });
 
 
-        int ap = 0;
-        for (int i = 0; i < ava.size(); i++) {
-            if (SharePreferenceUtils.getInstance().getString("availability").equals(ava.get(i))) {
-                ap = i;
-            }
-        }
-        availability.setSelection(ap);
 
 
     }

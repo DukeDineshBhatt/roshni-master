@@ -708,8 +708,6 @@ public class contractor extends Fragment {
 
                                                                                                         pager.setCurrentItem(1);
 
-                                                                                                        Log.d("respo", response.body().getMessage());
-
                                                                                                         Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                                                     } else {
                                                                                                         Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();

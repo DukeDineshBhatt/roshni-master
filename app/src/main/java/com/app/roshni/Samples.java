@@ -68,6 +68,12 @@ public class Samples extends Fragment {
     private Uri uri;
     private File f1;
 
+    private CustomViewPager pager;
+
+    void setData(CustomViewPager pager) {
+        this.pager = pager;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

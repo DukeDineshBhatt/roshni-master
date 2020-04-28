@@ -18,6 +18,16 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textViewStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="#000"
+                android:layout_gravity="center"
+                />
+
+            <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,6 +44,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -69,6 +80,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:focusable="false"
                 android:background="@drawable/white_back_round"
                 android:hint="tab to enter id number"
                 android:inputType="textPersonName"
@@ -138,6 +150,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:focusable="false"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
@@ -165,28 +178,6 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/download" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/button7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/white_back_round"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingStart="20dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/upload_take_photo"
-                        android:textColor="@color/colorPrimary" />
-
-                </RelativeLayout>
 
 
             </LinearLayout>
@@ -254,6 +245,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:lines="3"
+                android:focusable="false"
                 android:gravity="start"
                 android:padding="10dp" />
 
@@ -274,6 +266,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -328,6 +321,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="textPostalAddress"
                 android:padding="10dp" />
 
@@ -348,6 +342,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -368,6 +363,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -388,6 +384,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -409,6 +406,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
+                android:focusable="false"
                 android:inputType="number"
                 android:padding="10dp" />
 
@@ -421,12 +419,6 @@
                 android:text="@string/your_permanent_address"
                 android:textColor="#000000" />
 
-            <CheckBox
-                android:id="@+id/check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/same_as_above" />
 
             <LinearLayout
                 android:id="@+id/permanent"
@@ -452,6 +444,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
+                    android:focusable="false"
                     android:inputType="textPostalAddress"
                     android:padding="10dp" />
 
@@ -472,6 +465,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
+                    android:focusable="false"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
@@ -492,6 +486,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
+                    android:focusable="false"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
@@ -512,6 +507,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
+                    android:focusable="false"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
@@ -532,6 +528,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
+                    android:focusable="false"
                     android:inputType="number"
                     android:padding="10dp" />
 
@@ -555,6 +552,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
+                android:focusable="false"
                 android:digits="0123456789"
                 android:padding="10dp" />
 
@@ -581,6 +579,7 @@
                 app:tagsBackground="@drawable/blue_back_round"
                 app:tagsPaddingBottom="5dp"
                 app:tagsPaddingLeft="20dp"
+                android:focusable="false"
                 app:tagsPaddingRight="20dp"
                 app:tagsPaddingTop="5dp"
                 app:tagsTextColor="#ffffff"
@@ -627,6 +626,7 @@
                         android:background="@drawable/white_back_round"
                         android:hint="@string/tap_to_enter"
                         android:digits="0123456789"
+                        android:focusable="false"
                         android:inputType="number"
                         android:padding="10dp"
                         />
@@ -656,6 +656,7 @@
                         android:background="@drawable/white_back_round"
                         android:hint="@string/tap_to_enter"
                         android:digits="0123456789"
+                        android:focusable="false"
                         android:inputType="number"
                         android:padding="10dp"
                         />
@@ -749,6 +750,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:focusable="false"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:layout_marginBottom="16dp"

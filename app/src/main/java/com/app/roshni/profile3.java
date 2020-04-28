@@ -55,7 +55,7 @@ public class profile3 extends Fragment {
             if (position == 0) {
                 return new ContractorPersonalProfile();
             } else {
-                return new Samples();
+                return new ContractorSampleProfile();
             }
 
         }

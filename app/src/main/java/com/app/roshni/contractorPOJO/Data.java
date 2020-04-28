@@ -85,6 +85,28 @@ public class Data {
     @SerializedName("phone")
     @Expose
     private String phone;
+    @SerializedName("establishment_year")
+    @Expose
+    private String establishment_year;
+    @SerializedName("id_number")
+    @Expose
+    private String id_number;
+    @SerializedName("registration_no")
+    @Expose
+    private String registration_no;
+    @SerializedName("firm_type")
+    @Expose
+    private String firm_type;
+    @SerializedName("id_proof")
+    @Expose
+    private String id_proof;
+    @SerializedName("firm_registration_type")
+    @Expose
+    private String firm_registration_type;
+    @SerializedName("status")
+    @Expose
+    private String status;
+
 
     public String getId() {
         return id;
@@ -301,4 +323,62 @@ public class Data {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getEstablishment_year() {
+        return establishment_year;
+    }
+
+    public void setEstablishment_year(String establishment_year) {
+        this.establishment_year = establishment_year;
+    }
+
+    public String getId_number() {
+        return id_number;
+    }
+
+    public void setId_number(String id_number) {
+        this.id_number = id_number;
+    }
+
+    public String getRegistration_no() {
+        return registration_no;
+    }
+
+    public void setRegistration_no(String registration_no) {
+        this.registration_no = registration_no;
+    }
+
+    public String getFirm_type() {
+        return firm_type;
+    }
+
+    public void setFirm_type(String firm_type) {
+        this.firm_type = firm_type;
+    }
+
+    public String getId_proof() {
+        return id_proof;
+    }
+
+    public void setId_proof(String id_proof) {
+        this.id_proof = id_proof;
+    }
+
+    public String getFirm_registration_type() {
+        return firm_registration_type;
+    }
+
+    public void setFirm_registration_type(String firm_registration_type) {
+        this.firm_registration_type = firm_registration_type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
 }

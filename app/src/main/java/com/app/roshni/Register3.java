@@ -27,25 +27,26 @@ public class Register3 extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("SAMPLES"));
 
 
-        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
+      PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
         tabs.setupWithViewPager(pager);
 
         pager.setPagingEnabled(false);
 
-        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
+        LinearLayout tabStrip = ((LinearLayout) tabs.getChildAt(0));
         tabStrip.setEnabled(false);
-        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+        for (int i = 0; i < tabStrip.getChildCount(); i++) {
             tabStrip.getChildAt(i).setClickable(false);
         }
+
 
         tabs.getTabAt(0).setText("CONTRACTOR");
         tabs.getTabAt(1).setText("SAMPLES");
 
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter
-    {
+    class PagerAdapter extends FragmentStatePagerAdapter {
+
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -53,14 +54,16 @@ public class Register3 extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            if (position == 0) {
 
-            if (position == 0)
-            {
-                return new ContractorPersonalProfile();
-            }
-            else
-            {
+                contractor frag = new contractor();
+                frag.setData(pager);
+                return frag;
+
+
+            } else {
                 return new Samples();
+
             }
 
         }

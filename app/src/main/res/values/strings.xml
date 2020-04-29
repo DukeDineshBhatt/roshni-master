@@ -65,8 +65,8 @@
     <string name="job_role1">JOB ROLE *</string>
     <string name="gender_preference1">GENDER PREFERENCE</string>
     <string name="education1">EDUCATION</string>
-    <string name="working_hours1">WORKING HOURS *</string>
-    <string name="salary_package1">SALARY PACKAGE *</string>
+    <string name="working_hours1">WORKING HOURS</string>
+    <string name="salary_package1">SALARY PACKAGE</string>
     <string name="salary_type1">SALARY TYPE *</string>
     <string name="submit">SUBMIT</string>
     <string name="job_type1">JOB TYPE *</string>
@@ -192,4 +192,20 @@
     <string name="firm">TYPE OF FIRM</string>
     <string name="firmtype">TYPE OF FIRM REGISTRATION</string>
     <string name="reg_number">REGISTRATION No. (IF ANY)</string>
+    <string name="no_of_positions">NO. OF POSITIONS *</string>
+    <string name="sector1">SECTOR *</string>
+    <string name="skill_level_required">SKILL LEVEL REQUIRED *</string>
+    <string name="skill_set_required">SKILL-SET REQUIRED *</string>
+    <string name="nature_of_job">NATURE OF JOB *</string>
+    <string name="man_days_required">MAN-DAYS REQUIRED</string>
+    <string name="piece_rate2">PIECE-RATE</string>
+    <string name="place_of_employment">PLACE OF EMPLOYMENT *</string>
+    <string name="job_location">JOB LOCATION</string>
+    <string name="enter_job_location">enter job location</string>
+    <string name="no_of_positions1">No. of Positions</string>
+    <string name="skill_level1">Skill Level</string>
+    <string name="nature_of_job1">Nature of Job</string>
+    <string name="man_days">Man Days</string>
+    <string name="place_of_employment1">Place of Employment</string>
+    <string name="man_days_required2">MAN-DAYS REQUIRED *</string>
 </resources>

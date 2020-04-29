@@ -29,8 +29,10 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.contractorJobDetailsPOJO.Data;
 import com.app.roshni.contractorJobDetailsPOJO.contractorJobDetailsBean;
+import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,15 +61,15 @@ public class UpdateContractorJob extends AppCompatActivity {
     Toolbar toolbar;
     Button submit , upload;
     ProgressBar progress;
-    Spinner type , experience , days;
+    Spinner type , experience , days, sector;
     EditText rate;
 
     ImageView image;
 
-    List<String> typ , exp , day;
+    List<String> typ, typ1 , exp , day;
 
-    String ty , ex , da;
-
+    String ty , ex , da, sect;
+    List<String> sec, sec1;
     private Uri uri;
     private File f1;
 
@@ -81,10 +83,14 @@ public class UpdateContractorJob extends AppCompatActivity {
         jid = getIntent().getStringExtra("jid");
 
         typ = new ArrayList<>();
+        typ1 = new ArrayList<>();
         exp = new ArrayList<>();
         day = new ArrayList<>();
+        sec = new ArrayList<>();
+        sec1 = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
+        sector = findViewById(R.id.sector);
         submit = findViewById(R.id.submit);
         progress = findViewById(R.id.progress);
 
@@ -109,20 +115,10 @@ public class UpdateContractorJob extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("UPDATE JOB");
 
-        exp.add("Select one --- ");
         exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
-
-
-        typ.add("Select one --- ");
-        typ.add("Embroidery");
-        typ.add("Adda-Work");
-        typ.add("Fashion Jewelry");
-        typ.add("Bead-Work");
-        typ.add("Stone-Work");
-        typ.add("Artificial Jewelry");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(this),
@@ -133,7 +129,6 @@ public class UpdateContractorJob extends AppCompatActivity {
                 R.layout.spinner_model, exp);
 
 
-        day.add("Select one --- ");
 
         for (int i = 1 ; i <=500 ; i++)
         {
@@ -153,11 +148,7 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    ty = typ.get(i);
-                } else {
-                    ty = "";
-                }
+                    ty = typ1.get(i);
 
             }
 
@@ -171,11 +162,7 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     ex = exp.get(i);
-                } else {
-                    ex = "";
-                }
 
             }
 
@@ -189,11 +176,7 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     da = day.get(i);
-                } else {
-                    da = "";
-                }
 
             }
 
@@ -245,6 +228,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                             Call<verifyBean> call = cr.UpdateContractorJob(
                                     jid,
+                                    sect,
                                     ty,
                                     ex,
                                     da,
@@ -510,7 +494,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
         Call<contractorJobDetailsBean> call = cr.getJobDetailsForContractor(SharePreferenceUtils.getInstance().getString("user_id"), jid);
 
@@ -521,13 +505,115 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                 if (response.body().getStatus().equals("1")) {
 
-                    Data item = response.body().getData();
+                    final Data item = response.body().getData();
 
                     DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
                     ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getSample() , image , options);
 
                     rate.setText(item.getRate());
+
+                    final Call<sectorBean> call2 = cr.getSectors();
+
+                    call2.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    sec.add(response.body().getData().get(i).getTitle());
+                                    sec1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateContractorJob.this,
+                                        R.layout.spinner_model, sec);
+
+                                sector.setAdapter(adapter);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < sec.size(); i++) {
+                                    if (item.getSector().equals(sec.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                sector.setSelection(cp2);
+
+                            }
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                    sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            sect = sec1.get(i);
+
+                            progress.setVisibility(View.VISIBLE);
+
+                            Call<skillsBean> call2 = cr.getRoles(sect);
+                            call2.enqueue(new Callback<skillsBean>() {
+                                @Override
+                                public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+
+                                    if (response.body().getStatus().equals("1")) {
+
+                                        typ.clear();
+                                        typ1.clear();
+
+                                        for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                            typ.add(response.body().getData().get(i).getTitle());
+                                            typ1.add(response.body().getData().get(i).getId());
+
+                                        }
+
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateContractorJob.this,
+                                                R.layout.spinner_model, typ);
+
+                                        type.setAdapter(adapter);
+
+                                        int cp = 0;
+                                        for (int i = 0; i < typ.size(); i++) {
+                                            if (item.getJobType().equals(typ.get(i))) {
+                                                cp = i;
+                                            }
+                                        }
+                                        type.setSelection(cp);
+
+                                    }
+
+                                    progress.setVisibility(View.GONE);
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<skillsBean> call, Throwable t) {
+                                    progress.setVisibility(View.GONE);
+                                }
+                            });
+
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
 
 
                     int cp = 0;

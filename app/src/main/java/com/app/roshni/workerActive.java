@@ -250,7 +250,7 @@ public class workerActive extends Fragment {
             final Datum item = list.get(position);
 
 
-            holder.category.setText("Job category: " + item.getRole());
+            holder.category.setText("Job role: " + item.getRole());
             holder.title.setText(item.getTitle());
             holder.salary.setText("Salary: " + item.getSalary());
             holder.posted.setText("Posted on: " + item.getCreated());

@@ -29,7 +29,7 @@ public class ContractorJobDetails extends AppCompatActivity {
 
     ImageButton back;
     ImageView sample;
-    TextView title, type, experience, days, rate;
+    TextView title, type, experience, days, rate , sector;
 
     Button active , edit;
 
@@ -46,6 +46,7 @@ public class ContractorJobDetails extends AppCompatActivity {
 
         back = findViewById(R.id.imageButton3);
         edit = findViewById(R.id.button9);
+        sector = findViewById(R.id.sector);
 
         title = findViewById(R.id.textView30);
         type = findViewById(R.id.type);
@@ -195,6 +196,7 @@ public class ContractorJobDetails extends AppCompatActivity {
 
 
                     title.setText(item.getTitle());
+                    sector.setText(item.getSector());
                     type.setText(item.getJobType());
                     days.setText(item.getDays());
                     experience.setText(item.getExperience());

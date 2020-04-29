@@ -206,7 +206,7 @@ public class JobDetails extends AppCompatActivity {
                     company.setText(item.getBrandName());
                     address.setText(item.getBrandStreet() + ", " + item.getBrandArea());
                     skills.setText(item.getSkills());
-                    preferred.setText(item.getPreferred());
+                    //preferred.setText(item.getPreferred());
                     location.setText(item.getLocation());
                     experience.setText(item.getExperience());
                     role.setText(item.getRole());

@@ -171,8 +171,14 @@ public interface AllApiIneterface {
     Call<verifyBean> postjob(
             @Part("brand_id") String brand_id,
             @Part("title") String title,
+            @Part("position") String position,
+            @Part("sector") String sector,
+            @Part("skill_level") String skill_level,
             @Part("skills") String skills,
-            @Part("preferred") String preferred,
+            @Part("nature") String nature,
+            @Part("man_days") String man_days,
+            @Part("piece_rate") String piece_rate,
+            @Part("place") String place,
             @Part("location") String location,
             @Part("experience") String experience,
             @Part("role") String role,
@@ -188,8 +194,14 @@ public interface AllApiIneterface {
     Call<verifyBean> UpdateWorkerJob(
             @Part("id") String id,
             @Part("title") String title,
+            @Part("position") String position,
+            @Part("sector") String sector,
+            @Part("skill_level") String skill_level,
             @Part("skills") String skills,
-            @Part("preferred") String preferred,
+            @Part("nature") String nature,
+            @Part("man_days") String man_days,
+            @Part("piece_rate") String piece_rate,
+            @Part("place") String place,
             @Part("location") String location,
             @Part("experience") String experience,
             @Part("role") String role,
@@ -204,6 +216,7 @@ public interface AllApiIneterface {
     @POST("roshni/api/update_job2.php")
     Call<verifyBean> UpdateContractorJob(
             @Part("id") String id,
+            @Part("sector") String sector,
             @Part("job_type") String job_type,
             @Part("experience") String experience,
             @Part("days") String days,
@@ -215,6 +228,7 @@ public interface AllApiIneterface {
     @POST("roshni/api/post_job_contractor.php")
     Call<verifyBean> post_job_contractor(
             @Part("contractor_id") String contractor_id,
+            @Part("sector") String sector,
             @Part("job_type") String job_type,
             @Part("experience") String experience,
             @Part("days") String days,
@@ -344,8 +358,11 @@ public interface AllApiIneterface {
     @GET("roshni/api/getSectors.php")
     Call<sectorBean> getSectors();
 
-    @GET("roshni/api/getRoles.php")
-    Call<sectorBean> getRoles();
+    @Multipart
+    @POST("roshni/api/getRoles.php")
+    Call<skillsBean> getRoles(
+            @Part("sector_id") String sector_id
+    );
 
     @GET("roshni/api/getSkills.php")
     Call<sectorBean> getSkills();

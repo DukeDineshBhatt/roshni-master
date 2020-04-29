@@ -31,6 +31,9 @@ public class Data {
     @SerializedName("brand_pin")
     @Expose
     private String brandPin;
+    @SerializedName("sector")
+    @Expose
+    private String sector;
     @SerializedName("job_type")
     @Expose
     private String jobType;
@@ -174,6 +177,14 @@ public class Data {
 
     public void setBrandPin(String brandPin) {
         this.brandPin = brandPin;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 
     public String getJobType() {

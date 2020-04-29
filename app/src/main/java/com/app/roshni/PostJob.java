@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
@@ -33,20 +35,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
-
 public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     Toolbar toolbar;
-    EditText title, preferred, hours, salary;
-    Spinner skills, location, experience, role, gender, education, stype;
+    EditText title, positions, man_days, piece_rate, role, hours, salary , job_location;
+    Spinner sector, skill_level, skills, nature, place, location, experience, gender, education, stype;
+
+    TextView man_days_title , piece_rate_title;
 
     Button submit;
     ProgressBar progress;
 
-    String skil, expe, loca, gend, educ, jrole, styp;
+    String skil, expe, loca, gend, educ, styp, sect, leve, natu , plac;
 
-    List<String> ski, exp, loc, gen, edu, rol, sty;
+    List<String> ski, exp, loc, gen, edu, rol, sty , pla;
     List<String> ski1, loc1, rol1;
+    List<String> sec, sec1, lev, nat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +68,31 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
         sty = new ArrayList<>();
         ski1 = new ArrayList<>();
         rol1 = new ArrayList<>();
+        sec = new ArrayList<>();
+        sec1 = new ArrayList<>();
+        lev = new ArrayList<>();
+        nat = new ArrayList<>();
+        pla = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
+        man_days_title = findViewById(R.id.man_days_title);
+        piece_rate_title = findViewById(R.id.piece_rate_title);
         title = findViewById(R.id.title);
-        preferred = findViewById(R.id.preferred);
+        positions = findViewById(R.id.positions);
+        man_days = findViewById(R.id.man_days);
+        piece_rate = findViewById(R.id.piece_rate);
+        role = findViewById(R.id.role);
         hours = findViewById(R.id.hours);
         salary = findViewById(R.id.salary);
+        job_location = findViewById(R.id.job_location);
+
+        sector = findViewById(R.id.sector);
+        skill_level = findViewById(R.id.skill_level);
         skills = findViewById(R.id.skills);
+        nature = findViewById(R.id.nature);
+        place = findViewById(R.id.place);
         location = findViewById(R.id.location);
         experience = findViewById(R.id.experience);
-        role = findViewById(R.id.role);
         gender = findViewById(R.id.gender);
         education = findViewById(R.id.education);
         stype = findViewById(R.id.stype);
@@ -111,27 +130,35 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
         });
 
-        gen.add("Select one --- ");
         gen.add("Male");
         gen.add("Female");
+        gen.add("No Preference");
 
-        exp.add("Select one --- ");
+        lev.add("Unskilled");
+        lev.add("Semi-skilled");
+        lev.add("Skilled");
+        lev.add("Highly Skilled");
+
+        nat.add("Permanent");
+        nat.add("Temporary");
+        nat.add("Contractual");
+        nat.add("Home-Based");
+
+        pla.add("Factory(In-house)");
+        pla.add("Outside factory");
+
         exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
 
-
-        edu.add("Select one --- ");
-        edu.add("Uneducated");
-        edu.add("Primary (Class 1-5)");
-        edu.add("Middle (Class 6-8)");
-        edu.add("Secondary (Class 9-10)");
-        edu.add("Senior Secondary (Class 11-12)");
+        edu.add("Not required");
+        edu.add("Primary");
+        edu.add("Secondary");
+        edu.add("Higher secondary");
         edu.add("Graduation");
-        edu.add("Post Graduation");
+        edu.add("Post-graduation");
 
-        sty.add("Select one --- ");
         sty.add("Monthly");
         sty.add("Fortnightly");
         sty.add("Daily");
@@ -152,23 +179,29 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
         ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this,
                 R.layout.spinner_model, sty);
 
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(this,
+                R.layout.spinner_model, lev);
+
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<>(this,
+                R.layout.spinner_model, nat);
+
+        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(this,
+                R.layout.spinner_model, pla);
 
         experience.setAdapter(adapter2);
         education.setAdapter(adapter3);
         gender.setAdapter(adapter);
         stype.setAdapter(adapter4);
+        skill_level.setAdapter(adapter5);
+        nature.setAdapter(adapter6);
+        place.setAdapter(adapter7);
 
 
         stype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    styp = sty.get(i);
-                } else {
-                    styp = "";
-                }
-
+                styp = sty.get(i);
 
             }
 
@@ -183,12 +216,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    gend = gen.get(i);
-                } else {
-                    gend = "";
-                }
-
+                gend = gen.get(i);
 
             }
 
@@ -202,11 +230,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    skil = ski1.get(i - 1);
-                } else {
-                    skil = "";
-                }
+                skil = ski1.get(i);
 
             }
 
@@ -220,10 +244,64 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     expe = exp.get(i);
-                } else {
-                    expe = "";
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        skill_level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                leve = lev.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                plac =  pla.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        nature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                natu = nat.get(i);
+
+                if (natu.equals("Home-Based"))
+                {
+                    man_days.setVisibility(View.VISIBLE);
+                    man_days_title.setVisibility(View.VISIBLE);
+                    piece_rate.setVisibility(View.VISIBLE);
+                    piece_rate_title.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    man_days.setVisibility(View.GONE);
+                    man_days_title.setVisibility(View.GONE);
+                    piece_rate.setVisibility(View.GONE);
+                    piece_rate_title.setVisibility(View.GONE);
                 }
 
             }
@@ -234,16 +312,11 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
         });
 
+
         education.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 0) {
                     educ = edu.get(i);
-                } else {
-                    educ = "";
-                }
-
-
             }
 
             @Override
@@ -257,12 +330,16 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    loca = loc1.get(i - 1);
-                } else {
-                    loca = "";
-                }
+                loca = loc.get(i);
 
+                if (loca.equals("Others"))
+                {
+                    job_location.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    job_location.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -270,27 +347,6 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
             }
         });
-
-        role.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i > 0) {
-                    jrole = rol1.get(i - 1);
-                } else {
-                    jrole = "";
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-        progress.setVisibility(View.VISIBLE);
 
         Bean b = (Bean) getApplicationContext();
 
@@ -300,35 +356,31 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getRoles();
+        final Call<sectorBean> call = cr.getSectors();
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
             public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
 
-
                 if (response.body().getStatus().equals("1")) {
-
-                    rol.add("Select one --- ");
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
-                        rol.add(response.body().getData().get(i).getTitle());
-                        rol1.add(response.body().getData().get(i).getId());
+                        sec.add(response.body().getData().get(i).getTitle());
+                        sec1.add(response.body().getData().get(i).getId());
 
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJob.this,
-                            R.layout.spinner_model, rol);
+                            R.layout.spinner_model, sec);
 
-                    role.setAdapter(adapter);
-
-                    Log.d("sec", SharePreferenceUtils.getInstance().getString("sector"));
-
+                    sector.setAdapter(adapter);
 
                 }
 
@@ -342,43 +394,57 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
         });
 
-        Call<sectorBean> call2 = cr.getSkills();
-
-        call2.enqueue(new Callback<sectorBean>() {
+        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                sect = sec1.get(i);
+
+                progress.setVisibility(View.VISIBLE);
+
+                Call<skillsBean> call2 = cr.getSkills1(sect);
+                call2.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                        if (response.body().getStatus().equals("1")) {
 
-                    ski.add("Select one --- ");
+                            ski.clear();
+                            ski1.clear();
 
+                            for (int i = 0; i < response.body().getData().size(); i++) {
 
-                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                ski.add(response.body().getData().get(i).getTitle());
+                                ski1.add(response.body().getData().get(i).getId());
 
-                        ski.add(response.body().getData().get(i).getTitle());
-                        ski1.add(response.body().getData().get(i).getId());
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJob.this,
+                                    R.layout.spinner_model, ski);
+
+                            skills.setAdapter(adapter);
+
+                        }
+
+                        progress.setVisibility(View.GONE);
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJob.this,
-                            R.layout.spinner_model, ski);
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
-                    skills.setAdapter(adapter);
-
-
-                }
-
-                progress.setVisibility(View.GONE);
 
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-
 
         Call<sectorBean> call3 = cr.getLocations();
 
@@ -388,8 +454,6 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
 
                 if (response.body().getStatus().equals("1")) {
-
-                    loc.add("Select one --- ");
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -423,99 +487,94 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             public void onClick(View view) {
 
                 String t = title.getText().toString();
-                String p = preferred.getText().toString();
+                String p = positions.getText().toString();
+                String m = man_days.getText().toString();
+                String pi = piece_rate.getText().toString();
+                String r = role.getText().toString();
                 String h = hours.getText().toString();
                 String s = salary.getText().toString();
+
+                Log.d("skill" , skil);
 
 
                 if (t.length() > 0) {
 
-                    if (skil.length() > 0) {
-                        if (loca.length() > 0) {
-                            if (expe.length() > 0) {
+                    if (p.length() > 0)
+                    {
 
-                                if (jrole.length() > 0) {
+                        if (styp.length() > 0) {
 
-                                    if (h.length() > 0) {
-                                        if (s.length() > 0) {
-                                            if (styp.length() > 0) {
-
-
-
-
-                                                progress.setVisibility(View.VISIBLE);
-
-                                                Bean b = (Bean) getApplicationContext();
-
-                                                Retrofit retrofit = new Retrofit.Builder()
-                                                        .baseUrl(b.baseurl)
-                                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                                        .addConverterFactory(GsonConverterFactory.create())
-                                                        .build();
-
-                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                Call<verifyBean> call1 = cr.postjob(
-                                                        SharePreferenceUtils.getInstance().getString("user_id"),
-                                                        t,
-                                                        skil,
-                                                        p,
-                                                        loca,
-                                                        expe,
-                                                        jrole,
-                                                        gend,
-                                                        educ,
-                                                        h,
-                                                        s,
-                                                        styp
-                                                );
-
-                                                call1.enqueue(new Callback<verifyBean>() {
-                                                    @Override
-                                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                        if (response.body().getStatus().equals("1"))
-                                                        {
-                                                            Toast.makeText(PostJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                                            finish();
-
-                                                        }
-
-
-                                                        progress.setVisibility(View.GONE);
-
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                        progress.setVisibility(View.GONE);
-                                                    }
-                                                });
-
-
-
-                                            } else {
-                                                Toast.makeText(PostJob.this, "Invalid salary type", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(PostJob.this, "Invalid salary package", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else {
-                                        Toast.makeText(PostJob.this, "Invalid working hours", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(PostJob.this, "Invalid job role", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(PostJob.this, "Invalid experience", Toast.LENGTH_SHORT).show();
+                            if (loca.equals("Others"))
+                            {
+                                loca = job_location.getText().toString();
                             }
+
+                            progress.setVisibility(View.VISIBLE);
+
+                            Bean b = (Bean) getApplicationContext();
+
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(b.baseurl)
+                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+
+                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                            Call<verifyBean> call1 = cr.postjob(
+                                    SharePreferenceUtils.getInstance().getString("user_id"),
+                                    t,
+                                    p,
+                                    sect,
+                                    leve,
+                                    skil,
+                                    natu,
+                                    m,
+                                    pi,
+                                    plac,
+                                    loca,
+                                    expe,
+                                    r,
+                                    gend,
+                                    educ,
+                                    h,
+                                    s,
+                                    styp
+                            );
+
+                            call1.enqueue(new Callback<verifyBean>() {
+                                @Override
+                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                    if (response.body().getStatus().equals("1")) {
+                                        Toast.makeText(PostJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        finish();
+
+                                    }
+
+
+                                    progress.setVisibility(View.GONE);
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                    progress.setVisibility(View.GONE);
+                                }
+                            });
+
+
                         } else {
-                            Toast.makeText(PostJob.this, "Invalid location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostJob.this, "Invalid salary type", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(PostJob.this, "Invalid skill", Toast.LENGTH_SHORT).show();
+
                     }
+                    else
+                    {
+                        Toast.makeText(PostJob.this, "Invalid no. of positions", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     Toast.makeText(PostJob.this, "Invalid job title", Toast.LENGTH_SHORT).show();
                 }

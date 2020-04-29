@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -240,11 +241,11 @@ public class FilterWorkerJob extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        final Call<sectorBean> call = cr.getRoles();
+        final Call<skillsBean> call = cr.getRoles("1");
 
-        call.enqueue(new Callback<sectorBean>() {
+        call.enqueue(new Callback<skillsBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
 
                 job_role.removeAllViews();
                 String[] job1 = jobr1.split(",");
@@ -291,7 +292,7 @@ public class FilterWorkerJob extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(Call<skillsBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

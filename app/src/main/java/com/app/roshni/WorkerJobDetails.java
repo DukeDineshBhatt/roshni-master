@@ -31,7 +31,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class WorkerJobDetails extends AppCompatActivity {
 
     ImageButton back;
-    TextView title, skills, preferred, location, experience, role, gender, education, hours, salary, stype , commp;
+    TextView title,positions , sector , skill_level ,  skills, nature,man_days , piece_rate , place,  location, experience, role, gender, education, hours, salary, stype , commp;
 
     Button active , edit;
 
@@ -50,8 +50,14 @@ public class WorkerJobDetails extends AppCompatActivity {
         edit = findViewById(R.id.button9);
 
         title = findViewById(R.id.textView30);
+        positions = findViewById(R.id.positions);
+        sector = findViewById(R.id.sector);
+        skill_level = findViewById(R.id.skill_level);
         skills = findViewById(R.id.skills);
-        preferred = findViewById(R.id.preferred);
+        nature = findViewById(R.id.nature);
+        man_days = findViewById(R.id.man_days);
+        piece_rate = findViewById(R.id.piece_rate);
+        place = findViewById(R.id.place);
         location = findViewById(R.id.location);
         experience = findViewById(R.id.experience);
         role = findViewById(R.id.role);
@@ -215,8 +221,14 @@ public class WorkerJobDetails extends AppCompatActivity {
                     Datum item = response.body().getData();
 
                     title.setText(item.getTitle());
+                    positions.setText(item.getPosition());
+                    sector.setText(item.getSector());
+                    skill_level.setText(item.getSkillLevel());
                     skills.setText(item.getSkills());
-                    preferred.setText(item.getPreferred());
+                    nature.setText(item.getNature());
+                    man_days.setText(item.getManDays());
+                    piece_rate.setText(item.getPieceRate());
+                    place.setText(item.getPlace());
                     location.setText(item.getLocation());
                     experience.setText(item.getExperience());
                     role.setText(item.getRole());

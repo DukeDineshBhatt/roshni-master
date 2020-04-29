@@ -65,8 +65,8 @@
     <string name="job_role1">कार्य की भूमिका *</string>
     <string name="gender_preference1">"लिंग प्राथमिकता "</string>
     <string name="education1">शिक्षा</string>
-    <string name="working_hours1">काम के घंटे  *</string>
-    <string name="salary_package1">वेतन पैकेज  *</string>
+    <string name="working_hours1">काम के घंटे</string>
+    <string name="salary_package1">वेतन पैकेज</string>
     <string name="salary_type1">वेतन प्रकार *</string>
     <string name="submit">प्रस्तुत</string>
     <string name="job_type1">कार्य का प्रकार *</string>

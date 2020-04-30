@@ -19,12 +19,18 @@
 
             <TextView
                 android:id="@+id/textViewStatus"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorAccent"
                 android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:textColor="#000" />
+                android:textColor="#000"
+                android:layout_gravity="center"
+                />
 
             <TextView
                 android:id="@+id/textView11"
@@ -139,7 +145,6 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:focusable="false"
-                android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -260,6 +265,7 @@
                 android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
+                android:layout_marginBottom="24dp"
                 android:padding="10dp"
                 android:visibility="gone" />
 

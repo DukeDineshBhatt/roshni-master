@@ -114,24 +114,20 @@ public class WorkerPersonalProfile extends Fragment {
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
 
-        gen.add("Select one --- ");
         gen.add("Male");
         gen.add("Female");
 
-        cat.add("Select one --- ");
         cat.add("SC");
         cat.add("ST");
         cat.add("OBC");
         cat.add("General");
 
-        rel.add("Select one --- ");
         rel.add("Hindu");
         rel.add("Muslim");
         rel.add("Sikh");
         rel.add("Christian");
         rel.add("Others");
 
-        edu.add("Select one --- ");
         edu.add("Uneducated");
         edu.add("Primary (Class 1-5)");
         edu.add("Middle (Class 6-8)");
@@ -141,13 +137,11 @@ public class WorkerPersonalProfile extends Fragment {
         edu.add("Post Graduation");
         edu.add("Others");
 
-        mar.add("Select one --- ");
         mar.add("Single");
         mar.add("Married");
         mar.add("Divorcee");
         mar.add("Separated");
 
-        chi.add("Select one --- ");
         chi.add("0");
         chi.add("1");
         chi.add("2");
@@ -162,7 +156,6 @@ public class WorkerPersonalProfile extends Fragment {
         chi.add("11");
         chi.add("12");
 
-        prof.add("Select one --- ");
         prof.add("Aadhaar Card");
         prof.add("Voter ID");
         prof.add("PAN Card");
@@ -248,14 +241,21 @@ public class WorkerPersonalProfile extends Fragment {
                 if (item.get(0).getStatus().equals("pending")) {
 
                     txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
-
+                    txtStatus.setVisibility(View.VISIBLE);
                 } else if (item.get(0).getStatus().equals("rejected")) {
-
-                    txtStatus.setText("YOUR PROFILE IS Rejected");
-                } else {
-
-                    txtStatus.setText(item.get(0).getStatus());
-
+                    txtStatus.setText(item.get(0).getRejectReason());
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else if (item.get(0).getStatus().equals("submitted")) {
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else if (item.get(0).getStatus().equals("modifications")) {
+                    txtStatus.setText(item.get(0).getRejectReason());
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtStatus.setVisibility(View.GONE);
                 }
 
                 name.setText(item.get(0).getName());
@@ -263,7 +263,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                 ImageLoader loader = ImageLoader.getInstance();
                 loader.displayImage(item.get(0).getPhoto(), image, options);
-                editTxtProof.setText(item.get(0).getId_number());
+                editTxtProof.setText(item.get(0).getIdNumber());
                 dob.setText(item.get(0).getDob());
                 cpin.setText(item.get(0).getCpin());
                 cstreet.setText(item.get(0).getCstreet());
@@ -278,7 +278,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                 int cp = 0;
                 for (int i = 0; i < prof.size(); i++) {
-                    if (item.get(0).getId_proof().equals(prof.get(i))) {
+                    if (item.get(0).getIdProof().equals(prof.get(i))) {
                         cp = i;
                     }
                 }

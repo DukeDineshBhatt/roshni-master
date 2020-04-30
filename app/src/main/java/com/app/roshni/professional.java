@@ -195,8 +195,6 @@ public class professional extends Fragment {
                 } else {
 
                     yes.setVisibility(View.GONE);
-                    work = "0";
-                    loom = "0";
                 }
 
             }
@@ -298,11 +296,9 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-
                     sect = sec1.get(i);
 
-                    Call<skillsBean> call2 = cr.getSkills1(String.valueOf(i));
+                    Call<skillsBean> call2 = cr.getSkills1(sect);
                     call2.enqueue(new Callback<skillsBean>() {
                         @Override
                         public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
@@ -311,6 +307,7 @@ public class professional extends Fragment {
                             if (response.body().getStatus().equals("1")) {
 
                                 ski.clear();
+                                ski1.clear();
 
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
@@ -338,15 +335,6 @@ public class professional extends Fragment {
                     });
 
 
-                } else {
-                    sect = "";
-
-                    ski.clear();
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, ski);
-
-                    skills.setAdapter(adapter);
-                }
 
             }
 

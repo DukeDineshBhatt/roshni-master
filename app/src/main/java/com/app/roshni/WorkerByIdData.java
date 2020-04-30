@@ -7,158 +7,140 @@ public class WorkerByIdData {
 
     @SerializedName("user_id")
     @Expose
-    private String user_id;
-
+    private String userId;
     @SerializedName("name")
     @Expose
     private String name;
-
     @SerializedName("id_proof")
     @Expose
-    private String id_proof;
-
+    private String idProof;
     @SerializedName("id_number")
     @Expose
-    private String id_number;
-
-    @SerializedName("dob")
+    private String idNumber;
+    @SerializedName("lat")
     @Expose
-    private String dob;
-
-    @SerializedName("gender")
+    private String lat;
+    @SerializedName("lng")
     @Expose
-    private String gender;
-
-    @SerializedName("phone")
-    @Expose
-    private String phone;
-
-    @SerializedName("category")
-    @Expose
-    private String category;
-
-    @SerializedName("religion")
-    @Expose
-    private String religion;
-
-    @SerializedName("educational")
-    @Expose
-    private String educational;
-
-    @SerializedName("marital")
-    @Expose
-    private String marital;
-
-    @SerializedName("children")
-    @Expose
-    private String children;
-
-    @SerializedName("belowsix")
-    @Expose
-    private String belowsix;
-
-    @SerializedName("sixtofourteen")
-    @Expose
-    private String sixtofourteen;
-
-    @SerializedName("fifteentoeighteen")
-    @Expose
-    private String fifteentoeighteen;
-
-    @SerializedName("goingtoschool")
-    @Expose
-    private String goingtoschool;
-
-    @SerializedName("cpin")
-    @Expose
-    private String cpin;
-
-    @SerializedName("cstate")
-    @Expose
-    private String cstate;
-
-    @SerializedName("cdistrict")
-    @Expose
-    private String cdistrict;
-
-    @SerializedName("carea")
-    @Expose
-    private String carea;
-
-    @SerializedName("cstreet")
-    @Expose
-    private String cstreet;
-
-    @SerializedName("ppin")
-    @Expose
-    private String ppin;
-
-    @SerializedName("pstate")
-    @Expose
-    private String pstate;
-
-    @SerializedName("pdistrict")
-    @Expose
-    private String pdistrict;
-
-    @SerializedName("parea")
-    @Expose
-    private String parea;
-
-    @SerializedName("pstreet")
-    @Expose
-    private String pstreet;
-
+    private String lng;
     @SerializedName("photo")
     @Expose
     private String photo;
-
-    @SerializedName("status")
+    @SerializedName("dob")
     @Expose
-    private String status;
-
-    @SerializedName("employer")
+    private String dob;
+    @SerializedName("gender")
     @Expose
-    private String employer;
-
-    @SerializedName("experience")
+    private String gender;
+    @SerializedName("phone")
     @Expose
-    private String experience;
-
-    @SerializedName("employment")
+    private String phone;
+    @SerializedName("cpin")
     @Expose
-    private String employment;
-
-    @SerializedName("home")
+    private String cpin;
+    @SerializedName("cstate")
     @Expose
-    private String home;
-
-    @SerializedName("workers")
+    private String cstate;
+    @SerializedName("cdistrict")
     @Expose
-    private String workers;
-
-    @SerializedName("tools")
+    private String cdistrict;
+    @SerializedName("carea")
     @Expose
-    private String tools;
-
-    @SerializedName("location")
+    private String carea;
+    @SerializedName("cstreet")
     @Expose
-    private String location;
-
+    private String cstreet;
+    @SerializedName("ppin")
+    @Expose
+    private String ppin;
+    @SerializedName("pstate")
+    @Expose
+    private String pstate;
+    @SerializedName("pdistrict")
+    @Expose
+    private String pdistrict;
+    @SerializedName("parea")
+    @Expose
+    private String parea;
+    @SerializedName("pstreet")
+    @Expose
+    private String pstreet;
+    @SerializedName("category")
+    @Expose
+    private String category;
+    @SerializedName("religion")
+    @Expose
+    private String religion;
+    @SerializedName("educational")
+    @Expose
+    private String educational;
+    @SerializedName("marital")
+    @Expose
+    private String marital;
+    @SerializedName("children")
+    @Expose
+    private String children;
+    @SerializedName("belowsix")
+    @Expose
+    private String belowsix;
+    @SerializedName("sixtofourteen")
+    @Expose
+    private String sixtofourteen;
+    @SerializedName("fifteentoeighteen")
+    @Expose
+    private String fifteentoeighteen;
+    @SerializedName("goingtoschool")
+    @Expose
+    private String goingtoschool;
+    @SerializedName("skills_id")
+    @Expose
+    private String skillsId;
+    @SerializedName("sector_id")
+    @Expose
+    private String sectorId;
     @SerializedName("skills")
     @Expose
     private String skills;
-
     @SerializedName("sector")
     @Expose
     private String sector;
+    @SerializedName("experience")
+    @Expose
+    private String experience;
+    @SerializedName("employment")
+    @Expose
+    private String employment;
+    @SerializedName("employer")
+    @Expose
+    private String employer;
+    @SerializedName("home")
+    @Expose
+    private String home;
+    @SerializedName("workers")
+    @Expose
+    private String workers;
+    @SerializedName("tools")
+    @Expose
+    private String tools;
+    @SerializedName("location")
+    @Expose
+    private String location;
+    @SerializedName("reject_reason")
+    @Expose
+    private String rejectReason;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -169,20 +151,44 @@ public class WorkerByIdData {
         this.name = name;
     }
 
-    public String getId_proof() {
-        return id_proof;
+    public String getIdProof() {
+        return idProof;
     }
 
-    public void setId_proof(String id_proof) {
-        this.id_proof = id_proof;
+    public void setIdProof(String idProof) {
+        this.idProof = idProof;
     }
 
-    public String getId_number() {
-        return id_number;
+    public String getIdNumber() {
+        return idNumber;
     }
 
-    public void setId_number(String id_number) {
-        this.id_number = id_number;
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getDob() {
@@ -207,78 +213,6 @@ public class WorkerByIdData {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getReligion() {
-        return religion;
-    }
-
-    public void setReligion(String religion) {
-        this.religion = religion;
-    }
-
-    public String getEducational() {
-        return educational;
-    }
-
-    public void setEducational(String educational) {
-        this.educational = educational;
-    }
-
-    public String getMarital() {
-        return marital;
-    }
-
-    public void setMarital(String marital) {
-        this.marital = marital;
-    }
-
-    public String getChildren() {
-        return children;
-    }
-
-    public void setChildren(String children) {
-        this.children = children;
-    }
-
-    public String getBelowsix() {
-        return belowsix;
-    }
-
-    public void setBelowsix(String belowsix) {
-        this.belowsix = belowsix;
-    }
-
-    public String getSixtofourteen() {
-        return sixtofourteen;
-    }
-
-    public void setSixtofourteen(String sixtofourteen) {
-        this.sixtofourteen = sixtofourteen;
-    }
-
-    public String getFifteentoeighteen() {
-        return fifteentoeighteen;
-    }
-
-    public void setFifteentoeighteen(String fifteentoeighteen) {
-        this.fifteentoeighteen = fifteentoeighteen;
-    }
-
-    public String getGoingtoschool() {
-        return goingtoschool;
-    }
-
-    public void setGoingtoschool(String goingtoschool) {
-        this.goingtoschool = goingtoschool;
     }
 
     public String getCpin() {
@@ -361,28 +295,108 @@ public class WorkerByIdData {
         this.pstreet = pstreet;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getCategory() {
+        return category;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getStatus() {
-        return status;
+    public String getReligion() {
+        return religion;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setReligion(String religion) {
+        this.religion = religion;
     }
 
-    public String getEmployer() {
-        return employer;
+    public String getEducational() {
+        return educational;
     }
 
-    public void setEmployer(String employer) {
-        this.employer = employer;
+    public void setEducational(String educational) {
+        this.educational = educational;
+    }
+
+    public String getMarital() {
+        return marital;
+    }
+
+    public void setMarital(String marital) {
+        this.marital = marital;
+    }
+
+    public String getChildren() {
+        return children;
+    }
+
+    public void setChildren(String children) {
+        this.children = children;
+    }
+
+    public String getBelowsix() {
+        return belowsix;
+    }
+
+    public void setBelowsix(String belowsix) {
+        this.belowsix = belowsix;
+    }
+
+    public String getSixtofourteen() {
+        return sixtofourteen;
+    }
+
+    public void setSixtofourteen(String sixtofourteen) {
+        this.sixtofourteen = sixtofourteen;
+    }
+
+    public String getFifteentoeighteen() {
+        return fifteentoeighteen;
+    }
+
+    public void setFifteentoeighteen(String fifteentoeighteen) {
+        this.fifteentoeighteen = fifteentoeighteen;
+    }
+
+    public String getGoingtoschool() {
+        return goingtoschool;
+    }
+
+    public void setGoingtoschool(String goingtoschool) {
+        this.goingtoschool = goingtoschool;
+    }
+
+    public String getSkillsId() {
+        return skillsId;
+    }
+
+    public void setSkillsId(String skillsId) {
+        this.skillsId = skillsId;
+    }
+
+    public String getSectorId() {
+        return sectorId;
+    }
+
+    public void setSectorId(String sectorId) {
+        this.sectorId = sectorId;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 
     public String getExperience() {
@@ -399,6 +413,14 @@ public class WorkerByIdData {
 
     public void setEmployment(String employment) {
         this.employment = employment;
+    }
+
+    public String getEmployer() {
+        return employer;
+    }
+
+    public void setEmployer(String employer) {
+        this.employer = employer;
     }
 
     public String getHome() {
@@ -433,19 +455,27 @@ public class WorkerByIdData {
         this.location = location;
     }
 
-    public String getSkills() {
-        return skills;
+    public String getRejectReason() {
+        return rejectReason;
     }
 
-    public void setSkills(String skills) {
-        this.skills = skills;
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 
-    public String getSector() {
-        return sector;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSector(String sector) {
-        this.sector = sector;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
     }
 }

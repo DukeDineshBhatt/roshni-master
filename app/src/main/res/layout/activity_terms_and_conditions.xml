@@ -57,41 +57,44 @@
                 android:id="@+id/checkBox1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="I will not employ any child below the age of 18 years, in my unit in any process."
+                android:layout_marginBottom="8dp"
+                android:text="@string/i_will_not_employ_any_child_below_the_age_of_18_years_in_my_unit_in_any_process"
                 android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="I agree, not to use any conditions which lead my workers to work in forced &amp; bonded conditions,."
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/i_agree_not_to_use_any_conditions_which_lead_my_workers_to_work_in_forced_amp_bonded_conditions"
                 android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/checkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="I agree to the protocol of unannounced inspections, which has been shared to me before registering on the app. I will allow GoodWeave personnel for unannounced inspections of my facility anytime and give complete access to
-the facility. I also agree that Goodweave has complete right to remove my facility from its database if any child labor is identified during any Inspection."
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/i_agree_to_the_protocol_of_unannounced_inspections_which_has_been_shared_to_me_before_registering_on_the_app_i_will_allow_goodweave_personnel_for_unannounced_inspections_of_my_facility_anytime_and_give_complete_access_to_the_facility_i_also_agree_that_goodweave_has_complete_right_to_remove_my_facility_from_its_database_if_any_child_labor_is_identified_during_any_inspection"
                 android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/checkBox4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="I agree that Goodweave have no responsibility or commitment to provide business or any financial obligation related to it."
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/i_agree_that_goodweave_have_no_responsibility_or_commitment_to_provide_business_or_any_financial_obligation_related_to_it"
                 android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/checkBox5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="I agree to all terms &amp; conditions and data privacy."
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/i_agree_to_all_terms_amp_conditions_and_data_privacy"
                 android:textSize="14sp" />
 
         </LinearLayout>

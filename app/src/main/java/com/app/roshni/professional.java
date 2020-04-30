@@ -93,21 +93,17 @@ public class professional extends Fragment {
         editTxtLoc = view.findViewById(R.id.editTxtLoc);
 
 
-        exp.add("Select one --- ");
         exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
 
-        emp.add("Select one --- ");
         emp.add("Employed");
         emp.add("Unemployed");
 
-        hom.add("Select one --- ");
         hom.add("Yes");
         hom.add("No");
 
-        wor.add("Select one --- ");
         wor.add("1");
         wor.add("2");
         wor.add("3");
@@ -163,11 +159,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    expe = exp.get(i);
-                } else {
-                    expe = "";
-                }
+                expe = exp.get(i);
 
             }
 
@@ -181,11 +173,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    empl = emp.get(i);
-                } else {
-                    empl = "";
-                }
+                empl = emp.get(i);
 
             }
 
@@ -198,23 +186,17 @@ public class professional extends Fragment {
         home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                hhom = hom.get(i);
 
-                if (i > 0) {
-                    hhom = hom.get(i);
+                if (hhom.equals("Yes")) {
 
-                    if (hhom.equals("Yes")) {
-
-                        yes.setVisibility(View.VISIBLE);
-
-                    } else {
-
-                        yes.setVisibility(View.GONE);
-                        work = "0";
-                        loom = "0";
-                    }
+                    yes.setVisibility(View.VISIBLE);
 
                 } else {
-                    hhom = "";
+
+                    yes.setVisibility(View.GONE);
+                    work = "0";
+                    loom = "0";
                 }
 
             }
@@ -229,11 +211,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    work = wor.get(i);
-                } else {
-                    work = "";
-                }
+                work = wor.get(i);
 
             }
 
@@ -247,11 +225,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    loom = wor.get(i);
-                } else {
-                    loom = "";
-                }
+                loom = wor.get(i);
 
             }
 
@@ -267,18 +241,12 @@ public class professional extends Fragment {
 
                 loca = loc.get(i);
 
-                if (i == 5) {
-
+                if (loca.equals("Others")) {
                     loc_bool = true;
-
                     editTxtLoc.setVisibility(View.VISIBLE);
-
-
-                }else {
-
+                } else {
                     loc_bool = false;
                     editTxtLoc.setVisibility(View.GONE);
-
                 }
 
             }
@@ -301,7 +269,6 @@ public class professional extends Fragment {
 
                 if (response.body().getStatus().equals("1")) {
 
-                    sec.add("Select one --- ");
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -333,7 +300,7 @@ public class professional extends Fragment {
 
                 if (i > 0) {
 
-                    sect = sec1.get(i - 1);
+                    sect = sec1.get(i);
 
                     Call<skillsBean> call2 = cr.getSkills1(String.valueOf(i));
                     call2.enqueue(new Callback<skillsBean>() {
@@ -345,7 +312,6 @@ public class professional extends Fragment {
 
                                 ski.clear();
 
-                                ski.add("Select one --- ");
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -376,7 +342,6 @@ public class professional extends Fragment {
                     sect = "";
 
                     ski.clear();
-                    ski.add("Select one --- ");
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                             R.layout.spinner_model, ski);
 
@@ -395,11 +360,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    skil = ski1.get(i - 1);
-                } else {
-                    skil = "";
-                }
+                skil = ski1.get(i);
 
             }
 
@@ -417,7 +378,6 @@ public class professional extends Fragment {
 
                 if (response.body().getStatus().equals("1")) {
 
-                    loc.add("Select one --- ");
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -452,133 +412,109 @@ public class professional extends Fragment {
                 String emplo = employer.getText().toString();
 
                 if (loc_bool) {
-
                     loca = editTxtLoc.getText().toString();
                 }
 
                 if (sect.length() > 0) {
-                    if (skil.length() > 0) {
-                        if (expe.length() > 0) {
-                            if (empl.length() > 0) {
-                                if (hhom.length() > 0) {
-                                    if (work.length() > 0) {
-                                        if (loom.length() > 0) {
-                                            if (loca.length() > 0) {
-
-                                                progress.setVisibility(View.VISIBLE);
-
-                                                Bean b = (Bean) getContext().getApplicationContext();
-
-                                                Retrofit retrofit = new Retrofit.Builder()
-                                                        .baseUrl(b.baseurl)
-                                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                                        .addConverterFactory(GsonConverterFactory.create())
-                                                        .build();
-
-                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                Call<verifyBean> call = cr.updateWorkerProfessional(
-                                                        SharePreferenceUtils.getInstance().getString("user_id"),
-                                                        sect,
-                                                        skil,
-                                                        expe,
-                                                        empl,
-                                                        emplo,
-                                                        hhom,
-                                                        work,
-                                                        loom,
-                                                        loca
-                                                );
-
-                                                call.enqueue(new Callback<verifyBean>() {
-                                                    @Override
-                                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                        if (response.body().getStatus().equals("1")) {
-                                                            Data item = response.body().getData();
-
-                                                            SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                            SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                            SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                            SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                            SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                            SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                            SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                            SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                            SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                            SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                            SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                            SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                            SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                            SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                            SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                            SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
-                                                            SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
-                                                            SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
-                                                            SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
-                                                            SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
-                                                            SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
-                                                            SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
-                                                            SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
-                                                            SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
-                                                            SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
-                                                            SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
-                                                            SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                            SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
-                                                            SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                            SharePreferenceUtils.getInstance().saveString("home", item.getHome());
-                                                            SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
-                                                            SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
-                                                            SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
-                                                            SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
-                                                            SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
-
-                                                            Intent intent = new Intent(getContext(), MainActivity.class);
-                                                            startActivity(intent);
-                                                            getActivity().finishAffinity();
 
 
-                                                            Log.d("respo", response.body().getMessage());
+                    if (hhom.length() > 0) {
 
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
+                        progress.setVisibility(View.VISIBLE);
+
+                        Bean b = (Bean) getContext().getApplicationContext();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                        Call<verifyBean> call = cr.updateWorkerProfessional(
+                                SharePreferenceUtils.getInstance().getString("user_id"),
+                                sect,
+                                skil,
+                                expe,
+                                empl,
+                                emplo,
+                                hhom,
+                                work,
+                                loom,
+                                loca
+                        );
+
+                        call.enqueue(new Callback<verifyBean>() {
+                            @Override
+                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                if (response.body().getStatus().equals("1")) {
+                                    Data item = response.body().getData();
+
+                                    SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                    SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                    SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                    SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                    SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                    SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                    SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                    SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                    SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                    SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                    SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                    SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                    SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                    SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                    SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                    SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
+                                    SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
+                                    SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
+                                    SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
+                                    SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
+                                    SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
+                                    SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
+                                    SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
+                                    SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
+                                    SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+                                    SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
+                                    SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                    SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
+                                    SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                    SharePreferenceUtils.getInstance().saveString("home", item.getHome());
+                                    SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
+                                    SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
+                                    SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
+                                    SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
+                                    SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
+
+                                    Intent intent = new Intent(getContext(), MainActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finishAffinity();
 
 
-                                                        progress.setVisibility(View.GONE);
+                                    Log.d("respo", response.body().getMessage());
 
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                        progress.setVisibility(View.GONE);
-                                                    }
-                                                });
-
-
-                                            } else {
-                                                Toast.makeText(getContext(), "Invalid location", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(getContext(), "Invalid no. of looms", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } else {
-                                        Toast.makeText(getContext(), "Invalid no. of workers", Toast.LENGTH_SHORT).show();
-                                    }
+                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                Toast.makeText(getContext(), "Invalid employment status", Toast.LENGTH_SHORT).show();
+
+
+                                progress.setVisibility(View.GONE);
+
                             }
-                        } else {
-                            Toast.makeText(getContext(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                        }
+
+                            @Override
+                            public void onFailure(Call<verifyBean> call, Throwable t) {
+                                progress.setVisibility(View.GONE);
+                            }
+                        });
+
                     } else {
-                        Toast.makeText(getContext(), "Invalid skill", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
                     Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
                 }

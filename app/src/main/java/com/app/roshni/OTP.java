@@ -143,7 +143,7 @@ public class OTP extends AppCompatActivity {
 
                                     Toast.makeText(OTP.this, "Please create a PIN to continue", Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(OTP.this, CreatePIN.class);
+                                    Intent intent = new Intent(OTP.this, TermsAndConditions.class);
                                     startActivity(intent);
                                     finishAffinity();
                                 } else {

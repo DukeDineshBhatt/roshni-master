@@ -156,14 +156,14 @@
     <string name="number_of_children_b_w_15_18_yrs">NUMBER OF CHILDREN B/W 15-18 YRS. *</string>
     <string name="number_of_children_going_to_school">NUMBER OF CHILDREN GOING TO SCHOOL *</string>
     <string name="your_sector">YOUR SECTOR *</string>
-    <string name="your_skills">YOUR SKILLS *</string>
-    <string name="your_experience">YOUR EXPERIENCE *</string>
-    <string name="your_employment_status">YOUR EMPLOYMENT STATUS *</string>
+    <string name="your_skills">YOUR SKILLS</string>
+    <string name="your_experience">YOUR EXPERIENCE</string>
+    <string name="your_employment_status">YOUR EMPLOYMENT STATUS</string>
     <string name="your_employer_previous_current">YOUR EMPLOYER (PREVIOUS/ CURRENT)</string>
     <string name="owns_a_home_based_unit1">OWNS A HOME BASED UNIT *</string>
-    <string name="number_of_workers">NUMBER OF WORKERS *</string>
-    <string name="number_of_looms">PRODUCTION MACHINARIES / TOOLS *</string>
-    <string name="preferred_location_for_work">PREFERRED LOCATION FOR WORK *</string>
+    <string name="number_of_workers">NUMBER OF WORKERS</string>
+    <string name="number_of_looms">PRODUCTION MACHINERIES / TOOLS</string>
+    <string name="preferred_location_for_work">PREFERRED LOCATION FOR WORK</string>
     <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
     <string name="yes">YES</string>
     <string name="cancel">CANCEL</string>
@@ -208,4 +208,7 @@
     <string name="man_days">Man Days</string>
     <string name="place_of_employment1">Place of Employment</string>
     <string name="man_days_required2">MAN-DAYS REQUIRED *</string>
+    <string name="enter_id_number">enter id number</string>
+    <string name="google_maps_key">AIzaSyCgsH_uHFwFsCY4hUXgJsIjnSx2DwxK1Rw</string>
+    <string name="enter_religion">enter religion</string>
 </resources>

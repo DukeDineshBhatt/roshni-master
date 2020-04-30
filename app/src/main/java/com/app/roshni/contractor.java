@@ -1,13 +1,18 @@
 package com.app.roshni;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,12 +39,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
+import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -48,6 +70,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -64,13 +88,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class contractor extends Fragment {
 
-    private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype;
+    private static final String TAG = "conracao";
+    private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype, sector;
 
-    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp;
+    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp, sect;
 
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
 
@@ -82,7 +108,7 @@ public class contractor extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> gen, est, exp, wty, ava, frm, frmtyp, prof;
+    private List<String> gen, est, exp, wty, wty1, ava, frm, frmtyp, prof, sec, sec1;
 
     private Uri uri;
     private File f1;
@@ -93,6 +119,17 @@ public class contractor extends Fragment {
 
     private ProgressBar progress;
     private CustomViewPager pager;
+
+
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean mLocationPermissionGranted;
+
+    // The geographical location where the device is currently located. That is, the last-known
+    // location retrieved by the Fused Location Provider.
+    private Location mLastKnownLocation;
+
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private PlacesClient mPlacesClient;
 
     void setData(CustomViewPager pager) {
         this.pager = pager;
@@ -108,12 +145,53 @@ public class contractor extends Fragment {
         est = new ArrayList<>();
         exp = new ArrayList<>();
         wty = new ArrayList<>();
+        wty1 = new ArrayList<>();
         ava = new ArrayList<>();
         frm = new ArrayList<>();
         prof = new ArrayList<>();
         frmtyp = new ArrayList<>();
+        sec = new ArrayList<>();
+        sec1 = new ArrayList<>();
+
+        Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
+        mPlacesClient = Places.createClient(getContext());
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        getLocationPermission();
+
+        try {
+            if (mLocationPermissionGranted) {
+                Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+
+
+                        if (location != null) {
+                            // Logic to handle location object
+                            mLastKnownLocation = location;
+                            Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        e.printStackTrace();
+
+                    }
+                });
+
+            }
+        } catch (Exception e) {
+            Log.e("Exception1: %s", e.getMessage());
+        }
+
 
         name = view.findViewById(R.id.editText);
+        sector = view.findViewById(R.id.sector);
         dob = view.findViewById(R.id.dob);
         business = view.findViewById(R.id.business);
         cpin = view.findViewById(R.id.editText3);
@@ -139,11 +217,69 @@ public class contractor extends Fragment {
         firmtype = view.findViewById(R.id.firmtype);
         reg_no = view.findViewById(R.id.reg_no);
 
-        gen.add("Select one --- ");
+        cstate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .setCountries(Collections.singletonList("IN"))
+                        .setTypeFilter(TypeFilter.CITIES)
+                        .build(getActivity());
+                startActivityForResult(intent, 11);
+
+            }
+        });
+
+        cdistrict.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .setCountries(Collections.singletonList("IN"))
+                        .setTypeFilter(TypeFilter.REGIONS)
+                        .build(getActivity());
+                startActivityForResult(intent, 12);
+
+            }
+        });
+
+        pstate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .setCountries(Collections.singletonList("IN"))
+                        .setTypeFilter(TypeFilter.CITIES)
+                        .build(getActivity());
+                startActivityForResult(intent, 13);
+
+            }
+        });
+
+        pdistrict.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .setCountries(Collections.singletonList("IN"))
+                        .setTypeFilter(TypeFilter.REGIONS)
+                        .build(getActivity());
+                startActivityForResult(intent, 14);
+
+            }
+        });
+
         gen.add("Male");
         gen.add("Female");
 
-        prof.add("Select one --- ");
         prof.add("Aadhaar Card");
         prof.add("Voter ID");
         prof.add("PAN Card");
@@ -151,7 +287,6 @@ public class contractor extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 
-        est.add("Select one --- ");
         est.add("1970");
         est.add("1971");
         est.add("1972");
@@ -209,25 +344,15 @@ public class contractor extends Fragment {
         est.add("2024");
         est.add("2025");
 
-        exp.add("Select one --- ");
         exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
 
-        wty.add("Select one --- ");
-        wty.add("Adda Work");
-        wty.add("Fashion Jewelry");
-        wty.add("Zari Work");
-        wty.add("Embroidery");
-        wty.add("Tassel Work");
-
-        ava.add("Select one --- ");
         ava.add("Available");
         ava.add("Within a Month");
         ava.add("Within Two Months");
 
-        frm.add("Select one --- ");
         frm.add("Sole-properietor");
         frm.add("Partnership");
         frm.add("Pvt.Ltd. Company");
@@ -237,7 +362,6 @@ public class contractor extends Fragment {
         frm.add("Co-operative");
         frm.add("Trust");
 
-        frmtyp.add("Select one --- ");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");
@@ -294,11 +418,7 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    gend = gen.get(i);
-                } else {
-                    gend = "";
-                }
+                gend = gen.get(i);
 
             }
 
@@ -312,15 +432,10 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
 
-                    prf = prof.get(i);
+                prf = prof.get(i);
 
-                } else {
 
-                    prf = "";
-
-                }
             }
 
             @Override
@@ -333,11 +448,7 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    frmy = frm.get(i);
-                } else {
-                    frmy = "";
-                }
+                frmy = frm.get(i);
 
             }
 
@@ -351,11 +462,7 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    frmytyp = frmtyp.get(i);
-                } else {
-                    frmytyp = "";
-                }
+                frmytyp = frmtyp.get(i);
 
             }
 
@@ -368,11 +475,7 @@ public class contractor extends Fragment {
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 0) {
-                    esta = est.get(i);
-                } else {
-                    esta = "";
-                }
+                esta = est.get(i);
 
             }
 
@@ -386,11 +489,7 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    expe = exp.get(i);
-                } else {
-                    expe = "";
-                }
+                expe = exp.get(i);
 
             }
 
@@ -400,34 +499,13 @@ public class contractor extends Fragment {
             }
         });
 
-
-        work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i > 0) {
-                    wtyp = wty.get(i);
-                } else {
-                    wtyp = "";
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
-                    avai = ava.get(i);
-                } else {
-                    avai = "";
-                }
+                avai = ava.get(i);
+
 
             }
 
@@ -449,6 +527,116 @@ public class contractor extends Fragment {
                     che = false;
                     permanent.setVisibility(View.VISIBLE);
                 }
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Bean b = (Bean) getContext().getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        final Call<sectorBean> call = cr.getSectors();
+
+        call.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        sec.add(response.body().getData().get(i).getTitle());
+                        sec1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, sec);
+
+                    sector.setAdapter(adapter);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                sect = sec1.get(i);
+
+                Call<skillsBean> call2 = cr.getSkills1(sect);
+                call2.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            wty.clear();
+                            wty1.clear();
+
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                wty.add(response.body().getData().get(i).getTitle());
+                                wty1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, wty);
+
+                            work.setAdapter(adapter);
+
+                        }
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                wtyp = wty1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -582,203 +770,165 @@ public class contractor extends Fragment {
                 }
 
                 if (n.length() > 0) {
-                    if (d.length() > 0) {
-                        if (gend.length() > 0) {
-                            if (cp.length() > 0) {
+
+                    if (cst.length() > 0) {
+                        if (ca.length() > 0) {
+                            if (cd.length() > 0) {
                                 if (cs.length() > 0) {
-                                    if (cd.length() > 0) {
-                                        if (ca.length() > 0) {
-                                            if (cst.length() > 0) {
-                                                if (pp.length() > 0) {
-                                                    if (ps.length() > 0) {
-                                                        if (pd.length() > 0) {
-                                                            if (pa.length() > 0) {
-                                                                if (pst.length() > 0) {
-                                                                    if (l.length() > 0) {
-                                                                        if (m.length() > 0) {
-                                                                            if (f.length() > 0) {
-                                                                                if (expe.length() > 0) {
-                                                                                    if (wtyp.length() > 0) {
-                                                                                        if (avai.length() > 0) {
+                                    if (cp.length() > 0) {
 
-                                                                                            MultipartBody.Part body = null;
+                                        if (m.length() > 0) {
 
-                                                                                            try {
+                                            if (f.length() > 0) {
 
-                                                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                                                                body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
+                                                MultipartBody.Part body = null;
+
+                                                try {
+
+                                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                    body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                                                            } catch (Exception e1) {
-                                                                                                e1.printStackTrace();
-                                                                                            }
+                                                } catch (Exception e1) {
+                                                    e1.printStackTrace();
+                                                }
 
-                                                                                            progress.setVisibility(View.VISIBLE);
+                                                progress.setVisibility(View.VISIBLE);
 
-                                                                                            Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+                                                Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
-                                                                                            Retrofit retrofit = new Retrofit.Builder()
-                                                                                                    .baseUrl(b1.baseurl)
-                                                                                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                                    .addConverterFactory(GsonConverterFactory.create())
-                                                                                                    .build();
+                                                Retrofit retrofit = new Retrofit.Builder()
+                                                        .baseUrl(b1.baseurl)
+                                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                                        .addConverterFactory(GsonConverterFactory.create())
+                                                        .build();
 
-                                                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                                                                                            Call<verifyBean> call = cr.update_contractor(
-                                                                                                    SharePreferenceUtils.getInstance().getString("user_id"),
-                                                                                                    n,
-                                                                                                    prf,
-                                                                                                    p,
-                                                                                                    frmy,
-                                                                                                    frmytyp,
-                                                                                                    r,
-                                                                                                    "",
-                                                                                                    "",
-                                                                                                    d,
-                                                                                                    gend,
-                                                                                                    b,
-                                                                                                    esta,
-                                                                                                    cp,
-                                                                                                    cs,
-                                                                                                    cd,
-                                                                                                    ca,
-                                                                                                    cst,
-                                                                                                    pp,
-                                                                                                    ps,
-                                                                                                    pd,
-                                                                                                    pa,
-                                                                                                    pst,
-                                                                                                    h,
-                                                                                                    l,
-                                                                                                    m,
-                                                                                                    f,
-                                                                                                    expe,
-                                                                                                    wtyp,
-                                                                                                    avai,
-                                                                                                    e,
-                                                                                                    ab,
-                                                                                                    body
-                                                                                            );
+                                                Call<verifyBean> call = cr.update_contractor(
+                                                        SharePreferenceUtils.getInstance().getString("user_id"),
+                                                        n,
+                                                        prf,
+                                                        p,
+                                                        frmy,
+                                                        frmytyp,
+                                                        r,
+                                                        String.valueOf(mLastKnownLocation.getLatitude()),
+                                                        String.valueOf(mLastKnownLocation.getLongitude()),
+                                                        d,
+                                                        gend,
+                                                        b,
+                                                        esta,
+                                                        cp,
+                                                        cs,
+                                                        cd,
+                                                        ca,
+                                                        cst,
+                                                        pp,
+                                                        ps,
+                                                        pd,
+                                                        pa,
+                                                        pst,
+                                                        h,
+                                                        l,
+                                                        m,
+                                                        f,
+                                                        expe,
+                                                        wtyp,
+                                                        avai,
+                                                        e,
+                                                        ab,
+                                                        sect,
+                                                        body
+                                                );
 
-                                                                                            call.enqueue(new Callback<verifyBean>() {
-                                                                                                @Override
-                                                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                call.enqueue(new Callback<verifyBean>() {
+                                                    @Override
+                                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
-                                                                                                    assert response.body() != null;
-                                                                                                    if (response.body().getStatus().equals("1")) {
-                                                                                                        Data item = response.body().getData();
-
-
-                                                                                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                                                                        SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
+                                                        assert response.body() != null;
+                                                        if (response.body().getStatus().equals("1")) {
+                                                            Data item = response.body().getData();
 
 
-                                                                                                        Intent registrationComplete = new Intent("photo");
+                                                            SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                                            SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                                            SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                                            SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                                            SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                                            SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
+                                                            SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
+                                                            SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                                            SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                                            SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                                            SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                                            SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                                            SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                                            SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                                            SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                                            SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                                            SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                                            SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
+                                                            SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
+                                                            SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
+                                                            SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
+                                                            SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
+                                                            SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
+                                                            SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                                            SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                                            SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
 
-                                                                                                        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+
+                                                            Intent registrationComplete = new Intent("photo");
+
+                                                            LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
 
                                                                                                         /*Intent intent = new Intent(getContext(), MainActivity3.class);
                                                                                                         startActivity(intent);
                                                                                                         getActivity().finishAffinity();*/
 
-                                                                                                        pager.setCurrentItem(1);
+                                                            pager.setCurrentItem(1);
 
-                                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                    } else {
-                                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                    }
-
-
-                                                                                                    progress.setVisibility(View.GONE);
-
-                                                                                                }
-
-                                                                                                @Override
-                                                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                                                    progress.setVisibility(View.GONE);
-                                                                                                }
-                                                                                            });
-
-                                                                                        } else {
-                                                                                            Toast.makeText(getActivity(), "Invalid availability", Toast.LENGTH_SHORT).show();
-                                                                                        }
-                                                                                    } else {
-                                                                                        Toast.makeText(getActivity(), "Invalid work type", Toast.LENGTH_SHORT).show();
-                                                                                    }
-                                                                                } else {
-                                                                                    Toast.makeText(getActivity(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                                                                                }
-                                                                            } else {
-                                                                                Toast.makeText(getActivity(), "Invalid female workers", Toast.LENGTH_SHORT).show();
-                                                                            }
-                                                                        } else {
-                                                                            Toast.makeText(getActivity(), "Invalid male workers", Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    } else {
-                                                                        Toast.makeText(getActivity(), "Invalid home based units location", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                } else {
-                                                                    Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            } else {
-                                                                Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
-                                                            }
+                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                         } else {
-                                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                         }
-                                                    } else {
-                                                        Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+
+
+                                                        progress.setVisibility(View.GONE);
+
                                                     }
-                                                } else {
-                                                    Toast.makeText(getContext(), "Invalid permanent PIN", Toast.LENGTH_SHORT).show();
-                                                }
+
+                                                    @Override
+                                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                        progress.setVisibility(View.GONE);
+                                                    }
+                                                });
 
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), "Invalid female workers", Toast.LENGTH_SHORT).show();
                                             }
+
                                         } else {
-                                            Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Invalid male workers", Toast.LENGTH_SHORT).show();
                                         }
+
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getContext(), "Invalid gender", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getContext(), "Invalid D.O.B.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
                 }
@@ -817,6 +967,112 @@ public class contractor extends Fragment {
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
             image.setImageURI(uri);
+        }
+
+        if (requestCode == 11) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+
+
+                Geocoder geocoder = new Geocoder(getContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
+
+                    cstate.setText(stat);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+
+        if (requestCode == 12) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+
+                Geocoder geocoder = new Geocoder(getContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    Log.d("addresss", String.valueOf(addresses.get(0)));
+                    String cii = addresses.get(0).getLocality();
+
+                    cdistrict.setText(cii);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+
+        if (requestCode == 13) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+
+
+                Geocoder geocoder = new Geocoder(getContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
+
+                    pstate.setText(stat);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+
+        if (requestCode == 14) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+
+
+                Geocoder geocoder = new Geocoder(getContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    String cii = addresses.get(0).getSubLocality();
+
+                    pdistrict.setText(cii);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
         }
 
 
@@ -1015,5 +1271,34 @@ public class contractor extends Fragment {
 
     }
 
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            }
+        }
+    }
 
 }

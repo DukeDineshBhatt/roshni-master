@@ -162,6 +162,7 @@ public interface AllApiIneterface {
             @Part("availability") String availability,
             @Part("employer") String employer,
             @Part("about") String about,
+            @Part("sector") String sector,
             @Part MultipartBody.Part file1
     );
 

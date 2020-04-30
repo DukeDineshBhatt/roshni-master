@@ -39,8 +39,10 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.contractorPOJO.Data;
 import com.app.roshni.contractorPOJO.contractorBean;
+import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -70,9 +72,9 @@ import static android.app.Activity.RESULT_OK;
 
 public class ContractorPersonalProfile extends Fragment {
 
-    private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype;
+    private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype , sector;
 
-    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp;
+    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect;
 
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
 
@@ -82,7 +84,7 @@ public class ContractorPersonalProfile extends Fragment {
     private CircleImageView image;
 
 
-    private List<String> gen, est, exp, wty, ava, frm, frmtyp, prof;
+    private List<String> gen, est, exp, wty , wty1, ava, frm, frmtyp, prof , sec, sec1;
 
 
     String user_id;
@@ -107,12 +109,16 @@ public class ContractorPersonalProfile extends Fragment {
         est = new ArrayList<>();
         exp = new ArrayList<>();
         wty = new ArrayList<>();
+        wty1 = new ArrayList<>();
         ava = new ArrayList<>();
         frm = new ArrayList<>();
         prof = new ArrayList<>();
         frmtyp = new ArrayList<>();
+        sec = new ArrayList<>();
+        sec1 = new ArrayList<>();
 
         name = view.findViewById(R.id.editText);
+        sector = view.findViewById(R.id.sector);
         dob = view.findViewById(R.id.dob);
         business = view.findViewById(R.id.business);
         cpin = view.findViewById(R.id.editText3);
@@ -141,11 +147,9 @@ public class ContractorPersonalProfile extends Fragment {
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
-        gen.add("Select one --- ");
         gen.add("Male");
         gen.add("Female");
 
-        prof.add("Select one --- ");
         prof.add("Aadhaar Card");
         prof.add("Voter ID");
         prof.add("PAN Card");
@@ -153,7 +157,6 @@ public class ContractorPersonalProfile extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 
-        est.add("Select one --- ");
         est.add("1970");
         est.add("1971");
         est.add("1972");
@@ -211,25 +214,15 @@ public class ContractorPersonalProfile extends Fragment {
         est.add("2024");
         est.add("2025");
 
-        exp.add("Select one --- ");
         exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
 
-        wty.add("Select one --- ");
-        wty.add("Adda Work");
-        wty.add("Fashion Jewelry");
-        wty.add("Zari Work");
-        wty.add("Embroidery");
-        wty.add("Tassel Work");
-
-        ava.add("Select one --- ");
         ava.add("Available");
         ava.add("Within a Month");
         ava.add("Within Two Months");
 
-        frm.add("Select one --- ");
         frm.add("Sole-properietor");
         frm.add("Partnership");
         frm.add("Pvt.Ltd. Company");
@@ -239,7 +232,6 @@ public class ContractorPersonalProfile extends Fragment {
         frm.add("Co-operative");
         frm.add("Trust");
 
-        frmtyp.add("Select one --- ");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");
@@ -280,6 +272,7 @@ public class ContractorPersonalProfile extends Fragment {
 
 
         gender.setEnabled(false);
+        sector.setEnabled(false);
         establishment.setEnabled(false);
         experience.setEnabled(false);
         work.setEnabled(false);
@@ -304,11 +297,7 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     gend = gen.get(i);
-                } else {
-                    gend = "";
-                }
 
             }
 
@@ -322,15 +311,10 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
 
                     prf = prof.get(i);
 
-                } else {
 
-                    prf = "";
-
-                }
             }
 
             @Override
@@ -343,11 +327,8 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     frmy = frm.get(i);
-                } else {
-                    frmy = "";
-                }
+
 
             }
 
@@ -361,11 +342,8 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     frmytyp = frmtyp.get(i);
-                } else {
-                    frmytyp = "";
-                }
+
 
             }
 
@@ -378,11 +356,7 @@ public class ContractorPersonalProfile extends Fragment {
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 0) {
                     esta = est.get(i);
-                } else {
-                    esta = "";
-                }
 
             }
 
@@ -396,11 +370,7 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     expe = exp.get(i);
-                } else {
-                    expe = "";
-                }
 
             }
 
@@ -411,33 +381,12 @@ public class ContractorPersonalProfile extends Fragment {
         });
 
 
-        work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i > 0) {
-                    wtyp = wty.get(i);
-                } else {
-                    wtyp = "";
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0) {
                     avai = ava.get(i);
-                } else {
-                    avai = "";
-                }
 
             }
 
@@ -466,7 +415,7 @@ public class ContractorPersonalProfile extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
         Call<contractorBean> call = cr.getContractorById(user_id);
@@ -477,21 +426,32 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
 
-                Data item = response.body().getData();
+                final Data item = response.body().getData();
 
 
                 if (item.getStatus().equals("pending")) {
 
                     txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
-
+                    txtStatus.setVisibility(View.VISIBLE);
                 } else if (item.getStatus().equals("rejected")) {
-
-                    txtStatus.setText("YOUR PROFILE IS Rejected");
-                } else {
-
-                    txtStatus.setText(item.getStatus());
-
+                    txtStatus.setText(item.getRejectReason());
+                    txtStatus.setVisibility(View.VISIBLE);
                 }
+                else if (item.getStatus().equals("submitted")) {
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else if (item.getStatus().equals("modifications")) {
+                    txtStatus.setText(item.getRejectReason());
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtStatus.setVisibility(View.GONE);
+                }
+
+
+
+
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
                 ImageLoader loader = ImageLoader.getInstance();
@@ -501,7 +461,7 @@ public class ContractorPersonalProfile extends Fragment {
                 //fw = item.getWorkersFemale();
 
                 name.setText(item.getName());
-                editTxtProof.setText(item.getId_number());
+                editTxtProof.setText(item.getIdNumber());
                 cstreet.setText(item.getCstreet());
                 carea.setText(item.getCarea());
                 cdistrict.setText(item.getCdistrict());
@@ -512,8 +472,9 @@ public class ContractorPersonalProfile extends Fragment {
                 pdistrict.setText(item.getPdistrict());
                 pstate.setText(item.getPstate());
                 ppin.setText(item.getPpin());
+                business.setText(item.getBusinessName());
 
-                reg_no.setText(item.getRegistration_no());
+                reg_no.setText(item.getRegistrationNo());
 
                 //experience.setText(item.getExperience());
                 //availability.setText(item.getAvailability());
@@ -526,6 +487,109 @@ public class ContractorPersonalProfile extends Fragment {
                 employer.setText(item.getEmployer());
                 about.setText(item.getAbout());
 
+                final Call<sectorBean> call2 = cr.getSectors();
+
+                call2.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            sec.clear();
+                            sec1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                sec.add(response.body().getData().get(i).getTitle());
+                                sec1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, sec);
+
+                            sector.setAdapter(adapter);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < sec1.size(); i++) {
+                                if (item.getSector().equals(sec1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            sector.setSelection(cp2);
+
+                        }
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+
+                sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        sect = sec1.get(i);
+
+                        progress.setVisibility(View.VISIBLE);
+
+                        Call<skillsBean> call2 = cr.getSkills1(sect);
+                        call2.enqueue(new Callback<skillsBean>() {
+                            @Override
+                            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+
+                                if (response.body().getStatus().equals("1")) {
+
+                                    wty.clear();
+                                    wty1.clear();
+
+                                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                        wty.add(response.body().getData().get(i).getTitle());
+                                        wty1.add(response.body().getData().get(i).getId());
+
+                                    }
+
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                            R.layout.spinner_model, wty);
+
+                                    work.setAdapter(adapter);
+
+                                    int cp = 0;
+                                    for (int i = 0; i < wty1.size(); i++) {
+                                        if (item.getWorkType().equals(wty1.get(i))) {
+                                            cp = i;
+                                        }
+                                    }
+                                    work.setSelection(cp);
+
+                                }
+
+                                progress.setVisibility(View.GONE);
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<skillsBean> call, Throwable t) {
+                                progress.setVisibility(View.GONE);
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
                 int gp = 0;
                 for (int i = 0; i < gen.size(); i++) {
@@ -537,7 +601,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                 int fm = 0;
                 for (int i = 0; i < frm.size(); i++) {
-                    if (item.getFirm_type().equals(frm.get(i))) {
+                    if (item.getFirmType().equals(frm.get(i))) {
                         fm = i;
                     }
                 }
@@ -545,7 +609,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                 int pf = 0;
                 for (int i = 0; i < prof.size(); i++) {
-                    if (item.getId_proof().equals(prof.get(i))) {
+                    if (item.getIdProof().equals(prof.get(i))) {
                         pf = i;
                     }
                 }
@@ -553,7 +617,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                 int pft = 0;
                 for (int i = 0; i < frmtyp.size(); i++) {
-                    if (item.getFirm_registration_type().equals(frmtyp.get(i))) {
+                    if (item.getFirmRegistrationType().equals(frmtyp.get(i))) {
                         pft = i;
                     }
                 }
@@ -575,14 +639,14 @@ public class ContractorPersonalProfile extends Fragment {
                 }
                 availability.setSelection(ap);
 
-
+/*
                 int wp = 0;
                 for (int i = 0; i < wty.size(); i++) {
                     if (item.getWorkType().equals(wty.get(i))) {
                         wp = i;
                     }
                 }
-                work.setSelection(wp);
+                work.setSelection(wp);*/
 
                String ppp = item.getHomeLocation();
 

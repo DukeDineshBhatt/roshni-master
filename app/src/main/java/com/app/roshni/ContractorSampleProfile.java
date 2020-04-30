@@ -113,15 +113,23 @@ public class ContractorSampleProfile extends Fragment {
                 if (item.getStatus().equals("pending")) {
 
                     txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
-
+                    txtStatus.setVisibility(View.VISIBLE);
                 } else if (item.getStatus().equals("rejected")) {
-
-                    txtStatus.setText("YOUR PROFILE IS Rejected");
-                } else {
-
-                    txtStatus.setText(item.getStatus());
-
+                    txtStatus.setText(item.getRejectReason());
+                    txtStatus.setVisibility(View.VISIBLE);
                 }
+                else if (item.getStatus().equals("submitted")) {
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else if (item.getStatus().equals("modifications")) {
+                    txtStatus.setText(item.getRejectReason());
+                    txtStatus.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtStatus.setVisibility(View.GONE);
+                }
+
 
                 progress.setVisibility(View.GONE);
 

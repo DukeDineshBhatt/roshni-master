@@ -5,6 +5,8 @@ import com.app.roshni.allWorkContrJobListPOJO.allWorkContrJobBean;
 import com.app.roshni.contWorkerPOJO.contWorkerBeam;
 import com.app.roshni.contractorJobDetailsPOJO.contractorJobDetailsBean;
 import com.app.roshni.contractorPOJO.contractorBean;
+import com.app.roshni.knowledgeDetailsPOJO.knowledgeDetailsBean;
+import com.app.roshni.knowledgeListPOJO.knowledgeListBean;
 import com.app.roshni.notificationBean.notificationBean;
 import com.app.roshni.samplePOJO.sampleBean;
 import com.app.roshni.sectorPOJO.sectorBean;
@@ -456,6 +458,16 @@ public interface AllApiIneterface {
             @Part("id") String id
     );
 
+    @Multipart
+    @POST("roshni/api/getKnowledgeList.php")
+    Call<knowledgeListBean> getKnowledgeList(
+            @Part("type") String type
+    );
 
+    @Multipart
+    @POST("roshni/api/getKnowledgeById.php")
+    Call<knowledgeDetailsBean> getKnowledgeById(
+            @Part("id") String id
+    );
 
 }

@@ -2,6 +2,7 @@ package com.app.roshni;
 
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.allWorkContrJobListPOJO.allWorkContrJobBean;
+import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
 import com.app.roshni.contWorkerPOJO.contWorkerBeam;
 import com.app.roshni.contractorJobDetailsPOJO.contractorJobDetailsBean;
 import com.app.roshni.contractorPOJO.contractorBean;
@@ -473,6 +474,12 @@ public interface AllApiIneterface {
     @Multipart
     @POST("roshni/api/getKnowledgeById.php")
     Call<knowledgeDetailsBean> getKnowledgeById(
+            @Part("id") String id
+    );
+
+    @Multipart
+    @POST("roshni/api/getBrandById.php")
+    Call<brandDetailsBean> getBrandById(
             @Part("id") String id
     );
 

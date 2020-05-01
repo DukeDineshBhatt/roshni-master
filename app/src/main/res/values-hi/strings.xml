@@ -113,10 +113,10 @@
     <string name="hit_enter_to_add_products">उत्पादों को जोड़ने के लिए हिट दर्ज करें</string>
     <string name="hit_enter_to_add_countries">देशों को जोड़ने के लिए हिट दर्ज करें</string>
     <string name="total_workers1">कुल कार्यकर्ता *</string>
-    <string name="goodweave_certification">गुडवीव प्रमाणपत्र  *</string>
-    <string name="certificate_expiry_date">सर्टिफाइड एक्सपायरी डेट *</string>
-    <string name="website_address">वेबसाइट का पता  *</string>
-    <string name="email_address1">ईमेल पता  *</string>
+    <string name="goodweave_certification">गुडवीव प्रमाणपत्र</string>
+    <string name="certificate_expiry_date">सर्टिफाइड एक्सपायरी डेट</string>
+    <string name="website_address">वेबसाइट का पता</string>
+    <string name="email_address1">ईमेल पता</string>
     <string name="your_photo">आपका फोटो</string>
     <string name="your_d_o_b">आपका डी.ओ.बी. *</string>
     <string name="your_gender">तुम्हारा लिंग *</string>

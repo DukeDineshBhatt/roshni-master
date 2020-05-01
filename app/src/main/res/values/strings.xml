@@ -113,10 +113,10 @@
     <string name="hit_enter_to_add_products">hit enter to add products</string>
     <string name="hit_enter_to_add_countries">hit enter to add countries</string>
     <string name="total_workers1">TOTAL WORKERS *</string>
-    <string name="goodweave_certification">GOODWEAVE CERTIFICATION *</string>
-    <string name="certificate_expiry_date">CERTIFICATE EXPIRY DATE *</string>
-    <string name="website_address">WEBSITE ADDRESS *</string>
-    <string name="email_address1">EMAIL ADDRESS *</string>
+    <string name="goodweave_certification">GOODWEAVE CERTIFICATION</string>
+    <string name="certificate_expiry_date">CERTIFICATE EXPIRY DATE</string>
+    <string name="website_address">WEBSITE ADDRESS</string>
+    <string name="email_address1">EMAIL ADDRESS</string>
     <string name="your_photo">YOUR PHOTO</string>
     <string name="your_d_o_b">YOUR D.O.B. *</string>
     <string name="your_gender">YOUR GENDER *</string>

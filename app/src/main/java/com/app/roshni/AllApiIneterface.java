@@ -104,7 +104,13 @@ public interface AllApiIneterface {
     Call<verifyBean> updateBrand(
             @Part("user_id") String user_id,
             @Part("name") String name,
+            @Part("firm_type") String firm_type,
+            @Part("firm_registration_type") String firm_registration_type,
             @Part("registration_number") String registration_number,
+            @Part("lat") String lat,
+            @Part("lng") String lng,
+            @Part("sector") String sector,
+            @Part("contact_details") String contact_details,
             @Part("contact_person") String contact_person,
             @Part("cpin") String cpin,
             @Part("cstate") String cstate,

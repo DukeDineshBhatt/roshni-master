@@ -84,6 +84,57 @@
 
             </LinearLayout>
 
+
+            <TextView
+                android:id="@+id/txtViewFirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/firm" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/firm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtViewfrmtyp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/firmtype" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/firmtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+
+
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
@@ -110,6 +161,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:text="@string/your_sector" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/sector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/contact_person1" />
 
             <EditText
@@ -124,6 +199,25 @@
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/company_contact_details" />
+
+            <EditText
+                android:id="@+id/contact_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:maxLength="10"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -135,15 +229,15 @@
                 android:textColor="#000000" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/pin_code" />
+                android:text="@string/street" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/editText7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -151,19 +245,19 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
-                android:inputType="number"
+                android:inputType="textPostalAddress"
                 android:padding="10dp" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/state" />
+                android:text="@string/village_town_area" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/editText6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -188,6 +282,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:clickable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
@@ -195,19 +291,21 @@
                 android:padding="10dp" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/village_town_area" />
+                android:text="@string/state" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:clickable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
@@ -215,15 +313,15 @@
                 android:padding="10dp" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/street" />
+                android:text="@string/pin_code" />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -231,8 +329,15 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
-                android:inputType="textPostalAddress"
+                android:inputType="number"
                 android:padding="10dp" />
+
+
+
+
+
+
+
 
             <TextView
                 android:id="@+id/textView18"
@@ -242,6 +347,8 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/head_office_address"
                 android:textColor="#000000" />
+
+
 
             <CheckBox
                 android:id="@+id/check"
@@ -258,15 +365,15 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/textView27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/pin_code" />
+                    android:text="@string/street" />
 
                 <EditText
-                    android:id="@+id/editText20"
+                    android:id="@+id/editText28"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -274,47 +381,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
-                    android:inputType="number"
-                    android:padding="10dp" />
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/state" />
-
-                <EditText
-                    android:id="@+id/editText22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/white_back_round"
-                    android:hint="@string/tap_to_enter"
-                    android:inputType="textPersonName"
-                    android:padding="10dp" />
-
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/district" />
-
-                <EditText
-                    android:id="@+id/editText24"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/white_back_round"
-                    android:hint="@string/tap_to_enter"
-                    android:inputType="textPersonName"
+                    android:inputType="textPostalAddress"
                     android:padding="10dp" />
 
                 <TextView
@@ -337,16 +404,64 @@
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
+
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/street" />
+                    android:text="@string/district" />
 
                 <EditText
-                    android:id="@+id/editText28"
+                    android:id="@+id/editText24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/white_back_round"
+                    android:hint="@string/tap_to_enter"
+                    android:inputType="textPersonName"
+                    android:padding="10dp" />
+
+
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/state" />
+
+                <EditText
+                    android:id="@+id/editText22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/white_back_round"
+                    android:hint="@string/tap_to_enter"
+                    android:inputType="textPersonName"
+                    android:padding="10dp" />
+
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/pin_code" />
+
+                <EditText
+                    android:id="@+id/editText20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -354,8 +469,13 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
-                    android:inputType="textPostalAddress"
+                    android:inputType="number"
                     android:padding="10dp" />
+
+
+
+
+
 
             </LinearLayout>
 
@@ -365,7 +485,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/manufacturing_units" />
+                android:text="@string/manufacturing_unit3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -389,7 +509,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/factory_outlet" />
+                android:text="@string/factory_outlet3" />
 
             <EditText
                 android:id="@+id/factory"
@@ -432,7 +552,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/importing_countries" />
+                android:text="@string/importing_countries3" />
 
             <com.hootsuite.nachos.NachoTextView
                 android:id="@+id/countries"

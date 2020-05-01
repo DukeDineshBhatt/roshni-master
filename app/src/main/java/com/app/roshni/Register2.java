@@ -24,6 +24,7 @@ public class Register2 extends AppCompatActivity {
         pager = findViewById(R.id.pager);
 
         tabs.addTab(tabs.newTab().setText("COMPANY"));
+        tabs.addTab(tabs.newTab().setText("PICTURES"));
 
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
@@ -39,6 +40,7 @@ public class Register2 extends AppCompatActivity {
         }
 
         tabs.getTabAt(0).setText("COMPANY");
+        tabs.getTabAt(1).setText("PICTURES");
 
     }
 
@@ -54,14 +56,24 @@ public class Register2 extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-                return new brand();
+            if (position == 0) {
+
+                brand frag = new brand();
+                frag.setData(pager);
+                return frag;
+
+
+            } else {
+                return new Pictures();
+
+            }
 
 
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
     }
 

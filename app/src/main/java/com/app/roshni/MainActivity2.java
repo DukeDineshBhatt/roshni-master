@@ -185,9 +185,8 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity2.this , Web.class);
-                intent.putExtra("title" , getString(R.string.faqs));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/faq.php");
+                Intent intent = new Intent(MainActivity2.this , Knowledge.class);
+                intent.putExtra("title" ,  "brand");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

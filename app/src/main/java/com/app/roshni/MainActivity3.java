@@ -306,6 +306,8 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });
 
+        faq.setVisibility(View.GONE);
+
         bottom.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {

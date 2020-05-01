@@ -18,7 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.roshni.knowledgeDetailsPOJO.knowledgeDetailsBean;
 import com.app.roshni.knowledgeListPOJO.Data;
@@ -38,15 +41,25 @@ public class Knowledge extends AppCompatActivity {
     Toolbar toolbar;
     static ProgressBar progress;
     ViewPager pager;
+    String title;
+
+    TextView count;
+
+    ImageButton previous , next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledge);
 
+        title = getIntent().getStringExtra("title");
+
         toolbar = findViewById(R.id.toolbar);
         progress = findViewById(R.id.progressBar7);
         pager = findViewById(R.id.web);
+        previous = findViewById(R.id.imageButton5);
+        next = findViewById(R.id.imageButton6);
+        count = findViewById(R.id.textView49);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -74,14 +87,46 @@ public class Knowledge extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<knowledgeListBean> call = cr.getKnowledgeList("worker");
+        Call<knowledgeListBean> call = cr.getKnowledgeList(title);
 
         call.enqueue(new Callback<knowledgeListBean>() {
             @Override
             public void onResponse(Call<knowledgeListBean> call, Response<knowledgeListBean> response) {
 
-                PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager() , response.body().getData());
-                pager.setAdapter(adapter);
+                if (response.body().getData().size() > 0)
+                {
+                    previous.setVisibility(View.INVISIBLE);
+
+                    count.setText("1 / " + response.body().getData().size());
+
+                    PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager() , response.body().getData());
+                    pager.setAdapter(adapter);
+
+                    previous.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            pager.setCurrentItem(pager.getCurrentItem() - 1);
+
+                        }
+                    });
+
+                    next.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            pager.setCurrentItem(pager.getCurrentItem() + 1);
+
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(Knowledge.this, "No data found", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+
 
                 progress.setVisibility(View.GONE);
             }
@@ -91,6 +136,50 @@ public class Knowledge extends AppCompatActivity {
 progress.setVisibility(View.GONE);
             }
         });
+
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                count.setText((position + 1) + " / " + pager.getAdapter().getCount());
+
+                if (position == 0)
+                {
+                    previous.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    previous.setVisibility(View.VISIBLE);
+                }
+
+                if (position == pager.getAdapter().getCount() - 1)
+                {
+                    next.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    next.setVisibility(View.VISIBLE);
+                }
+
+
+
+                Log.d("pos" , String.valueOf(position));
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
 
 
 
@@ -155,7 +244,7 @@ progress.setVisibility(View.GONE);
                 @Override
                 public void onResponse(Call<knowledgeDetailsBean> call, Response<knowledgeDetailsBean> response) {
 
-                    Log.d("content" , response.body().getData().getContent());
+                    //Log.d("content" , response.body().getData().getContent());
                     web.loadData(response.body().getData().getContent() , "text/html", "UTF-8");
 
                     progress.setVisibility(View.GONE);

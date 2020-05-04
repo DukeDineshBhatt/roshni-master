@@ -31,7 +31,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class JobDetails extends AppCompatActivity {
 
     ImageButton back;
-    TextView title, company, address, skills, preferred, location, experience, role, gender, education, hours, salary, stype , commp;
+    TextView title, company, address, skills, preferred, location, experience, role, gender, education, hours, salary, stype , commp , positions , sector , nature , man_days , rate , place;
 
     Button apply;
 
@@ -67,6 +67,12 @@ public class JobDetails extends AppCompatActivity {
         progress = findViewById(R.id.progressBar4);
         header = findViewById(R.id.constraintLayout);
         commp = findViewById(R.id.company);
+        positions = findViewById(R.id.positions);
+        sector = findViewById(R.id.sector);
+        nature = findViewById(R.id.nature);
+        man_days = findViewById(R.id.man_days);
+        rate = findViewById(R.id.rate);
+        place = findViewById(R.id.place);
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +212,7 @@ public class JobDetails extends AppCompatActivity {
                     company.setText(item.getBrandName());
                     address.setText(item.getBrandStreet() + ", " + item.getBrandArea());
                     skills.setText(item.getSkills());
-                    //preferred.setText(item.getPreferred());
+                    preferred.setText(item.getSkillLevel());
                     location.setText(item.getLocation());
                     experience.setText(item.getExperience());
                     role.setText(item.getRole());
@@ -215,6 +221,12 @@ public class JobDetails extends AppCompatActivity {
                     hours.setText(item.getHours());
                     salary.setText(item.getSalary());
                     stype.setText(item.getStype());
+                    positions.setText(item.getPosition());
+                    sector.setText(item.getSector());
+                    nature.setText(item.getNature());
+                    man_days.setText(item.getManDays());
+                    rate.setText(item.getPieceRate());
+                    place.setText(item.getPlace());
 
                     if (item.getStatus().equals("1"))
                     {

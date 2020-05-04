@@ -298,11 +298,11 @@ public class FilterWorkerJob extends AppCompatActivity {
         });
 
 
-        Call<sectorBean> call2 = cr.getSkills();
+        Call<skillsBean> call2 = cr.getSkills1(SharePreferenceUtils.getInstance().getString("sector"));
 
-        call2.enqueue(new Callback<sectorBean>() {
+        call2.enqueue(new Callback<skillsBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
 
 
                 if (response.body().getStatus().equals("1")) {
@@ -350,7 +350,7 @@ public class FilterWorkerJob extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(Call<skillsBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

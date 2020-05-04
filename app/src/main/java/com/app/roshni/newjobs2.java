@@ -275,7 +275,10 @@ public class newjobs2 extends Fragment {
                     {
                         for (int j = 0 ; j < sk.size() ; j++)
                         {
-                            if (ll1.get(i).getSkills().equals(sk.get(j)))
+
+                            Log.d("sec" , sk.get(j));
+                            Log.d("sec1" , ll1.get(i).getJobType());
+                            if (ll1.get(i).getJobType().equals(sk.get(j)))
                             {
                                 ll2.add(ll1.get(i));
                             }

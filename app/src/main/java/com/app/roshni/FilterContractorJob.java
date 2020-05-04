@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -122,45 +123,118 @@ public class FilterContractorJob extends AppCompatActivity {
         }
 
 
-        ski.add("Embroidery");
+        /*ski.add("Embroidery");
         ski.add("Adda-Work");
         ski.add("Fashion Jewelry");
         ski.add("Bead-Work");
         ski.add("Stone-Work");
         ski.add("Artificial Jewelry");
+*/
 
 
-        skills.removeAllViews();
+        progress.setVisibility(View.VISIBLE);
 
-        String[] ski1 = skil1.split(",");
+        Bean b = (Bean) getApplicationContext();
 
-        for (int i = 0; i < ski.size(); i++) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-            Chip chip = (Chip) inflater.inflate(R.layout.chip, null);
-            chip.setText(ski.get(i));
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            for (String s : ski1) {
-                if (ski.get(i).equals(s)) {
-                    chip.setChecked(true);
-                }
-            }
 
-            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        final Call<skillsBean> call = cr.getRoles(SharePreferenceUtils.getInstance().getString("sector"));
 
-                    if (b) {
-                        sk.add(compoundButton.getText().toString());
-                    } else {
-                        sk.remove(compoundButton.getText().toString());
+        call.enqueue(new Callback<skillsBean>() {
+            @Override
+            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+                skills.removeAllViews();
+
+                String[] ski1 = skil1.split(",");
+
+                if (response.body().getStatus().equals("1")) {
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        Chip chip = (Chip) inflater.inflate(R.layout.chip , null);
+                        chip.setText(response.body().getData().get(i).getTitle());
+
+                        for (String s : ski1) {
+                            if (response.body().getData().get(i).getTitle().equals(s)) {
+                                chip.setChecked(true);
+                            }
+                        }
+
+                        chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                                if (b)
+                                {
+                                    sk.add(compoundButton.getText().toString());
+                                }
+                                else
+                                {
+                                    sk.remove(compoundButton.getText().toString());
+                                }
+
+                            }
+                        });
+
+                        skills.addView(chip);
+
+
                     }
 
+
+
                 }
-            });
 
-            skills.addView(chip);
 
-        }
+
+               /* for (int i = 0; i < ski.size(); i++) {
+
+                    Chip chip = (Chip) inflater.inflate(R.layout.chip, null);
+                    chip.setText(ski.get(i));
+
+                    for (String s : ski1) {
+                        if (ski.get(i).equals(s)) {
+                            chip.setChecked(true);
+                        }
+                    }
+
+                    chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                            if (b) {
+                                sk.add(compoundButton.getText().toString());
+                            } else {
+                                sk.remove(compoundButton.getText().toString());
+                            }
+
+                        }
+                    });
+
+                    skills.addView(chip);
+
+                }*/
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<skillsBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+
 
 
         clear.setOnClickListener(new View.OnClickListener() {

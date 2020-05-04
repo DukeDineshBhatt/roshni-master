@@ -33,7 +33,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class JobDetails2 extends AppCompatActivity {
 
     ImageButton back;
-    TextView title, company, address, type, experience, days, rate , commp;
+    TextView title, company, address, type, experience, days, rate , commp , sector;
 
     Button apply;
 
@@ -64,6 +64,7 @@ public class JobDetails2 extends AppCompatActivity {
         header = findViewById(R.id.constraintLayout);
         commp = findViewById(R.id.company);
         sample = findViewById(R.id.sample);
+        sector = findViewById(R.id.sector);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +210,7 @@ public class JobDetails2 extends AppCompatActivity {
                     days.setText(item.getDays());
                     experience.setText(item.getExperience());
                     rate.setText(item.getRate());
+                    sector.setText(item.getSector());
 
                     if (item.getStatus().equals("1"))
                     {

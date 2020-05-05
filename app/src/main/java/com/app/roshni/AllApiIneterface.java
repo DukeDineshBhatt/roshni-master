@@ -303,7 +303,8 @@ public interface AllApiIneterface {
             @Part("home") String home,
             @Part("workers") String workers,
             @Part("tools") String tools,
-            @Part("location") String location
+            @Part("location") String location,
+            @Part("bank") String bank
     );
 
     @Multipart

@@ -39,7 +39,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerProfessionalProfile extends Fragment {
 
-    Spinner sector, skills, experience, employment, home, workers, looms, location;
+    Spinner sector, experience, employment, home, workers, looms, location;
 
     String sect, skil, expe, empl, hhom, work, loom, loca;
 
@@ -50,7 +50,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
     String user_id;
 
-    EditText employer,editTextLoc;
+    EditText employer,editTextLoc , skills;
     TextView txtStatus;
 
 
@@ -136,7 +136,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
         sector.setEnabled(false);
-        skills.setEnabled(false);
+
         experience.setEnabled(false);
         employment.setEnabled(false);
         home.setEnabled(false);
@@ -252,6 +252,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
                 employer.setText(item.get(0).getEmployer());
+                skills.setText(item.get(0).getSkills());
 
 
 
@@ -325,10 +326,6 @@ public class WorkerProfessionalProfile extends Fragment {
 
                                     }
 
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                            R.layout.spinner_model, ski);
-
-                                    skills.setAdapter(adapter);
 
                                     int cp = 0;
                                     for (int i = 0; i < ski.size(); i++) {

@@ -2,6 +2,7 @@ package com.app.roshni;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,13 +41,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, looms, location;
+    Spinner sector, experience, employment, home, workers, looms, location , bank;
 
     MultiSelectSpinner skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca;
+    String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
-    List<String> sec, ski, exp, emp, hom, wor, loc;
+    List<String> sec, ski, exp, emp, hom, wor, loc , ban;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -77,12 +78,14 @@ public class professional extends Fragment {
         hom = new ArrayList<>();
         wor = new ArrayList<>();
         loc = new ArrayList<>();
+        ban = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
+        bank = view.findViewById(R.id.bank);
         skills = view.findViewById(R.id.skills);
         experience = view.findViewById(R.id.experience);
         employment = view.findViewById(R.id.employment);
@@ -104,6 +107,12 @@ public class professional extends Fragment {
 
         emp.add("Employed");
         emp.add("Unemployed");
+
+
+        ban.add("---");
+        ban.add("Yes");
+        ban.add("No");
+
 
         hom.add("Yes");
         hom.add("No");
@@ -151,12 +160,15 @@ public class professional extends Fragment {
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, wor);
 
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                R.layout.spinner_model, ban);
 
         experience.setAdapter(adapter2);
         employment.setAdapter(adapter3);
         home.setAdapter(adapter4);
         workers.setAdapter(adapter5);
         looms.setAdapter(adapter5);
+        bank.setAdapter(adapter6);
 
 
         experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -164,6 +176,20 @@ public class professional extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 expe = exp.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        bank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                bann = ban.get(i);
 
             }
 
@@ -331,14 +357,17 @@ public class professional extends Fragment {
                                     public void onItemsSelected(boolean[] selected) {
 
                                         skil = "";
+                                        List<String> sklist = new ArrayList<>();
 
                                         for (int i = 0 ; i < selected.length ; i++)
                                         {
                                             if (selected[i])
                                             {
-                                                skil = skil + "," + ski1.get(i);
+                                                sklist.add(ski1.get(i));
                                             }
                                         }
+
+                                        skil = TextUtils.join(",", sklist);
 
                                     }
                                 });
@@ -453,7 +482,8 @@ public class professional extends Fragment {
                                 hhom,
                                 work,
                                 loom,
-                                loca
+                                loca,
+                                bann
                         );
 
                         call.enqueue(new Callback<verifyBean>() {
@@ -534,6 +564,8 @@ public class professional extends Fragment {
         });
 
         //setPrevious();
+
+
 
         return view;
     }

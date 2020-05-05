@@ -68,7 +68,7 @@
     <string name="working_hours1">WORKING HOURS</string>
     <string name="salary_package1">SALARY PACKAGE</string>
     <string name="salary_type1">SALARY TYPE *</string>
-    <string name="submit">SUBMIT</string>
+    <string name="submit">NEXT</string>
     <string name="job_type1">JOB TYPE *</string>
     <string name="no_of_days_for_completion">NO. OF DAYS FOR COMPLETION *</string>
 
@@ -220,4 +220,5 @@
     <string name="manufacturing_unit3">MANUFACTURING UNITS</string>
     <string name="factory_outlet3">FACTORY OUTLET</string>
     <string name="importing_countries3">IMPORTING COUNTRIES</string>
+    <string name="your_age">YOUR AGE</string>
 </resources>

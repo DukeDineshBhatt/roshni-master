@@ -29,6 +29,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
+import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +40,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner sector, skills, experience, employment, home, workers, looms, location;
+    Spinner sector, experience, employment, home, workers, looms, location;
+
+    MultiSelectSpinner skills;
 
     String sect, skil, expe, empl, hhom, work, loom, loca;
 
@@ -294,7 +298,7 @@ public class professional extends Fragment {
 
         sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
 
                     sect = sec1.get(i);
 
@@ -318,9 +322,26 @@ public class professional extends Fragment {
                                 }
 
                                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                        R.layout.spinner_model, ski);
+                                        android.R.layout.simple_list_item_multiple_choice, ski);
 
-                                skills.setAdapter(adapter);
+
+
+                                skills.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
+                                    @Override
+                                    public void onItemsSelected(boolean[] selected) {
+
+                                        skil = "";
+
+                                        for (int i = 0 ; i < selected.length ; i++)
+                                        {
+                                            if (selected[i])
+                                            {
+                                                skil = skil + "," + ski1.get(i);
+                                            }
+                                        }
+
+                                    }
+                                });
 
                             }
 
@@ -344,6 +365,7 @@ public class professional extends Fragment {
             }
         });
 
+/*
         skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -357,6 +379,7 @@ public class professional extends Fragment {
 
             }
         });
+*/
 
         Call<sectorBean> call3 = cr.getLocations();
 

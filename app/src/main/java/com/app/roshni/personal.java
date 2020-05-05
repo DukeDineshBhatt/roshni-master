@@ -23,9 +23,11 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,6 +50,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -71,6 +74,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -79,6 +83,7 @@ import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -95,7 +100,7 @@ import static android.app.Activity.RESULT_OK;
 public class personal extends Fragment {
 
     private static final String TAG = "personal";
-    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof;
+    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
 
     private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, prf;
 
@@ -106,7 +111,7 @@ public class personal extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> gen, cat, rel, edu, mar, chi, prof;
+    private List<String> gen, cat, rel, edu, mar, chi, prof , agg;
 
     private Uri uri;
     private File f1;
@@ -137,6 +142,10 @@ public class personal extends Fragment {
         this.pager = pager;
     }
 
+    String lat = "" , lng = "";
+
+    String ag;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -149,6 +158,7 @@ public class personal extends Fragment {
         mar = new ArrayList<>();
         chi = new ArrayList<>();
         prof = new ArrayList<>();
+        agg = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -167,7 +177,12 @@ public class personal extends Fragment {
                         if (location != null) {
                             // Logic to handle location object
                             mLastKnownLocation = location;
-                            Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
+
+                            lat = String.valueOf(mLastKnownLocation.getLatitude());
+                                    lng = String.valueOf(mLastKnownLocation.getLongitude());
+
+
+                                    Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
                         }
 
 
@@ -187,6 +202,7 @@ public class personal extends Fragment {
         }
 
         name = view.findViewById(R.id.editText);
+        age = view.findViewById(R.id.age);
         dob = view.findViewById(R.id.editText2);
         cpin = view.findViewById(R.id.editText3);
         cstate = view.findViewById(R.id.editText4);
@@ -230,6 +246,13 @@ public class personal extends Fragment {
 
         gen.add("Male");
         gen.add("Female");
+
+        for (int i = 14 ; i <= 100 ; i++)
+        {
+            agg.add("" + i);
+        }
+
+
 
         cat.add("SC");
         cat.add("ST");
@@ -298,6 +321,8 @@ public class personal extends Fragment {
         ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, prof);
 
+        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
+                R.layout.spinner_model, agg);
 
         gender.setAdapter(adapter);
         category.setAdapter(adapter1);
@@ -310,8 +335,9 @@ public class personal extends Fragment {
         fifteento18.setAdapter(adapter5);
         goingtoschool.setAdapter(adapter5);
         proof.setAdapter(adapter6);
+        age.setAdapter(adapter7);
 
-        cstate.setOnClickListener(new View.OnClickListener() {
+       /* cstate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -324,7 +350,7 @@ public class personal extends Fragment {
                 startActivityForResult(intent, 11);
 
             }
-        });
+        });*/
 
         cdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,7 +367,7 @@ public class personal extends Fragment {
             }
         });
 
-        pstate.setOnClickListener(new View.OnClickListener() {
+       /* pstate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -354,7 +380,7 @@ public class personal extends Fragment {
                 startActivityForResult(intent, 13);
 
             }
-        });
+        });*/
 
         pdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -375,6 +401,18 @@ public class personal extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     gend = gen.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ag = agg.get(i);
             }
 
             @Override
@@ -610,7 +648,35 @@ public class personal extends Fragment {
             @Override
             public void onClick(View view) {
 
-                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
+                new SingleDateAndTimePickerDialog.Builder(getActivity())
+                        //.bottomSheet()
+                        .curved()
+                        .displayMinutes(false)
+                        .displayHours(false)
+                        .displayDays(false)
+                        .displayMonth(true)
+                        .displayYears(true)
+                        .displayDaysOfMonth(true)
+                        .listener(new SingleDateAndTimePickerDialog.Listener() {
+                            @Override
+                            public void onDateSelected(Date date) {
+
+                                //date.getTime();
+
+                                Date dt = new Date(date.getTime());
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                                String dd = sdf.format(dt);
+
+
+                                Log.d("dddd", dd);
+
+                                dob.setText(dd);
+
+                            }
+                        })
+                        .display();
+
+                /*final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dob_popup);
                 dialog.setCancelable(true);
@@ -633,7 +699,7 @@ public class personal extends Fragment {
 
                     }
                 });
-
+*/
             }
         });
 
@@ -722,8 +788,8 @@ public class personal extends Fragment {
                                                                             n,
                                                                             prf,
                                                                             idno,
-                                                                            String.valueOf(mLastKnownLocation.getLatitude()),
-                                                                            String.valueOf(mLastKnownLocation.getLongitude()),
+                                                                            lat,
+                                                                            lng,
                                                                             d,
                                                                             gend,
                                                                             cp,
@@ -745,6 +811,7 @@ public class personal extends Fragment {
                                                                             sixt,
                                                                             fift,
                                                                             goin,
+                                                                            ag,
                                                                             body
                                                                     );
 
@@ -883,7 +950,26 @@ public class personal extends Fragment {
 
             String ypath = getPath(getContext(), uri);
             assert ypath != null;
-            f1 = new File(ypath);
+
+
+            File file = null;
+            file = new File(ypath);
+
+            try {
+                f1 = new Compressor(getContext()).compressToFile(file);
+
+                uri = Uri.fromFile(f1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("path1", ypath);
+
+            image.setImageURI(uri);
+
+
+            /*f1 = new File(ypath);
 
             Log.d("path", ypath);
 
@@ -894,9 +980,24 @@ public class personal extends Fragment {
 
             Log.d("bitmap", String.valueOf(bmp));
 
-            image.setImageBitmap(bmp);
+            image.setImageBitmap(bmp);*/
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri));
+
+            try {
+
+                File file = new Compressor(getContext()).compressToFile(f1);
+
+                f1 = file;
+
+                uri = Uri.fromFile(f1);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image.setImageURI(uri);
         }
 
@@ -936,8 +1037,10 @@ public class personal extends Fragment {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
                     String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
+                    cstate.setText(stat);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -989,9 +1092,9 @@ public class personal extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getSubLocality();
-
+                    String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
-
+                    pstate.setText(stat);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1268,5 +1371,7 @@ public class personal extends Fragment {
             }
         }
     }
+
+
 
 }

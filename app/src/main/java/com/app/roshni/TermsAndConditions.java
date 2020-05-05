@@ -31,7 +31,7 @@ public class TermsAndConditions extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!chk1.isChecked()) {
+                /*if (!chk1.isChecked()) {
 
                     Toast.makeText(TermsAndConditions.this, "You must agree our all terms & conditions to proceed", Toast.LENGTH_SHORT).show();
 
@@ -48,12 +48,12 @@ public class TermsAndConditions extends AppCompatActivity {
                     Toast.makeText(TermsAndConditions.this, "You must agree our all terms & conditions to proceed", Toast.LENGTH_SHORT).show();
 
                 } else {
-
+*/
                     Intent intent = new Intent(TermsAndConditions.this, CreatePIN.class);
                     startActivity(intent);
                     Toast.makeText(TermsAndConditions.this, "Please create a PIN to continue", Toast.LENGTH_SHORT).show();
                     finishAffinity();
-                }
+                //}
 
             }
         });

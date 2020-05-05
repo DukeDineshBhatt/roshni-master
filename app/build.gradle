@@ -65,5 +65,8 @@ dependencies {
     implementation "com.hootsuite.android:nachos:1.1.1"
 
     implementation 'com.google.android.libraries.places:places:2.2.0'
+    implementation 'com.github.florent37:singledateandtimepicker:2.2.4'
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'io.apptik.widget:multiselectspinner:1.0.12'
 
 }

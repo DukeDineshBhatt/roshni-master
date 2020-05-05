@@ -134,6 +134,9 @@ public class WorkerByIdData {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("age")
+    @Expose
+    private String age;
 
     public String getUserId() {
         return userId;
@@ -477,5 +480,13 @@ public class WorkerByIdData {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 }

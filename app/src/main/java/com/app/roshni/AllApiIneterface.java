@@ -97,6 +97,7 @@ public interface AllApiIneterface {
             @Part("sixtofourteen") String sixtofourteen,
             @Part("fifteentoeighteen") String fifteentoeighteen,
             @Part("goingtoschool") String goingtoschool,
+            @Part("age") String age,
             @Part MultipartBody.Part file1
     );
 

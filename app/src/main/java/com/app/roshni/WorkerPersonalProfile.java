@@ -37,7 +37,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerPersonalProfile extends Fragment {
 
-    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof;
+    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
 
 
     private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu;
@@ -46,7 +46,7 @@ public class WorkerPersonalProfile extends Fragment {
 
     TextView txtStatus;
 
-    private List<String> gen, cat, rel, edu, mar, chi, prof;
+    private List<String> gen, cat, rel, edu, mar, chi, prof , agg;
 
     private LinearLayout permanent, child;
 
@@ -72,9 +72,11 @@ public class WorkerPersonalProfile extends Fragment {
         mar = new ArrayList<>();
         chi = new ArrayList<>();
         prof = new ArrayList<>();
+        agg = new ArrayList<>();
 
         name = view.findViewById(R.id.editText);
         dob = view.findViewById(R.id.editText2);
+        age = view.findViewById(R.id.age);
         cpin = view.findViewById(R.id.editText3);
         cstate = view.findViewById(R.id.editText4);
         cdistrict = view.findViewById(R.id.editText5);
@@ -116,6 +118,11 @@ public class WorkerPersonalProfile extends Fragment {
 
         gen.add("Male");
         gen.add("Female");
+
+        for (int i = 14 ; i <= 100 ; i++)
+        {
+            agg.add("" + i);
+        }
 
         cat.add("SC");
         cat.add("ST");
@@ -184,6 +191,8 @@ public class WorkerPersonalProfile extends Fragment {
         ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, prof);
 
+        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
+                R.layout.spinner_model, agg);
 
         proof.setEnabled(false);
         gender.setEnabled(false);
@@ -196,6 +205,7 @@ public class WorkerPersonalProfile extends Fragment {
         sixto14.setEnabled(false);
         fifteento18.setEnabled(false);
         goingtoschool.setEnabled(false);
+        age.setEnabled(false);
 
         gender.setAdapter(adapter);
         category.setAdapter(adapter1);
@@ -208,6 +218,7 @@ public class WorkerPersonalProfile extends Fragment {
         fifteento18.setAdapter(adapter5);
         goingtoschool.setAdapter(adapter5);
         proof.setAdapter(adapter6);
+        age.setAdapter(adapter7);
 
 
         setPrevious();
@@ -275,6 +286,14 @@ public class WorkerPersonalProfile extends Fragment {
                 parea.setText(item.get(0).getParea());
                 pdistrict.setText(item.get(0).getPdistrict());
                 pstate.setText(item.get(0).getPstate());
+
+                int cp12 = 0;
+                for (int i = 0; i < agg.size(); i++) {
+                    if (item.get(0).getAge().equals(agg.get(i))) {
+                        cp12 = i;
+                    }
+                }
+                age.setSelection(cp12);
 
                 int cp = 0;
                 for (int i = 0; i < prof.size(); i++) {

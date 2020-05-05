@@ -222,4 +222,5 @@
     <string name="importing_countries3">IMPORTING COUNTRIES</string>
     <string name="your_age">YOUR AGE</string>
     <string name="do_you_have_bank_account">DO YOU HAVE BANK ACCOUNT?</string>
+    <string name="bank_account">BANK ACCOUNT</string>
 </resources>

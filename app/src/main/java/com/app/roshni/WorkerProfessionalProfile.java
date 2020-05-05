@@ -39,11 +39,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerProfessionalProfile extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, looms, location;
+    Spinner sector, experience, employment, home, workers, looms, location , bank;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca;
+    String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
-    List<String> sec, ski, exp, emp, hom, wor, loc;
+    List<String> sec, ski, exp, emp, hom, wor, loc , ban;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -69,12 +69,14 @@ public class WorkerProfessionalProfile extends Fragment {
         hom = new ArrayList<>();
         wor = new ArrayList<>();
         loc = new ArrayList<>();
+        ban = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
+        bank = view.findViewById(R.id.bank);
         skills = view.findViewById(R.id.skills);
         experience = view.findViewById(R.id.experience);
         employment = view.findViewById(R.id.employment);
@@ -94,6 +96,10 @@ public class WorkerProfessionalProfile extends Fragment {
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
+
+        ban.add("---");
+        ban.add("Yes");
+        ban.add("No");
 
         emp.add("Employed");
         emp.add("Unemployed");
@@ -133,7 +139,8 @@ public class WorkerProfessionalProfile extends Fragment {
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, wor);
-
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                R.layout.spinner_model, ban);
 
         sector.setEnabled(false);
 
@@ -143,12 +150,14 @@ public class WorkerProfessionalProfile extends Fragment {
         workers.setEnabled(false);
         looms.setEnabled(false);
         location.setEnabled(false);
+        bank.setEnabled(false);
 
         experience.setAdapter(adapter2);
         employment.setAdapter(adapter3);
         home.setAdapter(adapter4);
         workers.setAdapter(adapter5);
         looms.setAdapter(adapter5);
+        bank.setAdapter(adapter6);
 
 
         //setPrevious();
@@ -411,6 +420,14 @@ public class WorkerProfessionalProfile extends Fragment {
                     }
                 }
                 workers.setSelection(chp);
+
+                int chp1 = 0;
+                for (int i = 0; i < ban.size(); i++) {
+                    if (item.get(0).getBank().equals(ban.get(i))) {
+                        chp1 = i;
+                    }
+                }
+                bank.setSelection(chp1);
 
                 int bp = 0;
                 for (int i = 0; i < wor.size(); i++) {

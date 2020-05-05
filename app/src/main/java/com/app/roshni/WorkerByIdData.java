@@ -137,6 +137,10 @@ public class WorkerByIdData {
     @SerializedName("age")
     @Expose
     private String age;
+    @SerializedName("bank")
+    @Expose
+    private String bank;
+
 
     public String getUserId() {
         return userId;
@@ -488,5 +492,13 @@ public class WorkerByIdData {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
     }
 }

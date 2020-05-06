@@ -388,8 +388,11 @@ public interface AllApiIneterface {
     @GET("roshni/api/getLocations.php")
     Call<sectorBean> getLocations();
 
-    @GET("roshni/api/getAllWorkers.php")
-    Call<workerListBean> getAllWorkers();
+    @Multipart
+    @POST("roshni/api/getAllWorkers.php")
+    Call<workerListBean> getAllWorkers(
+            @Part("user_id") String user_id
+    );
 
     @Multipart
     @POST("roshni/api/getContWorkers.php")
@@ -397,8 +400,11 @@ public interface AllApiIneterface {
             @Part("cuid") String cuid
     );
 
-    @GET("roshni/api/getAllConttractors.php")
-    Call<workerListBean> getAllConttractors();
+    @Multipart
+    @POST("roshni/api/getAllConttractors.php")
+    Call<workerListBean> getAllConttractors(
+            @Part("user_id") String user_id
+    );
 
     @Multipart
     @POST("roshni/api/getAppliedWorkers.php")

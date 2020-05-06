@@ -72,11 +72,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class ContractorPersonalProfile extends Fragment {
 
-    private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype , sector;
+    private Spinner gender, establishment, experience, availability, firm, proof, firmtype , sector;
 
     private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work;
 
     TagsEditText location;
     TextView txtStatus;
@@ -275,7 +275,6 @@ public class ContractorPersonalProfile extends Fragment {
         sector.setEnabled(false);
         establishment.setEnabled(false);
         experience.setEnabled(false);
-        work.setEnabled(false);
         availability.setEnabled(false);
         firm.setEnabled(false);
         proof.setEnabled(false);
@@ -285,7 +284,6 @@ public class ContractorPersonalProfile extends Fragment {
         gender.setAdapter(adapter);
         establishment.setAdapter(adapter1);
         experience.setAdapter(adapter2);
-        work.setAdapter(adapter3);
         availability.setAdapter(adapter4);
         firm.setAdapter(adapter5);
         proof.setAdapter(adapter6);
@@ -486,6 +484,7 @@ public class ContractorPersonalProfile extends Fragment {
                 //type.setText(item.getWorkType());
                 employer.setText(item.getEmployer());
                 about.setText(item.getAbout());
+                work.setText(item.getWorkType());
 
                 final Call<sectorBean> call2 = cr.getSectors();
 
@@ -531,7 +530,7 @@ public class ContractorPersonalProfile extends Fragment {
                 });
 
 
-                sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                /*sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -589,7 +588,7 @@ public class ContractorPersonalProfile extends Fragment {
                     public void onNothingSelected(AdapterView<?> adapterView) {
 
                     }
-                });
+                });*/
 
                 int gp = 0;
                 for (int i = 0; i < gen.size(); i++) {

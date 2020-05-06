@@ -125,7 +125,7 @@
     <string name="year_of_establishment">YEAR OF ESTABLISHMENT</string>
     <string name="your_permanent_address">YOUR PERMANENT ADDRESS *</string>
     <string name="no_of_home_based_units">NO. OF HOME BASED UNITS</string>
-    <string name="location_of_home_based_units">LOCATION OF HOME BASED UNITS *</string>
+    <string name="location_of_home_based_units">LOCATION OF HOME BASED UNITS</string>
     <string name="male">MALE</string>
     <string name="female">FEMALE</string>
     <string name="types_of_work1">TYPES OF WORK *</string>
@@ -223,4 +223,5 @@
     <string name="your_age">YOUR AGE</string>
     <string name="do_you_have_bank_account">DO YOU HAVE BANK ACCOUNT?</string>
     <string name="bank_account">BANK ACCOUNT</string>
+    <string name="hit_enter_to_add_location">hit enter to add location</string>
 </resources>

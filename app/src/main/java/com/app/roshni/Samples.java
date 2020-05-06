@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -325,9 +326,21 @@ public class Samples extends Fragment {
 
             String ypath = getPath(getContext(), uri);
             assert ypath != null;
-            f1 = new File(ypath);
 
-            Log.d("path", ypath);
+
+            File file = null;
+            file = new File(ypath);
+
+            try {
+                f1 = new Compressor(getContext()).compressToFile(file);
+
+                uri = Uri.fromFile(f1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("path1", ypath);
 
             MultipartBody.Part body = null;
 
@@ -378,7 +391,19 @@ public class Samples extends Fragment {
             //image.setImageBitmap(bmp);
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
-            //image.setImageURI(uri);
+            Log.d("uri1", String.valueOf(uri));
+
+            try {
+
+                File file = new Compressor(getContext()).compressToFile(f1);
+
+                f1 = file;
+
+                uri = Uri.fromFile(f1);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
 
             MultipartBody.Part body = null;
 

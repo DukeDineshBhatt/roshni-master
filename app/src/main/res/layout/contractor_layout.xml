@@ -70,7 +70,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tab to enter id number"
+                android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 />
@@ -606,7 +606,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:gravity="center_vertical"
-                android:hint="@string/hit_enter_to_add_products"
+                android:hint="@string/hit_enter_to_add_location"
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
                 app:allowSpaceInTag="true"
@@ -730,13 +730,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round">
 
-                <Spinner
+                <io.apptik.widget.multiselectspinner.MultiSelectSpinner
                     android:id="@+id/work"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

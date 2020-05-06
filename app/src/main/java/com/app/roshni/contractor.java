@@ -49,6 +49,7 @@ import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -69,6 +70,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -77,6 +79,9 @@ import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
+import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
+import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import mabbas007.tagsedittext.TagsEditText;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -94,9 +99,11 @@ import static android.app.Activity.RESULT_OK;
 public class contractor extends Fragment {
 
     private static final String TAG = "conracao";
-    private Spinner gender, establishment, experience, work, availability, firm, proof, firmtype, sector;
+    private Spinner gender, establishment, experience, availability, firm, proof, firmtype, sector;
 
-    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp, sect;
+    MultiSelectSpinner work;
+
+    private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect;
 
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
 
@@ -135,6 +142,7 @@ public class contractor extends Fragment {
         this.pager = pager;
     }
 
+    String lat = "" , lng = "";
 
     @Nullable
     @Override
@@ -170,6 +178,8 @@ public class contractor extends Fragment {
                         if (location != null) {
                             // Logic to handle location object
                             mLastKnownLocation = location;
+                            lat = String.valueOf(mLastKnownLocation.getLatitude());
+                            lng = String.valueOf(mLastKnownLocation.getLongitude());
                             Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
                         }
 
@@ -217,7 +227,7 @@ public class contractor extends Fragment {
         firmtype = view.findViewById(R.id.firmtype);
         reg_no = view.findViewById(R.id.reg_no);
 
-        cstate.setOnClickListener(new View.OnClickListener() {
+        /* cstate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -230,7 +240,7 @@ public class contractor extends Fragment {
                 startActivityForResult(intent, 11);
 
             }
-        });
+        });*/
 
         cdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,7 +257,7 @@ public class contractor extends Fragment {
             }
         });
 
-        pstate.setOnClickListener(new View.OnClickListener() {
+       /* pstate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -260,7 +270,7 @@ public class contractor extends Fragment {
                 startActivityForResult(intent, 13);
 
             }
-        });
+        });*/
 
         pdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -601,10 +611,38 @@ public class contractor extends Fragment {
 
                             }
 
+
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    android.R.layout.simple_list_item_multiple_choice, wty);
+
+
+
+                            work.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
+                                @Override
+                                public void onItemsSelected(boolean[] selected) {
+
+                                    wtyp = "";
+                                    List<String> sklist = new ArrayList<>();
+
+                                    for (int i = 0 ; i < selected.length ; i++)
+                                    {
+                                        if (selected[i])
+                                        {
+                                            sklist.add(wty1.get(i));
+                                        }
+                                    }
+
+                                    wtyp = TextUtils.join(",", sklist);
+
+                                }
+                            });
+
+
+
+                            /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                                     R.layout.spinner_model, wty);
 
-                            work.setAdapter(adapter);
+                            work.setAdapter(adapter);*/
 
                         }
 
@@ -627,7 +665,7 @@ public class contractor extends Fragment {
             }
         });
 
-        work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -639,7 +677,7 @@ public class contractor extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -696,29 +734,33 @@ public class contractor extends Fragment {
             @Override
             public void onClick(View view) {
 
-                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dob_popup);
-                dialog.setCancelable(true);
-                dialog.show();
+                new SingleDateAndTimePickerDialog.Builder(getActivity())
+                        //.bottomSheet()
+                        .curved()
+                        .displayMinutes(false)
+                        .displayHours(false)
+                        .displayDays(false)
+                        .displayMonth(true)
+                        .displayYears(true)
+                        .displayDaysOfMonth(true)
+                        .listener(new SingleDateAndTimePickerDialog.Listener() {
+                            @Override
+                            public void onDateSelected(Date date) {
 
-                Button submit = dialog.findViewById(R.id.button11);
-                final DatePicker dp = dialog.findViewById(R.id.view14);
+                                //date.getTime();
 
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                                Date dt = new Date(date.getTime());
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                                String dd = sdf.format(dt);
 
-                        String dd = dp.getDayOfMonth() + "-" + (dp.getMonth() + 1) + "-" + dp.getYear();
 
-                        Log.d("dddd", dd);
+                                Log.d("dddd", dd);
 
-                        dob.setText(dd);
+                                dob.setText(dd);
 
-                        dialog.dismiss();
-
-                    }
-                });
+                            }
+                        })
+                        .display();
 
             }
         });
@@ -781,129 +823,138 @@ public class contractor extends Fragment {
 
                                             if (f.length() > 0) {
 
-                                                MultipartBody.Part body = null;
+                                                if (wtyp.length() > 0)
+                                                {
+                                                    MultipartBody.Part body = null;
 
-                                                try {
+                                                    try {
 
-                                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                    body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
-
-
-                                                } catch (Exception e1) {
-                                                    e1.printStackTrace();
-                                                }
-
-                                                progress.setVisibility(View.VISIBLE);
-
-                                                Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                Retrofit retrofit = new Retrofit.Builder()
-                                                        .baseUrl(b1.baseurl)
-                                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                                        .addConverterFactory(GsonConverterFactory.create())
-                                                        .build();
-
-                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                Call<verifyBean> call = cr.update_contractor(
-                                                        SharePreferenceUtils.getInstance().getString("user_id"),
-                                                        n,
-                                                        prf,
-                                                        p,
-                                                        frmy,
-                                                        frmytyp,
-                                                        r,
-                                                        String.valueOf(mLastKnownLocation.getLatitude()),
-                                                        String.valueOf(mLastKnownLocation.getLongitude()),
-                                                        d,
-                                                        gend,
-                                                        b,
-                                                        esta,
-                                                        cp,
-                                                        cs,
-                                                        cd,
-                                                        ca,
-                                                        cst,
-                                                        pp,
-                                                        ps,
-                                                        pd,
-                                                        pa,
-                                                        pst,
-                                                        h,
-                                                        l,
-                                                        m,
-                                                        f,
-                                                        expe,
-                                                        wtyp,
-                                                        avai,
-                                                        e,
-                                                        ab,
-                                                        sect,
-                                                        body
-                                                );
-
-                                                call.enqueue(new Callback<verifyBean>() {
-                                                    @Override
-                                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                        assert response.body() != null;
-                                                        if (response.body().getStatus().equals("1")) {
-                                                            Data item = response.body().getData();
+                                                        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                        body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                            SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                            SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                            SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                            SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                            SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                            SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
-                                                            SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
-                                                            SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                            SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                            SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                            SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                            SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                            SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                            SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                            SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                            SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                            SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                            SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
-                                                            SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
-                                                            SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
-                                                            SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
-                                                            SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
-                                                            SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
-                                                            SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                            SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                            SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
+                                                    } catch (Exception e1) {
+                                                        e1.printStackTrace();
+                                                    }
+
+                                                    progress.setVisibility(View.VISIBLE);
+
+                                                    Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+
+                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                            .baseUrl(b1.baseurl)
+                                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
+
+                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                    Call<verifyBean> call = cr.update_contractor(
+                                                            SharePreferenceUtils.getInstance().getString("user_id"),
+                                                            n,
+                                                            prf,
+                                                            p,
+                                                            frmy,
+                                                            frmytyp,
+                                                            r,
+                                                            lat,
+                                                            lng,
+                                                            d,
+                                                            gend,
+                                                            b,
+                                                            esta,
+                                                            cp,
+                                                            cs,
+                                                            cd,
+                                                            ca,
+                                                            cst,
+                                                            pp,
+                                                            ps,
+                                                            pd,
+                                                            pa,
+                                                            pst,
+                                                            h,
+                                                            l,
+                                                            m,
+                                                            f,
+                                                            expe,
+                                                            wtyp,
+                                                            avai,
+                                                            e,
+                                                            ab,
+                                                            sect,
+                                                            body
+                                                    );
+
+                                                    call.enqueue(new Callback<verifyBean>() {
+                                                        @Override
+                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                                            assert response.body() != null;
+                                                            if (response.body().getStatus().equals("1")) {
+                                                                Data item = response.body().getData();
 
 
-                                                            Intent registrationComplete = new Intent("photo");
+                                                                SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                                                SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                                                SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                                                SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                                                SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                                                SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
+                                                                SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
+                                                                SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                                                SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                                                SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                                                SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                                                SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                                                SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                                                SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                                                SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                                                SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                                                SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                                                SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
+                                                                SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
+                                                                SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
+                                                                SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
+                                                                SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
+                                                                SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
+                                                                SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                                                SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                                                SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
 
-                                                            LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+
+                                                                Intent registrationComplete = new Intent("photo");
+
+                                                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
 
                                                                                                         /*Intent intent = new Intent(getContext(), MainActivity3.class);
                                                                                                         startActivity(intent);
                                                                                                         getActivity().finishAffinity();*/
 
-                                                            pager.setCurrentItem(1);
+                                                                pager.setCurrentItem(1);
 
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+
+
+                                                            progress.setVisibility(View.GONE);
+
                                                         }
 
+                                                        @Override
+                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                            progress.setVisibility(View.GONE);
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(getContext(), "Please select type of work", Toast.LENGTH_SHORT).show();
+                                                }
 
-                                                        progress.setVisibility(View.GONE);
 
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                        progress.setVisibility(View.GONE);
-                                                    }
-                                                });
 
                                             } else {
                                                 Toast.makeText(getContext(), "Invalid female workers", Toast.LENGTH_SHORT).show();
@@ -952,7 +1003,26 @@ public class contractor extends Fragment {
 
             String ypath = getPath(getContext(), uri);
             assert ypath != null;
-            f1 = new File(ypath);
+
+
+            File file = null;
+            file = new File(ypath);
+
+            try {
+                f1 = new Compressor(getContext()).compressToFile(file);
+
+                uri = Uri.fromFile(f1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("path1", ypath);
+
+            image.setImageURI(uri);
+
+
+            /*f1 = new File(ypath);
 
             Log.d("path", ypath);
 
@@ -963,9 +1033,24 @@ public class contractor extends Fragment {
 
             Log.d("bitmap", String.valueOf(bmp));
 
-            image.setImageBitmap(bmp);
+            image.setImageBitmap(bmp);*/
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri));
+
+            try {
+
+                File file = new Compressor(getContext()).compressToFile(f1);
+
+                f1 = file;
+
+                uri = Uri.fromFile(f1);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image.setImageURI(uri);
         }
 
@@ -1005,8 +1090,10 @@ public class contractor extends Fragment {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
                     String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
+                    cstate.setText(stat);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -1058,9 +1145,9 @@ public class contractor extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getSubLocality();
-
+                    String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
-
+                    pstate.setText(stat);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

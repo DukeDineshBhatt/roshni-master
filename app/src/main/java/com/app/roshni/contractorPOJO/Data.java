@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Data {
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -100,6 +101,9 @@ public class Data {
     @SerializedName("work_type")
     @Expose
     private String workType;
+    @SerializedName("work_type_id")
+    @Expose
+    private String workTypeId;
     @SerializedName("availability")
     @Expose
     private String availability;
@@ -378,6 +382,14 @@ public class Data {
         this.workType = workType;
     }
 
+    public String getWorkTypeId() {
+        return workTypeId;
+    }
+
+    public void setWorkTypeId(String workTypeId) {
+        this.workTypeId = workTypeId;
+    }
+
     public String getAvailability() {
         return availability;
     }
@@ -433,6 +445,7 @@ public class Data {
     public void setCreated(String created) {
         this.created = created;
     }
+
 
 
 }

@@ -125,7 +125,7 @@
     <string name="year_of_establishment">"स्थापना का साल "</string>
     <string name="your_permanent_address">आपका स्थायी पता *</string>
     <string name="no_of_home_based_units">घर आधारित इकाई की संख्या</string>
-    <string name="location_of_home_based_units">घर आधारित इकाई का स्थान  *</string>
+    <string name="location_of_home_based_units">घर आधारित इकाई का स्थान</string>
     <string name="male">MALE</string>
     <string name="female">FEMALE</string>
     <string name="types_of_work1">कार्य के प्रकार *</string>

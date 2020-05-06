@@ -542,6 +542,7 @@
                 app:chipHeight="30dp"
                 app:chipTextColor="#ffffff"
                 app:chipTextSize="16dp"
+                android:hint="@string/hit_enter_to_add_products"
                 android:padding="5dp"
                 app:chipVerticalSpacing="3dp"
                 android:background="@drawable/white_back_round"
@@ -569,7 +570,6 @@
                 android:background="@drawable/white_back_round"
                 android:gravity="center_vertical"
                 android:hint="@string/hit_enter_to_add_countries"
-                android:inputType="textPostalAddress"
                 android:padding="5dp" />
 
 

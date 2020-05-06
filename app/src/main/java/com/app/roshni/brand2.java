@@ -229,32 +229,32 @@ public class brand2 extends Fragment {
         upload.setVisibility(View.GONE);
         submit.setVisibility(View.GONE);
 
-        name.setEnabled(false);
+
         firm.setEnabled(false);
         firmtype.setEnabled(false);
-        regi.setEnabled(false);
+
         sector.setEnabled(false);
-        person.setEnabled(false);
-        contact_details.setEnabled(false);
-        cstreet.setEnabled(false);
-        carea.setEnabled(false);
-        cdistrict.setEnabled(false);
-        cstate.setEnabled(false);
-        cpin.setEnabled(false);
-        pstreet.setEnabled(false);
-        parea.setEnabled(false);
-        pdistrict.setEnabled(false);
-        pstate.setEnabled(false);
-        ppin.setEnabled(false);
+        //person.setEnabled(false);
+        //contact_details.setEnabled(false);
+        //cstreet.setEnabled(false);
+        //carea.setEnabled(false);
+        //cdistrict.setEnabled(false);
+        //cstate.setEnabled(false);
+        //cpin.setEnabled(false);
+        //pstreet.setEnabled(false);
+        //parea.setEnabled(false);
+        //pdistrict.setEnabled(false);
+        //pstate.setEnabled(false);
+        //ppin.setEnabled(false);
         manufacturing.setEnabled(false);
-        factory.setEnabled(false);
-        products.setEnabled(false);
-        countries.setEnabled(false);
-        workers.setEnabled(false);
+        //factory.setEnabled(false);
+        //products.setEnabled(false);
+        //countries.setEnabled(false);
+        //workers.setEnabled(false);
         certification.setEnabled(false);
-        expiry.setEnabled(false);
-        website.setEnabled(false);
-        email.setEnabled(false);
+        //expiry.setEnabled(false);
+        //website.setEnabled(false);
+        //email.setEnabled(false);
 
 
         products.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);

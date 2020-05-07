@@ -1,5 +1,6 @@
 package com.app.roshni;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,7 +41,7 @@ public class REgister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-onBackPressed();
+                onBackPressed();
 
             }
         });
@@ -112,9 +114,36 @@ onBackPressed();
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(REgister.this , TermsAndConditions2.class);
-        intent.putExtra("type" , "worker");
-        startActivity(intent);
-        finish();
+
+        new AlertDialog.Builder(REgister.this)
+                .setTitle("Confirm")
+                .setMessage("Are you sure you want to go back?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                        Intent intent = new Intent(REgister.this, TermsAndConditions2.class);
+                        intent.putExtra("type", "worker");
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .show();
+
+
     }
 }

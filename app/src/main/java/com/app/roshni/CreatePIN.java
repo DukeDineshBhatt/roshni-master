@@ -2,10 +2,14 @@ package com.app.roshni;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -149,14 +153,22 @@ public class CreatePIN extends AppCompatActivity {
                                         startActivity(intent);
                                         finishAffinity();
 
-                                        Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                        toast.show();
+
+                                        //Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
                                     }else if (response.body().getData().getType().equals("brand"))
                                     {
                                         Intent intent = new Intent(CreatePIN.this , MainActivity2.class);
                                         startActivity(intent);
                                         finishAffinity();
 
-                                        Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                        toast.show();
+
+                                        //Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
                                     }
                                     else
                                     {
@@ -164,7 +176,11 @@ public class CreatePIN extends AppCompatActivity {
                                         startActivity(intent);
                                         finishAffinity();
 
-                                        Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                        toast.show();
+
+                                        //Toast.makeText(CreatePIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
                                     }
 
 
@@ -191,13 +207,21 @@ public class CreatePIN extends AppCompatActivity {
                                         finishAffinity();
                                     }
 
-                                    Toast.makeText(CreatePIN.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT).show();
+                                    Toast toast = Toast.makeText(CreatePIN.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                    toast.show();
+
+                                    //Toast.makeText(CreatePIN.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT).show();
 
                                 }
 
 
                                 } else {
-                                    Toast.makeText(CreatePIN.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast toast = Toast.makeText(CreatePIN.this,  response.body().getMessage(), Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                    toast.show();
+
+                                    //Toast.makeText(CreatePIN.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
                                 progress.setVisibility(View.GONE);
@@ -213,7 +237,10 @@ public class CreatePIN extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(CreatePIN.this, "PIN did not match", Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(CreatePIN.this,  "PIN did not match", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                        toast.show();
+                       // Toast.makeText(CreatePIN.this, "PIN did not match", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -221,7 +248,11 @@ public class CreatePIN extends AppCompatActivity {
 
 
                 } else {
-                    Toast.makeText(CreatePIN.this, "Please enter a valid PIN", Toast.LENGTH_SHORT).show();
+
+                    Toast toast = Toast.makeText(CreatePIN.this,  "Please enter a valid PIN", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                    toast.show();
+                    //Toast.makeText(CreatePIN.this, "Please enter a valid PIN", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -229,5 +260,14 @@ public class CreatePIN extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

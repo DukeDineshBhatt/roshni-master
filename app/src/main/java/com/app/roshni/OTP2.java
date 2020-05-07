@@ -2,10 +2,14 @@ package com.app.roshni;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -152,7 +156,9 @@ public class OTP2 extends AppCompatActivity {
                                     finishAffinity();
 
                                 } else {
-                                    Toast.makeText(OTP2.this, "Please enter PIN to continue", Toast.LENGTH_SHORT).show();
+                                    Toast toast = Toast.makeText(OTP2.this, "Please enter PIN to continue", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                    toast.show();
 
                                     Intent intent = new Intent(OTP2.this, EnterPIN.class);
                                     startActivity(intent);
@@ -216,7 +222,9 @@ public class OTP2 extends AppCompatActivity {
 
                             } else {
 
-                                Toast.makeText(OTP2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast toast = Toast.makeText(OTP2.this, response.body().getMessage(), Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                toast.show();
                             }
 
                             progress.setVisibility(View.GONE);
@@ -232,7 +240,9 @@ public class OTP2 extends AppCompatActivity {
 
 
                 } else {
-                    Toast.makeText(OTP2.this, "Please enter a valid OTP", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(OTP2.this, "Please enter a valid OTP", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                    toast.show();
                 }
 
 
@@ -261,7 +271,9 @@ public class OTP2 extends AppCompatActivity {
                 call.enqueue(new Callback<verifyBean>() {
                     @Override
                     public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-                        Toast.makeText(OTP2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(OTP2.this, response.body().getMessage(), Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                        toast.show();
 
                         progress.setVisibility(View.GONE);
 
@@ -277,5 +289,13 @@ public class OTP2 extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

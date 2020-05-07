@@ -2,9 +2,13 @@ package com.app.roshni;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -141,19 +145,25 @@ public class EnterPIN extends AppCompatActivity {
                                         startActivity(intent);
                                         finishAffinity();
 
-                                        Toast.makeText(EnterPIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(EnterPIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                        toast.show();
                                     } else if (response.body().getData().getType().equals("brand")) {
                                         Intent intent = new Intent(EnterPIN.this, MainActivity2.class);
                                         startActivity(intent);
                                         finishAffinity();
 
-                                        Toast.makeText(EnterPIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(EnterPIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                        toast.show();
                                     } else {
                                         Intent intent = new Intent(EnterPIN.this, MainActivity3.class);
                                         startActivity(intent);
                                         finishAffinity();
 
-                                        Toast.makeText(EnterPIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(EnterPIN.this, "Welcome " + item.getName(), Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                        toast.show();
                                     }
 
 
@@ -173,13 +183,17 @@ public class EnterPIN extends AppCompatActivity {
                                         finishAffinity();
                                     }
 
-                                    Toast.makeText(EnterPIN.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT).show();
+                                    Toast toast = Toast.makeText(EnterPIN.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                    toast.show();
 
                                 }
 
 
                             } else {
-                                Toast.makeText(EnterPIN.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast toast = Toast.makeText(EnterPIN.this,  response.body().getMessage(), Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                                toast.show();
                             }
 
                             progress.setVisibility(View.GONE);
@@ -195,12 +209,23 @@ public class EnterPIN extends AppCompatActivity {
 
 
                 } else {
-                    Toast.makeText(EnterPIN.this, "Please enter a valid PIN", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(EnterPIN.this,  "Please enter a valid PIN", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
+                    toast.show();
                 }
 
 
             }
         });
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

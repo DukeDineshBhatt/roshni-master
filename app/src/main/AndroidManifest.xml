@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CompletedContractorProfile"></activity>
+        <activity android:name=".CreatePIN2"></activity>
+        <activity android:name=".OTP3" />
+        <activity android:name=".CompletedContractorProfile" />
         <activity android:name=".CompletedBrandProfile" />
         <activity android:name=".CompletedProfile" />
         <activity android:name=".TermsAndConditions2" />

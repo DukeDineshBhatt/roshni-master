@@ -167,18 +167,18 @@ public class Completed extends Fragment {
 
                     }else if (item.getType().equals("brand"))
                     {
-                        /*Intent intent = new Intent(context , CompletedBrandProfile.class);
-                        SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
-                        startActivity(intent);*/
+                        Intent intent = new Intent(context , CompletedBrandProfile.class);
+                        SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
+                        startActivity(intent);
 
                     }
                     else
                     {
-                        /*Intent intent = new Intent(getContext() , CompletedContractorProfile.class);
-                        SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
+                        Intent intent = new Intent(getContext() , CompletedContractorProfile.class);
+                        SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
 
                         startActivity(intent);
-*/
+
                     }
 
                 }

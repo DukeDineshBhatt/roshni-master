@@ -159,27 +159,27 @@ public class Completed extends Fragment {
                 public void onClick(View view) {
 
 
-                    /*if (item.getType().equals("worker")){
+                    if (item.getType().equals("worker")){
 
                         Intent intent = new Intent(context , CompletedProfile.class);
-                        SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
+                        SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         startActivity(intent);
 
                     }else if (item.getType().equals("brand"))
                     {
-                        Intent intent = new Intent(context , CompletedBrandProfile.class);
+                        /*Intent intent = new Intent(context , CompletedBrandProfile.class);
                         SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
-                        startActivity(intent);
+                        startActivity(intent);*/
 
                     }
                     else
                     {
-                        Intent intent = new Intent(getContext() , CompletedContractorProfile.class);
+                        /*Intent intent = new Intent(getContext() , CompletedContractorProfile.class);
                         SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
 
                         startActivity(intent);
-
-                    }*/
+*/
+                    }
 
                 }
             });

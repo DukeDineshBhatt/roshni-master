@@ -102,7 +102,7 @@
     <string name="registration_no_if_any">पंजीकरण संख्या/ रजिस्ट्रेशन नंबर (यदि कोई हो)</string>
     <string name="contact_person1">संपर्क के लिए व्यक्ति  *</string>
     <string name="your_current_address1">आपका वर्त्तमान पता *</string>
-    <string name="pin_code">पिन कोड  *</string>
+    <string name="pin_code">पिन कोड</string>
     <string name="state">राज्य  *</string>
     <string name="district">जिला  *</string>
     <string name="village_town_area">ग्राम/ शहर  *</string>

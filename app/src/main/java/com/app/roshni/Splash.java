@@ -107,6 +107,7 @@ public class Splash extends AppCompatActivity {
 
         String id = SharePreferenceUtils.getInstance().getString("user_id");
         String name = SharePreferenceUtils.getInstance().getString("name");
+        String sector = SharePreferenceUtils.getInstance().getString("sector");
         String pin = SharePreferenceUtils.getInstance().getString("pin");
 
         Log.d("iidd" , id);
@@ -114,7 +115,7 @@ public class Splash extends AppCompatActivity {
         if (id.length() > 0)
         {
 
-            if (name.length() > 0 && pin.length() > 0)
+            if (name.length() > 0 && pin.length() > 0 && sector.length() > 0)
             {
                 String type = SharePreferenceUtils.getInstance().getString("type");
 

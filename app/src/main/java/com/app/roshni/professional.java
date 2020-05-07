@@ -41,7 +41,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, looms, location , bank;
+    Spinner sector, experience, employment, home, workers, location , bank;
 
     MultiSelectSpinner skills;
 
@@ -52,9 +52,9 @@ public class professional extends Fragment {
 
     ProgressBar progress;
 
-    EditText employer;
+    EditText employer , looms;
 
-    Button submit;
+    Button submit , previous;
     EditText editTxtLoc;
     boolean loc_bool = false;
 
@@ -98,6 +98,7 @@ public class professional extends Fragment {
         submit = view.findViewById(R.id.submit);
         yes = view.findViewById(R.id.yes);
         editTxtLoc = view.findViewById(R.id.editTxtLoc);
+        previous = view.findViewById(R.id.previous);
 
 
         exp.add("0 to 2 years");
@@ -167,7 +168,6 @@ public class professional extends Fragment {
         employment.setAdapter(adapter3);
         home.setAdapter(adapter4);
         workers.setAdapter(adapter5);
-        looms.setAdapter(adapter5);
         bank.setAdapter(adapter6);
 
 
@@ -195,6 +195,15 @@ public class professional extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pager.setCurrentItem(0);
 
             }
         });
@@ -240,20 +249,6 @@ public class professional extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 work = wor.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        looms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                loom = wor.get(i);
 
             }
 
@@ -450,6 +445,7 @@ public class professional extends Fragment {
             public void onClick(View view) {
 
                 String emplo = employer.getText().toString();
+                loom = looms.getText().toString();
 
                 if (loc_bool) {
                     loca = editTxtLoc.getText().toString();

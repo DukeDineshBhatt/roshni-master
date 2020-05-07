@@ -134,7 +134,7 @@ public class EnterPIN extends AppCompatActivity {
                                 SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
                                 SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
 
-                                if (item.getName().length() > 0) {
+                                if (item.getName().length() > 0 && item.getSector().length() > 0) {
 
                                     if (response.body().getData().getType().equals("worker")) {
                                         Intent intent = new Intent(EnterPIN.this, MainActivity.class);

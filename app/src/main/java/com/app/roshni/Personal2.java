@@ -67,9 +67,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -141,6 +143,8 @@ public class Personal2 extends Fragment {
     String lat1 = "" , lng1 = "";
 
     String ag;
+
+    int ag2 = 0;
 
     @Nullable
     @Override
@@ -295,7 +299,7 @@ public class Personal2 extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 
-        id = SharePreferenceUtils.getInstance().getString("user_id");
+        id = SharePreferenceUtils.getInstance().getString("user");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
@@ -670,6 +674,13 @@ public class Personal2 extends Fragment {
 
                                 dob.setText(dd);
 
+                                ag2 = getAge(dd);
+
+                                if (ag2 < 18 )
+                                {
+                                    Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         })
                         .display();
@@ -750,12 +761,12 @@ public class Personal2 extends Fragment {
                                 if (ca.length() > 0) {
                                     if (cd.length() > 0) {
                                         if (cs.length() > 0) {
-                                            if (cp.length() > 0) {
+                                            if (cp.length() == 0 || cp.length() > 5) {
                                                 if (pst.length() > 0) {
                                                     if (pa.length() > 0) {
                                                         if (pd.length() > 0) {
                                                             if (ps.length() > 0) {
-                                                                if (pp.length() > 0) {
+                                                                if (pp.length() == 0 || pp.length() > 5) {
 
 
                                                                     MultipartBody.Part body = null;
@@ -1058,9 +1069,11 @@ public class Personal2 extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
-                    String cii = addresses.get(0).getLocality();
+                    String cii = place.getName();
+                    String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
+                    cstate.setText(stat);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -1111,13 +1124,14 @@ public class Personal2 extends Fragment {
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
-                    String cii = addresses.get(0).getSubLocality();
-
+                    String cii = place.getName();
+                    String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
-
+                    pstate.setText(stat);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
@@ -1288,6 +1302,9 @@ public class Personal2 extends Fragment {
                 pdistrict.setText(item.get(0).getPdistrict());
                 pstate.setText(item.get(0).getPstate());
 
+                ag2 = getAge(item.get(0).getDob());
+
+
                 int cp12 = 0;
                 for (int i = 0; i < agg.size(); i++) {
                     if (item.get(0).getAge().equals(agg.get(i))) {
@@ -1420,4 +1437,39 @@ public class Personal2 extends Fragment {
 
 
     }
+
+    private int getAge(String dobString){
+
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = sdf.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date == null) return 0;
+
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(date);
+
+        int year = dob.get(Calendar.YEAR);
+        int month = dob.get(Calendar.MONTH);
+        int day = dob.get(Calendar.DAY_OF_MONTH);
+
+        dob.set(year, month+1, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+
+
+        return age;
+    }
+
 }

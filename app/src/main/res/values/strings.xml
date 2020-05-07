@@ -102,7 +102,7 @@
     <string name="registration_no_if_any">REGISTRATION NO. (IF ANY)</string>
     <string name="contact_person1">CONTACT PERSON *</string>
     <string name="your_current_address1">YOUR CURRENT ADDRESS *</string>
-    <string name="pin_code">PIN CODE *</string>
+    <string name="pin_code">PIN CODE</string>
     <string name="state">STATE *</string>
     <string name="district">DISTRICT *</string>
     <string name="village_town_area">VILLAGE/ TOWN/ AREA *</string>
@@ -226,4 +226,5 @@
     <string name="hit_enter_to_add_location">hit enter to add location</string>
     <string name="survey_officer">survey officer</string>
     <string name="approve">APPROVE</string>
+    <string name="previous">PREVIOUS</string>
 </resources>

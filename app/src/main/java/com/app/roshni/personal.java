@@ -74,9 +74,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -145,6 +147,8 @@ public class personal extends Fragment {
     String lat = "" , lng = "";
 
     String ag;
+
+    int ag2 = 0;
 
     @Nullable
     @Override
@@ -664,6 +668,7 @@ public class personal extends Fragment {
                                 //date.getTime();
 
                                 Date dt = new Date(date.getTime());
+
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                                 String dd = sdf.format(dt);
 
@@ -671,6 +676,16 @@ public class personal extends Fragment {
                                 Log.d("dddd", dd);
 
                                 dob.setText(dd);
+
+
+
+                                ag2 = getAge(dd);
+
+                                if (ag2 < 18 )
+                                {
+                                    Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
+                                }
+
 
                             }
                         })
@@ -746,18 +761,18 @@ public class personal extends Fragment {
 
 
                 if (n.length() > 0) {
-                    if (d.length() > 0) {
+                    if (ag2 > 17) {
                         if (gend.length() > 0) {
                             if (cst.length() > 0) {
                                 if (ca.length() > 0) {
                                     if (cd.length() > 0) {
                                         if (cs.length() > 0) {
-                                            if (cp.length() > 0) {
+                                            if (cp.length() == 0 || cp.length() > 5) {
                                                 if (pst.length() > 0) {
                                                     if (pa.length() > 0) {
                                                         if (pd.length() > 0) {
                                                             if (ps.length() > 0) {
-                                                                if (pp.length() > 0) {
+                                                                if (pp.length() == 0 || pp.length() > 5) {
 
 
                                                                     MultipartBody.Part body = null;
@@ -923,7 +938,7 @@ public class personal extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getContext(), "Invalid D.O.B.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
@@ -1036,7 +1051,7 @@ public class personal extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
-                    String cii = addresses.get(0).getLocality();
+                    String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
@@ -1091,7 +1106,7 @@ public class personal extends Fragment {
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
-                    String cii = addresses.get(0).getSubLocality();
+                    String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
                     pstate.setText(stat);
@@ -1372,6 +1387,41 @@ public class personal extends Fragment {
         }
     }
 
+
+
+    private int getAge(String dobString){
+
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = sdf.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date == null) return 0;
+
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(date);
+
+        int year = dob.get(Calendar.YEAR);
+        int month = dob.get(Calendar.MONTH);
+        int day = dob.get(Calendar.DAY_OF_MONTH);
+
+        dob.set(year, month+1, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+
+
+        return age;
+    }
 
 
 }

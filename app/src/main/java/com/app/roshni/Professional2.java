@@ -42,7 +42,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Professional2 extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, looms, location , bank;
+    Spinner sector, experience, employment, home, workers, location , bank;
 
     MultiSelectSpinner skills;
 
@@ -53,7 +53,7 @@ public class Professional2 extends Fragment {
 
     ProgressBar progress;
 
-    EditText employer;
+    EditText employer , looms;
     String id, profile_id;
     boolean loc_bool = false;
 
@@ -169,7 +169,7 @@ public class Professional2 extends Fragment {
         employment.setAdapter(adapter3);
         home.setAdapter(adapter4);
         workers.setAdapter(adapter5);
-        looms.setAdapter(adapter5);
+
         bank.setAdapter(adapter6);
 
 
@@ -251,19 +251,6 @@ public class Professional2 extends Fragment {
             }
         });
 
-        looms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                loom = wor.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         location.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -335,7 +322,7 @@ public class Professional2 extends Fragment {
             public void onClick(View view) {
 
                 String emplo = employer.getText().toString();
-
+                loom = looms.getText().toString();
                 if (loc_bool) {
                     loca = editTxtLoc.getText().toString();
                 }
@@ -579,7 +566,7 @@ public class Professional2 extends Fragment {
                         if (value.length() > 0 || value.startsWith("  ")) {
 
                             String emplo = employer.getText().toString();
-
+                            loom = looms.getText().toString();
                             if (loc_bool) {
 
                                 loca = editTxtLoc.getText().toString();
@@ -741,6 +728,7 @@ public class Professional2 extends Fragment {
                 final List<WorkerByIdData> item = response.body().getData();
 
                 employer.setText(item.get(0).getEmployer());
+                looms.setText(item.get(0).getTools());
 
 
                 final Call<sectorBean> call2 = cr.getSectors();
@@ -924,7 +912,7 @@ public class Professional2 extends Fragment {
                         bp = i;
                     }
                 }
-                looms.setSelection(bp);
+
 
 
                 int sp = 0;

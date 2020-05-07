@@ -5,33 +5,28 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class REgister extends AppCompatActivity {
+public class CompletedProfile extends AppCompatActivity {
 
-    Toolbar toolbar;
     TabLayout tabs;
     CustomViewPager pager;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_completed_profile);
 
+        toolbar = findViewById(R.id.toolbar);
         tabs = findViewById(R.id.tabLayout2);
         pager = findViewById(R.id.pager);
-        toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -39,13 +34,11 @@ public class REgister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-onBackPressed();
-
+                finish();
             }
         });
-
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setTitle(getString(R.string.enter_your_details));
+        toolbar.setTitle("DETAILS");
 
         tabs.addTab(tabs.newTab().setText("PERSONAL"));
         tabs.addTab(tabs.newTab().setText("PROFESSIONAL"));
@@ -55,22 +48,13 @@ onBackPressed();
         pager.setAdapter(adapter);
         tabs.setupWithViewPager(pager);
 
-        pager.setPagingEnabled(false);
-
-        LinearLayout tabStrip = ((LinearLayout) tabs.getChildAt(0));
-        tabStrip.setEnabled(false);
-        for (int i = 0; i < tabStrip.getChildCount(); i++) {
-            tabStrip.getChildAt(i).setClickable(false);
-        }
 
         tabs.getTabAt(0).setText("PERSONAL");
         tabs.getTabAt(1).setText("PROFESSIONAL");
 
-
     }
 
     class PagerAdapter extends FragmentStatePagerAdapter {
-
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -79,18 +63,11 @@ onBackPressed();
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-
-                personal frag = new personal();
+                CompletedPersonal frag = new CompletedPersonal();
                 frag.setData(pager);
                 return frag;
-
-
             } else {
-
-                professional frag = new professional();
-                frag.setData(pager);
-                return frag;
-
+                return new CompletedProfessional();
             }
 
         }
@@ -101,20 +78,4 @@ onBackPressed();
         }
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (getCurrentFocus() != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(REgister.this , TermsAndConditions2.class);
-        intent.putExtra("type" , "worker");
-        startActivity(intent);
-        finish();
-    }
 }

@@ -29,7 +29,7 @@ public class ChooseType extends AppCompatActivity {
 
                 Intent intent = new Intent(ChooseType.this , SignupLogin.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
 
             }
@@ -42,7 +42,7 @@ public class ChooseType extends AppCompatActivity {
 
                 Intent intent = new Intent(ChooseType.this , SignupLogin.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
 
             }
@@ -56,7 +56,7 @@ public class ChooseType extends AppCompatActivity {
 
                 Intent intent = new Intent(ChooseType.this , SignupLogin.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
 
             }
@@ -69,7 +69,7 @@ public class ChooseType extends AppCompatActivity {
 
                 Intent intent = new Intent(ChooseType.this , LoginActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
 
             }

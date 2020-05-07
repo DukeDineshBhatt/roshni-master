@@ -804,6 +804,8 @@ public class Professional2 extends Fragment {
                                             android.R.layout.simple_list_item_multiple_choice, ski);
 
 
+                                    skil = item.get(0).getSkillsId();
+
 
                                     skills.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
                                         @Override

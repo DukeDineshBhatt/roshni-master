@@ -342,7 +342,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                             cp = i;
                                         }
                                     }
-                                    skills.setSelection(cp);
+                                    //skills.setSelection(cp);
 
                                 }
 

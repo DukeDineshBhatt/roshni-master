@@ -100,7 +100,7 @@ public class brand2 extends Fragment {
 
     private String manuf, certi, frmy, frmytyp, sect;
 
-    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details;
+    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details , phone;
 
 
     NachoTextView products, countries;
@@ -184,7 +184,7 @@ public class brand2 extends Fragment {
         } catch (Exception e) {
             Log.e("Exception1: %s", e.getMessage());
         }
-
+        phone = view.findViewById(R.id.phone);
         name = view.findViewById(R.id.editText);
         contact_details = view.findViewById(R.id.contact_details);
         regi = view.findViewById(R.id.editText2);
@@ -787,9 +787,18 @@ public class brand2 extends Fragment {
                     expiry.setText(item.getExpiry());
                     website.setText(item.getWebsite());
                     email.setText(item.getEmail());
-
+                    phone.setText(item.getPhone());
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();
+
+                    if (item.getSame().equals("1"))
+                    {
+                        check.setChecked(true);
+                    }
+                    else
+                    {
+                        check.setChecked(false);
+                    }
 
 
                     products.setText(Arrays.asList(ppp.split(",")));

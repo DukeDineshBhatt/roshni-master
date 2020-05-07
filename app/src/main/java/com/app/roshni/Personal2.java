@@ -146,6 +146,8 @@ public class Personal2 extends Fragment {
 
     int ag2 = 0;
 
+    String same = "0";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -732,12 +734,14 @@ public class Personal2 extends Fragment {
                 String pst;
 
                 if (che) {
+                    same = "1";
                     pp = cp;
                     ps = cs;
                     pd = cd;
                     pa = ca;
                     pst = cst;
                 } else {
+                    same = "0";
                     pp = ppin.getText().toString();
                     ps = pstate.getText().toString();
                     pd = pdistrict.getText().toString();
@@ -761,12 +765,12 @@ public class Personal2 extends Fragment {
                                 if (ca.length() > 0) {
                                     if (cd.length() > 0) {
                                         if (cs.length() > 0) {
-                                            if (cp.length() == 0 || cp.length() > 5) {
+                                            if (cp.length() == 0 || cp.length() == 6) {
                                                 if (pst.length() > 0) {
                                                     if (pa.length() > 0) {
                                                         if (pd.length() > 0) {
                                                             if (ps.length() > 0) {
-                                                                if (pp.length() == 0 || pp.length() > 5) {
+                                                                if (pp.length() == 0 || pp.length() == 6) {
 
 
                                                                     MultipartBody.Part body = null;
@@ -821,6 +825,7 @@ public class Personal2 extends Fragment {
                                                                             fift,
                                                                             goin,
                                                                             ag,
+                                                                            same,
                                                                             body
                                                                     );
 

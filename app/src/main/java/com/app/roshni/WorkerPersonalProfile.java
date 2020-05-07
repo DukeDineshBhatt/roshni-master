@@ -40,7 +40,7 @@ public class WorkerPersonalProfile extends Fragment {
     private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
 
 
-    private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu;
+    private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu , phone;
 
     private CircleImageView image;
 
@@ -51,6 +51,8 @@ public class WorkerPersonalProfile extends Fragment {
     private LinearLayout permanent, child;
 
     private ProgressBar progress;
+
+    CheckBox check;
 
     private CustomViewPager pager;
 
@@ -75,6 +77,8 @@ public class WorkerPersonalProfile extends Fragment {
         agg = new ArrayList<>();
 
         name = view.findViewById(R.id.editText);
+        check = view.findViewById(R.id.check);
+        phone = view.findViewById(R.id.phone);
         dob = view.findViewById(R.id.editText2);
         age = view.findViewById(R.id.age);
         cpin = view.findViewById(R.id.editText3);
@@ -220,6 +224,19 @@ public class WorkerPersonalProfile extends Fragment {
         proof.setAdapter(adapter6);
         age.setAdapter(adapter7);
 
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (b) {
+                    permanent.setVisibility(View.GONE);
+                } else {
+                    permanent.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
 
         setPrevious();
 
@@ -256,21 +273,27 @@ public class WorkerPersonalProfile extends Fragment {
                 } else if (item.get(0).getStatus().equals("rejected")) {
                     txtStatus.setText(item.get(0).getRejectReason());
                     txtStatus.setVisibility(View.VISIBLE);
-                }
-                else if (item.get(0).getStatus().equals("submitted")) {
+                } else if (item.get(0).getStatus().equals("submitted")) {
                     txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
                     txtStatus.setVisibility(View.VISIBLE);
-                }
-                else if (item.get(0).getStatus().equals("modifications")) {
+                } else if (item.get(0).getStatus().equals("modifications")) {
                     txtStatus.setText(item.get(0).getRejectReason());
                     txtStatus.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     txtStatus.setVisibility(View.GONE);
                 }
 
                 name.setText(item.get(0).getName());
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
+
+                if (item.get(0).getSame().equals("1"))
+                {
+                    check.setChecked(true);
+                }
+                else
+                {
+                    check.setChecked(false);
+                }
 
                 ImageLoader loader = ImageLoader.getInstance();
                 loader.displayImage(item.get(0).getPhoto(), image, options);
@@ -286,6 +309,7 @@ public class WorkerPersonalProfile extends Fragment {
                 parea.setText(item.get(0).getParea());
                 pdistrict.setText(item.get(0).getPdistrict());
                 pstate.setText(item.get(0).getPstate());
+                phone.setText(item.get(0).getPhone());
 
                 int cp12 = 0;
                 for (int i = 0; i < agg.size(); i++) {

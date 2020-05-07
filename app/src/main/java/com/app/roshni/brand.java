@@ -142,7 +142,7 @@ public class brand extends Fragment {
     }
 
     String lat = "" , lng = "";
-
+    String same = "0";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -236,7 +236,7 @@ public class brand extends Fragment {
 
 
         products.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
-        products.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
+        //products.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
         products.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
 
 
@@ -618,12 +618,14 @@ public class brand extends Fragment {
                 String pst;
 
                 if (che) {
+                    same = "1";
                     pp = cp;
                     ps = cs;
                     pd = cd;
                     pa = ca;
                     pst = cst;
                 } else {
+                    same = "0";
                     pp = ppin.getText().toString();
                     ps = pstate.getText().toString();
                     pd = pdistrict.getText().toString();
@@ -707,6 +709,7 @@ public class brand extends Fragment {
                                                                                                 e,
                                                                                                 we,
                                                                                                 em,
+                                                                                                same,
                                                                                                 body
                                                                                         );
 

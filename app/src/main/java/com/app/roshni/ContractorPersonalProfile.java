@@ -76,14 +76,14 @@ public class ContractorPersonalProfile extends Fragment {
 
     private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work , looms;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work , looms , phone;
 
     TagsEditText location;
     TextView txtStatus;
 
     private CircleImageView image;
 
-
+    CheckBox check;
     private List<String> gen, est, exp, wty , wty1, ava, frm, frmtyp, prof , sec, sec1;
 
 
@@ -116,7 +116,8 @@ public class ContractorPersonalProfile extends Fragment {
         frmtyp = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
-
+        phone = view.findViewById(R.id.phone);
+        check = view.findViewById(R.id.check);
         name = view.findViewById(R.id.editText);
         sector = view.findViewById(R.id.sector);
         dob = view.findViewById(R.id.dob);
@@ -322,6 +323,19 @@ public class ContractorPersonalProfile extends Fragment {
             }
         });
 
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (b) {
+                    permanent.setVisibility(View.GONE);
+                } else {
+                    permanent.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
         firm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -449,7 +463,14 @@ public class ContractorPersonalProfile extends Fragment {
                 }
 
 
-
+                if (item.getSame().equals("1"))
+                {
+                    check.setChecked(true);
+                }
+                else
+                {
+                    check.setChecked(false);
+                }
 
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
@@ -487,7 +508,7 @@ public class ContractorPersonalProfile extends Fragment {
                 employer.setText(item.getEmployer());
                 about.setText(item.getAbout());
                 work.setText(item.getWorkType());
-
+                phone.setText(item.getPhone());
                 final Call<sectorBean> call2 = cr.getSectors();
 
                 call2.enqueue(new Callback<sectorBean>() {

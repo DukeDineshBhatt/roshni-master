@@ -32,6 +32,25 @@
                 android:layout_gravity="center"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/your_contact_number" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:focusable="false"
+                android:hint="@string/tap_to_enter"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/textView8"

@@ -106,6 +106,7 @@ public interface AllApiIneterface {
             @Part("fifteentoeighteen") String fifteentoeighteen,
             @Part("goingtoschool") String goingtoschool,
             @Part("age") String age,
+            @Part("same") String same,
             @Part MultipartBody.Part file1
     );
 
@@ -141,6 +142,7 @@ public interface AllApiIneterface {
             @Part("expiry") String expiry,
             @Part("website") String website,
             @Part("email") String email,
+            @Part("same") String same,
             @Part MultipartBody.Part file1
     );
 
@@ -176,6 +178,7 @@ public interface AllApiIneterface {
             @Part("expiry") String expiry,
             @Part("website") String website,
             @Part("email") String email,
+            @Part("same") String same,
             @Part MultipartBody.Part file1
     );
 
@@ -216,6 +219,7 @@ public interface AllApiIneterface {
             @Part("about") String about,
             @Part("sector") String sector,
             @Part("tools") String looms,
+            @Part("same") String same,
             @Part MultipartBody.Part file1
     );
 
@@ -643,6 +647,7 @@ public interface AllApiIneterface {
             @Part("about") String about,
             @Part("sector") String sector,
             @Part("tools") String looms,
+            @Part("same") String same,
             @Part MultipartBody.Part file1
     );
 

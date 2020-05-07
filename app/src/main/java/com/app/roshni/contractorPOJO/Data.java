@@ -128,7 +128,9 @@ public class Data {
     @SerializedName("tools")
     @Expose
     private String tools;
-
+    @SerializedName("same")
+    @Expose
+    private String same;
 
     public String getId() {
         return id;
@@ -456,5 +458,13 @@ public class Data {
 
     public void setTools(String tools) {
         this.tools = tools;
+    }
+
+    public String getSame() {
+        return same;
+    }
+
+    public void setSame(String same) {
+        this.same = same;
     }
 }

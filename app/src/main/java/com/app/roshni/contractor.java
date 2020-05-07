@@ -148,6 +148,8 @@ public class contractor extends Fragment {
 
     int ag2 = 0;
 
+    String same = "0";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -780,12 +782,14 @@ public class contractor extends Fragment {
                 String pst;
 
                 if (che) {
+                    same = "1";
                     pp = cp;
                     ps = cs;
                     pd = cd;
                     pa = ca;
                     pst = cst;
                 } else {
+                    same = "0";
                     pp = ppin.getText().toString();
                     ps = pstate.getText().toString();
                     pd = pdistrict.getText().toString();
@@ -866,6 +870,7 @@ public class contractor extends Fragment {
                                                             ab,
                                                             sect,
                                                             loo,
+                                                            same,
                                                             body
                                                     );
 

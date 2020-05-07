@@ -143,7 +143,7 @@ public class brand3 extends Fragment {
     void setData(CustomViewPager pager) {
         this.pager = pager;
     }
-
+    String same = "0";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -237,7 +237,7 @@ public class brand3 extends Fragment {
 
 
         products.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
-        products.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
+        //products.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
         products.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
 
 
@@ -617,12 +617,14 @@ public class brand3 extends Fragment {
                 String pst;
 
                 if (che) {
+                    same = "1";
                     pp = cp;
                     ps = cs;
                     pd = cd;
                     pa = ca;
                     pst = cst;
                 } else {
+                    same = "1";
                     pp = ppin.getText().toString();
                     ps = pstate.getText().toString();
                     pd = pdistrict.getText().toString();
@@ -638,12 +640,12 @@ public class brand3 extends Fragment {
                             if (ca.length() > 0) {
                                 if (cd.length() > 0) {
                                     if (cs.length() > 0) {
-                                        if (cp.length() == 0 || cp.length() > 5) {
+                                        if (cp.length() == 0 || cp.length() == 6) {
                                             if (pst.length() > 0) {
                                                 if (pa.length() > 0) {
                                                     if (pd.length() > 0) {
                                                         if (ps.length() > 0) {
-                                                            if (pp.length() == 0 || pp.length() > 5) {
+                                                            if (pp.length() == 0 || pp.length() == 6) {
                                                                 if (pr.length() > 0) {
                                                                     if (w.length() > 0) {
 
@@ -706,6 +708,7 @@ public class brand3 extends Fragment {
                                                                                                 e,
                                                                                                 we,
                                                                                                 em,
+                                                                                                same,
                                                                                                 body
                                                                                         );
 

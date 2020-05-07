@@ -140,6 +140,9 @@ public class WorkerByIdData {
     @SerializedName("bank")
     @Expose
     private String bank;
+    @SerializedName("same")
+    @Expose
+    private String same;
 
 
     public String getUserId() {
@@ -500,5 +503,13 @@ public class WorkerByIdData {
 
     public void setBank(String bank) {
         this.bank = bank;
+    }
+
+    public void setSame(String same) {
+        this.same = same;
+    }
+
+    public String getSame() {
+        return same;
     }
 }

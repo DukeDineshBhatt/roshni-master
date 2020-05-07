@@ -109,6 +109,9 @@ public class Data {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("same")
+    @Expose
+    private String same;
 
     public String getId() {
         return id;
@@ -388,5 +391,13 @@ public class Data {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getSame() {
+        return same;
+    }
+
+    public void setSame(String same) {
+        this.same = same;
     }
 }

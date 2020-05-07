@@ -1299,7 +1299,7 @@ public class contractor2 extends Fragment {
                                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                                             android.R.layout.simple_list_item_multiple_choice, wty);
 
-
+                                    wtyp = item.getWorkTypeId();
 
                                     work.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
                                         @Override

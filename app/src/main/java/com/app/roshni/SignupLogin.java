@@ -10,7 +10,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -264,18 +263,13 @@ public class SignupLogin extends AppCompatActivity {
                                 Intent intent = new Intent(SignupLogin.this , OTP.class);
                                 intent.putExtra("phone" , pho);
                                 startActivity(intent);
-                                Toast toast = Toast.makeText(SignupLogin.this, "Please verify OTP", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                toast.show();
+                                Toast.makeText(SignupLogin.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
                                 finish();
 
                             } else if(response.body().getStatus().equals("2"))
                             {
                                 SharePreferenceUtils.getInstance().saveString("user_id", response.body().getMessage());
-                                Toast toast = Toast.makeText(SignupLogin.this, "Please enter PIN to continue", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                toast.show();
-                                //Toast.makeText(SignupLogin.this, "Please enter PIN to continue", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupLogin.this, "Please enter PIN to continue", Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(SignupLogin.this, EnterPIN.class);
                                 startActivity(intent);
@@ -283,10 +277,7 @@ public class SignupLogin extends AppCompatActivity {
                             }
                             else
                             {
-                                Toast toast = Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                toast.show();
-                                //Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             progress.setVisibility(View.GONE);
@@ -304,10 +295,7 @@ public class SignupLogin extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast toast = Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                    toast.show();
-                    //Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -353,17 +341,13 @@ public class SignupLogin extends AppCompatActivity {
                                 Intent intent = new Intent(SignupLogin.this , OTP3.class);
                                 intent.putExtra("phone" , pho);
                                 startActivity(intent);
-                                Toast toast = Toast.makeText(SignupLogin.this, "Please verify OTP", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                toast.show();
+                                Toast.makeText(SignupLogin.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
                                 finish();
 
                             }
                             else
                             {
-                                Toast toast = Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                toast.show();
+                                Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             progress.setVisibility(View.GONE);
@@ -381,9 +365,7 @@ public class SignupLogin extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast toast = Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                    toast.show();
+                    Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT).show();
                 }
 
 

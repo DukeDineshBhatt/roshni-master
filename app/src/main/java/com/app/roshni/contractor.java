@@ -799,7 +799,7 @@ public class contractor extends Fragment {
                         if (ca.length() > 0) {
                             if (cd.length() > 0) {
                                 if (cs.length() > 0) {
-                                    if (cp.length() == 0 || cp.length() > 5) {
+                                    if (cp.length() == 0 || cp.length() == 6) {
 
                                         if (m.length() > 0) {
 

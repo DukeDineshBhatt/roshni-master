@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -78,19 +77,15 @@ public class CreatePIN2 extends AppCompatActivity {
 
                                 if (response.body().getStatus().equals("1")) {
 
-                                    Toast toast = Toast.makeText(CreatePIN2.this, "PIN changed successfully", Toast.LENGTH_SHORT);
-                                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                    toast.show();
 
+                                    Toast.makeText(CreatePIN2.this, "PIN changed successfully", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CreatePIN2.this , SignupLogin.class);
                                     startActivity(intent);
                                     finishAffinity();
 
 
                                 } else {
-                                    Toast toast = Toast.makeText(CreatePIN2.this,  response.body().getMessage(), Toast.LENGTH_SHORT);
-                                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                                    toast.show();
+                                    Toast.makeText(CreatePIN2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
                                 progress.setVisibility(View.GONE);
@@ -106,9 +101,7 @@ public class CreatePIN2 extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast toast = Toast.makeText(CreatePIN2.this,  "PIN did not match", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                        toast.show();
+                        Toast.makeText(CreatePIN2.this, "PIN did not match", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -116,9 +109,7 @@ public class CreatePIN2 extends AppCompatActivity {
 
 
                 } else {
-                    Toast toast = Toast.makeText(CreatePIN2.this,  "Please enter a valid PIN", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
-                    toast.show();
+                    Toast.makeText(CreatePIN2.this, "Please enter a valid PIN", Toast.LENGTH_SHORT).show();
                 }
 
 

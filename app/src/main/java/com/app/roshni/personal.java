@@ -767,12 +767,12 @@ public class personal extends Fragment {
                                 if (ca.length() > 0) {
                                     if (cd.length() > 0) {
                                         if (cs.length() > 0) {
-                                            if (cp.length() == 0 || cp.length() > 5) {
+                                            if (cp.length() == 0 || cp.length() == 6) {
                                                 if (pst.length() > 0) {
                                                     if (pa.length() > 0) {
                                                         if (pd.length() > 0) {
                                                             if (ps.length() > 0) {
-                                                                if (pp.length() == 0 || pp.length() > 5) {
+                                                                if (pp.length() == 0 || pp.length() == 6) {
 
 
                                                                     MultipartBody.Part body = null;

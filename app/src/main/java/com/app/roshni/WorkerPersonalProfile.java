@@ -330,7 +330,7 @@ public class WorkerPersonalProfile extends Fragment {
                     } else {
                         editTxtRelg.setVisibility(View.VISIBLE);
                         editTxtRelg.setText(item.get(0).getReligion());
-                        re = 5;
+                        re = 4;
                     }
                 }
                 religion.setSelection(re);
@@ -345,7 +345,7 @@ public class WorkerPersonalProfile extends Fragment {
                     } else {
                         editTxtedu.setVisibility(View.VISIBLE);
                         editTxtedu.setText(item.get(0).getEducational());
-                        ed = 8;
+                        ed = 7;
                     }
                 }
                 educational.setSelection(ed);

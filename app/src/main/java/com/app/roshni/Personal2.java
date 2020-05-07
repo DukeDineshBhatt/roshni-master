@@ -1360,7 +1360,7 @@ public class Personal2 extends Fragment {
                     } else {
                         editTxtedu.setVisibility(View.VISIBLE);
                         editTxtedu.setText(item.get(0).getEducational());
-                        ed = 8;
+                        ed = 7;
                     }
                 }
                 educational.setSelection(ed);

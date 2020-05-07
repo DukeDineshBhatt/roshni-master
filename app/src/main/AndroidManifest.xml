@@ -19,7 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Knowledge"></activity>
+        <activity android:name=".Profile4"></activity>
+        <activity android:name=".MainActivity4" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChooseType" />
+        <activity android:name=".Knowledge" />
         <activity
             android:name=".TermsAndConditions"
             android:screenOrientation="portrait" />
@@ -94,7 +98,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Register3"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".JobDetails"
             android:screenOrientation="portrait" />
@@ -115,7 +119,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".REgister"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OTP2"
             android:screenOrientation="portrait" />
@@ -142,7 +146,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

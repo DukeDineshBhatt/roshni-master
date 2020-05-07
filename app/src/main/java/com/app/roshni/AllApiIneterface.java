@@ -11,6 +11,7 @@ import com.app.roshni.knowledgeListPOJO.knowledgeListBean;
 import com.app.roshni.notificationBean.notificationBean;
 import com.app.roshni.samplePOJO.sampleBean;
 import com.app.roshni.sectorPOJO.sectorBean;
+import com.app.roshni.verify2POJO.verifyBean2;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.app.roshni.workerJobListPOJO.workerJobDetailBean;
 import com.app.roshni.workerJobListPOJO.workerJobListBean;
@@ -30,6 +31,13 @@ public interface AllApiIneterface {
     Call<verifyBean> login(
             @Part("phone") String client,
             @Part("token") String token
+    );
+
+    @Multipart
+    @POST("roshni/api/login2.php")
+    Call<verifyBean2> login2(
+            @Part("username") String username,
+            @Part("password") String password
     );
 
     @Multipart
@@ -489,6 +497,52 @@ public interface AllApiIneterface {
     @POST("roshni/api/getBrandById.php")
     Call<brandDetailsBean> getBrandById(
             @Part("id") String id
+    );
+
+    @Multipart
+    @POST("roshni/api/getOngoingSurveys.php")
+    Call<OngoingListBean> getOngoingSurvey(
+            @Part("officer_id") String officer_id
+    );
+
+    @Multipart
+    @POST("roshni/api/update_worker_professional3.php")
+    Call<verifyBean> rejectWorkerProfessional(
+            @Part("survey_id") String user_id,
+            @Part("sector") String sector,
+            @Part("skills") String skills,
+            @Part("experience") String experience,
+            @Part("employment") String employment,
+            @Part("employer") String employer,
+            @Part("home") String home,
+            @Part("workers") String workers,
+            @Part("tools") String tools,
+            @Part("location") String location,
+            @Part("reason") String reason,
+            @Part("bank") String bank
+    );
+
+    @Multipart
+    @POST("roshni/api/update_worker_professional2.php")
+    Call<verifyBean> updateWorkerProfessional2(
+            @Part("survey_id") String user_id,
+            @Part("sector") String sector,
+            @Part("skills") String skills,
+            @Part("experience") String experience,
+            @Part("employment") String employment,
+            @Part("employer") String employer,
+            @Part("home") String home,
+            @Part("workers") String workers,
+            @Part("tools") String tools,
+            @Part("location") String location,
+            @Part("bank") String bank
+    );
+
+    @Multipart
+    @POST("roshni/api/getCompletedSurveys.php")
+    Call<CompletedListBean> getCompletedSurvey(
+            @Part("officer_id") String officer_id
+
     );
 
 }

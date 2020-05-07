@@ -141,36 +141,30 @@ public class Splash extends AppCompatActivity {
             {
                 String type = SharePreferenceUtils.getInstance().getString("type");
 
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-
-                        Intent i = new Intent(Splash.this , Sliders.class);
-                        startActivity(i);
-                        finish();
-
-                    }
-                } , 1500);
-                /*if (type.equals("brand"))
+                if (type.equals("officer"))
                 {
-                    Intent intent = new Intent(Splash.this , Register2.class);
-                    startActivity(intent);
-                    finishAffinity();
-                }
-                else if (type.equals("worker"))
-                {
-                    Intent intent = new Intent(Splash.this , REgister.class);
+                    Intent intent = new Intent(Splash.this , MainActivity4.class);
                     startActivity(intent);
                     finishAffinity();
                 }
                 else
                 {
-                    Intent intent = new Intent(Splash.this , Register3.class);
-                    startActivity(intent);
-                    finishAffinity();
-                }*/
+                    timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+
+                            Intent i = new Intent(Splash.this , Sliders.class);
+                            startActivity(i);
+                            finish();
+
+                        }
+                    } , 1500);
+                }
+
+
+
             }
 
 

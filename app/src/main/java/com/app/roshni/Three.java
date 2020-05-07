@@ -27,7 +27,7 @@ public class Three extends Fragment {
             public void onClick(View v) {
 
 
-                Intent i = new Intent(getContext() , SignupLogin.class);
+                Intent i = new Intent(getContext() , ChooseType.class);
                 startActivity(i);
                 getActivity().finish();
 

@@ -69,9 +69,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -104,7 +106,7 @@ public class contractor2 extends Fragment {
 
     private String gend, sect, esta, expe, wtyp = "", avai, frmy, prf, frmytyp;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , looms;
 
     TagsEditText location;
 
@@ -142,6 +144,7 @@ public class contractor2 extends Fragment {
         this.pager = pager;
     }
 
+    int ag2 = 0;
 
     @Nullable
     @Override
@@ -201,6 +204,7 @@ public class contractor2 extends Fragment {
         }
 
 
+        looms = view.findViewById(R.id.looms);
         name = view.findViewById(R.id.editText);
         dob = view.findViewById(R.id.dob);
         business = view.findViewById(R.id.business);
@@ -244,37 +248,7 @@ public class contractor2 extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 
-        est.add("1970");
-        est.add("1971");
-        est.add("1972");
-        est.add("1973");
-        est.add("1974");
-        est.add("1975");
-        est.add("1976");
-        est.add("1977");
-        est.add("1978");
-        est.add("1979");
-        est.add("1980");
-        est.add("1981");
-        est.add("1982");
-        est.add("1983");
-        est.add("1984");
-        est.add("1985");
-        est.add("1986");
-        est.add("1987");
-        est.add("1988");
-        est.add("1989");
-        est.add("1990");
-        est.add("1991");
-        est.add("1992");
-        est.add("1993");
-        est.add("1994");
-        est.add("1995");
-        est.add("1996");
-        est.add("1997");
-        est.add("1998");
-        est.add("1999");
-        est.add("2000");
+        est.add("1950-2000");
         est.add("2001");
         est.add("2002");
         est.add("2003");
@@ -321,6 +295,7 @@ public class contractor2 extends Fragment {
         frm.add("Co-operative");
         frm.add("Trust");
 
+        frmtyp.add("None");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");
@@ -633,6 +608,10 @@ public class contractor2 extends Fragment {
 
                                 dob.setText(dd);
 
+                                ag2 = getAge(dd);
+
+
+
                             }
                         })
                         .display();
@@ -685,6 +664,8 @@ public class contractor2 extends Fragment {
                 String f = female.getText().toString();
                 String e = employer.getText().toString();
 
+                String loo = looms.getText().toString();
+
                 String pp;
                 String ps;
                 String pd;
@@ -709,184 +690,152 @@ public class contractor2 extends Fragment {
   //              Log.d("Sec", sect);
 //                Log.d("work", wtyp);
 
+
                 if (n.length() > 0) {
-                    if (d.length() > 0) {
-                        if (gend.length() > 0) {
-                            if (cp.length() > 0) {
+
+                    if (cst.length() > 0) {
+                        if (ca.length() > 0) {
+                            if (cd.length() > 0) {
                                 if (cs.length() > 0) {
-                                    if (cd.length() > 0) {
-                                        if (ca.length() > 0) {
-                                            if (cst.length() > 0) {
-                                                if (pp.length() > 0) {
-                                                    if (ps.length() > 0) {
-                                                        if (pd.length() > 0) {
-                                                            if (pa.length() > 0) {
-                                                                if (pst.length() > 0) {
-                                                                    if (sect.length() > 0) {
-                                                                        if (l.length() > 0) {
-                                                                            if (m.length() > 0) {
-                                                                                if (f.length() > 0) {
-                                                                                    if (expe.length() > 0) {
-                                                                                        if (wtyp.length() > 0) {
-                                                                                            if (avai.length() > 0) {
+                                    if (cp.length() == 0 || cp.length() > 5) {
+
+                                        if (m.length() > 0) {
+
+                                            if (f.length() > 0) {
+
+                                                if (wtyp.length() > 0)
+                                                {
+                                                    MultipartBody.Part body = null;
+
+                                                    try {
+
+                                                        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                        body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                                                                MultipartBody.Part body = null;
-
-                                                                                                try {
-
-                                                                                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                                                                    body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
-
-
-                                                                                                } catch (Exception e1) {
-                                                                                                    e1.printStackTrace();
-                                                                                                }
-
-                                                                                                progress.setVisibility(View.VISIBLE);
-
-                                                                                                Log.d("DDD", sect);
-
-                                                                                                Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                                                                Retrofit retrofit = new Retrofit.Builder()
-                                                                                                        .baseUrl(b1.baseurl)
-                                                                                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                                        .addConverterFactory(GsonConverterFactory.create())
-                                                                                                        .build();
-
-                                                                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                                                Call<verifyBean> call = cr.update_contractor(
-                                                                                                        SharePreferenceUtils.getInstance().getString("user"),
-                                                                                                        n,
-                                                                                                        prf,
-                                                                                                        p,
-                                                                                                        frmy,
-                                                                                                        frmytyp,
-                                                                                                        r,
-                                                                                                        lat1,
-                                                                                                        lng1,
-                                                                                                        d,
-                                                                                                        gend,
-                                                                                                        b,
-                                                                                                        esta,
-                                                                                                        cp,
-                                                                                                        cs,
-                                                                                                        cd,
-                                                                                                        ca,
-                                                                                                        cst,
-                                                                                                        pp,
-                                                                                                        ps,
-                                                                                                        pd,
-                                                                                                        pa,
-                                                                                                        pst,
-                                                                                                        h,
-                                                                                                        l,
-                                                                                                        m,
-                                                                                                        f,
-                                                                                                        expe,
-                                                                                                        wtyp,
-                                                                                                        avai,
-                                                                                                        e,
-                                                                                                        ab,
-                                                                                                        sect,
-                                                                                                        body
-                                                                                                );
-
-                                                                                                call.enqueue(new Callback<verifyBean>() {
-                                                                                                    @Override
-                                                                                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                                                                        assert response.body() != null;
-                                                                                                        if (response.body().getStatus().equals("1")) {
-                                                                                                            Data item = response.body().getData();
-
-                                                                                                            Intent registrationComplete = new Intent("photo");
-
-                                                                                                            LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
-
-
-                                                                                                            pager.setCurrentItem(1);
-
-
-                                                                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                        } else {
-                                                                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                        }
-
-
-                                                                                                        progress.setVisibility(View.GONE);
-
-                                                                                                    }
-
-                                                                                                    @Override
-                                                                                                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                                                        progress.setVisibility(View.GONE);
-                                                                                                    }
-                                                                                                });
-
-                                                                                            } else {
-                                                                                                Toast.makeText(getActivity(), "Invalid availability", Toast.LENGTH_SHORT).show();
-                                                                                            }
-                                                                                        } else {
-                                                                                            Toast.makeText(getActivity(), "Invalid work type", Toast.LENGTH_SHORT).show();
-                                                                                        }
-                                                                                    } else {
-                                                                                        Toast.makeText(getActivity(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                                                                                    }
-                                                                                } else {
-                                                                                    Toast.makeText(getActivity(), "Invalid female workers", Toast.LENGTH_SHORT).show();
-                                                                                }
-                                                                            } else {
-                                                                                Toast.makeText(getActivity(), "Invalid male workers", Toast.LENGTH_SHORT).show();
-                                                                            }
-                                                                        } else {
-                                                                            Toast.makeText(getActivity(), "Invalid home based units location", Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    } else {
-                                                                        Toast.makeText(getActivity(), "Invalid sector", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                } else {
-                                                                    Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            } else {
-                                                                Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        } else {
-                                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+                                                    } catch (Exception e1) {
+                                                        e1.printStackTrace();
                                                     }
-                                                } else {
-                                                    Toast.makeText(getContext(), "Invalid permanent PIN", Toast.LENGTH_SHORT).show();
+
+                                                    progress.setVisibility(View.VISIBLE);
+
+                                                    Log.d("DDD", sect);
+
+                                                    Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+
+                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                            .baseUrl(b1.baseurl)
+                                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
+
+                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                    Call<verifyBean> call = cr.update_contractor2(
+                                                            SharePreferenceUtils.getInstance().getString("user"),
+                                                            n,
+                                                            prf,
+                                                            p,
+                                                            frmy,
+                                                            frmytyp,
+                                                            r,
+                                                            lat1,
+                                                            lng1,
+                                                            d,
+                                                            gend,
+                                                            b,
+                                                            esta,
+                                                            cp,
+                                                            cs,
+                                                            cd,
+                                                            ca,
+                                                            cst,
+                                                            pp,
+                                                            ps,
+                                                            pd,
+                                                            pa,
+                                                            pst,
+                                                            h,
+                                                            l,
+                                                            m,
+                                                            f,
+                                                            expe,
+                                                            wtyp,
+                                                            avai,
+                                                            e,
+                                                            ab,
+                                                            sect,
+                                                            loo,
+                                                            body
+                                                    );
+
+                                                    call.enqueue(new Callback<verifyBean>() {
+                                                        @Override
+                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                                            assert response.body() != null;
+                                                            if (response.body().getStatus().equals("1")) {
+                                                                Data item = response.body().getData();
+
+                                                                Intent registrationComplete = new Intent("photo");
+
+                                                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+
+
+                                                                pager.setCurrentItem(1);
+
+
+                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+
+
+                                                            progress.setVisibility(View.GONE);
+
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                            progress.setVisibility(View.GONE);
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(getContext(), "Please select type of work", Toast.LENGTH_SHORT).show();
                                                 }
 
+
+
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), "Invalid female workers", Toast.LENGTH_SHORT).show();
                                             }
+
                                         } else {
-                                            Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Invalid male workers", Toast.LENGTH_SHORT).show();
                                         }
+
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getContext(), "Invalid gender", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getContext(), "Invalid D.O.B.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });
@@ -995,9 +944,11 @@ public class contractor2 extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
-                    String cii = addresses.get(0).getLocality();
+                    String cii = place.getName();
+                    String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
+                    cstate.setText(stat);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -1048,13 +999,14 @@ public class contractor2 extends Fragment {
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
-                    String cii = addresses.get(0).getSubLocality();
-
+                    String cii = place.getName();
+                    String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
-
+                    pstate.setText(stat);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
@@ -1227,6 +1179,7 @@ public class contractor2 extends Fragment {
                 ppin.setText(item.getPpin());
                 male.setText(item.getWorkersMale());
                 female.setText(item.getWorkersFemale());
+                looms.setText(item.getTools());
 
                 reg_no.setText(item.getRegistrationNo());
 
@@ -1238,7 +1191,7 @@ public class contractor2 extends Fragment {
                 //type.setText(item.getWorkType());
                 employer.setText(item.getEmployer());
                 about.setText(item.getAbout());
-
+                ag2 = getAge(item.getDob());
 
                 int gp = 0;
                 for (int i = 0; i < gen.size(); i++) {
@@ -1450,6 +1403,40 @@ public class contractor2 extends Fragment {
         });
 
 
+    }
+
+    private int getAge(String dobString){
+
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = sdf.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date == null) return 0;
+
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(date);
+
+        int year = dob.get(Calendar.YEAR);
+        int month = dob.get(Calendar.MONTH);
+        int day = dob.get(Calendar.DAY_OF_MONTH);
+
+        dob.set(year, month+1, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+
+
+        return age;
     }
 
 }

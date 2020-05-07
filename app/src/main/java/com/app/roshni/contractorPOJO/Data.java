@@ -125,6 +125,10 @@ public class Data {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("tools")
+    @Expose
+    private String tools;
+
 
     public String getId() {
         return id;
@@ -446,6 +450,11 @@ public class Data {
         this.created = created;
     }
 
+    public String getTools() {
+        return tools;
+    }
 
-
+    public void setTools(String tools) {
+        this.tools = tools;
+    }
 }

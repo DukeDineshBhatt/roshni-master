@@ -76,7 +76,7 @@ public class ContractorPersonalProfile extends Fragment {
 
     private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work , looms;
 
     TagsEditText location;
     TextView txtStatus;
@@ -144,6 +144,7 @@ public class ContractorPersonalProfile extends Fragment {
         firmtype = view.findViewById(R.id.firmtype);
         reg_no = view.findViewById(R.id.reg_no);
         txtStatus = view.findViewById(R.id.textViewStatus);
+        looms = view.findViewById(R.id.looms);
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
@@ -473,6 +474,7 @@ public class ContractorPersonalProfile extends Fragment {
                 business.setText(item.getBusinessName());
 
                 reg_no.setText(item.getRegistrationNo());
+                looms.setText(item.getTools());
 
                 //experience.setText(item.getExperience());
                 //availability.setText(item.getAvailability());

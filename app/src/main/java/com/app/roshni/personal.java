@@ -251,7 +251,7 @@ public class personal extends Fragment {
         gen.add("Male");
         gen.add("Female");
 
-        for (int i = 14 ; i <= 100 ; i++)
+        for (int i = 18 ; i <= 100 ; i++)
         {
             agg.add("" + i);
         }

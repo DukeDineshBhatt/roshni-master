@@ -386,6 +386,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:clickable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
@@ -406,6 +408,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:clickable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
@@ -510,6 +514,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
@@ -531,6 +537,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
@@ -757,6 +765,25 @@
                     android:layout_centerVertical="true" />
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/number_of_looms" />
+
+            <EditText
+                android:id="@+id/looms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="textPostalAddress"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -181,6 +181,7 @@ public interface AllApiIneterface {
             @Part("employer") String employer,
             @Part("about") String about,
             @Part("sector") String sector,
+            @Part("tools") String looms,
             @Part MultipartBody.Part file1
     );
 
@@ -569,6 +570,46 @@ public interface AllApiIneterface {
     Call<contractorBean> reject_brand(
             @Part("survey_id") String survey_id,
             @Part("reason") String reason
+    );
+
+    @Multipart
+    @POST("roshni/api/update_contractor2.php")
+    Call<verifyBean> update_contractor2(
+            @Part("user_id") String user_id,
+            @Part("name") String name,
+            @Part("id_proof") String id_proof,
+            @Part("id_number") String id_number,
+            @Part("firm_type") String firm_type,
+            @Part("firm_registration_type") String firm_registration_type,
+            @Part("registration_no") String registration_no,
+            @Part("lat") String lat,
+            @Part("lng") String lng,
+            @Part("dob") String dob,
+            @Part("gender") String gender,
+            @Part("business_name") String business_name,
+            @Part("establishment_year") String establishment_year,
+            @Part("cpin") String cpin,
+            @Part("cstate") String cstate,
+            @Part("cdistrict") String cdistrict,
+            @Part("carea") String carea,
+            @Part("cstreet") String cstreet,
+            @Part("ppin") String ppin,
+            @Part("pstate") String pstate,
+            @Part("pdistrict") String pdistrict,
+            @Part("parea") String parea,
+            @Part("pstreet") String pstreet,
+            @Part("home_units") String home_units,
+            @Part("home_location") String home_location,
+            @Part("workers_male") String workers_male,
+            @Part("workers_female") String workers_female,
+            @Part("experience") String experience,
+            @Part("work_type") String work_type,
+            @Part("availability") String availability,
+            @Part("employer") String employer,
+            @Part("about") String about,
+            @Part("sector") String sector,
+            @Part("tools") String looms,
+            @Part MultipartBody.Part file1
     );
 
 }

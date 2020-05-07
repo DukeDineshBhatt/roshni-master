@@ -332,6 +332,7 @@ public class brand3 extends Fragment {
         frm.add("Co-operative");
         frm.add("Trust");
 
+        frmtyp.add("None");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");
@@ -637,12 +638,12 @@ public class brand3 extends Fragment {
                             if (ca.length() > 0) {
                                 if (cd.length() > 0) {
                                     if (cs.length() > 0) {
-                                        if (cp.length() > 0) {
+                                        if (cp.length() == 0 || cp.length() > 5) {
                                             if (pst.length() > 0) {
                                                 if (pa.length() > 0) {
                                                     if (pd.length() > 0) {
                                                         if (ps.length() > 0) {
-                                                            if (pp.length() > 0) {
+                                                            if (pp.length() == 0 || pp.length() > 5) {
                                                                 if (pr.length() > 0) {
                                                                     if (w.length() > 0) {
 
@@ -970,7 +971,7 @@ public class brand3 extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
-                    String cii = addresses.get(0).getLocality();
+                    String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
@@ -1025,7 +1026,7 @@ public class brand3 extends Fragment {
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
-                    String cii = addresses.get(0).getSubLocality();
+                    String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
                     pstate.setText(stat);

@@ -353,6 +353,7 @@ public class brand2 extends Fragment {
         frm.add("Co-operative");
         frm.add("Trust");
 
+        frmtyp.add("None");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");

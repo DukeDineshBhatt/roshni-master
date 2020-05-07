@@ -70,9 +70,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -105,7 +107,7 @@ public class contractor extends Fragment {
 
     private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , looms;
 
     TagsEditText location;
 
@@ -143,6 +145,8 @@ public class contractor extends Fragment {
     }
 
     String lat = "" , lng = "";
+
+    int ag2 = 0;
 
     @Nullable
     @Override
@@ -200,6 +204,7 @@ public class contractor extends Fragment {
         }
 
 
+        looms = view.findViewById(R.id.looms);
         name = view.findViewById(R.id.editText);
         sector = view.findViewById(R.id.sector);
         dob = view.findViewById(R.id.dob);
@@ -297,37 +302,8 @@ public class contractor extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 
-        est.add("1970");
-        est.add("1971");
-        est.add("1972");
-        est.add("1973");
-        est.add("1974");
-        est.add("1975");
-        est.add("1976");
-        est.add("1977");
-        est.add("1978");
-        est.add("1979");
-        est.add("1980");
-        est.add("1981");
-        est.add("1982");
-        est.add("1983");
-        est.add("1984");
-        est.add("1985");
-        est.add("1986");
-        est.add("1987");
-        est.add("1988");
-        est.add("1989");
-        est.add("1990");
-        est.add("1991");
-        est.add("1992");
-        est.add("1993");
-        est.add("1994");
-        est.add("1995");
-        est.add("1996");
-        est.add("1997");
-        est.add("1998");
-        est.add("1999");
-        est.add("2000");
+
+        est.add("1950-2000");
         est.add("2001");
         est.add("2002");
         est.add("2003");
@@ -372,6 +348,7 @@ public class contractor extends Fragment {
         frm.add("Co-operative");
         frm.add("Trust");
 
+        frmtyp.add("None");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");
@@ -758,6 +735,10 @@ public class contractor extends Fragment {
 
                                 dob.setText(dd);
 
+                                ag2 = getAge(dd);
+
+
+
                             }
                         })
                         .display();
@@ -790,6 +771,7 @@ public class contractor extends Fragment {
                 String m = male.getText().toString();
                 String f = female.getText().toString();
                 String e = employer.getText().toString();
+                String loo = looms.getText().toString();
 
                 String pp;
                 String ps;
@@ -817,7 +799,7 @@ public class contractor extends Fragment {
                         if (ca.length() > 0) {
                             if (cd.length() > 0) {
                                 if (cs.length() > 0) {
-                                    if (cp.length() > 0) {
+                                    if (cp.length() == 0 || cp.length() > 5) {
 
                                         if (m.length() > 0) {
 
@@ -883,6 +865,7 @@ public class contractor extends Fragment {
                                                             e,
                                                             ab,
                                                             sect,
+                                                            loo,
                                                             body
                                                     );
 
@@ -1089,7 +1072,7 @@ public class contractor extends Fragment {
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
-                    String cii = addresses.get(0).getLocality();
+                    String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
 
                     cdistrict.setText(cii);
@@ -1144,7 +1127,7 @@ public class contractor extends Fragment {
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
-                    String cii = addresses.get(0).getSubLocality();
+                    String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
                     pstate.setText(stat);
@@ -1386,6 +1369,40 @@ public class contractor extends Fragment {
                 mLocationPermissionGranted = true;
             }
         }
+    }
+
+    private int getAge(String dobString){
+
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = sdf.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date == null) return 0;
+
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(date);
+
+        int year = dob.get(Calendar.YEAR);
+        int month = dob.get(Calendar.MONTH);
+        int day = dob.get(Calendar.DAY_OF_MONTH);
+
+        dob.set(year, month+1, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+
+
+        return age;
     }
 
 }

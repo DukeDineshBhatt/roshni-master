@@ -782,7 +782,7 @@ public class Personal2 extends Fragment {
                                                                     AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
                                                                     Call<verifyBean> call = cr.updateWorkerPersonal(
-                                                                            SharePreferenceUtils.getInstance().getString("user_id"),
+                                                                            SharePreferenceUtils.getInstance().getString("user"),
                                                                             n,
                                                                             prf,
                                                                             idno,

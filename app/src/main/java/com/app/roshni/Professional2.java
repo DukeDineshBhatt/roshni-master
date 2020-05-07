@@ -101,7 +101,7 @@ public class Professional2 extends Fragment {
         yes = view.findViewById(R.id.yes);
         editTxtLoc = view.findViewById(R.id.editTxtLoc);
 
-        id = SharePreferenceUtils.getInstance().getString("user_id");
+        id = SharePreferenceUtils.getInstance().getString("user");
         profile_id = SharePreferenceUtils.getInstance().getString("survey_id");
 
         exp.add("0 to 2 years");
@@ -416,7 +416,7 @@ public class Professional2 extends Fragment {
                                     SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
                                     SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
 
-                                    Intent intent = new Intent(getContext(), MainActivity.class);
+                                    Intent intent = new Intent(getContext(), MainActivity4.class);
                                     startActivity(intent);
                                     getActivity().finishAffinity();
 
@@ -632,7 +632,7 @@ public class Professional2 extends Fragment {
                                                                     if (response.body().getStatus().equals("1")) {
                                                                         Data item = response.body().getData();
 
-                                                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                                                        Intent intent = new Intent(getContext(), MainActivity4.class);
                                                                         startActivity(intent);
                                                                         getActivity().finish();
 

@@ -157,21 +157,21 @@ public class Ongoing extends Fragment {
                     if (item.getType().equals("worker")){
 
                         Intent intent = new Intent(context , Profile4.class);
-                        SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
+                        SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         SharePreferenceUtils.getInstance().saveString("survey_id", item.getId());
                         startActivity(intent);
 
                     }else if (item.getType().equals("brand"))
                     {
                         Intent intent = new Intent(context , Profile5.class);
-                        SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
+                        SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         SharePreferenceUtils.getInstance().saveString("survey_id", item.getId());
                         startActivity(intent);
                     }
                     else
                     {
                         Intent intent = new Intent(getContext() , Profile6.class);
-                        SharePreferenceUtils.getInstance().saveString("user_id", item.getProfile_id());
+                        SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         SharePreferenceUtils.getInstance().saveString("survey_id", item.getId());
                         startActivity(intent);
 

@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.app.roshni.contractorPOJO.contractorBean;
+import com.app.roshni.samplePOJO.Datum;
 import com.app.roshni.samplePOJO.sampleBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -55,14 +56,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Pictures3 extends Fragment {
+public class Samples2 extends Fragment {
 
 
     RecyclerView grid;
     StaggeredGridLayoutManager manager;
     Button upload , finish,approve,reject;
     ProgressBar progress;
-    List<com.app.roshni.samplePOJO.Datum> list;
+    List<Datum> list;
     SampleAdapter adapter;
     ImageView nodata;
     private Uri uri;
@@ -176,7 +177,7 @@ public class Pictures3 extends Fragment {
 
                 AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                Call<contractorBean> call = cr.submit_brand(SharePreferenceUtils.getInstance().getString("survey_id"));
+                Call<contractorBean> call = cr.submit_contactor(SharePreferenceUtils.getInstance().getString("survey_id"));
 
                 call.enqueue(new Callback<contractorBean>() {
                     @Override
@@ -237,7 +238,7 @@ public class Pictures3 extends Fragment {
 
                             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                            Call<contractorBean> call = cr.reject_brand(SharePreferenceUtils.getInstance().getString("survey_id"),value);
+                            Call<contractorBean> call = cr.reject_contactor(SharePreferenceUtils.getInstance().getString("survey_id"),value);
 
                             call.enqueue(new Callback<contractorBean>() {
                                 @Override
@@ -341,16 +342,16 @@ public class Pictures3 extends Fragment {
     class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
     {
         Context context;
-        List<com.app.roshni.samplePOJO.Datum> list = new ArrayList<>();
+        List<Datum> list = new ArrayList<>();
 
 
-        SampleAdapter(Context context, List<com.app.roshni.samplePOJO.Datum> list)
+        SampleAdapter(Context context, List<Datum> list)
         {
             this.context = context;
             this.list = list;
         }
 
-        public void setData(List<com.app.roshni.samplePOJO.Datum> list)
+        public void setData(List<Datum> list)
         {
             this.list = list;
             notifyDataSetChanged();
@@ -367,7 +368,7 @@ public class Pictures3 extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            final com.app.roshni.samplePOJO.Datum item = list.get(position);
+            final Datum item = list.get(position);
 
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
             ImageLoader loader = ImageLoader.getInstance();

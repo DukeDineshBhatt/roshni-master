@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Data item = response.body().getData();
 
                                     SharePreferenceUtils.getInstance().saveString("user_id", item.getId());
+                                    SharePreferenceUtils.getInstance().saveString("id", item.getId());
                                     SharePreferenceUtils.getInstance().saveString("name", item.getName());
                                     SharePreferenceUtils.getInstance().saveString("type", "officer");
 

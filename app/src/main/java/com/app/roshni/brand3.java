@@ -676,7 +676,7 @@ public class brand3 extends Fragment {
                                                                                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
                                                                                         Call<verifyBean> call = cr.updateBrand(
-                                                                                                SharePreferenceUtils.getInstance().getString("user_id"),
+                                                                                                SharePreferenceUtils.getInstance().getString("user"),
                                                                                                 n,
                                                                                                 frmy,
                                                                                                 frmytyp,

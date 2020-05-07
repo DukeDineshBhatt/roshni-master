@@ -676,7 +676,7 @@ public class brand3 extends Fragment {
 
                                                                                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                                                                                        Call<verifyBean> call = cr.updateBrand(
+                                                                                        Call<verifyBean> call = cr.updateBrand2(
                                                                                                 SharePreferenceUtils.getInstance().getString("user"),
                                                                                                 n,
                                                                                                 frmy,
@@ -1176,7 +1176,7 @@ public class brand3 extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        final Call<brandDetailsBean> call = cr.getBrandById(SharePreferenceUtils.getInstance().getString("user_id"));
+        final Call<brandDetailsBean> call = cr.getBrandById(SharePreferenceUtils.getInstance().getString("user"));
 
         call.enqueue(new Callback<brandDetailsBean>() {
             @Override

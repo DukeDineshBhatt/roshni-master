@@ -144,6 +144,40 @@ public interface AllApiIneterface {
             @Part MultipartBody.Part file1
     );
 
+    @Multipart
+    @POST("roshni/api/update_brand2.php")
+    Call<verifyBean> updateBrand2(
+            @Part("user_id") String user_id,
+            @Part("name") String name,
+            @Part("firm_type") String firm_type,
+            @Part("firm_registration_type") String firm_registration_type,
+            @Part("registration_number") String registration_number,
+            @Part("lat") String lat,
+            @Part("lng") String lng,
+            @Part("sector") String sector,
+            @Part("contact_details") String contact_details,
+            @Part("contact_person") String contact_person,
+            @Part("cpin") String cpin,
+            @Part("cstate") String cstate,
+            @Part("cdistrict") String cdistrict,
+            @Part("carea") String carea,
+            @Part("cstreet") String cstreet,
+            @Part("ppin") String ppin,
+            @Part("pstate") String pstate,
+            @Part("pdistrict") String pdistrict,
+            @Part("parea") String parea,
+            @Part("pstreet") String pstreet,
+            @Part("manufacturing_units") String manufacturing_units,
+            @Part("factory_outlet") String factory_outlet,
+            @Part("products") String products,
+            @Part("country") String country,
+            @Part("workers") String workers,
+            @Part("certification") String certification,
+            @Part("expiry") String expiry,
+            @Part("website") String website,
+            @Part("email") String email,
+            @Part MultipartBody.Part file1
+    );
 
     @Multipart
     @POST("roshni/api/update_contractor.php")

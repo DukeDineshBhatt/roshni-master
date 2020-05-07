@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Profile4"></activity>
+        <activity android:name=".Profile5"></activity>
+        <activity android:name=".Profile4" />
         <activity android:name=".MainActivity4" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ChooseType" />

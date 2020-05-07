@@ -1,6 +1,7 @@
 package com.app.roshni;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +27,7 @@ public class MainActivity4 extends AppCompatActivity {
     CustomViewPager pager;
     DrawerLayout drawer;
     ImageView toggle;
-
+    Toolbar toolbar;
     TextView about, logout, name;
 
     @Override
@@ -40,6 +42,14 @@ public class MainActivity4 extends AppCompatActivity {
         about = findViewById(R.id.textView59);
         logout = findViewById(R.id.textView25);
         name = findViewById(R.id.textView56);
+        toolbar = findViewById(R.id.toolbar);
+
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitle("SURVEY OFFICER");
 
         tabs.addTab(tabs.newTab().setText("Ongoing"));
         tabs.addTab(tabs.newTab().setText("Completed"));

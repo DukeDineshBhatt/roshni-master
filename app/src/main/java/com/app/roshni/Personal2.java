@@ -902,7 +902,7 @@ public class Personal2 extends Fragment {
 
 
                                                                 } else {
-                                                                    Toast.makeText(getContext(), "Invalid permanent PIN", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             } else {
                                                                 Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
@@ -918,7 +918,7 @@ public class Personal2 extends Fragment {
                                                 }
 
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
                                             Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();

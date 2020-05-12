@@ -966,7 +966,7 @@ public class contractor extends Fragment {
                                         }
 
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid current PIN", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();

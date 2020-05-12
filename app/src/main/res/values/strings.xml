@@ -230,4 +230,10 @@
     <string name="faqs1">FAQs</string>
     <string name="contact_us">Contact Us</string>
     <string name="unsubscribe">Unsubscribe</string>
+    <string name="raise_complaint">Raise Complaint</string>
+    <string name="give_feedback">Give Feedback</string>
+    <string name="how_to_use_the_app">How to use the app</string>
+    <string name="subject">Subject</string>
+    <string name="body">Body</string>
+    <string name="submit2">Submit</string>
 </resources>

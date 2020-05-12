@@ -27,21 +27,21 @@ import retrofit2.http.Part;
 public interface AllApiIneterface {
 
     @Multipart
-    @POST("roshni/api/login.php")
+    @POST("goodbusinessapp/api/login.php")
     Call<verifyBean> login(
             @Part("phone") String client,
             @Part("token") String token
     );
 
     @Multipart
-    @POST("roshni/api/login2.php")
+    @POST("goodbusinessapp/api/login2.php")
     Call<verifyBean2> login2(
             @Part("username") String username,
             @Part("password") String password
     );
 
     @Multipart
-    @POST("roshni/api/register_worker.php")
+    @POST("goodbusinessapp/api/register_worker.php")
     Call<verifyBean> worker_signup(
             @Part("phone") String client,
             @Part("type") String type,
@@ -49,34 +49,34 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/verify.php")
+    @POST("goodbusinessapp/api/verify.php")
     Call<verifyBean> verify(
             @Part("phone") String client,
             @Part("otp") String otp
     );
 
     @Multipart
-    @POST("roshni/api/resend.php")
+    @POST("goodbusinessapp/api/resend.php")
     Call<verifyBean> resend(
             @Part("phone") String client
     );
 
     @Multipart
-    @POST("roshni/api/createPIN.php")
+    @POST("goodbusinessapp/api/createPIN.php")
     Call<verifyBean> createPIN(
             @Part("user_id") String user_id,
             @Part("pin") String pin
     );
 
     @Multipart
-    @POST("roshni/api/verifyPIN.php")
+    @POST("goodbusinessapp/api/verifyPIN.php")
     Call<verifyBean> verifyPIN(
             @Part("user_id") String user_id,
             @Part("pin") String pin
     );
 
     @Multipart
-    @POST("roshni/api/update_worker_personal.php")
+    @POST("goodbusinessapp/api/update_worker_personal.php")
     Call<verifyBean> updateWorkerPersonal(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -111,7 +111,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_brand.php")
+    @POST("goodbusinessapp/api/update_brand.php")
     Call<verifyBean> updateBrand(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -147,7 +147,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_brand2.php")
+    @POST("goodbusinessapp/api/update_brand2.php")
     Call<verifyBean> updateBrand2(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -183,7 +183,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_contractor.php")
+    @POST("goodbusinessapp/api/update_contractor.php")
     Call<verifyBean> update_contractor(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -225,7 +225,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("roshni/api/post_job.php")
+    @POST("goodbusinessapp/api/post_job.php")
     Call<verifyBean> postjob(
             @Part("brand_id") String brand_id,
             @Part("title") String title,
@@ -248,7 +248,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_job.php")
+    @POST("goodbusinessapp/api/update_job.php")
     Call<verifyBean> UpdateWorkerJob(
             @Part("id") String id,
             @Part("title") String title,
@@ -271,7 +271,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_job2.php")
+    @POST("goodbusinessapp/api/update_job2.php")
     Call<verifyBean> UpdateContractorJob(
             @Part("id") String id,
             @Part("sector") String sector,
@@ -283,7 +283,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/post_job_contractor.php")
+    @POST("goodbusinessapp/api/post_job_contractor.php")
     Call<verifyBean> post_job_contractor(
             @Part("contractor_id") String contractor_id,
             @Part("sector") String sector,
@@ -295,35 +295,35 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/apply_job.php")
+    @POST("goodbusinessapp/api/apply_job.php")
     Call<verifyBean> apply_job(
             @Part("job_id") String job_id,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/apply_job2.php")
+    @POST("goodbusinessapp/api/apply_job2.php")
     Call<verifyBean> apply_job2(
             @Part("job_id") String job_id,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/worker_ac_inac.php")
+    @POST("goodbusinessapp/api/worker_ac_inac.php")
     Call<verifyBean> worker_ac_inac(
             @Part("jid") String jid,
             @Part("status") String status
     );
 
     @Multipart
-    @POST("roshni/api/contractor_ac_inac.php")
+    @POST("goodbusinessapp/api/contractor_ac_inac.php")
     Call<verifyBean> contractor_ac_inac(
             @Part("jid") String jid,
             @Part("status") String status
     );
 
     @Multipart
-    @POST("roshni/api/worker_acept_reject.php")
+    @POST("goodbusinessapp/api/worker_acept_reject.php")
     Call<verifyBean> worker_acept_reject(
             @Part("jid") String jid,
             @Part("id") String id,
@@ -331,7 +331,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/contractor_acept_reject.php")
+    @POST("goodbusinessapp/api/contractor_acept_reject.php")
     Call<verifyBean> contractor_acept_reject(
             @Part("jid") String jid,
             @Part("id") String id,
@@ -339,7 +339,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_worker_professional.php")
+    @POST("goodbusinessapp/api/update_worker_professional.php")
     Call<verifyBean> updateWorkerProfessional(
             @Part("user_id") String user_id,
             @Part("sector") String sector,
@@ -355,14 +355,14 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/getJobListForWorker.php")
+    @POST("goodbusinessapp/api/getJobListForWorker.php")
     Call<workerJobListBean> getJobListForWorker(
             @Part("user_id") String user_id,
             @Part("date") String date
     );
 
     @Multipart
-    @POST("roshni/api/getJobListForContractor.php")
+    @POST("goodbusinessapp/api/getJobListForContractor.php")
     Call<workerJobListBean> getJobListForContractor(
             @Part("user_id") String user_id,
             @Part("date") String date
@@ -370,7 +370,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("roshni/api/getAllWorkerJobs.php")
+    @POST("goodbusinessapp/api/getAllWorkerJobs.php")
     Call<allWorkContrJobBean> getAllWorkerJobs(
             @Part("brand_id") String brand_id,
             @Part("status") String status,
@@ -378,7 +378,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/getAllContractorJobs.php")
+    @POST("goodbusinessapp/api/getAllContractorJobs.php")
     Call<allWorkContrJobBean> getAllContractorJobs(
             @Part("brand_id") String brand_id,
             @Part("status") String status,
@@ -387,165 +387,165 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("roshni/api/getAppliedListForWorker.php")
+    @POST("goodbusinessapp/api/getAppliedListForWorker.php")
     Call<workerJobListBean> getAppliedListForWorker(
             @Part("user_id") String user_id,
             @Part("date") String date
     );
 
     @Multipart
-    @POST("roshni/api/getAppliedListForContractor.php")
+    @POST("goodbusinessapp/api/getAppliedListForContractor.php")
     Call<workerJobListBean> getAppliedListForContractor(
             @Part("user_id") String user_id,
             @Part("date") String date
     );
 
     @Multipart
-    @POST("roshni/api/getJobDetailsForWorker.php")
+    @POST("goodbusinessapp/api/getJobDetailsForWorker.php")
     Call<workerJobDetailBean> getJobDetailForWorker(
             @Part("user_id") String user_id,
             @Part("jid") String jid
     );
 
     @Multipart
-    @POST("roshni/api/getJobDetailsForContractor.php")
+    @POST("goodbusinessapp/api/getJobDetailsForContractor.php")
     Call<contractorJobDetailsBean> getJobDetailsForContractor(
             @Part("user_id") String user_id,
             @Part("jid") String jid
     );
 
-    @GET("roshni/api/getSectors.php")
+    @GET("goodbusinessapp/api/getSectors.php")
     Call<sectorBean> getSectors();
 
     @Multipart
-    @POST("roshni/api/getRoles.php")
+    @POST("goodbusinessapp/api/getRoles.php")
     Call<skillsBean> getRoles(
             @Part("sector_id") String sector_id
     );
 
-    @GET("roshni/api/getSkills.php")
+    @GET("goodbusinessapp/api/getSkills.php")
     Call<sectorBean> getSkills();
 
     @Multipart
-    @POST("roshni/api/getSkills.php")
+    @POST("goodbusinessapp/api/getSkills.php")
     Call<skillsBean> getSkills1(
             @Part("sector_id") String sector_id
     );
 
-    @GET("roshni/api/getLocations.php")
+    @GET("goodbusinessapp/api/getLocations.php")
     Call<sectorBean> getLocations();
 
     @Multipart
-    @POST("roshni/api/getAllWorkers.php")
+    @POST("goodbusinessapp/api/getAllWorkers.php")
     Call<workerListBean> getAllWorkers(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/getContWorkers.php")
+    @POST("goodbusinessapp/api/getContWorkers.php")
     Call<contWorkerBeam> getContWorkers(
             @Part("cuid") String cuid
     );
 
     @Multipart
-    @POST("roshni/api/getAllConttractors.php")
+    @POST("goodbusinessapp/api/getAllConttractors.php")
     Call<workerListBean> getAllConttractors(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/getAppliedWorkers.php")
+    @POST("goodbusinessapp/api/getAppliedWorkers.php")
     Call<workerListBean> getAppliedWorkers(
             @Part("jid") String jid
     );
 
     @Multipart
-    @POST("roshni/api/getAppliedContractors.php")
+    @POST("goodbusinessapp/api/getAppliedContractors.php")
     Call<workerListBean> getAppliedContractors(
             @Part("jid") String jid
     );
 
     @Multipart
-    @POST("roshni/api/getWorkerById.php")
+    @POST("goodbusinessapp/api/getWorkerById.php")
     Call<workerListBean> getWorkerById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("roshni/api/getWorkerById.php")
+    @POST("goodbusinessapp/api/getWorkerById.php")
     Call<WorkerByIdListBean> getWorkerById1(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("roshni/api/getBrandNoti.php")
+    @POST("goodbusinessapp/api/getBrandNoti.php")
     Call<notificationBean> getBrandNoti(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/getContractorNoti.php")
+    @POST("goodbusinessapp/api/getContractorNoti.php")
     Call<notificationBean> getContractorNoti(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/getWorkerNoti.php")
+    @POST("goodbusinessapp/api/getWorkerNoti.php")
     Call<notificationBean> getWorkerNoti(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/getSamples.php")
+    @POST("goodbusinessapp/api/getSamples.php")
     Call<sampleBean> getSamples(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("roshni/api/uploadSample.php")
+    @POST("goodbusinessapp/api/uploadSample.php")
     Call<sampleBean> uploadSample(
             @Part("user_id") String user_id,
             @Part MultipartBody.Part file1
     );
 
     @Multipart
-    @POST("roshni/api/deleteSample.php")
+    @POST("goodbusinessapp/api/deleteSample.php")
     Call<sampleBean> deleteSample(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("roshni/api/getContractorById.php")
+    @POST("goodbusinessapp/api/getContractorById.php")
     Call<contractorBean> getContractorById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("roshni/api/getKnowledgeList.php")
+    @POST("goodbusinessapp/api/getKnowledgeList.php")
     Call<knowledgeListBean> getKnowledgeList(
             @Part("type") String type
     );
 
     @Multipart
-    @POST("roshni/api/getKnowledgeById.php")
+    @POST("goodbusinessapp/api/getKnowledgeById.php")
     Call<knowledgeDetailsBean> getKnowledgeById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("roshni/api/getBrandById.php")
+    @POST("goodbusinessapp/api/getBrandById.php")
     Call<brandDetailsBean> getBrandById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("roshni/api/getOngoingSurveys.php")
+    @POST("goodbusinessapp/api/getOngoingSurveys.php")
     Call<OngoingListBean> getOngoingSurvey(
             @Part("officer_id") String officer_id
     );
 
     @Multipart
-    @POST("roshni/api/update_worker_professional3.php")
+    @POST("goodbusinessapp/api/update_worker_professional3.php")
     Call<verifyBean> rejectWorkerProfessional(
             @Part("survey_id") String user_id,
             @Part("sector") String sector,
@@ -562,7 +562,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/update_worker_professional2.php")
+    @POST("goodbusinessapp/api/update_worker_professional2.php")
     Call<verifyBean> updateWorkerProfessional2(
             @Part("survey_id") String user_id,
             @Part("sector") String sector,
@@ -578,40 +578,40 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("roshni/api/getCompletedSurveys.php")
+    @POST("goodbusinessapp/api/getCompletedSurveys.php")
     Call<CompletedListBean> getCompletedSurvey(
             @Part("officer_id") String officer_id
 
     );
 
     @Multipart
-    @POST("roshni/api/submit_contactor.php")
+    @POST("goodbusinessapp/api/submit_contactor.php")
     Call<contractorBean> submit_contactor(
             @Part("survey_id") String survey_id
     );
 
     @Multipart
-    @POST("roshni/api/submit_brand.php")
+    @POST("goodbusinessapp/api/submit_brand.php")
     Call<contractorBean> submit_brand(
             @Part("survey_id") String survey_id
     );
 
     @Multipart
-    @POST("roshni/api/reject_contactor.php")
+    @POST("goodbusinessapp/api/reject_contactor.php")
     Call<contractorBean> reject_contactor(
             @Part("survey_id") String survey_id,
             @Part("reason") String reason
     );
 
     @Multipart
-    @POST("roshni/api/reject_brand.php")
+    @POST("goodbusinessapp/api/reject_brand.php")
     Call<contractorBean> reject_brand(
             @Part("survey_id") String survey_id,
             @Part("reason") String reason
     );
 
     @Multipart
-    @POST("roshni/api/update_contractor2.php")
+    @POST("goodbusinessapp/api/update_contractor2.php")
     Call<verifyBean> update_contractor2(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -649,6 +649,22 @@ public interface AllApiIneterface {
             @Part("tools") String looms,
             @Part("same") String same,
             @Part MultipartBody.Part file1
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/raiseComplaint.php")
+    Call<contractorBean> raiseComplaint(
+            @Part("user_id") String user_id,
+            @Part("subject") String subject,
+            @Part("body") String body
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/giveFeedback.php")
+    Call<contractorBean> giveFeedback(
+            @Part("user_id") String user_id,
+            @Part("subject") String subject,
+            @Part("body") String body
     );
 
 }

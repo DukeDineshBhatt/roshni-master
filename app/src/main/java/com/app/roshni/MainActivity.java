@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView about , faq , policies , terms , support , language;
 
+    TextView faqs , contact , unsubscribe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String languageToLoad  = SharePreferenceUtils.getInstance().getString("lang"); // your language
@@ -74,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         terms = findViewById(R.id.textView62);
         support = findViewById(R.id.textView24);
         language = findViewById(R.id.textView58);
+
+        faqs = findViewById(R.id.textView51);
+        contact = findViewById(R.id.textView52);
+        unsubscribe = findViewById(R.id.textView53);
 
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,12 +169,39 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.about_us));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/about.php");
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/about.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
             }
         });
+
+        faqs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this , Web.class);
+                intent.putExtra("title" ,  getString(R.string.faqs1));
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/faq.php");
+                startActivity(intent);
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this , Web.class);
+                intent.putExtra("title" ,  getString(R.string.contact_us));
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/contact.php");
+                startActivity(intent);
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
+
 
         faq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this , Web.class);
                 intent.putExtra("title" , getString(R.string.policies));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/policies.php");
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/policies.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -202,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this , Web.class);
                 intent.putExtra("title" , getString(R.string.terms_amp_conditions));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/terms.php");
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/terms.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -214,9 +247,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Web.class);
+                Intent intent = new Intent(MainActivity.this , Support.class);
                 intent.putExtra("title" , getString(R.string.support_help));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/support.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

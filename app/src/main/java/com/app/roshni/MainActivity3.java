@@ -48,6 +48,8 @@ public class MainActivity3 extends AppCompatActivity {
 
     TextView about , faq , policies , terms , support , language;
 
+    TextView faqs , contact , unsubscribe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,10 @@ public class MainActivity3 extends AppCompatActivity {
         terms = findViewById(R.id.textView62);
         support = findViewById(R.id.textView24);
         language = findViewById(R.id.textView58);
+
+        faqs = findViewById(R.id.textView51);
+        contact = findViewById(R.id.textView52);
+        unsubscribe = findViewById(R.id.textView53);
 
         bottom.setBehaviorTranslationEnabled(false);
         bottom.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
@@ -94,6 +100,31 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });*/
 
+        faqs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity3.this , Web.class);
+                intent.putExtra("title" ,  getString(R.string.faqs1));
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/faq.php");
+                startActivity(intent);
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity3.this , Web.class);
+                intent.putExtra("title" ,  getString(R.string.contact_us));
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/contact.php");
+                startActivity(intent);
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
 
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,7 +247,7 @@ public class MainActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity3.this , Web.class);
+                Intent intent = new Intent(MainActivity3.this , Support.class);
                 intent.putExtra("title" , getString(R.string.support_help));
                 intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
                 startActivity(intent);

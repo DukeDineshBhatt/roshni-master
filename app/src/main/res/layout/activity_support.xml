@@ -110,6 +110,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/blue_back_round"
         android:minWidth="0dp"
+        android:visibility="gone"
         android:minHeight="0dp"
         android:paddingStart="20dp"
         android:paddingTop="10dp"

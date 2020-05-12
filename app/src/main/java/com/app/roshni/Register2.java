@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -72,6 +73,9 @@ public class Register2 extends AppCompatActivity {
         tabs.getTabAt(0).setText("COMPANY");
         tabs.getTabAt(1).setText("PICTURES");
 
+        Log.d("regosterc1" , String.valueOf(c1));
+
+
     }
 
     class PagerAdapter extends FragmentStatePagerAdapter
@@ -89,7 +93,7 @@ public class Register2 extends AppCompatActivity {
             if (position == 0) {
 
                 brand frag = new brand();
-                frag.setData(pager);
+                frag.setData(pager , c1 , c2 , c3 , c4 , c5);
                 return frag;
 
 

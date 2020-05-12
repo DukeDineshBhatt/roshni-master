@@ -88,7 +88,7 @@ public class Register3 extends AppCompatActivity {
             if (position == 0) {
 
                 contractor frag = new contractor();
-                frag.setData(pager);
+                frag.setData(pager , c1 , c2 , c3 , c4 , c5);
                 return frag;
 
 

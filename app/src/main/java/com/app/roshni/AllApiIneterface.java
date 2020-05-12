@@ -185,7 +185,12 @@ public interface AllApiIneterface {
             @Part("website") String website,
             @Part("email") String email,
             @Part("same") String same,
-            @Part MultipartBody.Part file1
+            @Part MultipartBody.Part file1,
+            @Part("c1") String c1,
+            @Part("c2") String c2,
+            @Part("c3") String c3,
+            @Part("c4") String c4,
+            @Part("c5") String c5
     );
 
     @Multipart
@@ -262,7 +267,12 @@ public interface AllApiIneterface {
             @Part("sector") String sector,
             @Part("tools") String looms,
             @Part("same") String same,
-            @Part MultipartBody.Part file1
+            @Part MultipartBody.Part file1,
+            @Part("c1") String c1,
+            @Part("c2") String c2,
+            @Part("c3") String c3,
+            @Part("c4") String c4,
+            @Part("c5") String c5
     );
 
 

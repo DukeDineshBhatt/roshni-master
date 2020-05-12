@@ -242,7 +242,7 @@ public class brand3 extends Fragment {
 
 
         countries.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
-        countries.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
+        //countries.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
         countries.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_CURRENT_TOKEN);
 
         /* cstate.setOnClickListener(new View.OnClickListener() {
@@ -803,6 +803,8 @@ public class brand3 extends Fragment {
 
                                                                     } else {
                                                                         Toast.makeText(getActivity(), "Invalid workers", Toast.LENGTH_SHORT).show();
+                                                                        workers.setError("");
+                                                                        workers.requestFocus();
                                                                     }
 
                                                                 } else {
@@ -811,42 +813,66 @@ public class brand3 extends Fragment {
 
                                                             } else {
                                                                 Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
+                                                                ppin.setError("");
+                                                                ppin.requestFocus();
                                                             }
                                                         } else {
                                                             Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+                                                            pstate.setError("");
+                                                            pstate.requestFocus();
                                                         }
                                                     } else {
                                                         Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
+                                                        pdistrict.setError("");
+                                                        pdistrict.requestFocus();
                                                     }
                                                 } else {
                                                     Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
+                                                    parea.setError("");
+                                                    parea.requestFocus();
                                                 }
                                             } else {
                                                 Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
+                                                pstreet.setError("");
+                                                pstreet.requestFocus();
                                             }
 
                                         } else {
                                             Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                            cpin.setError("");
+                                            cpin.requestFocus();
                                         }
                                     } else {
                                         Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                        cstate.setError("");
+                                        cstate.requestFocus();
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                    cdistrict.setError("");
+                                    cdistrict.requestFocus();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
+                                carea.setError("");
+                                carea.requestFocus();
                             }
                         } else {
                             Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
+                            cstreet.setError("");
+                            cstreet.requestFocus();
                         }
                     } else {
                         Toast.makeText(getContext(), "Invalid contact person name", Toast.LENGTH_SHORT).show();
+                        person.setError("");
+                        person.requestFocus();
                     }
 
 
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
+                    name.setError("");
+                    name.requestFocus();
                 }
 
 

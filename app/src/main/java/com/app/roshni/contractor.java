@@ -953,36 +953,53 @@ public class contractor extends Fragment {
                                                 else
                                                 {
                                                     Toast.makeText(getContext(), "Please select type of work", Toast.LENGTH_SHORT).show();
+                                                    work.requestFocus();
                                                 }
 
 
 
                                             } else {
                                                 Toast.makeText(getContext(), "Invalid female workers", Toast.LENGTH_SHORT).show();
+                                                female.setError("");
+                                                female.requestFocus();
                                             }
 
                                         } else {
                                             Toast.makeText(getContext(), "Invalid male workers", Toast.LENGTH_SHORT).show();
+                                            male.setError("");
+                                            male.requestFocus();
                                         }
 
                                     } else {
                                         Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                        cpin.setError("");
+                                        cpin.requestFocus();
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                    cstate.setError("");
+                                    cstate.requestFocus();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                cdistrict.setError("");
+                                cdistrict.requestFocus();
                             }
                         } else {
                             Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
+                            carea.setError("");
+                            carea.requestFocus();
                         }
                     } else {
                         Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
+                        cstreet.setError("");
+                        cstreet.requestFocus();
                     }
 
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
+                    name.setError("");
+                    name.requestFocus();
                 }
 
             }

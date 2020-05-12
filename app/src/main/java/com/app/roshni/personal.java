@@ -923,44 +923,68 @@ public class personal extends Fragment {
 
                                                                 } else {
                                                                     Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
+                                                                    ppin.setError("");
+                                                                    ppin.requestFocus();
                                                                 }
                                                             } else {
                                                                 Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+                                                                pstate.setError("");
+                                                                pstate.requestFocus();
                                                             }
                                                         } else {
                                                             Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
+                                                            pdistrict.setError("");
+                                                            pdistrict.requestFocus();
                                                         }
                                                     } else {
                                                         Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
+                                                        parea.setError("");
+                                                        parea.requestFocus();
                                                     }
                                                 } else {
                                                     Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
+                                                    pstreet.setError("");
+                                                    pstreet.requestFocus();
                                                 }
 
                                             } else {
                                                 Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                                cpin.setError("");
+                                                cpin.requestFocus();
                                             }
                                         } else {
                                             Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                            cstate.setError("");
+                                            cstate.requestFocus();
                                         }
                                     } else {
                                         Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                        cdistrict.setError("");
+                                        cdistrict.requestFocus();
                                     }
                                 } else {
                                     Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
+                                    carea.setError("");
+                                    carea.requestFocus();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
+                                cstreet.setError("");
+                                cstreet.requestFocus();
                             }
                         } else {
                             Toast.makeText(getContext(), "Invalid gender", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Invalid D.O.B.", Toast.LENGTH_SHORT).show();
+                        dob.setError("");
+                        dob.requestFocus();
                     }
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
+                    name.setError("");
+                    name.requestFocus();
                 }
 
             }

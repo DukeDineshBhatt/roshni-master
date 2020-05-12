@@ -678,6 +678,14 @@ public class Personal2 extends Fragment {
 
                                 ag2 = getAge(dd);
 
+                                int cp12 = 0;
+                                for (int i = 0; i < agg.size(); i++) {
+                                    if (String.valueOf(ag2).equals(agg.get(i))) {
+                                        cp12 = i;
+                                    }
+                                }
+                                age.setSelection(cp12);
+
                                 if (ag2 < 18 )
                                 {
                                     Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();

@@ -122,7 +122,7 @@ public class Register3 extends AppCompatActivity {
 
         new AlertDialog.Builder(Register3.this)
                 .setTitle("Confirm")
-                .setMessage("Are you sure you want to go back?")
+                .setMessage("Are you sure to close the app?")
 
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.

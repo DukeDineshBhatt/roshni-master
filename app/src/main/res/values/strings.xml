@@ -122,7 +122,7 @@
     <string name="your_gender">YOUR GENDER *</string>
     <string name="about1">ABOUT</string>
     <string name="name_of_business_if_any">NAME OF BUSINESS (IF ANY)</string>
-    <string name="year_of_establishment">YEAR OF ESTABLISHMENT</string>
+    <string name="year_of_establishment">YEAR OF EXPERIENCE</string>
     <string name="your_permanent_address">YOUR PERMANENT ADDRESS *</string>
     <string name="no_of_home_based_units">NO. OF HOME BASED UNITS</string>
     <string name="location_of_home_based_units">LOCATION OF HOME BASED UNITS</string>
@@ -246,4 +246,5 @@
     <string name="i_will_fill_all_the_information_myself_and_is_true_to_my_knowledge">I will fill all the information myself and is true to my knowledge.</string>
     <string name="i_authorize_goodweave_or_its_representative_to_fill_the_information_do_registration_on_my_behalf_through_telephonic_communication_and_have_shared_my_otp_for_this_purpose">I authorize GoodWeave or its representative to fill the information/do registration on my behalf through telephonic communication and have shared my OTP for this purpose.</string>
     <string name="read_terms_amp_conditions"><![CDATA[Read Terms & Conditions]]></string>
+    <string name="create_new_pin">CREATE NEW PIN</string>
 </resources>

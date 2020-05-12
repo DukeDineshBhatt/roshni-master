@@ -289,21 +289,23 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/white_back_round"
+                    android:background="@drawable/blue_back_round"
                     android:minWidth="0dp"
+                    android:layout_marginEnd="4dp"
                     android:minHeight="0dp"
                     android:paddingStart="20dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="8dp"
                     android:text="@string/previous"
-                    android:textColor="#000000" />
+                    android:textColor="#ffffff" />
 
 
                 <Button
                     android:id="@+id/submit"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:layout_marginStart="4dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/blue_back_round"

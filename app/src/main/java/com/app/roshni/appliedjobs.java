@@ -66,6 +66,7 @@ public class appliedjobs extends Fragment {
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
 
+        date.setVisibility(View.GONE);
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override

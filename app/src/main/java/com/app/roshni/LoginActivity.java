@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity4.class);
                                     //intent.putExtra("id" , item.getId());
                                     startActivity(intent);
-                                    finish();
+                                    finishAffinity();
 
                                 } else {
 

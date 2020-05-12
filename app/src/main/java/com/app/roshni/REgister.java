@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -74,6 +75,7 @@ public class REgister extends AppCompatActivity {
         tabs.getTabAt(0).setText("PERSONAL");
         tabs.getTabAt(1).setText("PROFESSIONAL");
 
+        Log.d("regosterc1" , String.valueOf(c1));
 
     }
 

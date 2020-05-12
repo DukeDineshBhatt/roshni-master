@@ -659,6 +659,8 @@ public class personal extends Fragment {
             @Override
             public void onClick(View view) {
 
+                long now = System.currentTimeMillis() - 1000;
+
                 new SingleDateAndTimePickerDialog.Builder(getActivity())
                         //.bottomSheet()
                         .curved()
@@ -668,6 +670,7 @@ public class personal extends Fragment {
                         .displayMonth(true)
                         .displayYears(true)
                         .displayDaysOfMonth(true)
+                        .maxDateRange(new Date(now))
                         .listener(new SingleDateAndTimePickerDialog.Listener() {
                             @Override
                             public void onDateSelected(Date date) {
@@ -783,6 +786,7 @@ public class personal extends Fragment {
                                                             if (ps.length() > 0) {
                                                                 if (pp.length() == 0 || pp.length() == 6) {
 
+                                                                    Log.d("personalc1" , String.valueOf(c1));
 
                                                                     MultipartBody.Part body = null;
                                                                     try {
@@ -1406,36 +1410,38 @@ public class personal extends Fragment {
 
     private int getAge(String dobString){
 
-        Date date = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        int age = 0;
         try {
-            date = sdf.parse(dobString);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date date1 = sdf.parse(dobString);
+            Calendar now = Calendar.getInstance();
+            Calendar dob = Calendar.getInstance();
+            dob.setTime(date1);
+            if (dob.after(now)) {
+                Toast.makeText(getContext(), "Can't be born in the future", Toast.LENGTH_SHORT).show();
+            }
+            int year1 = now.get(Calendar.YEAR);
+            int year2 = dob.get(Calendar.YEAR);
+            age = year1 - year2;
+            int month1 = now.get(Calendar.MONTH);
+            int month2 = dob.get(Calendar.MONTH);
+            if (month2 > month1) {
+                age--;
+            } else if (month1 == month2) {
+                int day1 = now.get(Calendar.DAY_OF_MONTH);
+                int day2 = dob.get(Calendar.DAY_OF_MONTH);
+                if (day2 > day1) {
+                    age--;
+                }
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        if(date == null) return 0;
-
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dob.setTime(date);
-
-        int year = dob.get(Calendar.YEAR);
-        int month = dob.get(Calendar.MONTH);
-        int day = dob.get(Calendar.DAY_OF_MONTH);
-
-        dob.set(year, month+1, day);
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            age--;
-        }
+        return age ;
 
 
 
-        return age;
     }
 
 

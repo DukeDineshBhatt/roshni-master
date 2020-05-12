@@ -49,6 +49,7 @@ public class CreatePIN extends AppCompatActivity {
         submit = findViewById(R.id.button3);
         progress = findViewById(R.id.progressBar2);
 
+        Log.d("createpimc1" , String.valueOf(c1));
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

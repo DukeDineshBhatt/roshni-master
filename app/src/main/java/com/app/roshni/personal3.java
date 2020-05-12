@@ -31,7 +31,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,8 +43,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
-import com.app.roshni.workerListPOJO.Datum;
-import com.app.roshni.workerListPOJO.workerListBean;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -75,7 +72,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -93,54 +89,57 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class Personal2 extends Fragment {
+public class personal3 extends Fragment {
 
     private static final String TAG = "personal";
     private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
 
+    private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, prf;
 
     private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu;
 
+    private CheckBox check;
     private CircleImageView image;
 
-    private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, id, prf;
+    private Button upload, submit;
 
-    private CheckBox check;
-    private File f1;
+    private List<String> gen, cat, rel, edu, mar, chi, prof , agg;
+
     private Uri uri;
+    private File f1;
 
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean che = false;
 
     private boolean rel_bool = false;
 
     private boolean edu_bool = false;
 
-
-    private boolean che = false;
-
-    private List<String> gen, cat, rel, edu, mar, chi, prof , agg;
-
     private LinearLayout permanent, child;
-
-    private Button upload, submit;
-    private Location mLastKnownLocation;
-
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlacesClient mPlacesClient;
 
     private ProgressBar progress;
 
     private CustomViewPager pager;
+
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
-    TextView getDirection;
+    // The geographical location where the device is currently located. That is, the last-known
+    // location retrieved by the Fused Location Provider.
+    private Location mLastKnownLocation;
 
-    void setData(CustomViewPager pager) {
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private PlacesClient mPlacesClient;
+    boolean c1, c2 ,c3 , c4 ,c5;
+    void setData(CustomViewPager pager , boolean c1 , boolean c2 , boolean c3 , boolean c4 , boolean c5) {
         this.pager = pager;
+        this.c1 = c1;
+        this.c2 = c2;
+        this.c3 = c3;
+        this.c4 = c4;
+        this.c5 = c5;
     }
 
     String lat = "" , lng = "";
-    String lat1 = "" , lng1 = "";
 
     String ag;
 
@@ -151,8 +150,7 @@ public class Personal2 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_personal, container, false);
-
+        View view = inflater.inflate(R.layout.personal_layout, container, false);
 
         gen = new ArrayList<>();
         cat = new ArrayList<>();
@@ -180,10 +178,12 @@ public class Personal2 extends Fragment {
                         if (location != null) {
                             // Logic to handle location object
                             mLastKnownLocation = location;
-                            lat1 = String.valueOf(mLastKnownLocation.getLatitude());
-                            lng1 = String.valueOf(mLastKnownLocation.getLongitude());
 
-                            Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
+                            lat = String.valueOf(mLastKnownLocation.getLatitude());
+                                    lng = String.valueOf(mLastKnownLocation.getLongitude());
+
+
+                                    Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
                         }
 
 
@@ -218,20 +218,18 @@ public class Personal2 extends Fragment {
         editTxtProof = view.findViewById(R.id.editTxtProf);
         editTxtRelg = view.findViewById(R.id.editTxtRelg);
         editTxtedu = view.findViewById(R.id.editTxtedu);
-        getDirection = view.findViewById(R.id.getdirection);
 
         progress = view.findViewById(R.id.progress);
-        upload = view.findViewById(R.id.button7);
-        submit = view.findViewById(R.id.submit);
-
-        check = view.findViewById(R.id.check);
 
         permanent = view.findViewById(R.id.permanent);
         child = view.findViewById(R.id.child);
+
         check = view.findViewById(R.id.check);
 
-
         image = view.findViewById(R.id.imageView3);
+
+        upload = view.findViewById(R.id.button7);
+        submit = view.findViewById(R.id.submit);
 
 
         gender = view.findViewById(R.id.gender);
@@ -250,10 +248,12 @@ public class Personal2 extends Fragment {
         gen.add("Male");
         gen.add("Female");
 
-        for (int i = 14 ; i <= 100 ; i++)
+        for (int i = 18 ; i <= 100 ; i++)
         {
             agg.add("" + i);
         }
+
+
 
         cat.add("SC");
         cat.add("ST");
@@ -300,9 +300,6 @@ public class Personal2 extends Fragment {
         prof.add("Driving License");
         prof.add("Passport");
         prof.add("Bank passbook");
-
-        id = SharePreferenceUtils.getInstance().getString("user");
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_model, gen);
@@ -404,7 +401,7 @@ public class Personal2 extends Fragment {
         gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                gend = gen.get(i);
+                    gend = gen.get(i);
             }
 
             @Override
@@ -428,7 +425,7 @@ public class Personal2 extends Fragment {
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                cate = cat.get(i);
+                    cate = cat.get(i);
             }
 
             @Override
@@ -484,20 +481,20 @@ public class Personal2 extends Fragment {
         marital.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mari = mar.get(i);
+                    mari = mar.get(i);
 
-                if (mari.equals("Single")) {
-                    child.setVisibility(View.GONE);
+                    if (mari.equals("Single")) {
+                        child.setVisibility(View.GONE);
 
-                    chil = "0";
-                    belo = "0";
-                    sixt = "0";
-                    fift = "0";
-                    goin = "0";
+                        chil = "0";
+                        belo = "0";
+                        sixt = "0";
+                        fift = "0";
+                        goin = "0";
 
-                } else {
-                    child.setVisibility(View.VISIBLE);
-                }
+                    } else {
+                        child.setVisibility(View.VISIBLE);
+                    }
 
 
             }
@@ -511,7 +508,7 @@ public class Personal2 extends Fragment {
         children.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                chil = chi.get(i);
+                    chil = chi.get(i);
             }
 
             @Override
@@ -523,7 +520,7 @@ public class Personal2 extends Fragment {
         below6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                belo = chi.get(i);
+                    belo = chi.get(i);
             }
 
             @Override
@@ -535,7 +532,7 @@ public class Personal2 extends Fragment {
         sixto14.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sixt = chi.get(i);
+                    sixt = chi.get(i);
             }
 
             @Override
@@ -547,7 +544,7 @@ public class Personal2 extends Fragment {
         fifteento18.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                fift = chi.get(i);
+                    fift = chi.get(i);
             }
 
             @Override
@@ -559,7 +556,7 @@ public class Personal2 extends Fragment {
         goingtoschool.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                goin = chi.get(i);
+                    goin = chi.get(i);
             }
 
             @Override
@@ -571,7 +568,7 @@ public class Personal2 extends Fragment {
         proof.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                prf = prof.get(i);
+                    prf = prof.get(i);
             }
 
             @Override
@@ -668,6 +665,7 @@ public class Personal2 extends Fragment {
                                 //date.getTime();
 
                                 Date dt = new Date(date.getTime());
+
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                                 String dd = sdf.format(dt);
 
@@ -676,12 +674,15 @@ public class Personal2 extends Fragment {
 
                                 dob.setText(dd);
 
+
+
                                 ag2 = getAge(dd);
 
                                 if (ag2 < 18 )
                                 {
                                     Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
                                 }
+
 
                             }
                         })
@@ -759,7 +760,7 @@ public class Personal2 extends Fragment {
 
 
                 if (n.length() > 0) {
-                    if (d.length() > 0) {
+                    if (ag2 > 17) {
                         if (gend.length() > 0) {
                             if (cst.length() > 0) {
                                 if (ca.length() > 0) {
@@ -797,12 +798,12 @@ public class Personal2 extends Fragment {
                                                                     AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
                                                                     Call<verifyBean> call = cr.updateWorkerPersonal2(
-                                                                            SharePreferenceUtils.getInstance().getString("user"),
+                                                                            SharePreferenceUtils.getInstance().getString("user_id"),
                                                                             n,
                                                                             prf,
                                                                             idno,
-                                                                            lat1,
-                                                                            lng1,
+                                                                            lat,
+                                                                            lng,
                                                                             d,
                                                                             gend,
                                                                             cp,
@@ -937,7 +938,7 @@ public class Personal2 extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getContext(), "Invalid D.O.B.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();
@@ -947,50 +948,11 @@ public class Personal2 extends Fragment {
 
         });
 
-
-        setPrevious();
-
-        getDirection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String uri = String.format(Locale.ENGLISH, "geo:"+lat +","+lng);
-                Uri gmmIntentUri = Uri.parse(uri);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }
-
-                Log.d("LAT",uri);
-                Log.d("LNG",lng);
-
-            }
-        });
+        //setPrevious();
 
         return view;
-
     }
 
-
-
-
-    private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1021,7 +983,22 @@ public class Personal2 extends Fragment {
 
             image.setImageURI(uri);
 
+
+            /*f1 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image.setImageBitmap(bmp);*/
+
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
+
             Log.d("uri1", String.valueOf(uri));
 
             try {
@@ -1265,183 +1242,152 @@ public class Personal2 extends Fragment {
 
 
     void setPrevious() {
+        name.setText(SharePreferenceUtils.getInstance().getString("name"));
+        editTxtProof.setText(SharePreferenceUtils.getInstance().getString("idproofnumber"));
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
 
-        Bean b = (Bean) getContext().getApplicationContext();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(b.baseurl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-        Log.d("DDD", id);
-
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(id);
-
-        call.enqueue(new Callback<WorkerByIdListBean>() {
-            @Override
-            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
-
-                List<WorkerByIdData> item = response.body().getData();
-
-                lat = item.get(0).getLat();
-                lng = item.get(0).getLng();
-
-                name.setText(item.get(0).getName());
-                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
-
-                ImageLoader loader = ImageLoader.getInstance();
-                loader.displayImage(item.get(0).getPhoto(), image, options);
-                editTxtProof.setText(item.get(0).getIdNumber());
-                dob.setText(item.get(0).getDob());
-                cpin.setText(item.get(0).getCpin());
-                cstreet.setText(item.get(0).getCstreet());
-                carea.setText(item.get(0).getCarea());
-                cdistrict.setText(item.get(0).getCdistrict());
-                cstate.setText(item.get(0).getCstate());
-                ppin.setText(item.get(0).getPpin());
-                pstreet.setText(item.get(0).getPstreet());
-                parea.setText(item.get(0).getParea());
-                pdistrict.setText(item.get(0).getPdistrict());
-                pstate.setText(item.get(0).getPstate());
-
-                ag2 = getAge(item.get(0).getDob());
+        ImageLoader loader = ImageLoader.getInstance();
+        loader.displayImage(SharePreferenceUtils.getInstance().getString("photo"), image, options);
+        dob.setText(SharePreferenceUtils.getInstance().getString("dob"));
+        ppin.setText(SharePreferenceUtils.getInstance().getString("ppin"));
+        pstate.setText(SharePreferenceUtils.getInstance().getString("pstate"));
+        pdistrict.setText(SharePreferenceUtils.getInstance().getString("pdistrict"));
+        parea.setText(SharePreferenceUtils.getInstance().getString("parea"));
+        pstreet.setText(SharePreferenceUtils.getInstance().getString("pstreet"));
+        cpin.setText(SharePreferenceUtils.getInstance().getString("cpin"));
+        cstate.setText(SharePreferenceUtils.getInstance().getString("cstate"));
+        cdistrict.setText(SharePreferenceUtils.getInstance().getString("cdistrict"));
+        carea.setText(SharePreferenceUtils.getInstance().getString("carea"));
+        cstreet.setText(SharePreferenceUtils.getInstance().getString("cstreet"));
 
 
-                int cp12 = 0;
-                for (int i = 0; i < agg.size(); i++) {
-                    if (item.get(0).getAge().equals(agg.get(i))) {
-                        cp12 = i;
-                    }
-                }
-                age.setSelection(cp12);
-
-                int cp = 0;
-                for (int i = 0; i < prof.size(); i++) {
-                    if (item.get(0).getIdProof().equals(prof.get(i))) {
-                        cp = i;
-                    }
-                }
-                proof.setSelection(cp);
-
-                int gd = 0;
-                for (int i = 0; i < gen.size(); i++) {
-                    if (item.get(0).getGender().equals(gen.get(i))) {
-                        gd = i;
-                    }
-                }
-                gender.setSelection(gd);
-
-                int ct = 0;
-                for (int i = 0; i < cat.size(); i++) {
-                    if (item.get(0).getCategory().equals(cat.get(i))) {
-                        ct = i;
-                    }
-                }
-                category.setSelection(ct);
-
-                int re = 0;
-                for (int i = 0; i < rel.size(); i++) {
-                    if (item.get(0).getReligion().equals(rel.get(i))) {
-                        re = i;
-                        editTxtRelg.setText("");
-                        break;
-                    } else {
-                        editTxtRelg.setVisibility(View.VISIBLE);
-                        editTxtRelg.setText(item.get(0).getReligion());
-                        re = 4;
-                    }
-                }
-                religion.setSelection(re);
-
-                int ed = 0;
-                for (int i = 0; i < edu.size(); i++) {
-                    if (item.get(0).getEducational().equals(edu.get(i))) {
-                        ed = i;
-                        editTxtedu.setText("");
-                        break;
-                    } else {
-                        editTxtedu.setVisibility(View.VISIBLE);
-                        editTxtedu.setText(item.get(0).getEducational());
-                        ed = 7;
-                    }
-                }
-                educational.setSelection(ed);
-
-                int mt = 0;
-                for (int j = 0; j < mar.size(); j++) {
-
-                    if (item.get(0).getMarital().equals(mar.get(j))) {
-                        mt = j;
-                        child.setVisibility(View.GONE);
-                        break;
-
-                    } else {
-
-                        child.setVisibility(View.VISIBLE);
-
-                        int chp = 0;
-                        for (int i = 0; i < chi.size(); i++) {
-                            if (item.get(0).getChildren().equals(chi.get(i))) {
-                                chp = i;
-                            }
-                        }
-                        children.setSelection(chp);
-
-
-                        int bp = 0;
-                        for (int i = 0; i < chi.size(); i++) {
-                            if (item.get(0).getBelowsix().equals(chi.get(i))) {
-                                bp = i;
-                            }
-                        }
-                        below6.setSelection(bp);
-
-                        int sp = 0;
-                        for (int i = 0; i < chi.size(); i++) {
-                            if (item.get(0).getSixtofourteen().equals(chi.get(i))) {
-                                sp = i;
-                            }
-                        }
-                        sixto14.setSelection(sp);
-
-                        int fp = 0;
-                        for (int i = 0; i < chi.size(); i++) {
-                            if (item.get(0).getFifteentoeighteen().equals(chi.get(i))) {
-                                fp = i;
-                            }
-                        }
-                        fifteento18.setSelection(fp);
-
-                        int gop = 0;
-                        for (int i = 0; i < chi.size(); i++) {
-                            if (item.get(0).getGoingtoschool().equals(chi.get(i))) {
-                                gop = i;
-                            }
-                        }
-                        goingtoschool.setSelection(gop);
-
-
-                    }
-                }
-                marital.setSelection(mt);
-
-
-                progress.setVisibility(View.GONE);
-
-
+        int gp = 0;
+        for (int i = 0; i < gen.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("gender").equals(gen.get(i))) {
+                gp = i;
             }
+        }
+        gender.setSelection(gp);
 
-            @Override
-            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
+        int ip = 0;
+        for (int i = 0; i < prof.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("idproof").equals(prof.get(i))) {
+                ip = i;
             }
-        });
+        }
+        proof.setSelection(ip);
 
+
+        int cp = 0;
+        for (int i = 0; i < cat.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("category").equals(cat.get(i))) {
+                cp = i;
+            }
+        }
+        category.setSelection(cp);
+
+
+        int rp = 0;
+        for (int i = 0; i < rel.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("religion").equals(rel.get(i))) {
+                rp = i;
+            }
+        }
+        religion.setSelection(rp);
+
+        int mp = 0;
+        for (int i = 0; i < mar.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("marital").equals(mar.get(i))) {
+                mp = i;
+            }
+        }
+        marital.setSelection(mp);
+
+        int ep = 0;
+        for (int i = 0; i < edu.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("educational").equals(edu.get(i))) {
+                ep = i;
+            } else {
+                ep = 8;
+                editTxtedu.setText(SharePreferenceUtils.getInstance().getString("educational"));
+            }
+        }
+        educational.setSelection(ep);
+
+        int chp = 0;
+        for (int i = 0; i < chi.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("children").equals(chi.get(i))) {
+                chp = i;
+            }
+        }
+        children.setSelection(chp);
+
+
+        int bp = 0;
+        for (int i = 0; i < chi.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("belowsix").equals(chi.get(i))) {
+                bp = i;
+            }
+        }
+        below6.setSelection(bp);
+
+        int sp = 0;
+        for (int i = 0; i < chi.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("sixtofourteen").equals(chi.get(i))) {
+                sp = i;
+            }
+        }
+        sixto14.setSelection(sp);
+
+        int fp = 0;
+        for (int i = 0; i < chi.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("fifteentoeighteen").equals(chi.get(i))) {
+                fp = i;
+            }
+        }
+        fifteento18.setSelection(fp);
+
+        int gop = 0;
+        for (int i = 0; i < chi.size(); i++) {
+            if (SharePreferenceUtils.getInstance().getString("goingtoschool").equals(chi.get(i))) {
+                gop = i;
+            }
+        }
+        goingtoschool.setSelection(gop);
 
     }
+
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            }
+        }
+    }
+
+
 
     private int getAge(String dobString){
 
@@ -1476,5 +1422,6 @@ public class Personal2 extends Fragment {
 
         return age;
     }
+
 
 }

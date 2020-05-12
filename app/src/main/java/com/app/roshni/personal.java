@@ -139,9 +139,14 @@ public class personal extends Fragment {
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient mPlacesClient;
-
-    void setData(CustomViewPager pager) {
+    boolean c1, c2 ,c3 , c4 ,c5;
+    void setData(CustomViewPager pager , boolean c1 , boolean c2 , boolean c3 , boolean c4 , boolean c5) {
         this.pager = pager;
+        this.c1 = c1;
+        this.c2 = c2;
+        this.c3 = c3;
+        this.c4 = c4;
+        this.c5 = c5;
     }
 
     String lat = "" , lng = "";
@@ -832,7 +837,12 @@ public class personal extends Fragment {
                                                                             goin,
                                                                             ag,
                                                                             same,
-                                                                            body
+                                                                            body,
+                                                                            String.valueOf(c1),
+                                                                            String.valueOf(c2),
+                                                                            String.valueOf(c3),
+                                                                            String.valueOf(c4),
+                                                                            String.valueOf(c5)
                                                                     );
 
                                                                     call.enqueue(new Callback<verifyBean>() {

@@ -107,8 +107,49 @@ public interface AllApiIneterface {
             @Part("goingtoschool") String goingtoschool,
             @Part("age") String age,
             @Part("same") String same,
+            @Part MultipartBody.Part file1,
+            @Part("c1") String c1,
+            @Part("c2") String c2,
+            @Part("c3") String c3,
+            @Part("c4") String c4,
+            @Part("c5") String c5
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/update_worker_personal2.php")
+    Call<verifyBean> updateWorkerPersonal2(
+            @Part("user_id") String user_id,
+            @Part("name") String name,
+            @Part("id_proof") String id_proof,
+            @Part("id_number") String id_number,
+            @Part("lat") String lat,
+            @Part("lng") String lng,
+            @Part("dob") String dob,
+            @Part("gender") String gender,
+            @Part("cpin") String cpin,
+            @Part("cstate") String cstate,
+            @Part("cdistrict") String cdistrict,
+            @Part("carea") String carea,
+            @Part("cstreet") String cstreet,
+            @Part("ppin") String ppin,
+            @Part("pstate") String pstate,
+            @Part("pdistrict") String pdistrict,
+            @Part("parea") String parea,
+            @Part("pstreet") String pstreet,
+            @Part("category") String category,
+            @Part("religion") String religion,
+            @Part("educational") String educational,
+            @Part("marital") String marital,
+            @Part("children") String children,
+            @Part("belowsix") String belowsix,
+            @Part("sixtofourteen") String sixtofourteen,
+            @Part("fifteentoeighteen") String fifteentoeighteen,
+            @Part("goingtoschool") String goingtoschool,
+            @Part("age") String age,
+            @Part("same") String same,
             @Part MultipartBody.Part file1
     );
+
 
     @Multipart
     @POST("goodbusinessapp/api/update_brand.php")

@@ -75,8 +75,8 @@ public class UpdateProfile extends AppCompatActivity {
         public Fragment getItem(int position) {
             if (position == 0)
             {
-                personal frag = new personal();
-                frag.setData(pager);
+                personal3 frag = new personal3();
+                frag.setData(pager , true  , true  , true  , true  , true );
                 return frag;
             }
             else

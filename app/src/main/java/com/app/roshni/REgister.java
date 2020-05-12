@@ -25,11 +25,17 @@ public class REgister extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabs;
     CustomViewPager pager;
-
+    boolean c1, c2 ,c3 , c4 ,c5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        c1 = getIntent().getBooleanExtra("c1" , false);
+        c2 = getIntent().getBooleanExtra("c2" , false);
+        c3 = getIntent().getBooleanExtra("c3" , false);
+        c4 = getIntent().getBooleanExtra("c4" , false);
+        c5 = getIntent().getBooleanExtra("c5" , false);
 
         tabs = findViewById(R.id.tabLayout2);
         pager = findViewById(R.id.pager);
@@ -83,7 +89,7 @@ public class REgister extends AppCompatActivity {
             if (position == 0) {
 
                 personal frag = new personal();
-                frag.setData(pager);
+                frag.setData(pager , c1 , c2 , c3 , c4 , c5);
                 return frag;
 
 

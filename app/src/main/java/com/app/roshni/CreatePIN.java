@@ -31,10 +31,18 @@ public class CreatePIN extends AppCompatActivity {
     Button submit;
     ProgressBar progress;
 
+    boolean c1, c2 ,c3 , c4 ,c5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pin);
+
+        c1 = getIntent().getBooleanExtra("c1" , false);
+        c2 = getIntent().getBooleanExtra("c2" , false);
+        c3 = getIntent().getBooleanExtra("c3" , false);
+        c4 = getIntent().getBooleanExtra("c4" , false);
+        c5 = getIntent().getBooleanExtra("c5" , false);
 
         pin = findViewById(R.id.textView5);
         cpin = findViewById(R.id.textView8);
@@ -179,17 +187,32 @@ public class CreatePIN extends AppCompatActivity {
                                     if (response.body().getData().getType().equals("worker"))
                                     {
                                         Intent intent = new Intent(CreatePIN.this , REgister.class);
+                                        intent.putExtra("c1" , c1);
+                                        intent.putExtra("c2" , c2);
+                                        intent.putExtra("c3" , c3);
+                                        intent.putExtra("c4" , c4);
+                                        intent.putExtra("c5" , c5);
                                         startActivity(intent);
                                         finishAffinity();
                                     }else if (response.body().getData().getType().equals("brand"))
                                     {
                                         Intent intent = new Intent(CreatePIN.this , Register2.class);
+                                        intent.putExtra("c1" , c1);
+                                        intent.putExtra("c2" , c2);
+                                        intent.putExtra("c3" , c3);
+                                        intent.putExtra("c4" , c4);
+                                        intent.putExtra("c5" , c5);
                                         startActivity(intent);
                                         finishAffinity();
                                     }
                                     else
                                     {
                                         Intent intent = new Intent(CreatePIN.this , Register3.class);
+                                        intent.putExtra("c1" , c1);
+                                        intent.putExtra("c2" , c2);
+                                        intent.putExtra("c3" , c3);
+                                        intent.putExtra("c4" , c4);
+                                        intent.putExtra("c5" , c5);
                                         startActivity(intent);
                                         finishAffinity();
                                     }

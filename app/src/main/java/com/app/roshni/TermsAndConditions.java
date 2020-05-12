@@ -53,6 +53,11 @@ public class TermsAndConditions extends AppCompatActivity {
                 } else {
 */
                     Intent intent = new Intent(TermsAndConditions.this, CreatePIN.class);
+                    intent.putExtra("c1" , chk1.isChecked());
+                    intent.putExtra("c2" , chk2.isChecked());
+                    intent.putExtra("c3" , chk3.isChecked());
+                    intent.putExtra("c4" , chk4.isChecked());
+                    intent.putExtra("c5" , chk5.isChecked());
                     startActivity(intent);
                     Toast.makeText(TermsAndConditions.this, "Please create a PIN to continue", Toast.LENGTH_SHORT).show();
                     finishAffinity();

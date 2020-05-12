@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Feedback"></activity>
+        <activity android:name=".TermsAndConditions3"></activity>
+        <activity android:name=".Feedback" />
         <activity android:name=".Complaint" />
         <activity android:name=".Support" />
         <activity android:name=".CreatePIN2" />

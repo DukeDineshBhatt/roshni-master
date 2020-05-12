@@ -238,4 +238,9 @@
     <string name="submit2">Submit</string>
     <string name="enter_your_feedback">Enter Your Feedback</string>
     <string name="no">No</string>
+    <string name="change_terms_amp_conditions"><![CDATA[Change Terms & Conditions]]></string>
+    <string name="change_phone_number">Change Phone Number</string>
+    <string name="update">update</string>
+    <string name="proceed_for_registration">Proceed for registration</string>
+    <string name="close2">close</string>
 </resources>

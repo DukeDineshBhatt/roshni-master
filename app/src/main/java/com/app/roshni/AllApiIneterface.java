@@ -6,6 +6,7 @@ import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
 import com.app.roshni.contWorkerPOJO.contWorkerBeam;
 import com.app.roshni.contractorJobDetailsPOJO.contractorJobDetailsBean;
 import com.app.roshni.contractorPOJO.contractorBean;
+import com.app.roshni.getTncPOJO.getTncBean;
 import com.app.roshni.knowledgeDetailsPOJO.knowledgeDetailsBean;
 import com.app.roshni.knowledgeListPOJO.knowledgeListBean;
 import com.app.roshni.notificationBean.notificationBean;
@@ -713,6 +714,23 @@ public interface AllApiIneterface {
     Call<contractorBean> unsubscribe(
             @Part("user_id") String user_id,
             @Part("feedback") String feedback
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/gettnc.php")
+    Call<getTncBean> gettnc(
+            @Part("id") String id
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/update_tnc.php")
+    Call<getTncBean> update_tnc(
+            @Part("user_id") String user_id,
+            @Part("c1") String c1,
+            @Part("c2") String c2,
+            @Part("c3") String c3,
+            @Part("c4") String c4,
+            @Part("c5") String c5
     );
 
 }

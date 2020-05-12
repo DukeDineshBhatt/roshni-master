@@ -17,15 +17,20 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.roshni.contractorPOJO.contractorBean;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,6 +41,12 @@ import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
@@ -252,6 +263,102 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/support.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
+
+        unsubscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                drawer.closeDrawer(GravityCompat.START);
+
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.unsubscribe_dialog);
+                dialog.setCancelable(true);
+                dialog.show();
+
+
+                final EditText feedback = dialog.findViewById(R.id.editText10);
+                Button yes = dialog.findViewById(R.id.button25);
+                Button no = dialog.findViewById(R.id.button26);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar9);
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String f = feedback.getText().toString();
+
+                        bar.setVisibility(View.VISIBLE);
+
+                        Bean b1 = (Bean) getApplicationContext();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b1.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                        Call<contractorBean> call = cr.unsubscribe(
+                                SharePreferenceUtils.getInstance().getString("user_id"),
+                                f
+                        );
+
+                        call.enqueue(new Callback<contractorBean>() {
+                            @Override
+                            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+
+                                if (response.body().getStatus().equals("1"))
+                                {
+                                    Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    dialog.dismiss();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                FirebaseInstanceId.getInstance().deleteInstanceId();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }).start();
+
+                                    SharePreferenceUtils.getInstance().deletePref();
+
+                                    Intent intent = new Intent(MainActivity.this , Splash.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+                                }
+                                else
+                                {
+                                    Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                bar.setVisibility(View.GONE);
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<contractorBean> call, Throwable t) {
+                                bar.setVisibility(View.GONE);
+                            }
+                        });
+
+                    }
+                });
+
 
             }
         });

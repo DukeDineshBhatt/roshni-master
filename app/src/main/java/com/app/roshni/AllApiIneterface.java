@@ -667,4 +667,11 @@ public interface AllApiIneterface {
             @Part("body") String body
     );
 
+    @Multipart
+    @POST("goodbusinessapp/api/unsubscribe.php")
+    Call<contractorBean> unsubscribe(
+            @Part("user_id") String user_id,
+            @Part("feedback") String feedback
+    );
+
 }

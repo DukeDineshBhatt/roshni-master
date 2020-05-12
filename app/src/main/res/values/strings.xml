@@ -243,4 +243,7 @@
     <string name="update">update</string>
     <string name="proceed_for_registration">Proceed for registration</string>
     <string name="close2">close</string>
+    <string name="i_will_fill_all_the_information_myself_and_is_true_to_my_knowledge">I will fill all the information myself and is true to my knowledge.</string>
+    <string name="i_authorize_goodweave_or_its_representative_to_fill_the_information_do_registration_on_my_behalf_through_telephonic_communication_and_have_shared_my_otp_for_this_purpose">I authorize GoodWeave or its representative to fill the information/do registration on my behalf through telephonic communication and have shared my OTP for this purpose.</string>
+    <string name="read_terms_amp_conditions"><![CDATA[Read Terms & Conditions]]></string>
 </resources>

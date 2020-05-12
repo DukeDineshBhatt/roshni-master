@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.roshni.verifyPOJO.verifyBean;
@@ -31,6 +33,10 @@ public class Signup extends AppCompatActivity {
     ProgressBar progress;
     String type;
 
+    TextView read;
+
+    RadioGroup group;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,8 @@ public class Signup extends AppCompatActivity {
         code = findViewById(R.id.code);
         phone = findViewById(R.id.phone);
         progress = findViewById(R.id.progressBar);
+        read = findViewById(R.id.textView66);
+        group = findViewById(R.id.radioGroup);
 
         code.registerPhoneNumberTextView(phone);
 
@@ -57,49 +65,59 @@ public class Signup extends AppCompatActivity {
                 if (p.length() == 10)
                 {
 
-                    final String pho = code.getFullNumber();
+                    if (group.getCheckedRadioButtonId() != -1)
+                    {
+                        final String pho = code.getFullNumber();
 
-                    progress.setVisibility(View.VISIBLE);
+                        progress.setVisibility(View.VISIBLE);
 
-                    Bean b = (Bean) getApplicationContext();
+                        Bean b = (Bean) getApplicationContext();
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(b.baseurl)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
 
-                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                    Call<verifyBean> call = cr.worker_signup(pho , type , SharePreferenceUtils.getInstance().getString("token"));
-                    call.enqueue(new Callback<verifyBean>() {
-                        @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                        Call<verifyBean> call = cr.worker_signup(pho , type , SharePreferenceUtils.getInstance().getString("token"));
+                        call.enqueue(new Callback<verifyBean>() {
+                            @Override
+                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
-                            if (response.body().getStatus().equals("1"))
-                            {
-                                Intent intent = new Intent(Signup.this , OTP2.class);
-                                intent.putExtra("phone" , pho);
-                                startActivity(intent);
-                                Toast.makeText(Signup.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
-                                finishAffinity();
+                                if (response.body().getStatus().equals("1"))
+                                {
+                                    Intent intent = new Intent(Signup.this , OTP2.class);
+                                    intent.putExtra("phone" , pho);
+                                    startActivity(intent);
+                                    Toast.makeText(Signup.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
+                                    finishAffinity();
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(Signup.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                progress.setVisibility(View.GONE);
 
                             }
-                            else
-                            {
-                                Toast.makeText(Signup.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            @Override
+                            public void onFailure(Call<verifyBean> call, Throwable t) {
+                                progress.setVisibility(View.GONE);
                             }
+                        });
+                    }
+                    else
+                    {
+                        Toast.makeText(Signup.this, "Please accept above condition", Toast.LENGTH_SHORT).show();
+                    }
 
-                            progress.setVisibility(View.GONE);
 
-                        }
 
-                        @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                        }
-                    });
 
 
 
@@ -114,6 +132,17 @@ public class Signup extends AppCompatActivity {
             }
         });
 
+        read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Signup.this , Web.class);
+                intent.putExtra("title" , getString(R.string.terms_amp_conditions));
+                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/terms.php");
+                startActivity(intent);
+
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

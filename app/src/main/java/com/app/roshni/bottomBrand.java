@@ -128,7 +128,7 @@ public class bottomBrand extends BottomSheetDialogFragment {
                     address.setText(item.getBrandStreet() + ", " + item.getBrandArea() + ", " + item.getBrandDistrict() + ", " + item.getBrandState() + "-" + item.getBrandPin());
                     products.setText(item.getProducts());
 
-                    if (item.getCertification().equals("Yes"))
+                    if (item.getCertification().equals(getString(R.string.yes1)))
                     {
                         certification.setVisibility(View.VISIBLE);
                     }

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class TermsAndConditions2 extends AppCompatActivity {
 
-    CheckBox chk1, chk2, chk3, chk4, chk5;
+    CheckBox chk1, chk2, chk4, chk5;
     Button proceed, close;
 
     String type;
@@ -28,7 +28,6 @@ public class TermsAndConditions2 extends AppCompatActivity {
 
         chk1 = findViewById(R.id.checkBox1);
         chk2 = findViewById(R.id.checkBox2);
-        chk3 = findViewById(R.id.checkBox3);
         chk4 = findViewById(R.id.checkBox4);
         chk5 = findViewById(R.id.checkBox5);
         proceed = findViewById(R.id.proceed);
@@ -38,25 +37,34 @@ public class TermsAndConditions2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (type.equals("worker"))
+                if (chk1.isChecked() || chk2.isChecked() || chk4.isChecked() || chk5.isChecked())
                 {
-                    Intent intent = new Intent(TermsAndConditions2.this , REgister.class);
-                    startActivity(intent);
-                    finishAffinity();
-                }else if (type.equals("brand"))
-                {
-                    Intent intent = new Intent(TermsAndConditions2.this , Register2.class);
-                    startActivity(intent);
-                    finishAffinity();
+                    if (type.equals("worker"))
+                    {
+                        Intent intent = new Intent(TermsAndConditions2.this , REgister.class);
+                        startActivity(intent);
+                        finishAffinity();
+                    }else if (type.equals("brand"))
+                    {
+                        Intent intent = new Intent(TermsAndConditions2.this , Register2.class);
+                        startActivity(intent);
+                        finishAffinity();
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(TermsAndConditions2.this , Register3.class);
+                        startActivity(intent);
+                        finishAffinity();
+                    }
+
+                    Toast.makeText(TermsAndConditions2.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Intent intent = new Intent(TermsAndConditions2.this , Register3.class);
-                    startActivity(intent);
-                    finishAffinity();
+                    Toast.makeText(TermsAndConditions2.this, "You must agree at least one terms & conditions to proceed", Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(TermsAndConditions2.this, "Profile is incomplete. Please complete your profile first", Toast.LENGTH_SHORT).show();
+
 
             }
         });

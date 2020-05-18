@@ -263,13 +263,13 @@ public class SignupLogin extends AppCompatActivity {
                                 Intent intent = new Intent(SignupLogin.this , OTP.class);
                                 intent.putExtra("phone" , pho);
                                 startActivity(intent);
-                                Toast.makeText(SignupLogin.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupLogin.this, R.string.please_verify_otp, Toast.LENGTH_SHORT).show();
                                 finish();
 
                             } else if(response.body().getStatus().equals("2"))
                             {
                                 SharePreferenceUtils.getInstance().saveString("user_id", response.body().getMessage());
-                                Toast.makeText(SignupLogin.this, "Please enter PIN to continue", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupLogin.this, R.string.please_enter_pin_to_continue, Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(SignupLogin.this, EnterPIN.class);
                                 startActivity(intent);
@@ -295,7 +295,7 @@ public class SignupLogin extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupLogin.this, R.string.invalid_contact_number, Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -341,7 +341,7 @@ public class SignupLogin extends AppCompatActivity {
                                 Intent intent = new Intent(SignupLogin.this , OTP3.class);
                                 intent.putExtra("phone" , pho);
                                 startActivity(intent);
-                                Toast.makeText(SignupLogin.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupLogin.this, R.string.please_verify_otp, Toast.LENGTH_SHORT).show();
                                 finish();
 
                             }
@@ -365,7 +365,7 @@ public class SignupLogin extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(SignupLogin.this, "Invalid contact number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupLogin.this, R.string.invalid_contact_number, Toast.LENGTH_SHORT).show();
                 }
 
 

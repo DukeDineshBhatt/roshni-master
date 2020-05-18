@@ -101,7 +101,7 @@ public class appliedjobs2 extends Fragment {
 
                         dialog.dismiss();
 
-                        date.setText("Date - " + strDate + " (click to change)");
+                        date.setText(getString(R.string.date) + strDate + getString(R.string.click_to_change));
 
                         dd = strDate;
 
@@ -159,7 +159,7 @@ public class appliedjobs2 extends Fragment {
 
         Log.d("dddd", formattedDate);
 
-        date.setText("Date - " + formattedDate + " (click to change)");
+        date.setText(getString(R.string.date) + formattedDate + getString(R.string.click_to_change));
 
         dd = formattedDate;
 
@@ -247,7 +247,7 @@ public class appliedjobs2 extends Fragment {
 
             holder.company.setText(item.getBrandName());
             holder.title.setText(item.getTitle());
-            holder.salary.setText("Piece rate: " + item.getSalary());
+            holder.salary.setText(getString(R.string.piece_rate) + " - " + item.getSalary());
             holder.address.setText(item.getBrandStreet() + ", " + item.getBrandArea());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

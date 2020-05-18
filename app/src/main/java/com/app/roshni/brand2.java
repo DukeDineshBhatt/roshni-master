@@ -326,8 +326,8 @@ public class brand2 extends Fragment {
             }
         });
 
-        cer.add("Yes");
-        cer.add("No");
+        cer.add(getString(R.string.yes1));
+        cer.add(getString(R.string.no));
 
 
         man.add("0");
@@ -344,19 +344,19 @@ public class brand2 extends Fragment {
         man.add("11");
         man.add("12");
 
-        frm.add("Sole-properietor");
-        frm.add("Partnership");
-        frm.add("Pvt.Ltd. Company");
-        frm.add("Ltd. Company");
-        frm.add("LLC");
-        frm.add("LLP");
-        frm.add("Co-operative");
-        frm.add("Trust");
+        frm.add(getString(R.string.sole_properietor));
+        frm.add(getString(R.string.partnership));
+        frm.add(getString(R.string.pvt_ltd));
+        frm.add(getString(R.string.ltd_company));
+        frm.add(getString(R.string.llc));
+        frm.add(getString(R.string.llp));
+        frm.add(getString(R.string.cooperative));
+        frm.add(getString(R.string.trust));
 
-        frmtyp.add("None");
-        frmtyp.add("SSI");
-        frmtyp.add("MSME");
-        frmtyp.add("Cottage Industry");
+        frmtyp.add(getString(R.string.none));
+        frmtyp.add(getString(R.string.ssi));
+        frmtyp.add(getString(R.string.msme));
+        frmtyp.add(getString(R.string.cottage_industry));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_model, cer);
@@ -808,7 +808,7 @@ public class brand2 extends Fragment {
                     ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getLogo() , image , options);
 
-                    final Call<sectorBean> call2 = cr.getSectors();
+                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override

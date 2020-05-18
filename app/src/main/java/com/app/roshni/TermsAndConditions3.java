@@ -25,7 +25,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class TermsAndConditions3 extends AppCompatActivity {
 
-    CheckBox chk1, chk2, chk3, chk4, chk5;
+    CheckBox chk1, chk2, chk4, chk5;
     Button proceed, close;
 
     String type;
@@ -39,7 +39,6 @@ public class TermsAndConditions3 extends AppCompatActivity {
 
         chk1 = findViewById(R.id.checkBox1);
         chk2 = findViewById(R.id.checkBox2);
-        chk3 = findViewById(R.id.checkBox3);
         chk4 = findViewById(R.id.checkBox4);
         chk5 = findViewById(R.id.checkBox5);
         proceed = findViewById(R.id.proceed);
@@ -49,39 +48,48 @@ public class TermsAndConditions3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Bean b1 = (Bean) getApplicationContext();
+                if (chk1.isChecked() || chk2.isChecked() || chk4.isChecked() || chk5.isChecked())
+                {
+                    Bean b1 = (Bean) getApplicationContext();
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b1.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(b1.baseurl)
+                            .addConverterFactory(ScalarsConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
 
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                Call<getTncBean> call = cr.update_tnc(
-                        SharePreferenceUtils.getInstance().getString("user_id"),
-                        String.valueOf(chk1.isChecked()),
-                        String.valueOf(chk2.isChecked()),
-                        String.valueOf(chk3.isChecked()),
-                        String.valueOf(chk4.isChecked()),
-                        String.valueOf(chk5.isChecked())
-                );
+                    Call<getTncBean> call = cr.update_tnc(
+                            SharePreferenceUtils.getInstance().getString("user_id"),
+                            String.valueOf(chk1.isChecked()),
+                            String.valueOf(chk2.isChecked()),
+                            String.valueOf(false),
+                            String.valueOf(chk4.isChecked()),
+                            String.valueOf(chk5.isChecked())
+                    );
 
-                call.enqueue(new Callback<getTncBean>() {
-                    @Override
-                    public void onResponse(Call<getTncBean> call, Response<getTncBean> response) {
+                    call.enqueue(new Callback<getTncBean>() {
+                        @Override
+                        public void onResponse(Call<getTncBean> call, Response<getTncBean> response) {
 
-                        Toast.makeText(TermsAndConditions3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TermsAndConditions3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                        finish();
-                    }
+                            finish();
+                        }
 
-                    @Override
-                    public void onFailure(Call<getTncBean> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<getTncBean> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(TermsAndConditions3.this, "You must agree at least one terms & conditions to proceed", Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
         });
@@ -125,7 +133,7 @@ public class TermsAndConditions3 extends AppCompatActivity {
 
                     chk1.setChecked(c1);
                     chk2.setChecked(c2);
-                    chk3.setChecked(c3);
+                    //chk3.setChecked(c3);
                     chk4.setChecked(c4);
                     chk5.setChecked(c5);
                 }catch (Exception e)

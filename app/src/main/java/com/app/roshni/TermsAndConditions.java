@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class TermsAndConditions extends AppCompatActivity {
 
-    CheckBox chk1, chk2, chk3, chk4, chk5;
+    CheckBox chk1, chk2, chk4, chk5;
     Button proceed, close;
 
     @Override
@@ -24,7 +24,6 @@ public class TermsAndConditions extends AppCompatActivity {
 
         chk1 = findViewById(R.id.checkBox1);
         chk2 = findViewById(R.id.checkBox2);
-        chk3 = findViewById(R.id.checkBox3);
         chk4 = findViewById(R.id.checkBox4);
         chk5 = findViewById(R.id.checkBox5);
         proceed = findViewById(R.id.proceed);
@@ -52,15 +51,24 @@ public class TermsAndConditions extends AppCompatActivity {
 
                 } else {
 */
+                if (chk1.isChecked() || chk2.isChecked() || chk4.isChecked() || chk5.isChecked())
+                {
                     Intent intent = new Intent(TermsAndConditions.this, CreatePIN.class);
                     intent.putExtra("c1" , chk1.isChecked());
                     intent.putExtra("c2" , chk2.isChecked());
-                    intent.putExtra("c3" , chk3.isChecked());
+                    intent.putExtra("c3" , false);
                     intent.putExtra("c4" , chk4.isChecked());
                     intent.putExtra("c5" , chk5.isChecked());
                     startActivity(intent);
                     Toast.makeText(TermsAndConditions.this, "Please create a PIN to continue", Toast.LENGTH_SHORT).show();
                     finishAffinity();
+                }
+                else
+                {
+                    Toast.makeText(TermsAndConditions.this, "You must agree at least one terms & conditions to proceed", Toast.LENGTH_SHORT).show();
+                }
+
+
                 //}
 
             }

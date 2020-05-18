@@ -209,22 +209,22 @@
     <string name="place_of_employment1">Place of Employment</string>
     <string name="man_days_required2">MAN-DAYS REQUIRED *</string>
     <string name="enter_id_number">enter id number</string>
-    <string name="google_maps_key">AIzaSyCgsH_uHFwFsCY4hUXgJsIjnSx2DwxK1Rw</string>
+    <string name="google_maps_key" translatable="false">AIzaSyCgsH_uHFwFsCY4hUXgJsIjnSx2DwxK1Rw</string>
     <string name="enter_religion">enter religion</string>
     <string name="i_agree_to_all_terms_amp_conditions_and_data_privacy"><![CDATA[I agree to all terms & conditions and data privacy.]]></string>
     <string name="i_agree_that_goodweave_have_no_responsibility_or_commitment_to_provide_business_or_any_financial_obligation_related_to_it">I agree that Goodweave have no responsibility or commitment to provide business or any financial obligation related to it.</string>
-    <string name="i_agree_to_the_protocol_of_unannounced_inspections_which_has_been_shared_to_me_before_registering_on_the_app_i_will_allow_goodweave_personnel_for_unannounced_inspections_of_my_facility_anytime_and_give_complete_access_to_the_facility_i_also_agree_that_goodweave_has_complete_right_to_remove_my_facility_from_its_database_if_any_child_labor_is_identified_during_any_inspection">I agree to the protocol of unannounced inspections, which has been shared to me before registering on the app. I will allow GoodWeave personnel for unannounced inspections of my facility anytime and give complete access to the facility. I also agree that Goodweave has complete right to remove my facility from its database if any child labor is identified during any Inspection.</string>
-    <string name="i_agree_not_to_use_any_conditions_which_lead_my_workers_to_work_in_forced_amp_bonded_conditions"><![CDATA[I agree, not to use any conditions which lead my workers to work in forced & bonded conditions,.]]></string>
+    <string name="i_agree_to_the_protocol_of_unannounced_inspections_which_has_been_shared_to_me_before_registering_on_the_app_i_will_allow_goodweave_personnel_for_unannounced_inspections_of_my_facility_anytime_and_give_complete_access_to_the_facility_i_also_agree_that_goodweave_has_complete_right_to_remove_my_facility_from_its_database_if_any_child_labor_is_identified_during_any_inspection" translatable="false">I agree to the protocol of unannounced inspections, which has been shared to me before registering on the app. I will allow GoodWeave personnel for unannounced inspections of my facility anytime and give complete access to the facility. I also agree that Goodweave has complete right to remove my facility from its database if any child labor is identified during any Inspection.</string>
+    <string name="i_agree_not_to_use_any_conditions_which_lead_my_workers_to_work_in_forced_amp_bonded_conditions"><![CDATA[I agree, not to use any conditions which lead my workers to work in forced & bonded conditions.]]></string>
     <string name="i_will_not_employ_any_child_below_the_age_of_18_years_in_my_unit_in_any_process">I will not employ any child below the age of 18 years, in my unit in any process.</string>
     <string name="company_contact_details">COMPANY CONTACT DETAILS</string>
     <string name="manufacturing_unit3">MANUFACTURING UNITS</string>
     <string name="factory_outlet3">FACTORY OUTLET</string>
-    <string name="importing_countries3">IMPORTING COUNTRIES</string>
+    <string name="importing_countries3">EXPORTING COUNTRIES</string>
     <string name="your_age">YOUR AGE</string>
     <string name="do_you_have_bank_account">DO YOU HAVE BANK ACCOUNT?</string>
     <string name="bank_account">BANK ACCOUNT</string>
     <string name="hit_enter_to_add_location">hit enter to add location</string>
-    <string name="survey_officer">survey officer</string>
+    <string name="survey_officer">Survey VALIDATION officer</string>
     <string name="approve">APPROVE</string>
     <string name="previous">PREVIOUS</string>
     <string name="faqs1">FAQs</string>
@@ -234,7 +234,7 @@
     <string name="give_feedback">Give Feedback</string>
     <string name="how_to_use_the_app">How to use the app</string>
     <string name="subject">Subject</string>
-    <string name="body">Body</string>
+    <string name="body" translatable="false">Body</string>
     <string name="submit2">Submit</string>
     <string name="enter_your_feedback">Enter Your Feedback</string>
     <string name="no">No</string>
@@ -247,4 +247,25 @@
     <string name="i_authorize_goodweave_or_its_representative_to_fill_the_information_do_registration_on_my_behalf_through_telephonic_communication_and_have_shared_my_otp_for_this_purpose">I authorize GoodWeave or its representative to fill the information/do registration on my behalf through telephonic communication and have shared my OTP for this purpose.</string>
     <string name="read_terms_amp_conditions"><![CDATA[Read Terms & Conditions]]></string>
     <string name="create_new_pin">CREATE NEW PIN</string>
+    <string name="close_app_text">Are you sure to close the app?</string>
+    <string name="confirm">Confirm</string>
+    <string name="forget_pin">FORGET PIN</string>
+    <string name="invalid_contact_number">Invalid contact number</string>
+    <string name="please_verify_otp">Please verify OTP</string>
+    <string name="please_enter_pin_to_continue">Please enter PIN to continue</string>
+    <string name="click_to_change"> (click to change)</string>
+    <string name="date">Date - </string>
+    <string name="yes1">Yes</string>
+    <string name="sole_properietor">Sole-properietor</string>
+    <string name="partnership">Partnership</string>
+    <string name="pvt_ltd">Pvt.Ltd. Company</string>
+    <string name="ltd_company">Ltd. Company</string>
+    <string name="llc">LLC</string>
+    <string name="llp">LLP</string>
+    <string name="cooperative">Co-operative</string>
+    <string name="trust">Trust</string>
+    <string name="none">None</string>
+    <string name="ssi">SSI</string>
+    <string name="msme">MSME</string>
+    <string name="cottage_industry">Cottage Industry</string>
 </resources>

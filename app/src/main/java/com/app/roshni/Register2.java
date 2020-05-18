@@ -126,8 +126,8 @@ public class Register2 extends AppCompatActivity {
     public void onBackPressed() {
 
         new AlertDialog.Builder(Register2.this)
-                .setTitle("Confirm")
-                .setMessage("Are you sure to close the app?")
+                .setTitle(getString(R.string.confirm))
+                .setMessage(getString(R.string.close_app_text))
 
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.

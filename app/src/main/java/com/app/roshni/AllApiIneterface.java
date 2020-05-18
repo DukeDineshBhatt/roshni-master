@@ -466,8 +466,15 @@ public interface AllApiIneterface {
             @Part("jid") String jid
     );
 
+
     @GET("goodbusinessapp/api/getSectors.php")
     Call<sectorBean> getSectors();
+
+    @Multipart
+    @POST("goodbusinessapp/api/getSectors.php")
+    Call<sectorBean> getSectors2(
+            @Part("lang") String lang
+    );
 
     @Multipart
     @POST("goodbusinessapp/api/getRoles.php")

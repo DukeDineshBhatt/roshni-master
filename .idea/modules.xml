@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="goodbusinessapp/app" />
-      <module fileurl="file://$PROJECT_DIR$/goodbusinessapp.iml" filepath="$PROJECT_DIR$/goodbusinessapp.iml" group="goodbusinessapp" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="roshni-master/app" />
+      <module fileurl="file://$PROJECT_DIR$/roshni-master.iml" filepath="$PROJECT_DIR$/roshni-master.iml" group="roshni-master" />
     </modules>
   </component>
 </project>

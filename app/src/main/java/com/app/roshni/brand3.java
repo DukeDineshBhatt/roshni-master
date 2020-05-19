@@ -1148,7 +1148,7 @@ public class brand3 extends Fragment {
                     ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getLogo() , image , options);
 
-                    final Call<sectorBean> call2 = cr.getSectors();
+                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override

@@ -489,6 +489,30 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("goodbusinessapp/api/getCategories.php")
+    Call<sectorBean> getCategories(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getReligion.php")
+    Call<sectorBean> getReligion(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getEducation.php")
+    Call<sectorBean> getEducation(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getMarital.php")
+    Call<sectorBean> getMarital(
+            @Part("lang") String lang
+    );
+
+    @Multipart
     @POST("goodbusinessapp/api/getProof.php")
     Call<sectorBean> getProof(
             @Part("lang") String lang

@@ -48,6 +48,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
@@ -113,7 +114,7 @@ public class personal extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> gen, cat, rel, edu, mar, chi, prof , agg;
+    private List<String> gen, gen1, cat, cat1, rel, rel1, edu, edu1, mar, mar1, chi, prof, prof1 , agg;
 
     private Uri uri;
     private File f1;
@@ -163,12 +164,18 @@ public class personal extends Fragment {
         View view = inflater.inflate(R.layout.personal_layout, container, false);
 
         gen = new ArrayList<>();
+        gen1 = new ArrayList<>();
         cat = new ArrayList<>();
+        cat1 = new ArrayList<>();
         rel = new ArrayList<>();
+        rel1 = new ArrayList<>();
         edu = new ArrayList<>();
+        edu1 = new ArrayList<>();
         mar = new ArrayList<>();
+        mar1 = new ArrayList<>();
         chi = new ArrayList<>();
         prof = new ArrayList<>();
+        prof1 = new ArrayList<>();
         agg = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
@@ -311,42 +318,259 @@ public class personal extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 */
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.spinner_model, gen);
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, cat);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, rel);
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, edu);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, mar);
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, chi);
 
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, prof);
 
         ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, agg);
 
-        gender.setAdapter(adapter);
-        category.setAdapter(adapter1);
-        religion.setAdapter(adapter2);
-        educational.setAdapter(adapter3);
-        marital.setAdapter(adapter4);
+
+
+
+
+
         children.setAdapter(adapter5);
         below6.setAdapter(adapter5);
         sixto14.setAdapter(adapter5);
         fifteento18.setAdapter(adapter5);
         goingtoschool.setAdapter(adapter5);
-        proof.setAdapter(adapter6);
+
         age.setAdapter(adapter7);
+
+        progress.setVisibility(View.VISIBLE);
+
+        Bean b = (Bean) getContext().getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call1 = cr.getGender(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call1.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        gen.add(response.body().getData().get(i).getTitle());
+                        gen1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            R.layout.spinner_model, gen);
+
+
+                    gender.setAdapter(adapter);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call2 = cr.getCategories(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call2.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        cat.add(response.body().getData().get(i).getTitle());
+                        cat1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, cat);
+
+
+                    category.setAdapter(adapter1);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call3 = cr.getReligion(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call3.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        rel.add(response.body().getData().get(i).getTitle());
+                        rel1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, rel);
+
+
+                    religion.setAdapter(adapter2);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call4 = cr.getEducation(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call4.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        edu.add(response.body().getData().get(i).getTitle());
+                        edu1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, edu);
+
+
+                    educational.setAdapter(adapter3);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call5 = cr.getMarital(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call5.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        mar.add(response.body().getData().get(i).getTitle());
+                        mar1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, mar);
+
+
+                    marital.setAdapter(adapter4);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call6 = cr.getProof(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call6.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        prof.add(response.body().getData().get(i).getTitle());
+                        prof1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, prof);
+
+
+                    proof.setAdapter(adapter6);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
 
        /* cstate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -411,7 +635,7 @@ public class personal extends Fragment {
         gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    gend = gen.get(i);
+                    gend = gen1.get(i);
             }
 
             @Override
@@ -435,7 +659,7 @@ public class personal extends Fragment {
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    cate = cat.get(i);
+                    cate = cat1.get(i);
             }
 
             @Override
@@ -448,9 +672,9 @@ public class personal extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                reli = rel.get(i);
+                reli = rel1.get(i);
 
-                if (reli.equals("Others")) {
+                if (reli.equals("5")) {
                     rel_bool = true;
 
                     editTxtRelg.setVisibility(View.VISIBLE);
@@ -470,9 +694,9 @@ public class personal extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                educ = edu.get(i);
+                educ = edu1.get(i);
 
-                if (educ.equals("Others")) {
+                if (educ.equals("8")) {
                     edu_bool = true;
                     editTxtedu.setVisibility(View.VISIBLE);
                 } else {
@@ -491,9 +715,9 @@ public class personal extends Fragment {
         marital.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    mari = mar.get(i);
+                    mari = mar1.get(i);
 
-                    if (mari.equals("Single")) {
+                    if (mari.equals("1")) {
                         child.setVisibility(View.GONE);
 
                         chil = "0";
@@ -578,7 +802,7 @@ public class personal extends Fragment {
         proof.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    prf = prof.get(i);
+                    prf = prof1.get(i);
             }
 
             @Override
@@ -998,6 +1222,8 @@ public class personal extends Fragment {
             }
 
         });
+
+
 
         //setPrevious();
 

@@ -176,7 +176,7 @@ public class Pictures3 extends Fragment {
 
                 AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                Call<contractorBean> call = cr.submit_brand(SharePreferenceUtils.getInstance().getString("survey_id"));
+                Call<contractorBean> call = cr.submit_brand(SharePreferenceUtils.getInstance().getString("survey_id") , SharePreferenceUtils.getInstance().getString("id"));
 
                 call.enqueue(new Callback<contractorBean>() {
                     @Override
@@ -237,7 +237,7 @@ public class Pictures3 extends Fragment {
 
                             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                            Call<contractorBean> call = cr.reject_brand(SharePreferenceUtils.getInstance().getString("survey_id"),value);
+                            Call<contractorBean> call = cr.reject_brand(SharePreferenceUtils.getInstance().getString("survey_id"),value , SharePreferenceUtils.getInstance().getString("id"));
 
                             call.enqueue(new Callback<contractorBean>() {
                                 @Override

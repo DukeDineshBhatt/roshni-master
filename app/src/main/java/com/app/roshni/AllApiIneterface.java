@@ -690,27 +690,31 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/submit_contactor.php")
     Call<contractorBean> submit_contactor(
-            @Part("survey_id") String survey_id
+            @Part("survey_id") String survey_id,
+            @Part("id") String id
     );
 
     @Multipart
     @POST("goodbusinessapp/api/submit_brand.php")
     Call<contractorBean> submit_brand(
-            @Part("survey_id") String survey_id
+            @Part("survey_id") String survey_id,
+            @Part("id") String id
     );
 
     @Multipart
     @POST("goodbusinessapp/api/reject_contactor.php")
     Call<contractorBean> reject_contactor(
             @Part("survey_id") String survey_id,
-            @Part("reason") String reason
+            @Part("reason") String reason,
+            @Part("id") String id
     );
 
     @Multipart
     @POST("goodbusinessapp/api/reject_brand.php")
     Call<contractorBean> reject_brand(
             @Part("survey_id") String survey_id,
-            @Part("reason") String reason
+            @Part("reason") String reason,
+            @Part("id") String id
     );
 
     @Multipart

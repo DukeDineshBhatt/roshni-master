@@ -177,7 +177,7 @@ public class Samples2 extends Fragment {
 
                 AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                Call<contractorBean> call = cr.submit_contactor(SharePreferenceUtils.getInstance().getString("survey_id"));
+                Call<contractorBean> call = cr.submit_contactor(SharePreferenceUtils.getInstance().getString("survey_id") , SharePreferenceUtils.getInstance().getString("id"));
 
                 call.enqueue(new Callback<contractorBean>() {
                     @Override
@@ -238,7 +238,7 @@ public class Samples2 extends Fragment {
 
                             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                            Call<contractorBean> call = cr.reject_contactor(SharePreferenceUtils.getInstance().getString("survey_id"),value);
+                            Call<contractorBean> call = cr.reject_contactor(SharePreferenceUtils.getInstance().getString("survey_id"),value , SharePreferenceUtils.getInstance().getString("id"));
 
                             call.enqueue(new Callback<contractorBean>() {
                                 @Override

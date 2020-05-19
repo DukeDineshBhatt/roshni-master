@@ -255,8 +255,8 @@ public class personal extends Fragment {
         proof = view.findViewById(R.id.proof);
 
 
-        gen.add("Male");
-        gen.add("Female");
+        /*gen.add("Male");
+        gen.add("Female");*/
 
         for (int i = 18 ; i <= 100 ; i++)
         {
@@ -265,18 +265,18 @@ public class personal extends Fragment {
 
 
 
-        cat.add("SC");
+        /*cat.add("SC");
         cat.add("ST");
         cat.add("OBC");
-        cat.add("General");
+        cat.add("General");*/
 
-        rel.add("Hindu");
+        /*rel.add("Hindu");
         rel.add("Muslim");
         rel.add("Sikh");
         rel.add("Christian");
         rel.add("Others");
-
-        edu.add("Uneducated");
+*/
+  /*      edu.add("Uneducated");
         edu.add("Primary (Class 1-5)");
         edu.add("Middle (Class 6-8)");
         edu.add("Secondary (Class 9-10)");
@@ -284,12 +284,12 @@ public class personal extends Fragment {
         edu.add("Graduation");
         edu.add("Post Graduation");
         edu.add("Others");
-
-        mar.add("Single");
+*/
+  /*      mar.add("Single");
         mar.add("Married");
         mar.add("Divorcee");
         mar.add("Separated");
-
+*/
         chi.add("0");
         chi.add("1");
         chi.add("2");
@@ -304,13 +304,13 @@ public class personal extends Fragment {
         chi.add("11");
         chi.add("12");
 
-        prof.add("Aadhaar Card");
+        /*prof.add("Aadhaar Card");
         prof.add("Voter ID");
         prof.add("PAN Card");
         prof.add("Driving License");
         prof.add("Passport");
         prof.add("Bank passbook");
-
+*/
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_model, gen);
 

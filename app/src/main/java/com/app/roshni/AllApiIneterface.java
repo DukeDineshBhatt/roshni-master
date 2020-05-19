@@ -477,6 +477,24 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("goodbusinessapp/api/getCerts.php")
+    Call<sectorBean> getCerts(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getFirmTypes.php")
+    Call<sectorBean> getFirmTypes(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getFirmRegistyrationTypes.php")
+    Call<sectorBean> getFirmRegistyrationTypes(
+            @Part("lang") String lang
+    );
+
+    @Multipart
     @POST("goodbusinessapp/api/getRoles.php")
     Call<skillsBean> getRoles(
             @Part("sector_id") String sector_id

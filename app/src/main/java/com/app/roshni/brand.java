@@ -113,7 +113,7 @@ public class brand extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer, frm, frmtyp, sec, sec1;
+    private List<String> man, cer, cer1, frm , frm1, frmtyp, frmtyp1, sec, sec1;
 
     private CustomViewPager pager;
 
@@ -156,8 +156,11 @@ public class brand extends Fragment {
 
         man = new ArrayList<>();
         cer = new ArrayList<>();
+        cer1 = new ArrayList<>();
         frm = new ArrayList<>();
+        frm1 = new ArrayList<>();
         frmtyp = new ArrayList<>();
+        frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
 
@@ -310,8 +313,8 @@ public class brand extends Fragment {
             }
         });
 
-        cer.add(getString(R.string.yes1));
-        cer.add(getString(R.string.no));
+        //cer.add(getString(R.string.yes1));
+        //cer.add(getString(R.string.no));
 
 
         man.add("0");
@@ -328,60 +331,38 @@ public class brand extends Fragment {
         man.add("11");
         man.add("12");
 
-        frm.add(getString(R.string.sole_properietor));
+       /* frm.add(getString(R.string.sole_properietor));
         frm.add(getString(R.string.partnership));
         frm.add(getString(R.string.pvt_ltd));
         frm.add(getString(R.string.ltd_company));
         frm.add(getString(R.string.llc));
         frm.add(getString(R.string.llp));
         frm.add(getString(R.string.cooperative));
-        frm.add(getString(R.string.trust));
+        frm.add(getString(R.string.trust));*/
 
 
-        frmtyp.add(getString(R.string.none));
+        /*frmtyp.add(getString(R.string.none));
         frmtyp.add(getString(R.string.ssi));
         frmtyp.add(getString(R.string.msme));
-        frmtyp.add(getString(R.string.cottage_industry));
+        frmtyp.add(getString(R.string.cottage_industry));*/
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.spinner_model, cer);
+
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, man);
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, frm);
 
 
-        ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, frmtyp);
 
-        certification.setAdapter(adapter);
+
+
+
         manufacturing.setAdapter(adapter1);
-        firm.setAdapter(adapter5);
-
-        firmtype.setAdapter(adapter7);
-
-        certification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                certi = cer.get(i);
-
-                if (certi.equals("Yes")) {
-                    cert.setVisibility(View.VISIBLE);
-                } else {
-                    cert.setVisibility(View.GONE);
-                    expiry.setText("---");
-                }
 
 
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
+
 
         manufacturing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -397,33 +378,9 @@ public class brand extends Fragment {
             }
         });
 
-        firm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                frmy = frm.get(i);
 
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        firmtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                frmytyp = frmtyp.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -490,6 +447,163 @@ public class brand extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 sect = sec1.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call1 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call1.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        cer.add(response.body().getData().get(i).getTitle());
+                        cer1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            R.layout.spinner_model, cer);
+
+
+                    certification.setAdapter(adapter);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        certification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                certi = cer1.get(i);
+
+                if (certi.equals("1")) {
+                    cert.setVisibility(View.VISIBLE);
+                } else {
+                    cert.setVisibility(View.GONE);
+                    expiry.setText("---");
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call2 = cr.getFirmTypes(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call2.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        frm.add(response.body().getData().get(i).getTitle());
+                        frm1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, frm);
+
+
+                    firm.setAdapter(adapter5);
+
+                }
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        firm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                frmy = frm1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call3 = cr.getFirmRegistyrationTypes(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call3.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        frmtyp.add(response.body().getData().get(i).getTitle());
+                        frmtyp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, frmtyp);
+
+
+                    firmtype.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        firmtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                frmytyp = frmtyp1.get(i);
+
             }
 
             @Override

@@ -100,7 +100,7 @@ public class ContractorSampleProfile extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<contractorBean> call = cr.getContractorById(user_id);
+        Call<contractorBean> call = cr.getContractorById(user_id, SharePreferenceUtils.getInstance().getString("lang"));
 
 
         call.enqueue(new Callback<contractorBean>() {

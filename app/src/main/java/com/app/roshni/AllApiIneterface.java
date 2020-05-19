@@ -483,6 +483,30 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("goodbusinessapp/api/getGender.php")
+    Call<sectorBean> getGender(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getProof.php")
+    Call<sectorBean> getProof(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getExperience.php")
+    Call<sectorBean> getExperience(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getAvailability.php")
+    Call<sectorBean> getAvailability(
+            @Part("lang") String lang
+    );
+
+    @Multipart
     @POST("goodbusinessapp/api/getFirmTypes.php")
     Call<sectorBean> getFirmTypes(
             @Part("lang") String lang
@@ -506,7 +530,8 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getSkills.php")
     Call<skillsBean> getSkills1(
-            @Part("sector_id") String sector_id
+            @Part("sector_id") String sector_id,
+            @Part("lang") String lang
     );
 
     @GET("goodbusinessapp/api/getLocations.php")
@@ -594,7 +619,8 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getContractorById.php")
     Call<contractorBean> getContractorById(
-            @Part("id") String id
+            @Part("id") String id,
+            @Part("lang") String lang
     );
 
     @Multipart

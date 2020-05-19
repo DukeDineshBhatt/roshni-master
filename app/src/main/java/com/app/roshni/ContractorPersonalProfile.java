@@ -84,7 +84,7 @@ public class ContractorPersonalProfile extends Fragment {
     private CircleImageView image;
 
     CheckBox check;
-    private List<String> gen, est, exp, wty , wty1, ava, frm, frmtyp, prof , sec, sec1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1;
 
 
     String user_id;
@@ -106,16 +106,23 @@ public class ContractorPersonalProfile extends Fragment {
         View view = inflater.inflate(R.layout.contractor_personal_profile, container, false);
 
         gen = new ArrayList<>();
+        gen1 = new ArrayList<>();
         est = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         wty = new ArrayList<>();
         wty1 = new ArrayList<>();
         ava = new ArrayList<>();
+        ava1 = new ArrayList<>();
         frm = new ArrayList<>();
+        frm1 = new ArrayList<>();
         prof = new ArrayList<>();
+        prof1 = new ArrayList<>();
         frmtyp = new ArrayList<>();
+        frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+
         phone = view.findViewById(R.id.phone);
         check = view.findViewById(R.id.check);
         name = view.findViewById(R.id.editText);
@@ -149,15 +156,6 @@ public class ContractorPersonalProfile extends Fragment {
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
-        gen.add("Male");
-        gen.add("Female");
-
-        prof.add("Aadhaar Card");
-        prof.add("Voter ID");
-        prof.add("PAN Card");
-        prof.add("Driving License");
-        prof.add("Passport");
-        prof.add("Bank passbook");
 
         est.add("1970");
         est.add("1971");
@@ -216,28 +214,6 @@ public class ContractorPersonalProfile extends Fragment {
         est.add("2024");
         est.add("2025");
 
-        exp.add("0 to 2 years");
-        exp.add("3 to 5 years");
-        exp.add("5 to 10 years");
-        exp.add("more than 10 years");
-
-        ava.add("Available");
-        ava.add("Within a Month");
-        ava.add("Within Two Months");
-
-        frm.add("Sole-properietor");
-        frm.add("Partnership");
-        frm.add("Pvt.Ltd. Company");
-        frm.add("Ltd. Company");
-        frm.add("LLC");
-        frm.add("LLP");
-        frm.add("Co-operative");
-        frm.add("Trust");
-
-        frmtyp.add("SSI");
-        frmtyp.add("MSME");
-        frmtyp.add("Cottage Industry");
-
         permanent = view.findViewById(R.id.permanent);
 
         image = view.findViewById(R.id.imageView3);
@@ -248,29 +224,10 @@ public class ContractorPersonalProfile extends Fragment {
         work = view.findViewById(R.id.work);
         availability = view.findViewById(R.id.availability);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.spinner_model, gen);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, est);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, exp);
-
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, wty);
-
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, ava);
-
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, frm);
-
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, prof);
-
-        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, frmtyp);
 
 
         gender.setEnabled(false);
@@ -283,45 +240,9 @@ public class ContractorPersonalProfile extends Fragment {
         firmtype.setEnabled(false);
 
 
-        gender.setAdapter(adapter);
         establishment.setAdapter(adapter1);
-        experience.setAdapter(adapter2);
-        availability.setAdapter(adapter4);
-        firm.setAdapter(adapter5);
-        proof.setAdapter(adapter6);
-        firmtype.setAdapter(adapter7);
 
 
-
-        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    gend = gen.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        proof.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                    prf = prof.get(i);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -336,35 +257,7 @@ public class ContractorPersonalProfile extends Fragment {
             }
         });
 
-        firm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    frmy = frm.get(i);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        firmtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    frmytyp = frmtyp.get(i);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -379,35 +272,6 @@ public class ContractorPersonalProfile extends Fragment {
             }
         });
 
-        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    expe = exp.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-
-        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    avai = ava.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
         setPrevious();
@@ -431,7 +295,7 @@ public class ContractorPersonalProfile extends Fragment {
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<contractorBean> call = cr.getContractorById(user_id);
+        Call<contractorBean> call = cr.getContractorById(user_id, SharePreferenceUtils.getInstance().getString("lang"));
 
         //Log.d("jid" , id);
 
@@ -509,7 +373,7 @@ public class ContractorPersonalProfile extends Fragment {
                 about.setText(item.getAbout());
                 work.setText(item.getWorkType());
                 phone.setText(item.getPhone());
-                final Call<sectorBean> call2 = cr.getSectors();
+                final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                 call2.enqueue(new Callback<sectorBean>() {
                     @Override
@@ -553,137 +417,292 @@ public class ContractorPersonalProfile extends Fragment {
                 });
 
 
-                /*sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                final Call<sectorBean> call3 = cr.getGender(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call3.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
 
-                        sect = sec1.get(i);
+                        if (response.body().getStatus().equals("1")) {
 
-                        progress.setVisibility(View.VISIBLE);
+                            gen.clear();
+                            gen1.clear();
 
-                        Call<skillsBean> call2 = cr.getSkills1(sect);
-                        call2.enqueue(new Callback<skillsBean>() {
-                            @Override
-                            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                gen.add(response.body().getData().get(i).getTitle());
+                                gen1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                    R.layout.spinner_model, gen);
 
 
-                                if (response.body().getStatus().equals("1")) {
+                            gender.setAdapter(adapter);
 
-                                    wty.clear();
-                                    wty1.clear();
-
-                                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                        wty.add(response.body().getData().get(i).getTitle());
-                                        wty1.add(response.body().getData().get(i).getId());
-
-                                    }
-
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                            R.layout.spinner_model, wty);
-
-                                    work.setAdapter(adapter);
-
-                                    int cp = 0;
-                                    for (int i = 0; i < wty1.size(); i++) {
-                                        if (item.getWorkType().equals(wty1.get(i))) {
-                                            cp = i;
-                                        }
-                                    }
-                                    work.setSelection(cp);
-
+                            int cp2 = 0;
+                            for (int i = 0; i < gen1.size(); i++) {
+                                if (item.getGender().equals(gen1.get(i))) {
+                                    cp2 = i;
                                 }
-
-                                progress.setVisibility(View.GONE);
-
                             }
+                            gender.setSelection(cp2);
 
-                            @Override
-                            public void onFailure(Call<skillsBean> call, Throwable t) {
-                                progress.setVisibility(View.GONE);
-                            }
-                        });
+                        }
 
+
+
+                        progress.setVisibility(View.GONE);
 
                     }
 
                     @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+
+                final Call<sectorBean> call4 = cr.getProof(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call4.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            prof.clear();
+                            prof1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                prof.add(response.body().getData().get(i).getTitle());
+                                prof1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                                    R.layout.spinner_model, prof);
+
+
+                            proof.setAdapter(adapter6);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < prof1.size(); i++) {
+                                if (item.getIdProof().equals(prof1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            proof.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
 
                     }
-                });*/
 
-                int gp = 0;
-                for (int i = 0; i < gen.size(); i++) {
-                    if (item.getGender().equals(gen.get(i))) {
-                        gp = i;
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
                     }
-                }
-                gender.setSelection(gp);
+                });
 
-                int fm = 0;
-                for (int i = 0; i < frm.size(); i++) {
-                    if (item.getFirmType().equals(frm.get(i))) {
-                        fm = i;
-                    }
-                }
-                firm.setSelection(fm);
 
-                int pf = 0;
-                for (int i = 0; i < prof.size(); i++) {
-                    if (item.getIdProof().equals(prof.get(i))) {
-                        pf = i;
-                    }
-                }
-                proof.setSelection(pf);
 
-                int pft = 0;
-                for (int i = 0; i < frmtyp.size(); i++) {
-                    if (item.getFirmRegistrationType().equals(frmtyp.get(i))) {
-                        pft = i;
-                    }
-                }
-                firmtype.setSelection(pft);
+                final Call<sectorBean> call5 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
 
-                int rp = 0;
-                for (int i = 0; i < exp.size(); i++) {
-                    if (item.getExperience().equals(exp.get(i))) {
-                        rp = i;
-                    }
-                }
-                experience.setSelection(rp);
+                call5.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
 
-                int ap = 0;
-                for (int i = 0; i < ava.size(); i++) {
-                    if (item.getAvailability().equals(ava.get(i))) {
-                        ap = i;
-                    }
-                }
-                availability.setSelection(ap);
+                        if (response.body().getStatus().equals("1")) {
 
-/*
-                int wp = 0;
-                for (int i = 0; i < wty.size(); i++) {
-                    if (item.getWorkType().equals(wty.get(i))) {
-                        wp = i;
+                            exp.clear();
+                            exp1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                exp.add(response.body().getData().get(i).getTitle());
+                                exp1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, exp);
+
+
+                            experience.setAdapter(adapter2);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < exp1.size(); i++) {
+                                if (item.getExperience().equals(exp1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            experience.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
                     }
-                }
-                work.setSelection(wp);*/
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call6 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call6.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            ava.clear();
+                            ava1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                ava.add(response.body().getData().get(i).getTitle());
+                                ava1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, ava);
+
+
+                            availability.setAdapter(adapter4);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < ava1.size(); i++) {
+                                if (item.getAvailability().equals(ava1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            availability.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call7 = cr.getFirmTypes(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call7.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            frm.clear();
+                            frm1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                frm.add(response.body().getData().get(i).getTitle());
+                                frm1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, frm);
+
+
+                            firm.setAdapter(adapter5);
+
+
+                            int cp2 = 0;
+                            for (int i = 0; i < frm1.size(); i++) {
+                                if (item.getFirmType().equals(frm1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            firm.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call8 = cr.getFirmRegistyrationTypes(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call8.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            frmtyp.clear();
+                            frmtyp1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                frmtyp.add(response.body().getData().get(i).getTitle());
+                                frmtyp1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, frmtyp);
+
+
+                            firmtype.setAdapter(adapter7);
+
+
+                            int cp2 = 0;
+                            for (int i = 0; i < frmtyp1.size(); i++) {
+                                if (item.getFirmRegistrationType().equals(frmtyp1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            firmtype.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
                String ppp = item.getHomeLocation();
 
                 location.setTags(ppp.split(","));
 
-                /*int ep = 0;
-                for (int i = 0; i < est.size(); i++) {
-                    if (item.getEstablishment_year().equals(est.get(i))) {
-                        ep = i;
-                    }
-                }
-                establishment.setSelection(ep);
-
-
-*/
 
                 progress.setVisibility(View.GONE);
 

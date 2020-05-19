@@ -611,7 +611,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                             progress.setVisibility(View.VISIBLE);
 
-                            Call<skillsBean> call2 = cr.getSkills1(sect);
+                            Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
                             call2.enqueue(new Callback<skillsBean>() {
                                 @Override
                                 public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {

@@ -301,7 +301,7 @@ public class FilterWorkerJob extends AppCompatActivity {
         });
 
 
-        Call<skillsBean> call2 = cr.getSkills1(SharePreferenceUtils.getInstance().getString("sector"));
+        Call<skillsBean> call2 = cr.getSkills1(SharePreferenceUtils.getInstance().getString("sector"), SharePreferenceUtils.getInstance().getString("lang"));
 
         call2.enqueue(new Callback<skillsBean>() {
             @Override

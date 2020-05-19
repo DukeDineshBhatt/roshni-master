@@ -107,7 +107,7 @@ public class contractor extends Fragment {
 
     private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , looms;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms;
 
     TagsEditText location;
 
@@ -117,7 +117,7 @@ public class contractor extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> gen, est, exp, wty, wty1, ava, frm, frmtyp, prof, sec, sec1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1;
 
     private Uri uri;
     private File f1;
@@ -140,8 +140,9 @@ public class contractor extends Fragment {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient mPlacesClient;
 
-    boolean c1, c2 ,c3 , c4 ,c5;
-    void setData(CustomViewPager pager , boolean c1 , boolean c2 , boolean c3 , boolean c4 , boolean c5) {
+    boolean c1, c2, c3, c4, c5;
+
+    void setData(CustomViewPager pager, boolean c1, boolean c2, boolean c3, boolean c4, boolean c5) {
         this.pager = pager;
         this.c1 = c1;
         this.c2 = c2;
@@ -150,7 +151,7 @@ public class contractor extends Fragment {
         this.c5 = c5;
     }
 
-    String lat = "" , lng = "";
+    String lat = "", lng = "";
 
     int ag2 = 0;
 
@@ -162,14 +163,20 @@ public class contractor extends Fragment {
         View view = inflater.inflate(R.layout.contractor_layout, container, false);
 
         gen = new ArrayList<>();
+        gen1 = new ArrayList<>();
         est = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         wty = new ArrayList<>();
         wty1 = new ArrayList<>();
         ava = new ArrayList<>();
+        ava1 = new ArrayList<>();
         frm = new ArrayList<>();
+        frm1 = new ArrayList<>();
         prof = new ArrayList<>();
+        prof1 = new ArrayList<>();
         frmtyp = new ArrayList<>();
+        frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
 
@@ -300,15 +307,15 @@ public class contractor extends Fragment {
             }
         });
 
-        gen.add("Male");
+        /*gen.add("Male");
         gen.add("Female");
-
-        prof.add("Aadhaar Card");
+*/
+        /*prof.add("Aadhaar Card");
         prof.add("Voter ID");
         prof.add("PAN Card");
         prof.add("Driving License");
         prof.add("Passport");
-        prof.add("Bank passbook");
+        prof.add("Bank passbook");*/
 
 
         est.add("1950-2000");
@@ -338,16 +345,16 @@ public class contractor extends Fragment {
         est.add("2024");
         est.add("2025");
 
-        exp.add("0 to 2 years");
+        /*exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
-
-        ava.add("Available");
+*/
+        /*ava.add("Available");
         ava.add("Within a Month");
         ava.add("Within Two Months");
-
-        frm.add("Sole-properietor");
+*/
+       /* frm.add("Sole-properietor");
         frm.add("Partnership");
         frm.add("Pvt.Ltd. Company");
         frm.add("Ltd. Company");
@@ -359,7 +366,7 @@ public class contractor extends Fragment {
         frmtyp.add("None");
         frmtyp.add("SSI");
         frmtyp.add("MSME");
-        frmtyp.add("Cottage Industry");
+        frmtyp.add("Cottage Industry");*/
 
         permanent = view.findViewById(R.id.permanent);
 
@@ -376,96 +383,19 @@ public class contractor extends Fragment {
         work = view.findViewById(R.id.work);
         availability = view.findViewById(R.id.availability);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.spinner_model, gen);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, est);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, exp);
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, wty);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, ava);
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, frm);
-
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, prof);
-
-        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_model, frmtyp);
-
-        gender.setAdapter(adapter);
         establishment.setAdapter(adapter1);
-        experience.setAdapter(adapter2);
+
         work.setAdapter(adapter3);
-        availability.setAdapter(adapter4);
-        firm.setAdapter(adapter5);
-        proof.setAdapter(adapter6);
-        firmtype.setAdapter(adapter7);
 
-        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                gend = gen.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        proof.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                prf = prof.get(i);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        firm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                frmy = frm.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        firmtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                frmytyp = frmtyp.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -480,35 +410,6 @@ public class contractor extends Fragment {
             }
         });
 
-        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                expe = exp.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                avai = ava.get(i);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -538,7 +439,7 @@ public class contractor extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        final Call<sectorBean> call = cr.getSectors();
+        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -577,7 +478,10 @@ public class contractor extends Fragment {
 
                 sect = sec1.get(i);
 
-                Call<skillsBean> call2 = cr.getSkills1(sect);
+                Call<skillsBean> call2 = cr.getSkills1(
+                        sect,
+                        SharePreferenceUtils.getInstance().getString("lang")
+                );
                 call2.enqueue(new Callback<skillsBean>() {
                     @Override
                     public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
@@ -601,7 +505,6 @@ public class contractor extends Fragment {
                                     android.R.layout.simple_list_item_multiple_choice, wty);
 
 
-
                             work.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
                                 @Override
                                 public void onItemsSelected(boolean[] selected) {
@@ -609,15 +512,27 @@ public class contractor extends Fragment {
                                     wtyp = "";
                                     List<String> sklist = new ArrayList<>();
 
-                                    for (int i = 0 ; i < selected.length ; i++)
-                                    {
-                                        if (selected[i])
-                                        {
-                                            sklist.add(wty1.get(i));
+                                    if (selected[0]) {
+
+                                        for (int j = 0; j < selected.length; j++) {
+                                            work.selectItem(j, false);
+                                        }
+                                        work.selectItem(0, true);
+                                        sklist.add(wty1.get(0));
+
+                                    } else {
+                                        for (int i = 0; i < selected.length; i++) {
+                                            if (selected[i]) {
+
+                                                sklist.add(wty1.get(i));
+                                            }
                                         }
                                     }
 
+
                                     wtyp = TextUtils.join(",", sklist);
+
+                                    Log.d("wtype", wtyp);
 
                                 }
                             });
@@ -641,6 +556,309 @@ public class contractor extends Fragment {
                     }
                 });
 
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call1 = cr.getGender(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call1.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        gen.add(response.body().getData().get(i).getTitle());
+                        gen1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            R.layout.spinner_model, gen);
+
+
+                    gender.setAdapter(adapter);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                gend = gen1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call2 = cr.getProof(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call2.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        prof.add(response.body().getData().get(i).getTitle());
+                        prof1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, prof);
+
+
+                    proof.setAdapter(adapter6);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        proof.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                prf = prof1.get(i);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call3 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call3.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        exp.add(response.body().getData().get(i).getTitle());
+                        exp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, exp);
+
+
+                    experience.setAdapter(adapter2);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                expe = exp1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call4 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call4.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        ava.add(response.body().getData().get(i).getTitle());
+                        ava1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, ava);
+
+
+                    availability.setAdapter(adapter4);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                avai = ava1.get(i);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call5 = cr.getFirmTypes(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call5.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        frm.add(response.body().getData().get(i).getTitle());
+                        frm1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, frm);
+
+
+                    firm.setAdapter(adapter5);
+
+                }
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        firm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                frmy = frm1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call6 = cr.getFirmRegistyrationTypes(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call6.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        frmtyp.add(response.body().getData().get(i).getTitle());
+                        frmtyp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, frmtyp);
+
+
+                    firmtype.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        firmtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                frmytyp = frmtyp1.get(i);
 
             }
 
@@ -746,7 +964,6 @@ public class contractor extends Fragment {
                                 ag2 = getAge(dd);
 
 
-
                             }
                         })
                         .display();
@@ -815,9 +1032,8 @@ public class contractor extends Fragment {
 
                                             if (f.length() > 0) {
 
-                                                if (wtyp.length() > 0)
-                                                {
-                                                    Log.d("contractorc1" , String.valueOf(c1));
+                                                if (wtyp.length() > 0) {
+                                                    Log.d("contractorc1", String.valueOf(c1));
 
                                                     MultipartBody.Part body = null;
 
@@ -922,6 +1138,7 @@ public class contractor extends Fragment {
                                                                 SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
                                                                 SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
                                                                 SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
+                                                                SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
 
 
                                                                 Intent registrationComplete = new Intent("photo");
@@ -949,13 +1166,10 @@ public class contractor extends Fragment {
                                                             progress.setVisibility(View.GONE);
                                                         }
                                                     });
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     Toast.makeText(getContext(), "Please select type of work", Toast.LENGTH_SHORT).show();
                                                     work.requestFocus();
                                                 }
-
 
 
                                             } else {
@@ -1406,7 +1620,7 @@ public class contractor extends Fragment {
         }
     }
 
-    private int getAge(String dobString){
+    private int getAge(String dobString) {
 
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -1416,7 +1630,7 @@ public class contractor extends Fragment {
             e.printStackTrace();
         }
 
-        if(date == null) return 0;
+        if (date == null) return 0;
 
         Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
@@ -1427,14 +1641,13 @@ public class contractor extends Fragment {
         int month = dob.get(Calendar.MONTH);
         int day = dob.get(Calendar.DAY_OF_MONTH);
 
-        dob.set(year, month+1, day);
+        dob.set(year, month + 1, day);
 
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
-
 
 
         return age;

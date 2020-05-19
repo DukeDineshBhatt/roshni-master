@@ -94,7 +94,7 @@ public class SingleContgractor extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<contractorBean> call = cr.getContractorById(id);
+        Call<contractorBean> call = cr.getContractorById(id, SharePreferenceUtils.getInstance().getString("lang"));
 
         Log.d("jid" , id);
 

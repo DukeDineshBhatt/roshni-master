@@ -323,7 +323,7 @@ public class professional extends Fragment {
 
                     sect = sec1.get(i);
 
-                    Call<skillsBean> call2 = cr.getSkills1(sect);
+                    Call<skillsBean> call2 = cr.getSkills1(sect , SharePreferenceUtils.getInstance().getString("lang"));
                     call2.enqueue(new Callback<skillsBean>() {
                         @Override
                         public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {

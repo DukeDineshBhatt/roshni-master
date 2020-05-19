@@ -1168,7 +1168,7 @@ public class contractor2 extends Fragment {
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<contractorBean> call = cr.getContractorById(id);
+        Call<contractorBean> call = cr.getContractorById(id, SharePreferenceUtils.getInstance().getString("lang"));
 
 
         call.enqueue(new Callback<contractorBean>() {
@@ -1297,7 +1297,7 @@ public class contractor2 extends Fragment {
 
                         progress.setVisibility(View.VISIBLE);
 
-                        Call<skillsBean> call2 = cr.getSkills1(sect);
+                        Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
                         call2.enqueue(new Callback<skillsBean>() {
                             @Override
                             public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {

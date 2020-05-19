@@ -4,14 +4,14 @@ apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         config {
-            storeFile file('C:\\Users\\mukul\\StudioProjects\\roshni\\roshni.jks')
+            storeFile file('D:\\mukul\\StudioProjects\\goodbusinessapp\\roshni.jks')
             storePassword 'roshni@123'
             keyAlias = 'roshni'
             keyPassword 'roshni@123'
         }
     }
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.app.roshni"
         minSdkVersion 21
@@ -35,7 +35,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.android.support:appcompat-v7:'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.google.firebase:firebase-messaging:20.1.6'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

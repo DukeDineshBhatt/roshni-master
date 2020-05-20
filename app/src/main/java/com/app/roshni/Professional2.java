@@ -989,7 +989,7 @@ public class Professional2 extends Fragment {
                     }
                 });
 
-                final Call<sectorBean> call7 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+                final Call<sectorBean> call7 = cr.getBank(SharePreferenceUtils.getInstance().getString("lang"));
 
                 call7.enqueue(new Callback<sectorBean>() {
                     @Override

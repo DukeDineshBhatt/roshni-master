@@ -186,7 +186,7 @@ public class CompletedProfessional extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id);
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id , SharePreferenceUtils.getInstance().getString("lang"));
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
             public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
@@ -344,7 +344,7 @@ public class CompletedProfessional extends Fragment {
 
 
 
-                Call<sectorBean> call3 = cr.getLocations();
+                Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
                 call3.enqueue(new Callback<sectorBean>() {
                     @Override

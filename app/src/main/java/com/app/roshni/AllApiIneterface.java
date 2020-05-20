@@ -581,8 +581,11 @@ public interface AllApiIneterface {
             @Part("lang") String lang
     );
 
-    @GET("goodbusinessapp/api/getLocations.php")
-    Call<sectorBean> getLocations();
+    @Multipart
+    @POST("goodbusinessapp/api/getLocations.php")
+    Call<sectorBean> getLocations(
+            @Part("lang") String lang
+    );
 
     @Multipart
     @POST("goodbusinessapp/api/getAllWorkers.php")
@@ -623,7 +626,8 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getWorkerById.php")
     Call<WorkerByIdListBean> getWorkerById1(
-            @Part("id") String id
+            @Part("id") String id,
+            @Part("lang") String lang
     );
 
     @Multipart

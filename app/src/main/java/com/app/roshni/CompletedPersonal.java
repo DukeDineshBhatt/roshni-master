@@ -489,7 +489,7 @@ public class CompletedPersonal extends Fragment {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(id);
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(id , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override

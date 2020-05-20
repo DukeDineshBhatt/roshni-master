@@ -131,9 +131,6 @@ public class WorkerByIdData {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("created")
-    @Expose
-    private String created;
     @SerializedName("age")
     @Expose
     private String age;
@@ -143,7 +140,24 @@ public class WorkerByIdData {
     @SerializedName("same")
     @Expose
     private String same;
-
+    @SerializedName("certified")
+    @Expose
+    private String certified;
+    @SerializedName("certification_number")
+    @Expose
+    private String certificationNumber;
+    @SerializedName("skill_level")
+    @Expose
+    private String skillLevel;
+    @SerializedName("annual_income")
+    @Expose
+    private String annualIncome;
+    @SerializedName("other_source")
+    @Expose
+    private String otherSource;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
     public String getUserId() {
         return userId;
@@ -481,14 +495,6 @@ public class WorkerByIdData {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
     public String getAge() {
         return age;
     }
@@ -505,11 +511,59 @@ public class WorkerByIdData {
         this.bank = bank;
     }
 
+    public String getSame() {
+        return same;
+    }
+
     public void setSame(String same) {
         this.same = same;
     }
 
-    public String getSame() {
-        return same;
+    public String getCertified() {
+        return certified;
+    }
+
+    public void setCertified(String certified) {
+        this.certified = certified;
+    }
+
+    public String getCertificationNumber() {
+        return certificationNumber;
+    }
+
+    public void setCertificationNumber(String certificationNumber) {
+        this.certificationNumber = certificationNumber;
+    }
+
+    public String getSkillLevel() {
+        return skillLevel;
+    }
+
+    public void setSkillLevel(String skillLevel) {
+        this.skillLevel = skillLevel;
+    }
+
+    public String getAnnualIncome() {
+        return annualIncome;
+    }
+
+    public void setAnnualIncome(String annualIncome) {
+        this.annualIncome = annualIncome;
+    }
+
+    public String getOtherSource() {
+        return otherSource;
+    }
+
+    public void setOtherSource(String otherSource) {
+        this.otherSource = otherSource;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
     }
 }

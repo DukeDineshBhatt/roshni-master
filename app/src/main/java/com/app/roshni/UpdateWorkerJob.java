@@ -336,9 +336,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                loca = loc.get(i);
+                loca = loc1.get(i);
 
-                if (loca.equals("Others"))
+                if (loca.equals("5"))
                 {
                     job_location.setVisibility(View.VISIBLE);
                 }
@@ -370,7 +370,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
 
 
-        Call<sectorBean> call3 = cr.getLocations();
+        Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override

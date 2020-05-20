@@ -359,7 +359,7 @@ public class FilterWorkerJob extends AppCompatActivity {
         });
 
 
-        Call<sectorBean> call3 = cr.getLocations();
+        Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override

@@ -1310,7 +1310,7 @@ public class Personal2 extends Fragment {
 
         Log.d("DDD", id);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(id);
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(id , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override

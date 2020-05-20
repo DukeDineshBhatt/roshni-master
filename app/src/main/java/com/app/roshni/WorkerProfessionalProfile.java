@@ -43,7 +43,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
-    List<String> sec, ski, exp, emp, hom, wor, loc , ban;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -65,11 +65,15 @@ public class WorkerProfessionalProfile extends Fragment {
         sec = new ArrayList<>();
         ski = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         emp = new ArrayList<>();
+        emp1 = new ArrayList<>();
         hom = new ArrayList<>();
+        hom1 = new ArrayList<>();
         wor = new ArrayList<>();
         loc = new ArrayList<>();
         ban = new ArrayList<>();
+        ban1 = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
@@ -92,7 +96,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
-        exp.add("0 to 2 years");
+        /*exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
         exp.add("more than 10 years");
@@ -105,7 +109,7 @@ public class WorkerProfessionalProfile extends Fragment {
         emp.add("Unemployed");
 
         hom.add("Yes");
-        hom.add("No");
+        hom.add("No");*/
 
         wor.add("1");
         wor.add("2");
@@ -128,19 +132,11 @@ public class WorkerProfessionalProfile extends Fragment {
         wor.add("19");
         wor.add("20");
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, exp);
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, emp);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, hom);
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, wor);
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, ban);
 
         sector.setEnabled(false);
 
@@ -151,12 +147,12 @@ public class WorkerProfessionalProfile extends Fragment {
         location.setEnabled(false);
         bank.setEnabled(false);
 
-        experience.setAdapter(adapter2);
-        employment.setAdapter(adapter3);
-        home.setAdapter(adapter4);
+
+
+
         workers.setAdapter(adapter5);
 
-        bank.setAdapter(adapter6);
+
 
 
         //setPrevious();
@@ -167,52 +163,6 @@ public class WorkerProfessionalProfile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        Bean b = (Bean) getContext().getApplicationContext();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(b.baseurl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-
-        Call<sectorBean> call3 = cr.getLocations();
-
-        call3.enqueue(new Callback<sectorBean>() {
-            @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                if (response.body().getStatus().equals("1")) {
-
-
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                        loc.add(response.body().getData().get(i).getTitle());
-                        loc1.add(response.body().getData().get(i).getId());
-
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, loc);
-
-                    location.setAdapter(adapter);
-
-                }
-
-                progress.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
-            }
-        });
-
-
 
         setPrevious();
     }
@@ -231,7 +181,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id);
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id , SharePreferenceUtils.getInstance().getString("lang"));
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
             public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
@@ -265,7 +215,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
 
-                final Call<sectorBean> call2 = cr.getSectors();
+                final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                 call2.enqueue(new Callback<sectorBean>() {
                     @Override
@@ -289,8 +239,8 @@ public class WorkerProfessionalProfile extends Fragment {
                             sector.setAdapter(adapter);
 
                             int cp2 = 0;
-                            for (int i = 0; i < sec.size(); i++) {
-                                if (item.get(0).getSector().equals(sec.get(i))) {
+                            for (int i = 0; i < sec1.size(); i++) {
+                                if (item.get(0).getSectorId().equals(sec1.get(i))) {
                                     cp2 = i;
                                 }
                             }
@@ -337,8 +287,8 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
                                     int cp = 0;
-                                    for (int i = 0; i < ski.size(); i++) {
-                                        if (item.get(0).getSkills().equals(ski.get(i))) {
+                                    for (int i = 0; i < ski1.size(); i++) {
+                                        if (item.get(0).getSkillsId().equals(ski1.get(i))) {
                                             cp = i;
                                         }
                                     }
@@ -366,9 +316,245 @@ public class WorkerProfessionalProfile extends Fragment {
                 });
 
 
+                final Call<sectorBean> call4 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call4.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            exp.clear();
+                            exp1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                exp.add(response.body().getData().get(i).getTitle());
+                                exp1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, exp);
+
+
+                            experience.setAdapter(adapter2);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < exp1.size(); i++) {
+                                if (item.get(0).getExperience().equals(exp1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            experience.setSelection(cp2);
+
+                        }
 
 
 
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call5 = cr.getEmployment(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call5.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            emp.clear();
+                            emp1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                emp.add(response.body().getData().get(i).getTitle());
+                                emp1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, emp);
+
+
+                            employment.setAdapter(adapter3);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < emp1.size(); i++) {
+                                if (item.get(0).getEmployment().equals(emp1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            employment.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call6 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call6.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            hom.clear();
+                            hom1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                hom.add(response.body().getData().get(i).getTitle());
+                                hom1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, hom);
+
+
+                            home.setAdapter(adapter4);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < hom1.size(); i++) {
+                                if (item.get(0).getHome().equals(hom1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            home.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call7 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call7.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            ban.clear();
+                            ban1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                ban.add(response.body().getData().get(i).getTitle());
+                                ban1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, ban);
+
+
+                            bank.setAdapter(adapter6);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < ban1.size(); i++) {
+                                if (item.get(0).getBank().equals(ban1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            bank.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call8 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call8.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            loc.clear();
+                            loc1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                loc.add(response.body().getData().get(i).getTitle());
+                                loc1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, loc);
+
+
+                            location.setAdapter(adapter);
+
+                            int sp = 0;
+                            for (int i = 0; i < loc1.size(); i++) {
+
+                                if (item.get(0).getLocation().equals(loc1.get(i))) {
+                                    sp = i;
+                                    editTextLoc.setText("");
+                                    editTextLoc.setVisibility(View.GONE);
+                                    break;
+                                } else {
+                                    editTextLoc.setVisibility(View.VISIBLE);
+                                    editTextLoc.setText(item.get(0).getLocation());
+                                    sp = loc.size() - 1;
+                                }
+
+                            }
+                            location.setSelection(sp);
+
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
 /*
                 int sc = 0;
@@ -389,29 +575,11 @@ public class WorkerProfessionalProfile extends Fragment {
                 }
                 skills.setSelection(cp);*/
 
-                int rp = 0;
-                for (int i = 0; i < exp.size(); i++) {
-                    if (item.get(0).getExperience().equals(exp.get(i))) {
-                        rp = i;
-                    }
-                }
-                experience.setSelection(rp);
 
-                int mp = 0;
-                for (int i = 0; i < emp.size(); i++) {
-                    if (item.get(0).getEmployment().equals(emp.get(i))) {
-                        mp = i;
-                    }
-                }
-                employment.setSelection(mp);
 
-                int ep = 0;
-                for (int i = 0; i < hom.size(); i++) {
-                    if (item.get(0).getHome().equals(hom.get(i))) {
-                        ep = i;
-                    }
-                }
-                home.setSelection(ep);
+
+
+
 
                 int chp = 0;
                 for (int i = 0; i < wor.size(); i++) {
@@ -421,38 +589,9 @@ public class WorkerProfessionalProfile extends Fragment {
                 }
                 workers.setSelection(chp);
 
-                int chp1 = 0;
-                for (int i = 0; i < ban.size(); i++) {
-                    if (item.get(0).getBank().equals(ban.get(i))) {
-                        chp1 = i;
-                    }
-                }
-                bank.setSelection(chp1);
-
-                int bp = 0;
-                for (int i = 0; i < wor.size(); i++) {
-                    if (item.get(0).getTools().equals(wor.get(i))) {
-                        bp = i;
-                    }
-                }
 
 
-                int sp = 0;
-                for (int i = 0; i < loc.size(); i++) {
 
-                    if (item.get(0).getLocation().equals(loc.get(i))) {
-                        sp = i;
-                        editTextLoc.setText("");
-                        editTextLoc.setVisibility(View.GONE);
-                        break;
-                    } else {
-                        editTextLoc.setVisibility(View.VISIBLE);
-                        editTextLoc.setText(item.get(0).getLocation());
-                        sp = loc.size() - 1;
-                    }
-
-                }
-                location.setSelection(sp);
 
                 progress.setVisibility(View.GONE);
 

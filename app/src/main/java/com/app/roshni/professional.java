@@ -400,7 +400,7 @@ public class professional extends Fragment {
 
                 loca = loc1.get(i);
 
-                if (loca.equals("Others")) {
+                if (loca.equals("5")) {
                     loc_bool = true;
                     editTxtLoc.setVisibility(View.VISIBLE);
                 } else {
@@ -550,7 +550,7 @@ public class professional extends Fragment {
         });
 */
 
-        Call<sectorBean> call3 = cr.getLocations();
+        Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override

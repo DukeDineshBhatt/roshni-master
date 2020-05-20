@@ -257,39 +257,7 @@ public class Professional2 extends Fragment {
 
 
 
-        Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
-        call3.enqueue(new Callback<sectorBean>() {
-            @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                if (response.body().getStatus().equals("1")) {
-
-
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                        loc.add(response.body().getData().get(i).getTitle());
-                        loc1.add(response.body().getData().get(i).getId());
-
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, loc);
-
-                    location.setAdapter(adapter);
-
-
-                }
-
-                progress.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
-            }
-        });
 
 
         approve.setOnClickListener(new View.OnClickListener() {
@@ -332,7 +300,8 @@ public class Professional2 extends Fragment {
                                 work,
                                 loom,
                                 loca,
-                                bann
+                                bann,
+                                SharePreferenceUtils.getInstance().getString("id")
                         );
 
                         call.enqueue(new Callback<verifyBean>() {
@@ -412,113 +381,7 @@ public class Professional2 extends Fragment {
             }
         });
 
-        /*approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                String emplo = employer.getText().toString();
-
-                if (loc_bool) {
-
-                    loca = editTxtLoc.getText().toString();
-                }
-
-
-                if (sect.length() > 0) {
-
-                    if (skil.length() > 0) {
-                        if (expe.length() > 0) {
-                            if (empl.length() > 0) {
-                                if (hhom.length() > 0) {
-                                    if (work.length() > 0) {
-                                        if (loom.length() > 0) {
-                                            if (loca.length() > 0) {
-
-
-                                                progress.setVisibility(View.VISIBLE);
-
-                                                Bean b = (Bean) getContext().getApplicationContext();
-
-                                                Retrofit retrofit = new Retrofit.Builder()
-                                                        .baseUrl(b.baseurl)
-                                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                                        .addConverterFactory(GsonConverterFactory.create())
-                                                        .build();
-
-                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                Log.d("profileid" , profile_id);
-
-                                                Call<verifyBean> call = cr.updateWorkerProfessional(
-                                                        profile_id,
-                                                        sect,
-                                                        skil,
-                                                        expe,
-                                                        empl,
-                                                        emplo,
-                                                        hhom,
-                                                        work,
-                                                        loom,
-                                                        loca
-                                                );
-
-                                                call.enqueue(new Callback<verifyBean>() {
-                                                    @Override
-                                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                        if (response.body().getStatus().equals("1")) {
-                                                            com.app.goodbusinessappsurvey.verifyPOJO.Data item = response.body().getData();
-
-                                                            Intent intent = new Intent(getContext(), Profile.class);
-                                                            startActivity(intent);
-                                                            getActivity().finish();
-
-
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
-
-
-                                                        progress.setVisibility(View.GONE);
-
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                        progress.setVisibility(View.GONE);
-                                                    }
-                                                });
-
-
-                                            } else {
-                                                Toast.makeText(getContext(), "Invalid location", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(getContext(), "Invalid no. of looms", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } else {
-                                        Toast.makeText(getContext(), "Invalid no. of workers", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(getContext(), "Invalid employment status", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Invalid skill", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-*/
 
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -584,7 +447,8 @@ public class Professional2 extends Fragment {
                                                                     loom,
                                                                     loca,
                                                                     value,
-                                                                    bann
+                                                                    bann,
+                                                                    SharePreferenceUtils.getInstance().getString("id")
                                                             );
 
                                                             call.enqueue(new Callback<verifyBean>() {

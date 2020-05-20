@@ -38,6 +38,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -158,6 +159,13 @@ public class personal extends Fragment {
 
     String same = "0";
 
+    Spinner certified , skill_level;
+    TextView certificate_number_title , skill_level_title;
+    EditText certificate_number , annual , other_sources;
+
+    List<String> cer , cer1 , ski , ski1;
+    String cert , skil;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -177,6 +185,11 @@ public class personal extends Fragment {
         prof = new ArrayList<>();
         prof1 = new ArrayList<>();
         agg = new ArrayList<>();
+
+        cer = new ArrayList<>();
+        cer1 = new ArrayList<>();
+        ski = new ArrayList<>();
+        ski1 = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -218,6 +231,16 @@ public class personal extends Fragment {
         } catch (Exception e) {
             Log.e("Exception1: %s", e.getMessage());
         }
+
+
+
+        certified = view.findViewById(R.id.certified);
+        skill_level = view.findViewById(R.id.skill_level);
+        certificate_number_title = view.findViewById(R.id.certificate_number_title);
+        skill_level_title = view.findViewById(R.id.skill_level_title);
+        certificate_number = view.findViewById(R.id.certificate_number);
+        annual = view.findViewById(R.id.annual);
+        other_sources = view.findViewById(R.id.other_sources);
 
         name = view.findViewById(R.id.editText);
         age = view.findViewById(R.id.age);
@@ -391,6 +414,122 @@ public class personal extends Fragment {
                 progress.setVisibility(View.GONE);
             }
         });
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call21 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call21.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        cer.add(response.body().getData().get(i).getTitle());
+                        cer1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, cer);
+
+
+                    certified.setAdapter(adapter1);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        certified.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cert = cer1.get(i);
+
+                if (cert.equals("1"))
+                {
+                    certificate_number_title.setVisibility(View.VISIBLE);
+                    skill_level_title.setVisibility(View.VISIBLE);
+                    certificate_number.setVisibility(View.VISIBLE);
+                    skill_level.setVisibility(View.VISIBLE);
+                    certificate_number.setText("");
+                }
+                else
+                {
+                    certificate_number_title.setVisibility(View.GONE);
+                    skill_level_title.setVisibility(View.GONE);
+                    certificate_number.setVisibility(View.GONE);
+                    skill_level.setVisibility(View.GONE);
+                    certificate_number.setText("---");
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call22 = cr.getSkillLevel(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call22.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        ski.add(response.body().getData().get(i).getTitle());
+                        ski1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                            R.layout.spinner_model, ski);
+
+
+                    skill_level.setAdapter(adapter1);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        skill_level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                skil = ski1.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         progress.setVisibility(View.VISIBLE);
 
@@ -973,6 +1112,10 @@ public class personal extends Fragment {
                 String cst = cstreet.getText().toString();
                 String idno = editTxtProof.getText().toString();
 
+                String cno = certificate_number.getText().toString();
+                String ann = annual.getText().toString();
+                String oth = other_sources.getText().toString();
+
                 String pp;
                 String ps;
                 String pd;
@@ -1073,6 +1216,11 @@ public class personal extends Fragment {
                                                                             goin,
                                                                             ag,
                                                                             same,
+                                                                            cert,
+                                                                            skil,
+                                                                            cno,
+                                                                            ann,
+                                                                            oth,
                                                                             body,
                                                                             String.valueOf(c1),
                                                                             String.valueOf(c2),

@@ -268,4 +268,8 @@
     <string name="ssi">SSI</string>
     <string name="msme">MSME</string>
     <string name="cottage_industry">Cottage Industry</string>
+    <string name="certificate_number">CERTIFICATE NUMBER</string>
+    <string name="skill_level2">SKILL LEVEL</string>
+    <string name="annual_income">ANNUAL INCOME</string>
+    <string name="other_sources_of_income">OTHER SOURCES OF INCOME</string>
 </resources>

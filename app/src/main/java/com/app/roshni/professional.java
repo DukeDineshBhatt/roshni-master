@@ -47,7 +47,7 @@ public class professional extends Fragment {
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
-    List<String> sec, ski, exp, emp, hom, wor, loc , ban;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -74,11 +74,15 @@ public class professional extends Fragment {
         sec = new ArrayList<>();
         ski = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         emp = new ArrayList<>();
+        emp1 = new ArrayList<>();
         hom = new ArrayList<>();
+        hom1 = new ArrayList<>();
         wor = new ArrayList<>();
         loc = new ArrayList<>();
         ban = new ArrayList<>();
+        ban1 = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
@@ -101,23 +105,23 @@ public class professional extends Fragment {
         previous = view.findViewById(R.id.previous);
 
 
-        exp.add("0 to 2 years");
+        /*exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
-        exp.add("more than 10 years");
+        exp.add("more than 10 years");*/
 
-        emp.add("Employed");
-        emp.add("Unemployed");
+        /*emp.add("Employed");
+        emp.add("Unemployed");*/
 
 
-        ban.add("---");
+        /*ban.add("---");
         ban.add("Yes");
-        ban.add("No");
+        ban.add("No");*/
 
 
-        hom.add("Yes");
+        /*hom.add("Yes");
         hom.add("No");
-
+*/
         wor.add("1");
         wor.add("2");
         wor.add("3");
@@ -149,33 +153,165 @@ public class professional extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, exp);
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, emp);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, hom);
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, wor);
 
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, ban);
 
-        experience.setAdapter(adapter2);
-        employment.setAdapter(adapter3);
-        home.setAdapter(adapter4);
+
+
+
         workers.setAdapter(adapter5);
-        bank.setAdapter(adapter6);
 
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call31 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call31.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        exp.add(response.body().getData().get(i).getTitle());
+                        exp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, exp);
+
+
+                    experience.setAdapter(adapter2);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call32 = cr.getEmployment(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call32.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        emp.add(response.body().getData().get(i).getTitle());
+                        emp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, emp);
+
+
+                    employment.setAdapter(adapter3);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call33 = cr.getBank(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call33.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        ban.add(response.body().getData().get(i).getTitle());
+                        ban1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, ban);
+
+
+                    bank.setAdapter(adapter6);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call34 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call34.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        hom.add(response.body().getData().get(i).getTitle());
+                        hom1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, hom);
+
+
+                    home.setAdapter(adapter4);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
 
         experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                expe = exp.get(i);
+                expe = exp1.get(i);
 
             }
 
@@ -189,7 +325,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                bann = ban.get(i);
+                bann = ban1.get(i);
 
             }
 
@@ -212,7 +348,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                empl = emp.get(i);
+                empl = emp1.get(i);
 
             }
 
@@ -225,9 +361,9 @@ public class professional extends Fragment {
         home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                hhom = hom.get(i);
+                hhom = hom1.get(i);
 
-                if (hhom.equals("Yes")) {
+                if (hhom.equals("1")) {
 
                     yes.setVisibility(View.VISIBLE);
 
@@ -262,7 +398,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                loca = loc.get(i);
+                loca = loc1.get(i);
 
                 if (loca.equals("Others")) {
                     loc_bool = true;
@@ -284,7 +420,7 @@ public class professional extends Fragment {
         progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getSectors();
+        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -354,11 +490,20 @@ public class professional extends Fragment {
                                         skil = "";
                                         List<String> sklist = new ArrayList<>();
 
-                                        for (int i = 0 ; i < selected.length ; i++)
-                                        {
-                                            if (selected[i])
-                                            {
-                                                sklist.add(ski1.get(i));
+                                        if (selected[0]) {
+
+                                            for (int j = 0; j < selected.length; j++) {
+                                                skills.selectItem(j, false);
+                                            }
+                                            skills.selectItem(0, true);
+                                            sklist.add(ski1.get(0));
+
+                                        } else {
+                                            for (int i = 0; i < selected.length; i++) {
+                                                if (selected[i]) {
+
+                                                    sklist.add(ski1.get(i));
+                                                }
                                             }
                                         }
 

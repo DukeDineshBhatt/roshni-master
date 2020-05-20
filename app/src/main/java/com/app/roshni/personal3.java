@@ -827,6 +827,11 @@ public class personal3 extends Fragment {
                                                                             goin,
                                                                             ag,
                                                                             same,
+                                                                            "",
+                                                                            "",
+                                                                            "",
+                                                                            "",
+                                                                            "",
                                                                             body
                                                                     );
 

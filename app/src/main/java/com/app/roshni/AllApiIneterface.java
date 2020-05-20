@@ -153,6 +153,11 @@ public interface AllApiIneterface {
             @Part("goingtoschool") String goingtoschool,
             @Part("age") String age,
             @Part("same") String same,
+            @Part("certified") String certified,
+            @Part("skill_level") String skill_level,
+            @Part("certification_number") String certification_number,
+            @Part("annual_income") String annual_income,
+            @Part("other_source") String other_source,
             @Part MultipartBody.Part file1
     );
 

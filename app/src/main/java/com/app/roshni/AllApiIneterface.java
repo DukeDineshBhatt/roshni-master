@@ -819,6 +819,9 @@ public interface AllApiIneterface {
             @Part("sector") String sector,
             @Part("tools") String looms,
             @Part("same") String same,
+            @Part("outsource") String outsource,
+            @Part("migrant") String migrant,
+            @Part("local") String local,
             @Part MultipartBody.Part file1
     );
 

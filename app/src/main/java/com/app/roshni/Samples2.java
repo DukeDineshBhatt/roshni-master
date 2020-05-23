@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.samplePOJO.Datum;
 import com.app.roshni.samplePOJO.sampleBean;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -61,7 +62,7 @@ public class Samples2 extends Fragment {
 
     RecyclerView grid;
     StaggeredGridLayoutManager manager;
-    Button upload , finish,approve,reject;
+    Button approve,reject , previous;
     ProgressBar progress;
     List<Datum> list;
     SampleAdapter adapter;
@@ -69,6 +70,7 @@ public class Samples2 extends Fragment {
     private Uri uri;
     private File f1;
 
+    FloatingActionButton upload;
     private CustomViewPager pager;
 
     void setData(CustomViewPager pager) {
@@ -83,12 +85,13 @@ public class Samples2 extends Fragment {
         list = new ArrayList<>();
 
         grid = view.findViewById(R.id.grid);
-        upload = view.findViewById(R.id.button16);
-        finish = view.findViewById(R.id.button15);
+        upload = view.findViewById(R.id.floatingActionButton3);
+
         progress = view.findViewById(R.id.progressBar3);
         nodata = view.findViewById(R.id.imageView5);
-        approve = view.findViewById(R.id.approve);
-        reject = view.findViewById(R.id.reject);
+        approve = view.findViewById(R.id.button15);
+        reject = view.findViewById(R.id.button29);
+        previous = view.findViewById(R.id.button16);
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
         adapter = new SampleAdapter(getContext() , list);
@@ -160,6 +163,14 @@ public class Samples2 extends Fragment {
             }
         });
 
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pager.setCurrentItem(0);
+
+            }
+        });
 
         approve.setOnClickListener(new View.OnClickListener() {
             @Override

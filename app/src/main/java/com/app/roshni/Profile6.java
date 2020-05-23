@@ -85,7 +85,9 @@ public class Profile6 extends AppCompatActivity {
                 frag.setData(pager);
                 return frag;
             } else {
-                return new Samples2();
+                Samples2 frag = new Samples2();
+                frag.setData(pager);
+                return frag;
             }
 
         }

@@ -1,10 +1,13 @@
 package com.app.roshni;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,6 +86,42 @@ public class SingleContgractor extends AppCompatActivity {
 
         progress.setVisibility(View.VISIBLE);
 
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(SingleContgractor.this);
+
+                builder.setMessage("Contact Admin for this Feature")
+                        .setTitle("View Contractor Phone");
+
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+
+                        Intent intent = new Intent(SingleContgractor.this , Support.class);
+                        intent.putExtra("title" , getString(R.string.support_help));
+                        intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
+                        startActivity(intent);
+
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+
+                        dialog.dismiss();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+
+            }
+        });
+
         Bean b = (Bean) getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -113,12 +152,12 @@ public class SingleContgractor extends AppCompatActivity {
                 fw = item.getWorkersFemale();
 
                 name.setText(item.getName());
-                phone.setText("+" + item.getPhone());
+                //phone.setText("+" + item.getPhone());
                 total.setText(String.valueOf(Integer.parseInt(item.getWorkersMale()) + Integer.parseInt(item.getWorkersFemale())) + " workers");
-                experience.setText(item.getExperience());
-                availability.setText(item.getAvailability());
+                experience.setText(item.getExperience1());
+                availability.setText(item.getAvailability1());
                 dob.setText(item.getDob());
-                gender.setText(item.getGender());
+                gender.setText(item.getGender1());
                 current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
                 permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
                 home_based.setText(item.getHomeUnits());

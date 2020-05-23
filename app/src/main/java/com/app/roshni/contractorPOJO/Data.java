@@ -53,6 +53,9 @@ public class Data {
     @SerializedName("gender")
     @Expose
     private String gender;
+    @SerializedName("gender1")
+    @Expose
+    private String gender1;
     @SerializedName("cpin")
     @Expose
     private String cpin;
@@ -86,6 +89,9 @@ public class Data {
     @SerializedName("experience")
     @Expose
     private String experience;
+    @SerializedName("experience1")
+    @Expose
+    private String experience1;
     @SerializedName("home_units")
     @Expose
     private String homeUnits;
@@ -107,6 +113,9 @@ public class Data {
     @SerializedName("availability")
     @Expose
     private String availability;
+    @SerializedName("availability1")
+    @Expose
+    private String availability1;
     @SerializedName("employer")
     @Expose
     private String employer;
@@ -122,9 +131,6 @@ public class Data {
     @SerializedName("sector")
     @Expose
     private String sector;
-    @SerializedName("created")
-    @Expose
-    private String created;
     @SerializedName("tools")
     @Expose
     private String tools;
@@ -140,6 +146,9 @@ public class Data {
     @SerializedName("local")
     @Expose
     private String local;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
     public String getId() {
         return id;
@@ -269,6 +278,14 @@ public class Data {
         this.gender = gender;
     }
 
+    public String getGender1() {
+        return gender1;
+    }
+
+    public void setGender1(String gender1) {
+        this.gender1 = gender1;
+    }
+
     public String getCpin() {
         return cpin;
     }
@@ -357,6 +374,14 @@ public class Data {
         this.experience = experience;
     }
 
+    public String getExperience1() {
+        return experience1;
+    }
+
+    public void setExperience1(String experience1) {
+        this.experience1 = experience1;
+    }
+
     public String getHomeUnits() {
         return homeUnits;
     }
@@ -413,6 +438,14 @@ public class Data {
         this.availability = availability;
     }
 
+    public String getAvailability1() {
+        return availability1;
+    }
+
+    public void setAvailability1(String availability1) {
+        this.availability1 = availability1;
+    }
+
     public String getEmployer() {
         return employer;
     }
@@ -453,14 +486,6 @@ public class Data {
         this.sector = sector;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
     public String getTools() {
         return tools;
     }
@@ -477,27 +502,36 @@ public class Data {
         this.same = same;
     }
 
-    public String getLocal() {
-        return local;
+    public String getOutsource() {
+        return outsource;
+    }
+
+    public void setOutsource(String outsource) {
+        this.outsource = outsource;
     }
 
     public String getMigrant() {
         return migrant;
     }
 
-    public String getOutsource() {
-        return outsource;
+    public void setMigrant(String migrant) {
+        this.migrant = migrant;
+    }
+
+    public String getLocal() {
+        return local;
     }
 
     public void setLocal(String local) {
         this.local = local;
     }
 
-    public void setMigrant(String migrant) {
-        this.migrant = migrant;
+    public String getCreated() {
+        return created;
     }
 
-    public void setOutsource(String outsource) {
-        this.outsource = outsource;
+    public void setCreated(String created) {
+        this.created = created;
     }
+
 }

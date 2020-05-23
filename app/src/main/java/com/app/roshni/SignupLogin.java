@@ -1,10 +1,12 @@
 package com.app.roshni;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -278,6 +280,39 @@ public class SignupLogin extends AppCompatActivity {
                                 Intent intent = new Intent(SignupLogin.this, EnterPIN.class);
                                 startActivity(intent);
                                 finishAffinity();
+                            }
+                            else if (response.body().getStatus().equals("3"))
+                            {
+
+                                Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupLogin.this);
+
+                                builder.setMessage("You have unsubscribed from this app, Please contact the administrator for subscribing again")
+                                        .setTitle("Activate Profile");
+
+                                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User clicked OK button
+
+                                        Intent intent = new Intent(SignupLogin.this , Support.class);
+                                        intent.putExtra("title" , getString(R.string.support_help));
+                                        intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
+                                        startActivity(intent);
+
+                                    }
+                                });
+                                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+
+                                dialog.show();
                             }
                             else
                             {

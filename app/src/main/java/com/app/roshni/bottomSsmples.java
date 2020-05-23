@@ -1,5 +1,6 @@
 package com.app.roshni;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.app.roshni.samplePOJO.Datum;
 import com.app.roshni.samplePOJO.sampleBean;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -55,6 +57,8 @@ public class bottomSsmples extends BottomSheetDialogFragment {
     private Uri uri;
     private File f1;
 
+    FloatingActionButton add;
+
     String jid;
 
     static bottomSsmples newInstance() {
@@ -77,9 +81,12 @@ public class bottomSsmples extends BottomSheetDialogFragment {
         finish = view.findViewById(R.id.button15);
         progress = view.findViewById(R.id.progressBar3);
         nodata = view.findViewById(R.id.imageView5);
+        add = view.findViewById(R.id.floatingActionButton3);
+
+        add.setVisibility(View.GONE);
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getContext() , list);
+        adapter = new SampleAdapter(getActivity() , list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
@@ -174,12 +181,29 @@ public class bottomSsmples extends BottomSheetDialogFragment {
 
             final Datum item = list.get(position);
 
-            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
-            ImageLoader loader = ImageLoader.getInstance();
+            final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
+            final ImageLoader loader = ImageLoader.getInstance();
             loader.displayImage(item.getFile() , holder.image , options);
 
 
             holder.delete.setVisibility(View.GONE);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Dialog dialog = new Dialog(context , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    //      WindowManager.LayoutParams.MATCH_PARENT);
+                    dialog.setContentView(R.layout.zoom_dialog);
+                    dialog.setCancelable(true);
+                    dialog.show();
+
+                    ImageView img = dialog.findViewById(R.id.image);
+                    loader.displayImage(item.getFile() , img , options);
+
+                }
+            });
 
         }
 

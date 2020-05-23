@@ -3,6 +3,7 @@ package com.app.roshni;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,8 @@ public class contractors extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerListBean> call = cr.getAllConttractors(SharePreferenceUtils.getInstance().getString("user_id"));
+        Log.d("userid" , SharePreferenceUtils.getInstance().getString("user_id"));
+        Call<workerListBean> call = cr.getAllConttractors(SharePreferenceUtils.getInstance().getString("user_id") , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerListBean>() {
             @Override
@@ -91,6 +93,7 @@ public class contractors extends Fragment {
                     nodata.setVisibility(View.VISIBLE);
                 }
 
+                Log.d("count" , String.valueOf(response.body().getData().size()));
 
                 adapter.setData(response.body().getData());
 
@@ -101,6 +104,7 @@ public class contractors extends Fragment {
             @Override
             public void onFailure(Call<workerListBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
+                t.printStackTrace();
             }
         });
 

@@ -612,7 +612,8 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getAllConttractors.php")
     Call<workerListBean> getAllConttractors(
-            @Part("user_id") String user_id
+            @Part("user_id") String user_id,
+            @Part("lang") String lang
     );
 
     @Multipart

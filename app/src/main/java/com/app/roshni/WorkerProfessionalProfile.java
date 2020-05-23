@@ -111,6 +111,7 @@ public class WorkerProfessionalProfile extends Fragment {
         hom.add("Yes");
         hom.add("No");*/
 
+        wor.add("---");
         wor.add("1");
         wor.add("2");
         wor.add("3");

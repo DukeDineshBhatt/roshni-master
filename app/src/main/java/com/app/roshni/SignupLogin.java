@@ -40,6 +40,8 @@ public class SignupLogin extends AppCompatActivity {
     ProgressBar progress;
     TextView language , forgot;
 
+    String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String languageToLoad  = SharePreferenceUtils.getInstance().getString("lang"); // your language
@@ -51,6 +53,8 @@ public class SignupLogin extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_login);
+
+        type = getIntent().getStringExtra("type");
 
         login = findViewById(R.id.button);
         signup = findViewById(R.id.button2);
@@ -377,8 +381,13 @@ public class SignupLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignupLogin.this , ChooseAccount.class);
-                startActivity(intent);
+
+
+                    Intent intent = new Intent(SignupLogin.this , Signup.class);
+                    intent.putExtra("type" , type);
+                    startActivity(intent);
+                    finishAffinity();
+
             }
         });
 

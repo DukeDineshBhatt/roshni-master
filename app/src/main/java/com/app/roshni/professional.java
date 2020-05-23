@@ -41,11 +41,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank;
+    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance;
 
     MultiSelectSpinner skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann;
+    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt;
 
     List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
     List<String> sec1, ski1, loc1;
@@ -103,6 +103,7 @@ public class professional extends Fragment {
         yes = view.findViewById(R.id.yes);
         editTxtLoc = view.findViewById(R.id.editTxtLoc);
         previous = view.findViewById(R.id.previous);
+        govtinsurance = view.findViewById(R.id.govtinsurance);
 
 
         /*exp.add("0 to 2 years");
@@ -122,6 +123,7 @@ public class professional extends Fragment {
         /*hom.add("Yes");
         hom.add("No");
 */
+        wor.add("---");
         wor.add("1");
         wor.add("2");
         wor.add("3");
@@ -258,6 +260,11 @@ public class professional extends Fragment {
                     ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
                             R.layout.spinner_model, ban);
 
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, ban);
+
+
+                    govtinsurance.setAdapter(adapter7);
 
                     bank.setAdapter(adapter6);
                 }
@@ -326,6 +333,20 @@ public class professional extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 bann = ban1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        govtinsurance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                govt = ban1.get(i);
 
             }
 
@@ -624,7 +645,8 @@ public class professional extends Fragment {
                                 work,
                                 loom,
                                 loca,
-                                bann
+                                bann,
+                                govt
                         );
 
                         call.enqueue(new Callback<verifyBean>() {

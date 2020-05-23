@@ -158,6 +158,9 @@ public class WorkerByIdData {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("govt")
+    @Expose
+    private String govt;
 
     public String getUserId() {
         return userId;
@@ -565,5 +568,13 @@ public class WorkerByIdData {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getGovt() {
+        return govt;
+    }
+
+    public void setGovt(String govt) {
+        this.govt = govt;
     }
 }

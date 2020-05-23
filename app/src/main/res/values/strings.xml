@@ -57,20 +57,20 @@
     <string name="salary_package">Salary Package</string>
     <string name="company_details">Company Details</string>
     <string name="total_days_for_completion">Total Days for Completion</string>
-    <string name="job_title">JOB TITLE *</string>
-    <string name="skills1">SKILLS *</string>
+    <string name="job_title">JOB TITLE <font color="red">*</font></string>
+    <string name="skills1">SKILLS <font color="red">*</font></string>
     <string name="preferred_skills_if_any">PREFERRED SKILLS (IF ANY)</string>
-    <string name="location1">LOCATION *</string>
-    <string name="experience1">EXPERIENCE *</string>
-    <string name="job_role1">JOB ROLE *</string>
+    <string name="location1">LOCATION <font color="red">*</font></string>
+    <string name="experience1">EXPERIENCE <font color="red">*</font></string>
+    <string name="job_role1">JOB ROLE <font color="red">*</font></string>
     <string name="gender_preference1">GENDER PREFERENCE</string>
     <string name="education1">EDUCATION</string>
     <string name="working_hours1">WORKING HOURS</string>
     <string name="salary_package1">SALARY PACKAGE</string>
-    <string name="salary_type1">SALARY TYPE *</string>
+    <string name="salary_type1">SALARY TYPE <font color="red">*</font></string>
     <string name="submit">NEXT</string>
-    <string name="job_type1">JOB TYPE *</string>
-    <string name="no_of_days_for_completion">NO. OF DAYS FOR COMPLETION *</string>
+    <string name="job_type1">JOB TYPE <font color="red">*</font></string>
+    <string name="no_of_days_for_completion">NO. OF DAYS FOR COMPLETION <font color="red">*</font></string>
 
     <string name="upload_take_photo">upload/ take photo</string>
 
@@ -97,39 +97,39 @@
     <string name="total_workers">Total Workers</string>
     <string name="website">Website</string>
     <string name="email_address">Email address</string>
-    <string name="your_name">YOUR NAME *</string>
+    <string name="your_name">YOUR NAME <font color="red">*</font></string>
     <string name="your_logo">YOUR LOGO</string>
     <string name="registration_no_if_any">REGISTRATION NO. (IF ANY)</string>
-    <string name="contact_person1">CONTACT PERSON *</string>
-    <string name="your_current_address1">YOUR CURRENT ADDRESS *</string>
+    <string name="contact_person1">CONTACT PERSON <font color="red">*</font></string>
+    <string name="your_current_address1">YOUR CURRENT ADDRESS <font color="red">*</font></string>
     <string name="pin_code">PIN CODE</string>
-    <string name="state">STATE *</string>
-    <string name="district">DISTRICT *</string>
-    <string name="village_town_area">VILLAGE/ TOWN/ AREA *</string>
-    <string name="street">STREET *</string>
-    <string name="head_office_address">HEAD OFFICE ADDRESS *</string>
+    <string name="state">STATE <font color="red">*</font></string>
+    <string name="district">DISTRICT <font color="red">*</font></string>
+    <string name="village_town_area">VILLAGE/ TOWN/ AREA</string>
+    <string name="street">STREET</string>
+    <string name="head_office_address">HEAD OFFICE ADDRESS <font color="red">*</font></string>
     <string name="same_as_above">same as above</string>
-    <string name="types_of_products">TYPES OF PRODUCTS *</string>
+    <string name="types_of_products">TYPES OF PRODUCTS <font color="red">*</font></string>
     <string name="hit_enter_to_add_products">hit enter to add products</string>
     <string name="hit_enter_to_add_countries">hit enter to add countries</string>
-    <string name="total_workers1">TOTAL WORKERS *</string>
+    <string name="total_workers1">TOTAL WORKERS <font color="red">*</font></string>
     <string name="goodweave_certification">GOODWEAVE CERTIFICATION</string>
     <string name="certificate_expiry_date">CERTIFICATE EXPIRY DATE</string>
     <string name="website_address">WEBSITE ADDRESS</string>
     <string name="email_address1">EMAIL ADDRESS</string>
     <string name="your_photo">YOUR PHOTO</string>
-    <string name="your_d_o_b">YOUR D.O.B. *</string>
-    <string name="your_gender">YOUR GENDER *</string>
+    <string name="your_d_o_b">YOUR D.O.B. <font color="red">*</font></string>
+    <string name="your_gender">YOUR GENDER <font color="red">*</font></string>
     <string name="about1">ABOUT</string>
     <string name="name_of_business_if_any">NAME OF BUSINESS (IF ANY)</string>
     <string name="year_of_establishment">YEAR OF EXPERIENCE</string>
-    <string name="your_permanent_address">YOUR PERMANENT ADDRESS *</string>
+    <string name="your_permanent_address">YOUR PERMANENT ADDRESS <font color="red">*</font></string>
     <string name="no_of_home_based_units">NO. OF HOME BASED UNITS</string>
     <string name="location_of_home_based_units">LOCATION OF HOME BASED UNITS</string>
     <string name="male">MALE</string>
     <string name="female">FEMALE</string>
-    <string name="types_of_work1">TYPES OF WORK *</string>
-    <string name="availability">AVAILABILITY *</string>
+    <string name="types_of_work1">TYPES OF WORK <font color="red">*</font></string>
+    <string name="availability">AVAILABILITY <font color="red">*</font></string>
     <string name="previous_employer_or_brands">PREVIOUS EMPLOYER OR BRANDS</string>
     <string name="ok">OK</string>
     <string name="select">SELECT</string>
@@ -146,21 +146,21 @@
     <string name="company_name">Company Name</string>
     <string name="view_details"><![CDATA[View Details >]]></string>
     <string name="posted_on">Posted on</string>
-    <string name="your_category">YOUR CATEGORY *</string>
-    <string name="your_religion">YOUR RELIGION *</string>
+    <string name="your_category">YOUR CATEGORY <font color="red">*</font></string>
+    <string name="your_religion">YOUR RELIGION <font color="red">*</font></string>
     <string name="your_educational_status">YOUR EDUCATIONAL STATUS</string>
-    <string name="your_marital_status">YOUR MARITAL STATUS *</string>
-    <string name="number_of_children">NUMBER OF CHILDREN *</string>
-    <string name="number_of_children_below_6_yrs">NUMBER OF CHILDREN BELOW 6 YRS. *</string>
-    <string name="number_of_children_b_w_6_14_yrs">NUMBER OF CHILDREN B/W 6-14 YRS. *</string>
-    <string name="number_of_children_b_w_15_18_yrs">NUMBER OF CHILDREN B/W 15-18 YRS. *</string>
-    <string name="number_of_children_going_to_school">NUMBER OF CHILDREN GOING TO SCHOOL *</string>
-    <string name="your_sector">YOUR SECTOR *</string>
+    <string name="your_marital_status">YOUR MARITAL STATUS <font color="red">*</font></string>
+    <string name="number_of_children">NUMBER OF CHILDREN <font color="red">*</font></string>
+    <string name="number_of_children_below_6_yrs">NUMBER OF CHILDREN BELOW 6 YRS. <font color="red">*</font></string>
+    <string name="number_of_children_b_w_6_14_yrs">NUMBER OF CHILDREN B/W 6-14 YRS. <font color="red">*</font></string>
+    <string name="number_of_children_b_w_15_18_yrs">NUMBER OF CHILDREN B/W 15-18 YRS. <font color="red">*</font></string>
+    <string name="number_of_children_going_to_school">NUMBER OF CHILDREN GOING TO SCHOOL <font color="red">*</font></string>
+    <string name="your_sector">YOUR SECTOR <font color="red">*</font></string>
     <string name="your_skills">YOUR SKILLS</string>
     <string name="your_experience">YOUR EXPERIENCE</string>
     <string name="your_employment_status">YOUR EMPLOYMENT STATUS</string>
     <string name="your_employer_previous_current">YOUR EMPLOYER (PREVIOUS/ CURRENT)</string>
-    <string name="owns_a_home_based_unit1">OWNS A HOME BASED UNIT *</string>
+    <string name="owns_a_home_based_unit1">OWNS A HOME BASED UNIT <font color="red">*</font></string>
     <string name="number_of_workers">NUMBER OF WORKERS</string>
     <string name="number_of_looms">PRODUCTION MACHINERIES / TOOLS</string>
     <string name="preferred_location_for_work">PREFERRED LOCATION FOR WORK</string>
@@ -192,14 +192,14 @@
     <string name="firm">TYPE OF FIRM</string>
     <string name="firmtype">TYPE OF FIRM REGISTRATION</string>
     <string name="reg_number">REGISTRATION No. (IF ANY)</string>
-    <string name="no_of_positions">NO. OF POSITIONS *</string>
-    <string name="sector1">SECTOR *</string>
-    <string name="skill_level_required">SKILL LEVEL REQUIRED *</string>
-    <string name="skill_set_required">SKILL-SET REQUIRED *</string>
-    <string name="nature_of_job">NATURE OF JOB *</string>
+    <string name="no_of_positions">NO. OF POSITIONS <font color="red">*</font></string>
+    <string name="sector1">SECTOR <font color="red">*</font></string>
+    <string name="skill_level_required">SKILL LEVEL REQUIRED <font color="red">*</font></string>
+    <string name="skill_set_required">SKILL-SET REQUIRED <font color="red">*</font></string>
+    <string name="nature_of_job">NATURE OF JOB <font color="red">*</font></string>
     <string name="man_days_required">MAN-DAYS REQUIRED</string>
     <string name="piece_rate2">PIECE-RATE</string>
-    <string name="place_of_employment">PLACE OF EMPLOYMENT *</string>
+    <string name="place_of_employment">PLACE OF EMPLOYMENT <font color="red">*</font></string>
     <string name="job_location">JOB LOCATION</string>
     <string name="enter_job_location">enter job location</string>
     <string name="no_of_positions1">No. of Positions</string>
@@ -207,7 +207,7 @@
     <string name="nature_of_job1">Nature of Job</string>
     <string name="man_days">Man Days</string>
     <string name="place_of_employment1">Place of Employment</string>
-    <string name="man_days_required2">MAN-DAYS REQUIRED *</string>
+    <string name="man_days_required2">MAN-DAYS REQUIRED <font color="red">*</font></string>
     <string name="enter_id_number">enter id number</string>
     <string name="google_maps_key" translatable="false">AIzaSyCgsH_uHFwFsCY4hUXgJsIjnSx2DwxK1Rw</string>
     <string name="enter_religion">enter religion</string>
@@ -221,7 +221,7 @@
     <string name="factory_outlet3">FACTORY OUTLET</string>
     <string name="importing_countries3">EXPORTING COUNTRIES</string>
     <string name="your_age">YOUR AGE</string>
-    <string name="do_you_have_bank_account">DO YOU HAVE BANK ACCOUNT?</string>
+    <string name="do_you_have_bank_account">DO YOU HAVE AN ACTIVE BANK ACCOUNT?</string>
     <string name="bank_account">BANK ACCOUNT</string>
     <string name="hit_enter_to_add_location">hit enter to add location</string>
     <string name="survey_officer">Survey VALIDATION officer</string>
@@ -272,4 +272,5 @@
     <string name="skill_level2">SKILL LEVEL</string>
     <string name="annual_income">ANNUAL INCOME</string>
     <string name="other_sources_of_income">OTHER SOURCES OF INCOME</string>
+    <string name="are_you_covered_under_any_of_the_govt_health_insurance_scheme">Are you covered under any of the Govt Health Insurance scheme ?</string>
 </resources>

@@ -57,20 +57,20 @@
     <string name="salary_package">"वेतन पैकेज "</string>
     <string name="company_details">संस्थान के विवरण</string>
     <string name="total_days_for_completion">"ऑर्डर के पूरा होने के लिए #दिन "</string>
-    <string name="job_title">जॉब का नाम/ काम का नाम  *</string>
-    <string name="skills1">कौशल  *</string>
+    <string name="job_title">जॉब का नाम/ काम का नाम  <font color="red">*</font></string>
+    <string name="skills1">कौशल  <font color="red">*</font></string>
     <string name="preferred_skills_if_any">पसंदीदा कौशल सेट (यदि कोई हो)</string>
-    <string name="location1">स्थान *</string>
-    <string name="experience1">अनुभव *</string>
-    <string name="job_role1">कार्य की भूमिका *</string>
+    <string name="location1">स्थान <font color="red">*</font></string>
+    <string name="experience1">अनुभव <font color="red">*</font></string>
+    <string name="job_role1">कार्य की भूमिका <font color="red">*</font></string>
     <string name="gender_preference1">"लिंग प्राथमिकता "</string>
     <string name="education1">शिक्षा</string>
     <string name="working_hours1">काम के घंटे</string>
     <string name="salary_package1">वेतन पैकेज</string>
-    <string name="salary_type1">वेतन प्रकार *</string>
+    <string name="salary_type1">वेतन प्रकार <font color="red">*</font></string>
     <string name="submit">प्रस्तुत</string>
-    <string name="job_type1">कार्य का प्रकार *</string>
-    <string name="no_of_days_for_completion">ऑर्डर के पूरा होने के लिए #दिन  *</string>
+    <string name="job_type1">कार्य का प्रकार <font color="red">*</font></string>
+    <string name="no_of_days_for_completion">ऑर्डर के पूरा होने के लिए #दिन  <font color="red">*</font></string>
 
     <string name="upload_take_photo">"अपलोड करें/ तस्वीर लें "</string>
 
@@ -97,39 +97,39 @@
     <string name="total_workers">कुल कार्यकर्ता</string>
     <string name="website">"वेबसाइट का पता "</string>
     <string name="email_address">"ईमेल पता "</string>
-    <string name="your_name">आपका नाम *</string>
+    <string name="your_name">आपका नाम <font color="red">*</font></string>
     <string name="your_logo">आपका लोगो</string>
     <string name="registration_no_if_any">पंजीकरण संख्या/ रजिस्ट्रेशन नंबर (यदि कोई हो)</string>
-    <string name="contact_person1">संपर्क के लिए व्यक्ति  *</string>
-    <string name="your_current_address1">आपका वर्त्तमान पता *</string>
+    <string name="contact_person1">संपर्क के लिए व्यक्ति  <font color="red">*</font></string>
+    <string name="your_current_address1">आपका वर्त्तमान पता <font color="red">*</font></string>
     <string name="pin_code">पिन कोड</string>
-    <string name="state">राज्य  *</string>
-    <string name="district">जिला  *</string>
-    <string name="village_town_area">ग्राम/ शहर  *</string>
-    <string name="street">गली  *</string>
-    <string name="head_office_address">प्रधान कार्यालय का पता  *</string>
+    <string name="state">राज्य  <font color="red">*</font></string>
+    <string name="district">जिला  <font color="red">*</font></string>
+    <string name="village_town_area">ग्राम/ शहर</string>
+    <string name="street">गली</string>
+    <string name="head_office_address">प्रधान कार्यालय का पता  <font color="red">*</font></string>
     <string name="same_as_above">ऊपर की तरह</string>
-    <string name="types_of_products">उत्पादों के प्रकार *</string>
+    <string name="types_of_products">उत्पादों के प्रकार <font color="red">*</font></string>
     <string name="hit_enter_to_add_products">उत्पादों को जोड़ने के लिए हिट दर्ज करें</string>
     <string name="hit_enter_to_add_countries">देशों को जोड़ने के लिए हिट दर्ज करें</string>
-    <string name="total_workers1">कुल कार्यकर्ता *</string>
+    <string name="total_workers1">कुल कार्यकर्ता <font color="red">*</font></string>
     <string name="goodweave_certification">गुडवीव प्रमाणपत्र</string>
     <string name="certificate_expiry_date">सर्टिफाइड एक्सपायरी डेट</string>
     <string name="website_address">वेबसाइट का पता</string>
     <string name="email_address1">ईमेल पता</string>
     <string name="your_photo">आपका फोटो</string>
-    <string name="your_d_o_b">आपका डी.ओ.बी. *</string>
-    <string name="your_gender">तुम्हारा लिंग *</string>
+    <string name="your_d_o_b">आपका डी.ओ.बी. <font color="red">*</font></string>
+    <string name="your_gender">तुम्हारा लिंग <font color="red">*</font></string>
     <string name="about1">के बारे में</string>
     <string name="name_of_business_if_any">व्यापार का नाम (यदि कोई हो)</string>
     <string name="year_of_establishment">"अनुभव का साल "</string>
-    <string name="your_permanent_address">आपका स्थायी पता *</string>
+    <string name="your_permanent_address">आपका स्थायी पता <font color="red">*</font></string>
     <string name="no_of_home_based_units">घर आधारित इकाई की संख्या</string>
     <string name="location_of_home_based_units">घर आधारित इकाई का स्थान</string>
     <string name="male">MALE</string>
     <string name="female">FEMALE</string>
-    <string name="types_of_work1">कार्य के प्रकार *</string>
-    <string name="availability">उपलब्धता *</string>
+    <string name="types_of_work1">कार्य के प्रकार <font color="red">*</font></string>
+    <string name="availability">उपलब्धता <font color="red">*</font></string>
     <string name="previous_employer_or_brands">"पिछला नियोक्ता या ब्रांड "</string>
     <string name="ok">ठीक</string>
     <string name="select">चुनते हैं</string>
@@ -146,21 +146,21 @@
     <string name="company_name">कंपनी का नाम</string>
     <string name="view_details">विवरण देखें</string>
     <string name="posted_on">पर प्रविष्ट किया</string>
-    <string name="your_category">आपका श्रेणी *</string>
-    <string name="your_religion">आपका धर्म *</string>
+    <string name="your_category">आपका श्रेणी <font color="red">*</font></string>
+    <string name="your_religion">आपका धर्म <font color="red">*</font></string>
     <string name="your_educational_status">आपकी शैक्षिक स्थिति</string>
-    <string name="your_marital_status">तुम्हारी वैवाहिक स्थिति *</string>
-    <string name="number_of_children">बच्चों की संख्या  *</string>
-    <string name="number_of_children_below_6_yrs">6 साल से कम उम्र के बच्चों की संख्या  *</string>
-    <string name="number_of_children_b_w_6_14_yrs">6-14 साल के आयु समूह के बच्चों की संख्या  *</string>
-    <string name="number_of_children_b_w_15_18_yrs">15-18 साल के आयु समूह के बच्चों की संख्या  *</string>
-    <string name="number_of_children_going_to_school">स्कूल जाने वाले बच्चों की संख्या *</string>
-    <string name="your_sector">आपका क्षेत्र *</string>
+    <string name="your_marital_status">तुम्हारी वैवाहिक स्थिति <font color="red">*</font></string>
+    <string name="number_of_children">बच्चों की संख्या  <font color="red">*</font></string>
+    <string name="number_of_children_below_6_yrs">6 साल से कम उम्र के बच्चों की संख्या  <font color="red">*</font></string>
+    <string name="number_of_children_b_w_6_14_yrs">6-14 साल के आयु समूह के बच्चों की संख्या  <font color="red">*</font></string>
+    <string name="number_of_children_b_w_15_18_yrs">15-18 साल के आयु समूह के बच्चों की संख्या  <font color="red">*</font></string>
+    <string name="number_of_children_going_to_school">स्कूल जाने वाले बच्चों की संख्या <font color="red">*</font></string>
+    <string name="your_sector">आपका क्षेत्र <font color="red">*</font></string>
     <string name="your_skills">आपके कौशल</string>
     <string name="your_experience">तुम्हारा अनुभव</string>
     <string name="your_employment_status">आपकी रोजगार स्थिति</string>
     <string name="your_employer_previous_current">अपने नियोक्ता (पूर्व / उत्तर)</string>
-    <string name="owns_a_home_based_unit1">घर आधारित इकाई का स्वामित्व  *</string>
+    <string name="owns_a_home_based_unit1">घर आधारित इकाई का स्वामित्व  <font color="red">*</font></string>
     <string name="number_of_workers">कामगारों की संख्या</string>
     <string name="number_of_looms">उत्पादन मशीनरी</string>
     <string name="preferred_location_for_work">काम की चुनी हुई जगह</string>
@@ -193,13 +193,13 @@
     <string name="firmtype">फर्म पंजीकरण का प्रकार</string>
     <string name="reg_number">पंजीकरण संख्या. (यदि कोई)</string>
     <string name="no_of_positions">कुल पदों की संख्या</string>
-    <string name="sector1">क्षेत्र *</string>
-    <string name="skill_level_required">पदों की श्रेणी/ प्रकार *</string>
-    <string name="skill_set_required">पद के लिए कौशल स्तर की आवश्यकता *</string>
-    <string name="nature_of_job">कार्य का विवरण *</string>
+    <string name="sector1">क्षेत्र <font color="red">*</font></string>
+    <string name="skill_level_required">पदों की श्रेणी/ प्रकार <font color="red">*</font></string>
+    <string name="skill_set_required">पद के लिए कौशल स्तर की आवश्यकता <font color="red">*</font></string>
+    <string name="nature_of_job">कार्य का विवरण <font color="red">*</font></string>
     <string name="man_days_required">श्रमिक दिनों का विवरण/ आवश्यकता</string>
     <string name="piece_rate2">"पीस दर "</string>
-    <string name="place_of_employment">रोजगार की जगह *</string>
+    <string name="place_of_employment">रोजगार की जगह <font color="red">*</font></string>
     <string name="job_location">कार्य स्थल की जगह / रोजगार की जगह</string>
     <string name="enter_job_location">कार्य स्थल की जगह / रोजगार की जगह</string>
     <string name="no_of_positions1">कुल पदों की संख्या</string>
@@ -207,7 +207,7 @@
     <string name="nature_of_job1">कार्य का विवरण</string>
     <string name="man_days">श्रमिक दिनों का विवरण/ आवश्यकता</string>
     <string name="place_of_employment1">रोजगार की जगह</string>
-    <string name="man_days_required2">श्रमिक दिनों का विवरण/ आवश्यकता *</string>
+    <string name="man_days_required2">श्रमिक दिनों का विवरण/ आवश्यकता <font color="red">*</font></string>
     <string name="enter_id_number">आईडी नंबर दर्ज करें</string>
     <string name="enter_religion">धर्म दर्ज करें</string>
     <string name="i_agree_to_all_terms_amp_conditions_and_data_privacy">"मैं सभी नियम एवं शर्तों और डाटा सुरक्षा सम्बन्धी शर्तों से सहमत हूँ।  "</string>

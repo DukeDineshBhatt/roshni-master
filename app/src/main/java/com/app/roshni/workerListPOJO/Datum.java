@@ -91,7 +91,9 @@ public class Datum {
     @SerializedName("status")
     @Expose
     private String status;
-
+    @SerializedName("govt")
+    @Expose
+    private String govt;
 
     public String getId() {
         return id;
@@ -323,5 +325,13 @@ public class Datum {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getGovt() {
+        return govt;
+    }
+
+    public void setGovt(String govt) {
+        this.govt = govt;
     }
 }

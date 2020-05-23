@@ -413,7 +413,8 @@ public interface AllApiIneterface {
             @Part("workers") String workers,
             @Part("tools") String tools,
             @Part("location") String location,
-            @Part("bank") String bank
+            @Part("bank") String bank,
+            @Part("govt") String govt
     );
 
     @Multipart

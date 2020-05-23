@@ -32,6 +32,9 @@ public class WorkerByIdData {
     @SerializedName("gender")
     @Expose
     private String gender;
+    @SerializedName("gender1")
+    @Expose
+    private String gender1;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -68,15 +71,27 @@ public class WorkerByIdData {
     @SerializedName("category")
     @Expose
     private String category;
+    @SerializedName("category1")
+    @Expose
+    private String category1;
     @SerializedName("religion")
     @Expose
     private String religion;
+    @SerializedName("religion1")
+    @Expose
+    private String religion1;
     @SerializedName("educational")
     @Expose
     private String educational;
+    @SerializedName("educational1")
+    @Expose
+    private String educational1;
     @SerializedName("marital")
     @Expose
     private String marital;
+    @SerializedName("marital1")
+    @Expose
+    private String marital1;
     @SerializedName("children")
     @Expose
     private String children;
@@ -107,15 +122,24 @@ public class WorkerByIdData {
     @SerializedName("experience")
     @Expose
     private String experience;
+    @SerializedName("experience1")
+    @Expose
+    private String experience1;
     @SerializedName("employment")
     @Expose
     private String employment;
+    @SerializedName("employment1")
+    @Expose
+    private String employment1;
     @SerializedName("employer")
     @Expose
     private String employer;
     @SerializedName("home")
     @Expose
     private String home;
+    @SerializedName("home1")
+    @Expose
+    private String home1;
     @SerializedName("workers")
     @Expose
     private String workers;
@@ -155,12 +179,12 @@ public class WorkerByIdData {
     @SerializedName("other_source")
     @Expose
     private String otherSource;
-    @SerializedName("created")
-    @Expose
-    private String created;
     @SerializedName("govt")
     @Expose
     private String govt;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
     public String getUserId() {
         return userId;
@@ -232,6 +256,14 @@ public class WorkerByIdData {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getGender1() {
+        return gender1;
+    }
+
+    public void setGender1(String gender1) {
+        this.gender1 = gender1;
     }
 
     public String getPhone() {
@@ -330,12 +362,28 @@ public class WorkerByIdData {
         this.category = category;
     }
 
+    public String getCategory1() {
+        return category1;
+    }
+
+    public void setCategory1(String category1) {
+        this.category1 = category1;
+    }
+
     public String getReligion() {
         return religion;
     }
 
     public void setReligion(String religion) {
         this.religion = religion;
+    }
+
+    public String getReligion1() {
+        return religion1;
+    }
+
+    public void setReligion1(String religion1) {
+        this.religion1 = religion1;
     }
 
     public String getEducational() {
@@ -346,12 +394,28 @@ public class WorkerByIdData {
         this.educational = educational;
     }
 
+    public String getEducational1() {
+        return educational1;
+    }
+
+    public void setEducational1(String educational1) {
+        this.educational1 = educational1;
+    }
+
     public String getMarital() {
         return marital;
     }
 
     public void setMarital(String marital) {
         this.marital = marital;
+    }
+
+    public String getMarital1() {
+        return marital1;
+    }
+
+    public void setMarital1(String marital1) {
+        this.marital1 = marital1;
     }
 
     public String getChildren() {
@@ -434,12 +498,28 @@ public class WorkerByIdData {
         this.experience = experience;
     }
 
+    public String getExperience1() {
+        return experience1;
+    }
+
+    public void setExperience1(String experience1) {
+        this.experience1 = experience1;
+    }
+
     public String getEmployment() {
         return employment;
     }
 
     public void setEmployment(String employment) {
         this.employment = employment;
+    }
+
+    public String getEmployment1() {
+        return employment1;
+    }
+
+    public void setEmployment1(String employment1) {
+        this.employment1 = employment1;
     }
 
     public String getEmployer() {
@@ -456,6 +536,14 @@ public class WorkerByIdData {
 
     public void setHome(String home) {
         this.home = home;
+    }
+
+    public String getHome1() {
+        return home1;
+    }
+
+    public void setHome1(String home1) {
+        this.home1 = home1;
     }
 
     public String getWorkers() {
@@ -562,6 +650,14 @@ public class WorkerByIdData {
         this.otherSource = otherSource;
     }
 
+    public String getGovt() {
+        return govt;
+    }
+
+    public void setGovt(String govt) {
+        this.govt = govt;
+    }
+
     public String getCreated() {
         return created;
     }
@@ -570,11 +666,4 @@ public class WorkerByIdData {
         this.created = created;
     }
 
-    public String getGovt() {
-        return govt;
-    }
-
-    public void setGovt(String govt) {
-        this.govt = govt;
-    }
 }

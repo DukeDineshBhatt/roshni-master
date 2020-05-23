@@ -85,7 +85,9 @@ public class Profile5 extends AppCompatActivity {
 
 
             } else {
-                return new Pictures3();
+                Pictures3 frag = new Pictures3();
+                frag.setData(pager);
+                return frag;
 
             }
 

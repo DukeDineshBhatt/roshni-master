@@ -77,7 +77,7 @@ public class workers extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerListBean> call = cr.getAllWorkers(SharePreferenceUtils.getInstance().getString("user_id"));
+        Call<workerListBean> call = cr.getAllWorkers(SharePreferenceUtils.getInstance().getString("user_id") , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerListBean>() {
             @Override

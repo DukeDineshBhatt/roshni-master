@@ -12,8 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.app.roshni.workerListPOJO.Datum;
-import com.app.roshni.workerListPOJO.workerListBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -88,13 +86,13 @@ public class SingleWorker extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerListBean> call = cr.getWorkerById(id);
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(id , SharePreferenceUtils.getInstance().getString("lang"));
 
-        call.enqueue(new Callback<workerListBean>() {
+        call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
-            public void onResponse(Call<workerListBean> call, Response<workerListBean> response) {
+            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
 
-                Datum item = response.body().getData().get(0);
+                WorkerByIdData item = response.body().getData().get(0);
 
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
@@ -104,19 +102,19 @@ public class SingleWorker extends AppCompatActivity {
                 name.setText(item.getName());
                 phone.setText("+" + item.getPhone());
                 skill.setText(item.getSkills());
-                experience.setText(item.getExperience());
-                employment.setText(item.getEmployment());
+                experience.setText(item.getExperience1());
+                employment.setText(item.getEmployment1());
                 dob.setText(item.getDob());
-                gender.setText(item.getGender());
+                gender.setText(item.getGender1());
                 current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
                 permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
-                category.setText(item.getCategory());
-                religion.setText(item.getReligion());
-                educational.setText(item.getEducational());
-                marital.setText(item.getMarital());
+                category.setText(item.getCategory1());
+                religion.setText(item.getReligion1());
+                educational.setText(item.getEducational1());
+                marital.setText(item.getMarital1());
                 sector.setText(item.getSector());
                 employer.setText(item.getEmployer());
-                home.setText(item.getHome());
+                home.setText(item.getHome1());
 
 
 
@@ -125,7 +123,7 @@ public class SingleWorker extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<workerListBean> call, Throwable t) {
+            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

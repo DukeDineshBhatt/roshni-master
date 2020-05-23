@@ -593,55 +593,7 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/no_of_home_based_units" />
 
-            <EditText
-                android:id="@+id/home_based"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:hint="@string/tap_to_enter"
-                android:inputType="number"
-                android:focusable="false"
-                android:digits="0123456789"
-                android:padding="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/location_of_home_based_units" />
-
-            <mabbas007.tagsedittext.TagsEditText
-                android:id="@+id/location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:gravity="center_vertical"
-                android:hint="@string/hit_enter_to_add_products"
-                android:inputType="textPostalAddress"
-                android:padding="10dp"
-                app:allowSpaceInTag="true"
-                app:tagsBackground="@drawable/blue_back_round"
-                app:tagsPaddingBottom="5dp"
-                app:tagsPaddingLeft="20dp"
-                android:focusable="false"
-                app:tagsPaddingRight="20dp"
-                app:tagsPaddingTop="5dp"
-                app:tagsTextColor="#ffffff"
-                app:tagsTextSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -723,6 +675,81 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/migrant_workers"
+                        android:textAllCaps="true"
+                        android:layout_marginBottom="8dp"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/migrant"
+                        android:background="@drawable/white_back_round"
+                        android:hint="@string/tap_to_enter"
+                        android:focusable="false"
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/local_workers"
+                        android:textAllCaps="true"
+                        android:layout_marginBottom="8dp"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/local"
+                        android:background="@drawable/white_back_round"
+                        android:hint="@string/tap_to_enter"
+                        android:digits="0123456789"
+                        android:focusable="false"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -828,9 +855,87 @@
                 android:focusable="false"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
-                android:layout_marginBottom="16dp"
                 android:inputType="textPostalAddress"
                 android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/do_you_outsource_jobs_to_other_workers"
+                android:textAllCaps="true"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/outsource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/no_of_home_based_units" />
+
+            <EditText
+                android:id="@+id/home_based"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:focusable="false"
+                android:digits="0123456789"
+                android:padding="10dp" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/location_of_home_based_units" />
+
+            <mabbas007.tagsedittext.TagsEditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:gravity="center_vertical"
+                android:hint="@string/hit_enter_to_add_products"
+                android:inputType="textPostalAddress"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"
+                android:enabled="false"
+                app:allowSpaceInTag="true"
+                app:tagsBackground="@drawable/blue_back_round"
+                app:tagsPaddingBottom="5dp"
+                app:tagsPaddingLeft="20dp"
+                android:focusable="false"
+                android:clickable="false"
+                app:tagsPaddingRight="20dp"
+                app:tagsPaddingTop="5dp"
+                app:tagsTextColor="#ffffff"
+                app:tagsTextSize="12sp" />
 
 
         </LinearLayout>

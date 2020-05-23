@@ -456,16 +456,6 @@ public class MainActivity3 extends AppCompatActivity {
 
                 switch (position) {
                     case 0:
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        workers3 test = new workers3();
-                        ft.replace(R.id.replace, test);
-                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-                        //ft.addToBackStack(null);
-                        ft.commit();
-
-                        return true;
-                    case 1:
                         FragmentManager fm2 = getSupportFragmentManager();
                         FragmentTransaction ft2 = fm2.beginTransaction();
                         newjobs2 test2 = new newjobs2();
@@ -475,7 +465,7 @@ public class MainActivity3 extends AppCompatActivity {
                         ft2.commit();
 
                         return true;
-                    case 2:
+                    case 1:
                         FragmentManager fm3 = getSupportFragmentManager();
                         FragmentTransaction ft3 = fm3.beginTransaction();
                         appliedjobs2 test3 = new appliedjobs2();
@@ -485,7 +475,7 @@ public class MainActivity3 extends AppCompatActivity {
                         ft3.commit();
 
                         return true;
-                    case 3:
+                    case 2:
                         FragmentManager fm4 = getSupportFragmentManager();
                         FragmentTransaction ft4 = fm4.beginTransaction();
                         profile3 test4 = new profile3();
@@ -505,7 +495,7 @@ public class MainActivity3 extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        newjobs test = new newjobs();
+        newjobs2 test = new newjobs2();
         ft.replace(R.id.replace, test);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         //ft.addToBackStack(null);

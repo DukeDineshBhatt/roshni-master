@@ -131,6 +131,15 @@ public class Data {
     @SerializedName("same")
     @Expose
     private String same;
+    @SerializedName("outsource")
+    @Expose
+    private String outsource;
+    @SerializedName("migrant")
+    @Expose
+    private String migrant;
+    @SerializedName("local")
+    @Expose
+    private String local;
 
     public String getId() {
         return id;
@@ -466,5 +475,29 @@ public class Data {
 
     public void setSame(String same) {
         this.same = same;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public String getMigrant() {
+        return migrant;
+    }
+
+    public String getOutsource() {
+        return outsource;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public void setMigrant(String migrant) {
+        this.migrant = migrant;
+    }
+
+    public void setOutsource(String outsource) {
+        this.outsource = outsource;
     }
 }

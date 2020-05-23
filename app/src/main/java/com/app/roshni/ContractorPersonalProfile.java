@@ -72,7 +72,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ContractorPersonalProfile extends Fragment {
 
-    private Spinner gender, establishment, experience, availability, firm, proof, firmtype , sector;
+    private Spinner gender, establishment, experience, availability, firm, proof, firmtype , sector , outsource;
 
     private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect;
 
@@ -84,7 +84,7 @@ public class ContractorPersonalProfile extends Fragment {
     private CircleImageView image;
 
     CheckBox check;
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1;
 
 
     String user_id;
@@ -94,6 +94,8 @@ public class ContractorPersonalProfile extends Fragment {
 
     private ProgressBar progress;
     private CustomViewPager pager;
+
+    EditText migrant , local;
 
     void setData(CustomViewPager pager) {
         this.pager = pager;
@@ -122,8 +124,13 @@ public class ContractorPersonalProfile extends Fragment {
         frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        out = new ArrayList<>();
+        out1 = new ArrayList<>();
 
         phone = view.findViewById(R.id.phone);
+        migrant = view.findViewById(R.id.migrant);
+        local = view.findViewById(R.id.local);
+        outsource = view.findViewById(R.id.outsource);
         check = view.findViewById(R.id.check);
         name = view.findViewById(R.id.editText);
         sector = view.findViewById(R.id.sector);
@@ -157,7 +164,30 @@ public class ContractorPersonalProfile extends Fragment {
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
 
-        est.add("1970");
+        est.add("1");
+        est.add("2");
+        est.add("3");
+        est.add("4");
+        est.add("5");
+        est.add("6");
+        est.add("7");
+        est.add("8");
+        est.add("9");
+        est.add("10");
+        est.add("11");
+        est.add("12");
+        est.add("13");
+        est.add("14");
+        est.add("15");
+        est.add("16");
+        est.add("17");
+        est.add("18");
+        est.add("19");
+        est.add("20");
+        est.add("20+");
+
+
+        /*est.add("1970");
         est.add("1971");
         est.add("1972");
         est.add("1973");
@@ -212,7 +242,7 @@ public class ContractorPersonalProfile extends Fragment {
         est.add("2022");
         est.add("2023");
         est.add("2024");
-        est.add("2025");
+        est.add("2025");*/
 
         permanent = view.findViewById(R.id.permanent);
 
@@ -238,6 +268,7 @@ public class ContractorPersonalProfile extends Fragment {
         firm.setEnabled(false);
         proof.setEnabled(false);
         firmtype.setEnabled(false);
+        outsource.setEnabled(false);
 
 
         establishment.setAdapter(adapter1);
@@ -373,6 +404,9 @@ public class ContractorPersonalProfile extends Fragment {
                 about.setText(item.getAbout());
                 work.setText(item.getWorkType());
                 phone.setText(item.getPhone());
+                migrant.setText(item.getMigrant());
+                local.setText(item.getLocal());
+
                 final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                 call2.enqueue(new Callback<sectorBean>() {
@@ -698,6 +732,55 @@ public class ContractorPersonalProfile extends Fragment {
                         progress.setVisibility(View.GONE);
                     }
                 });
+
+
+                final Call<sectorBean> call9 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call9.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            out.clear();
+                            out1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                out.add(response.body().getData().get(i).getTitle());
+                                out1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, out);
+
+
+                            outsource.setAdapter(adapter7);
+
+
+                            int cp2 = 0;
+                            for (int i = 0; i < out1.size(); i++) {
+                                if (item.getOutsource().equals(out1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            outsource.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
 
                String ppp = item.getHomeLocation();
 

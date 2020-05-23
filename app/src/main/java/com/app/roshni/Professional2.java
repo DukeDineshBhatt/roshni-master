@@ -42,11 +42,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Professional2 extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank;
+    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance;
 
     MultiSelectSpinner skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann;
+    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt;
 
     List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
     List<String> sec1, ski1, loc1;
@@ -57,7 +57,7 @@ public class Professional2 extends Fragment {
     String id, profile_id;
     boolean loc_bool = false;
 
-    Button reject, approve;
+    Button reject, approve , previous;
     EditText editTxtLoc;
     LinearLayout yes;
 
@@ -90,6 +90,8 @@ public class Professional2 extends Fragment {
         ski1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
+        previous = view.findViewById(R.id.previous);
+        govtinsurance = view.findViewById(R.id.govtinsurance);
         skills = view.findViewById(R.id.skills);
         bank = view.findViewById(R.id.bank);
         experience = view.findViewById(R.id.experience);
@@ -109,6 +111,7 @@ public class Professional2 extends Fragment {
         profile_id = SharePreferenceUtils.getInstance().getString("survey_id");
 
 
+        wor.add("---");
         wor.add("1");
         wor.add("2");
         wor.add("3");
@@ -153,6 +156,29 @@ public class Professional2 extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 expe = exp1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pager.setCurrentItem(0);
+
+            }
+        });
+
+        govtinsurance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                govt = ban1.get(i);
 
             }
 
@@ -301,7 +327,8 @@ public class Professional2 extends Fragment {
                                 loom,
                                 loca,
                                 bann,
-                                SharePreferenceUtils.getInstance().getString("id")
+                                SharePreferenceUtils.getInstance().getString("id"),
+                                govt
                         );
 
                         call.enqueue(new Callback<verifyBean>() {
@@ -448,7 +475,8 @@ public class Professional2 extends Fragment {
                                                                     loca,
                                                                     value,
                                                                     bann,
-                                                                    SharePreferenceUtils.getInstance().getString("id")
+                                                                    SharePreferenceUtils.getInstance().getString("id"),
+                                                                    govt
                                                             );
 
                                                             call.enqueue(new Callback<verifyBean>() {
@@ -873,9 +901,21 @@ public class Professional2 extends Fragment {
 
                             ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
                                     R.layout.spinner_model, ban);
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, ban);
 
 
                             bank.setAdapter(adapter6);
+                            govtinsurance.setAdapter(adapter6);
+
+                            int cp21 = 0;
+                            for (int i = 0; i < ban1.size(); i++) {
+                                if (item.get(0).getGovt().equals(ban1.get(i))) {
+                                    cp21 = i;
+                                }
+                            }
+                            govtinsurance.setSelection(cp21);
+
 
                             int cp2 = 0;
                             for (int i = 0; i < ban1.size(); i++) {

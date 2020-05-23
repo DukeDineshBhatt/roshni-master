@@ -39,7 +39,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerProfessionalProfile extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank;
+    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance;
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
@@ -93,6 +93,7 @@ public class WorkerProfessionalProfile extends Fragment {
         yes = view.findViewById(R.id.yes);
         txtStatus = view.findViewById(R.id.textViewStatus);
         editTextLoc = view.findViewById(R.id.editTxtLoc);
+        govtinsurance = view.findViewById(R.id.govtinsurance);
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
@@ -147,6 +148,7 @@ public class WorkerProfessionalProfile extends Fragment {
         workers.setEnabled(false);
         location.setEnabled(false);
         bank.setEnabled(false);
+        govtinsurance.setEnabled(false);
 
 
 
@@ -478,6 +480,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
                             bank.setAdapter(adapter6);
+                            govtinsurance.setAdapter(adapter6);
 
                             int cp2 = 0;
                             for (int i = 0; i < ban1.size(); i++) {
@@ -486,6 +489,14 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
                             }
                             bank.setSelection(cp2);
+
+                            int cp21 = 0;
+                            for (int i = 0; i < ban1.size(); i++) {
+                                if (item.get(0).getGovt().equals(ban1.get(i))) {
+                                    cp21 = i;
+                                }
+                            }
+                            govtinsurance.setSelection(cp21);
 
                         }
 

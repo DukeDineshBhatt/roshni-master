@@ -97,14 +97,14 @@ import static android.app.Activity.RESULT_OK;
 public class Personal2 extends Fragment {
 
     private static final String TAG = "personal";
-    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
+    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof, age, annual;
 
 
     private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu;
 
     private CircleImageView image;
 
-    private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, id, prf;
+    private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, id, prf, anua;
 
     private CheckBox check;
     private File f1;
@@ -119,10 +119,10 @@ public class Personal2 extends Fragment {
 
     private boolean che = false;
 
-    private List<String> gen, gen1, cat, cat1, rel, rel1, edu, edu1, mar, mar1, chi, prof, prof1 , agg;
+    private List<String> gen, gen1, cat, cat1, rel, rel1, edu, edu1, mar, mar1, chi, prof, prof1, agg, anu;
     private LinearLayout permanent, child;
 
-    private Button upload, submit;
+    private Button upload, submit , previous;
     private Location mLastKnownLocation;
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -139,8 +139,8 @@ public class Personal2 extends Fragment {
         this.pager = pager;
     }
 
-    String lat = "" , lng = "";
-    String lat1 = "" , lng1 = "";
+    String lat = "", lng = "";
+    String lat1 = "", lng1 = "";
 
     String ag;
 
@@ -148,12 +148,13 @@ public class Personal2 extends Fragment {
 
     String same = "0";
 
-    Spinner certified , skill_level;
-    TextView certificate_number_title , skill_level_title;
-    EditText certificate_number , annual , other_sources;
+    Spinner certified, skill_level;
+    TextView certificate_number_title, skill_level_title;
+    EditText certificate_number, other_sources;
 
-    List<String> cer , cer1 , ski , ski1;
-    String cert , skil;
+    List<String> cer, cer1, ski, ski1;
+    String cert, skil;
+
 
     @Nullable
     @Override
@@ -175,6 +176,7 @@ public class Personal2 extends Fragment {
         prof = new ArrayList<>();
         prof1 = new ArrayList<>();
         agg = new ArrayList<>();
+        anu = new ArrayList<>();
 
         cer = new ArrayList<>();
         cer1 = new ArrayList<>();
@@ -227,6 +229,7 @@ public class Personal2 extends Fragment {
         certificate_number = view.findViewById(R.id.certificate_number);
         annual = view.findViewById(R.id.annual);
         other_sources = view.findViewById(R.id.other_sources);
+        previous = view.findViewById(R.id.previous);
 
         name = view.findViewById(R.id.editText);
         age = view.findViewById(R.id.age);
@@ -276,8 +279,7 @@ public class Personal2 extends Fragment {
         /*gen.add("Male");
         gen.add("Female");*/
 
-        for (int i = 14 ; i <= 100 ; i++)
-        {
+        for (int i = 14; i <= 100; i++) {
             agg.add("" + i);
         }
 
@@ -306,6 +308,11 @@ public class Personal2 extends Fragment {
         mar.add("Divorcee");
         mar.add("Separated");*/
 
+        anu.add("0-100000");
+        anu.add("100001-150000");
+        anu.add("150001-200000");
+        anu.add("More than 200000");
+
         chi.add("0");
         chi.add("1");
         chi.add("2");
@@ -330,12 +337,14 @@ public class Personal2 extends Fragment {
         id = SharePreferenceUtils.getInstance().getString("user");
 
 
-
         ArrayAdapter<String> adapter5 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, chi);
 
         ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, agg);
+
+        ArrayAdapter<String> adapter8 = new ArrayAdapter<>(getContext(),
+                R.layout.spinner_model, anu);
 
         children.setAdapter(adapter5);
         below6.setAdapter(adapter5);
@@ -343,6 +352,7 @@ public class Personal2 extends Fragment {
         fifteento18.setAdapter(adapter5);
         goingtoschool.setAdapter(adapter5);
         age.setAdapter(adapter7);
+        annual.setAdapter(adapter8);
 
        /* cstate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -358,6 +368,14 @@ public class Personal2 extends Fragment {
 
             }
         });*/
+
+
+       previous.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               getActivity().finish();
+           }
+       });
 
         cdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -420,6 +438,18 @@ public class Personal2 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 ag = agg.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        annual.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                anua = anu.get(i);
             }
 
             @Override
@@ -588,16 +618,13 @@ public class Personal2 extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cert = cer1.get(i);
 
-                if (cert.equals("1"))
-                {
+                if (cert.equals("1")) {
                     certificate_number_title.setVisibility(View.VISIBLE);
                     skill_level_title.setVisibility(View.VISIBLE);
                     certificate_number.setVisibility(View.VISIBLE);
                     skill_level.setVisibility(View.VISIBLE);
                     certificate_number.setText("");
-                }
-                else
-                {
+                } else {
                     certificate_number_title.setVisibility(View.GONE);
                     skill_level_title.setVisibility(View.GONE);
                     certificate_number.setVisibility(View.GONE);
@@ -730,8 +757,7 @@ public class Personal2 extends Fragment {
                                 }
                                 age.setSelection(cp12);
 
-                                if (ag2 < 18 )
-                                {
+                                if (ag2 < 18) {
                                     Toast.makeText(getContext(), "You are not eligible to register in this app", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -780,7 +806,7 @@ public class Personal2 extends Fragment {
                 String idno = editTxtProof.getText().toString();
 
                 String cno = certificate_number.getText().toString();
-                String ann = annual.getText().toString();
+
                 String oth = other_sources.getText().toString();
 
                 String pp;
@@ -815,204 +841,182 @@ public class Personal2 extends Fragment {
 
 
                 if (n.length() > 0) {
-                    if (d.length() > 0) {
+                    if (ag2 > 17) {
                         if (gend.length() > 0) {
-                            if (cst.length() > 0) {
-                                if (ca.length() > 0) {
-                                    if (cd.length() > 0) {
-                                        if (cs.length() > 0) {
-                                            if (cp.length() == 0 || cp.length() == 6) {
-                                                if (pst.length() > 0) {
-                                                    if (pa.length() > 0) {
-                                                        if (pd.length() > 0) {
-                                                            if (ps.length() > 0) {
-                                                                if (pp.length() == 0 || pp.length() == 6) {
+                            if (cd.length() > 0) {
+                                if (cs.length() > 0) {
+                                    if (cp.length() == 0 || cp.length() == 6) {
+                                        if (pd.length() > 0) {
+                                            if (ps.length() > 0) {
+                                                if (pp.length() == 0 || pp.length() == 6) {
 
 
-                                                                    MultipartBody.Part body = null;
-                                                                    try {
+                                                    MultipartBody.Part body = null;
+                                                    try {
 
-                                                                        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                                        body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
-
-
-                                                                    } catch (Exception e1) {
-                                                                        e1.printStackTrace();
-                                                                    }
-
-                                                                    progress.setVisibility(View.VISIBLE);
-
-                                                                    Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                                    Retrofit retrofit = new Retrofit.Builder()
-                                                                            .baseUrl(b.baseurl)
-                                                                            .addConverterFactory(ScalarsConverterFactory.create())
-                                                                            .addConverterFactory(GsonConverterFactory.create())
-                                                                            .build();
-
-                                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                    Call<verifyBean> call = cr.updateWorkerPersonal2(
-                                                                            SharePreferenceUtils.getInstance().getString("user"),
-                                                                            n,
-                                                                            prf,
-                                                                            idno,
-                                                                            lat1,
-                                                                            lng1,
-                                                                            d,
-                                                                            gend,
-                                                                            cp,
-                                                                            cs,
-                                                                            cd,
-                                                                            ca,
-                                                                            cst,
-                                                                            pp,
-                                                                            ps,
-                                                                            pd,
-                                                                            pa,
-                                                                            pst,
-                                                                            cate,
-                                                                            reli,
-                                                                            educ,
-                                                                            mari,
-                                                                            chil,
-                                                                            belo,
-                                                                            sixt,
-                                                                            fift,
-                                                                            goin,
-                                                                            ag,
-                                                                            same,
-                                                                            cert,
-                                                                            skil,
-                                                                            cno,
-                                                                            ann,
-                                                                            oth,
-                                                                            body
-                                                                    );
-
-                                                                    call.enqueue(new Callback<verifyBean>() {
-                                                                        @Override
-                                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                                            assert response.body() != null;
-                                                                            if (response.body().getStatus().equals("1")) {
-                                                                                Data item = response.body().getData();
-
-                                                                                SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                                                SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                                                SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                                                SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                                                SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                                                SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                                                SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                                                SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                                                SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                                                SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                                                SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                                                SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                                                SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                                                SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                                                SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                                                SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
-                                                                                SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
-                                                                                SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
-                                                                                SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
-                                                                                SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
-                                                                                SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
-                                                                                SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
-                                                                                SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
-                                                                                SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
-                                                                                SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
-                                                                                SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
-                                                                                SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                                                SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
-                                                                                SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                                                SharePreferenceUtils.getInstance().saveString("home", item.getHome());
-                                                                                SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
-                                                                                SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
-                                                                                SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
-                                                                                SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
-                                                                                SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
-                                                                                SharePreferenceUtils.getInstance().saveString("status", item.getStatus());
-
-                                                                                Intent registrationComplete = new Intent("photo");
-
-                                                                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
-
-                                                                                pager.setCurrentItem(1);
+                                                        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                        body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                                                Log.d("respo", response.body().getMessage());
-
-                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                            } else {
-                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                            }
-
-
-                                                                            progress.setVisibility(View.GONE);
-
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                            progress.setVisibility(View.GONE);
-                                                                        }
-                                                                    });
-
-
-                                                                } else {
-                                                                    Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
-                                                                    ppin.setError("");
-                                                                    ppin.requestFocus();
-                                                                }
-                                                            } else {
-                                                                Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
-                                                                pstate.setError("");
-                                                                pstate.requestFocus();
-                                                            }
-                                                        } else {
-                                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
-                                                            pdistrict.setError("");
-                                                            pdistrict.requestFocus();
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
-                                                        parea.setError("");
-                                                        parea.requestFocus();
+                                                    } catch (Exception e1) {
+                                                        e1.printStackTrace();
                                                     }
-                                                } else {
-                                                    Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
-                                                    pstreet.setError("");
-                                                    pstreet.requestFocus();
-                                                }
 
+                                                    progress.setVisibility(View.VISIBLE);
+
+                                                    Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+
+                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                            .baseUrl(b.baseurl)
+                                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
+
+                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                    Call<verifyBean> call = cr.updateWorkerPersonal2(
+                                                            SharePreferenceUtils.getInstance().getString("user"),
+                                                            n,
+                                                            prf,
+                                                            idno,
+                                                            lat1,
+                                                            lng1,
+                                                            d,
+                                                            gend,
+                                                            cp,
+                                                            cs,
+                                                            cd,
+                                                            ca,
+                                                            cst,
+                                                            pp,
+                                                            ps,
+                                                            pd,
+                                                            pa,
+                                                            pst,
+                                                            cate,
+                                                            reli,
+                                                            educ,
+                                                            mari,
+                                                            chil,
+                                                            belo,
+                                                            sixt,
+                                                            fift,
+                                                            goin,
+                                                            ag,
+                                                            same,
+                                                            cert,
+                                                            skil,
+                                                            cno,
+                                                            anua,
+                                                            oth,
+                                                            body
+                                                    );
+
+                                                    call.enqueue(new Callback<verifyBean>() {
+                                                        @Override
+                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                                            assert response.body() != null;
+                                                            if (response.body().getStatus().equals("1")) {
+                                                                Data item = response.body().getData();
+
+                                                                SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                                                SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                                                SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                                                SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                                                SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                                                SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                                                SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                                                SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                                                SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                                                SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                                                SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                                                SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                                                SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                                                SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                                                SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                                                SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
+                                                                SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
+                                                                SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
+                                                                SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
+                                                                SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
+                                                                SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
+                                                                SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
+                                                                SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
+                                                                SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
+                                                                SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+                                                                SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
+                                                                SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                                                SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
+                                                                SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                                                SharePreferenceUtils.getInstance().saveString("home", item.getHome());
+                                                                SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
+                                                                SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
+                                                                SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
+                                                                SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
+                                                                SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
+                                                                SharePreferenceUtils.getInstance().saveString("status", item.getStatus());
+
+                                                                Intent registrationComplete = new Intent("photo");
+
+                                                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+
+                                                                pager.setCurrentItem(1);
+
+
+                                                                Log.d("respo", response.body().getMessage());
+
+                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+
+
+                                                            progress.setVisibility(View.GONE);
+
+
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                            progress.setVisibility(View.GONE);
+                                                        }
+                                                    });
+
+
+                                                } else {
+                                                    Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
+                                                    ppin.setError("");
+                                                    ppin.requestFocus();
+                                                }
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
-                                                cpin.setError("");
-                                                cpin.requestFocus();
+                                                Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+                                                pstate.setError("");
+                                                pstate.requestFocus();
                                             }
                                         } else {
-                                            Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
-                                            cstate.setError("");
-                                            cstate.requestFocus();
+                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
+                                            pdistrict.setError("");
+                                            pdistrict.requestFocus();
                                         }
+
+
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
-                                        cdistrict.setError("");
-                                        cdistrict.requestFocus();
+                                        Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                        cpin.setError("");
+                                        cpin.requestFocus();
                                     }
                                 } else {
-                                    Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
-                                    carea.setError("");
-                                    carea.requestFocus();
+                                    Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                    cstate.setError("");
+                                    cstate.requestFocus();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
-                                cstreet.setError("");
-                                cstreet.requestFocus();
+                                Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                cdistrict.setError("");
+                                cdistrict.requestFocus();
                             }
+
                         } else {
                             Toast.makeText(getContext(), "Invalid gender", Toast.LENGTH_SHORT).show();
                         }
@@ -1039,7 +1043,7 @@ public class Personal2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String uri = String.format(Locale.ENGLISH, "geo:"+lat +","+lng);
+                String uri = String.format(Locale.ENGLISH, "geo:" + lat + "," + lng);
                 Uri gmmIntentUri = Uri.parse(uri);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
@@ -1047,8 +1051,8 @@ public class Personal2 extends Fragment {
                     startActivity(mapIntent);
                 }
 
-                Log.d("LAT",uri);
-                Log.d("LNG",lng);
+                Log.d("LAT", uri);
+                Log.d("LNG", lng);
 
             }
         });
@@ -1056,8 +1060,6 @@ public class Personal2 extends Fragment {
         return view;
 
     }
-
-
 
 
     private void getLocationPermission() {
@@ -1363,7 +1365,7 @@ public class Personal2 extends Fragment {
 
         Log.d("DDD", id);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(id , SharePreferenceUtils.getInstance().getString("lang"));
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(id, SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
@@ -1395,7 +1397,6 @@ public class Personal2 extends Fragment {
                 ag2 = getAge(item.get(0).getDob());
 
                 certificate_number.setText(item.get(0).getCertificationNumber());
-                annual.setText(item.get(0).getAnnualIncome());
                 other_sources.setText(item.get(0).getOtherSource());
 
 
@@ -1432,7 +1433,6 @@ public class Personal2 extends Fragment {
                             gender.setSelection(cp2);
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -1478,7 +1478,6 @@ public class Personal2 extends Fragment {
                             category.setSelection(cp2);
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -1542,7 +1541,6 @@ public class Personal2 extends Fragment {
                         }
 
 
-
                         progress.setVisibility(View.GONE);
 
                     }
@@ -1578,7 +1576,6 @@ public class Personal2 extends Fragment {
                             educational.setAdapter(adapter3);
 
 
-
                             int ed = 0;
                             for (int i = 0; i < edu1.size(); i++) {
                                 if (item.get(0).getEducational().equals(edu1.get(i))) {
@@ -1595,7 +1592,6 @@ public class Personal2 extends Fragment {
                             educational.setSelection(ed);
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -1631,7 +1627,6 @@ public class Personal2 extends Fragment {
 
 
                             marital.setAdapter(adapter4);
-
 
 
                             int mt = 0;
@@ -1695,7 +1690,6 @@ public class Personal2 extends Fragment {
                         }
 
 
-
                         progress.setVisibility(View.GONE);
 
                     }
@@ -1739,7 +1733,6 @@ public class Personal2 extends Fragment {
                             proof.setSelection(cp2);
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -1789,16 +1782,13 @@ public class Personal2 extends Fragment {
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                     cert = cer1.get(i);
 
-                                    if (cert.equals("1"))
-                                    {
+                                    if (cert.equals("1")) {
                                         certificate_number_title.setVisibility(View.VISIBLE);
                                         skill_level_title.setVisibility(View.VISIBLE);
                                         certificate_number.setVisibility(View.VISIBLE);
                                         skill_level.setVisibility(View.VISIBLE);
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         certificate_number_title.setVisibility(View.GONE);
                                         skill_level_title.setVisibility(View.GONE);
                                         certificate_number.setVisibility(View.GONE);
@@ -1815,7 +1805,6 @@ public class Personal2 extends Fragment {
                             });
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -1863,7 +1852,6 @@ public class Personal2 extends Fragment {
                         }
 
 
-
                         progress.setVisibility(View.GONE);
 
                     }
@@ -1874,6 +1862,13 @@ public class Personal2 extends Fragment {
                     }
                 });
 
+                int cp121 = 0;
+                for (int i = 0; i < anu.size(); i++) {
+                    if (item.get(0).getAnnualIncome().equals(anu.get(i))) {
+                        cp121 = i;
+                    }
+                }
+                annual.setSelection(cp121);
 
                 int cp12 = 0;
                 for (int i = 0; i < agg.size(); i++) {
@@ -1882,8 +1877,6 @@ public class Personal2 extends Fragment {
                     }
                 }
                 age.setSelection(cp12);
-
-
 
 
                 progress.setVisibility(View.GONE);
@@ -1900,7 +1893,7 @@ public class Personal2 extends Fragment {
 
     }
 
-    private int getAge(String dobString){
+    private int getAge(String dobString) {
 
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -1910,7 +1903,7 @@ public class Personal2 extends Fragment {
             e.printStackTrace();
         }
 
-        if(date == null) return 0;
+        if (date == null) return 0;
 
         Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
@@ -1921,14 +1914,13 @@ public class Personal2 extends Fragment {
         int month = dob.get(Calendar.MONTH);
         int day = dob.get(Calendar.DAY_OF_MONTH);
 
-        dob.set(year, month+1, day);
+        dob.set(year, month + 1, day);
 
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
-
 
 
         return age;

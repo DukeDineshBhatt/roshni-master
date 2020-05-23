@@ -719,7 +719,8 @@ public interface AllApiIneterface {
             @Part("location") String location,
             @Part("reason") String reason,
             @Part("bank") String bank,
-            @Part("id") String id
+            @Part("id") String id,
+            @Part("govt") String govt
     );
 
     @Multipart
@@ -736,7 +737,8 @@ public interface AllApiIneterface {
             @Part("tools") String tools,
             @Part("location") String location,
             @Part("bank") String bank,
-            @Part("id") String id
+            @Part("id") String id,
+            @Part("govt") String govt
     );
 
     @Multipart

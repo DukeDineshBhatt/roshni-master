@@ -83,7 +83,9 @@ public class Profile4 extends AppCompatActivity {
                 frag.setData(pager);
                 return frag;
             } else {
-                return new Professional2();
+                Professional2 frag = new Professional2();
+                frag.setData(pager);
+                return frag;
             }
 
         }

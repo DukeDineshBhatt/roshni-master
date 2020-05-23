@@ -52,7 +52,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
-    ImageView toggle , notification;
+    ImageView toggle, notification;
     BottomNavigationView bottom;
 
     TextView logout;
@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView image;
     TextView edit;
 
-    TextView about , faq , policies , terms , support , language;
+    TextView about, faq, policies, terms, support, language;
 
-    TextView faqs , contact , unsubscribe;
+    TextView faqs, contact, unsubscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String languageToLoad  = SharePreferenceUtils.getInstance().getString("lang"); // your language
+        String languageToLoad = SharePreferenceUtils.getInstance().getString("lang"); // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this , Notifications.class);
+                Intent intent = new Intent(MainActivity.this, Notifications.class);
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -161,15 +161,12 @@ public class MainActivity extends AppCompatActivity {
 
                         SharePreferenceUtils.getInstance().deletePref();
 
-                        Intent intent = new Intent(MainActivity.this , Splash.class);
+                        Intent intent = new Intent(MainActivity.this, Splash.class);
                         startActivity(intent);
                         finishAffinity();
 
                     }
                 });
-
-
-
 
 
             }
@@ -180,9 +177,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Web.class);
-                intent.putExtra("title" ,  getString(R.string.about_us));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/about.php");
+                Intent intent = new Intent(MainActivity.this, Web.class);
+                intent.putExtra("title", getString(R.string.about_us));
+                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/about.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -193,9 +190,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Web.class);
-                intent.putExtra("title" ,  getString(R.string.faqs1));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/faq.php");
+                Intent intent = new Intent(MainActivity.this, Web.class);
+                intent.putExtra("title", getString(R.string.faqs1));
+                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/faq.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -206,9 +203,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Web.class);
-                intent.putExtra("title" ,  getString(R.string.contact_us));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/contact.php");
+                Intent intent = new Intent(MainActivity.this, Web.class);
+                intent.putExtra("title", getString(R.string.contact_us));
+                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/contact.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -220,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Knowledge.class);
-                intent.putExtra("title" ,  "worker");
+                Intent intent = new Intent(MainActivity.this, Knowledge.class);
+                intent.putExtra("title", "worker");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -233,9 +230,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Web.class);
-                intent.putExtra("title" , getString(R.string.policies));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/policies.php");
+                Intent intent = new Intent(MainActivity.this, Web.class);
+                intent.putExtra("title", getString(R.string.policies));
+                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/policies.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -246,9 +243,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Web.class);
-                intent.putExtra("title" , getString(R.string.terms_amp_conditions));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/terms.php");
+                Intent intent = new Intent(MainActivity.this, Web.class);
+                intent.putExtra("title", getString(R.string.terms_amp_conditions));
+                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/terms.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -260,9 +257,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , Support.class);
-                intent.putExtra("title" , getString(R.string.support_help));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/support.php");
+                Intent intent = new Intent(MainActivity.this, Support.class);
+                intent.putExtra("title", getString(R.string.support_help));
+                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/support.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -321,8 +318,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
 
-                                if (response.body().getStatus().equals("1"))
-                                {
+                                if (response.body().getStatus().equals("1")) {
                                     Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                                     dialog.dismiss();
@@ -339,12 +335,10 @@ public class MainActivity extends AppCompatActivity {
 
                                     SharePreferenceUtils.getInstance().deletePref();
 
-                                    Intent intent = new Intent(MainActivity.this , Splash.class);
+                                    Intent intent = new Intent(MainActivity.this, Splash.class);
                                     startActivity(intent);
                                     finishAffinity();
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
@@ -383,15 +377,12 @@ public class MainActivity extends AppCompatActivity {
 
                 String l = SharePreferenceUtils.getInstance().getString("lang");
 
-                if (l.equals("en"))
-                {
+                if (l.equals("en")) {
                     en.setBackground(getResources().getDrawable(R.drawable.green_back_round));
                     hi.setBackground(getResources().getDrawable(R.drawable.white_back_round));
                     en.setTextColor(Color.WHITE);
                     hi.setTextColor(Color.BLACK);
-                }
-                else
-                {
+                } else {
                     en.setBackground(getResources().getDrawable(R.drawable.white_back_round));
                     hi.setBackground(getResources().getDrawable(R.drawable.green_back_round));
                     en.setTextColor(Color.BLACK);
@@ -407,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
                         en.setTextColor(Color.WHITE);
                         hi.setTextColor(Color.BLACK);
 
-                        String languageToLoad  = "en"; // your language
+                        String languageToLoad = "en"; // your language
                         Locale locale = new Locale(languageToLoad);
                         Locale.setDefault(locale);
                         Configuration config = new Configuration();
@@ -415,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
                         getBaseContext().getResources().updateConfiguration(config,
                                 getBaseContext().getResources().getDisplayMetrics());
 
-                        SharePreferenceUtils.getInstance().saveString("lang" , languageToLoad);
+                        SharePreferenceUtils.getInstance().saveString("lang", languageToLoad);
 
                         recreate();
 
@@ -431,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
                         en.setTextColor(Color.BLACK);
                         hi.setTextColor(Color.WHITE);
 
-                        String languageToLoad  = "hi"; // your language
+                        String languageToLoad = "hi"; // your language
                         Locale locale = new Locale(languageToLoad);
                         Locale.setDefault(locale);
                         Configuration config = new Configuration();
@@ -439,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
                         getBaseContext().getResources().updateConfiguration(config,
                                 getBaseContext().getResources().getDisplayMetrics());
 
-                        SharePreferenceUtils.getInstance().saveString("lang" , languageToLoad);
+                        SharePreferenceUtils.getInstance().saveString("lang", languageToLoad);
 
                         recreate();
 
@@ -504,7 +495,7 @@ public class MainActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 if (Objects.equals(intent.getAction(), "photo")) {
-                    Log.d("local" , "called");
+                    Log.d("local", "called");
                     onResume();
                 }
 
@@ -536,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
 
         ImageLoader loader = ImageLoader.getInstance();
-        loader.displayImage(SharePreferenceUtils.getInstance().getString("photo") , image , options);
+        loader.displayImage(SharePreferenceUtils.getInstance().getString("photo"), image, options);
 
     }
 
@@ -570,11 +561,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                         dialog.dismiss();
-
-                        Intent intent = new Intent(MainActivity.this, TermsAndConditions2.class);
-                        intent.putExtra("type", "worker");
-                        startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 })
 

@@ -575,10 +575,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                         dialog.dismiss();
 
-                        Intent intent = new Intent(MainActivity3.this, TermsAndConditions2.class);
-                        intent.putExtra("type", "worker");
-                        startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 })
 

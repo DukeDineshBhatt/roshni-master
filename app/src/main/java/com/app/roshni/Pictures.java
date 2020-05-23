@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.app.roshni.samplePOJO.Datum;
 import com.app.roshni.samplePOJO.sampleBean;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -66,6 +67,8 @@ public class Pictures extends Fragment {
     private Uri uri;
     private File f1;
 
+    FloatingActionButton add;
+
     private CustomViewPager pager;
 
     void setData(CustomViewPager pager) {
@@ -80,6 +83,7 @@ public class Pictures extends Fragment {
         list = new ArrayList<>();
 
         grid = view.findViewById(R.id.grid);
+        add = view.findViewById(R.id.floatingActionButton3);
         upload = view.findViewById(R.id.button16);
         finish = view.findViewById(R.id.button15);
         progress = view.findViewById(R.id.progressBar3);
@@ -104,6 +108,13 @@ public class Pictures extends Fragment {
         });
 
         upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pager.setCurrentItem(0);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

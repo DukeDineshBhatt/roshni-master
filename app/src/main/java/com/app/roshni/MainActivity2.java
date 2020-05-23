@@ -599,10 +599,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                         dialog.dismiss();
 
-                        Intent intent = new Intent(MainActivity2.this, TermsAndConditions2.class);
-                        intent.putExtra("type", "worker");
-                        startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 })
 

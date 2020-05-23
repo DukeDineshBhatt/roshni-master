@@ -535,13 +535,9 @@ public class brand3 extends Fragment {
                 if (n.length() > 0) {
                     if (p.length() > 0) {
 
-                        if (cst.length() > 0) {
-                            if (ca.length() > 0) {
                                 if (cd.length() > 0) {
                                     if (cs.length() > 0) {
                                         if (cp.length() == 0 || cp.length() == 6) {
-                                            if (pst.length() > 0) {
-                                                if (pa.length() > 0) {
                                                     if (pd.length() > 0) {
                                                         if (ps.length() > 0) {
                                                             if (pp.length() == 0 || pp.length() == 6) {
@@ -725,16 +721,7 @@ public class brand3 extends Fragment {
                                                         pdistrict.setError("");
                                                         pdistrict.requestFocus();
                                                     }
-                                                } else {
-                                                    Toast.makeText(getContext(), "Invalid permanent area", Toast.LENGTH_SHORT).show();
-                                                    parea.setError("");
-                                                    parea.requestFocus();
-                                                }
-                                            } else {
-                                                Toast.makeText(getContext(), "Invalid permanent street", Toast.LENGTH_SHORT).show();
-                                                pstreet.setError("");
-                                                pstreet.requestFocus();
-                                            }
+
 
                                         } else {
                                             Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
@@ -751,16 +738,7 @@ public class brand3 extends Fragment {
                                     cdistrict.setError("");
                                     cdistrict.requestFocus();
                                 }
-                            } else {
-                                Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
-                                carea.setError("");
-                                carea.requestFocus();
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
-                            cstreet.setError("");
-                            cstreet.requestFocus();
-                        }
+
                     } else {
                         Toast.makeText(getContext(), "Invalid contact person name", Toast.LENGTH_SHORT).show();
                         person.setError("");

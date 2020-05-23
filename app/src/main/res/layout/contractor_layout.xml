@@ -265,6 +265,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:textAllCaps="true"
                 android:text="@string/name_of_business_if_any" />
 
             <EditText
@@ -572,53 +573,7 @@
             </RelativeLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/no_of_home_based_units" />
 
-            <EditText
-                android:id="@+id/home_based"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:hint="@string/tap_to_enter"
-                android:inputType="number"
-                android:digits="0123456789"
-                android:padding="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/location_of_home_based_units" />
-
-            <mabbas007.tagsedittext.TagsEditText
-                android:id="@+id/location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:gravity="center_vertical"
-                android:hint="@string/hit_enter_to_add_location"
-                android:inputType="textPostalAddress"
-                android:padding="10dp"
-                app:allowSpaceInTag="true"
-                app:tagsBackground="@drawable/blue_back_round"
-                app:tagsPaddingBottom="5dp"
-                app:tagsPaddingLeft="20dp"
-                app:tagsPaddingRight="20dp"
-                app:tagsPaddingTop="5dp"
-                app:tagsTextColor="#ffffff"
-                app:tagsTextSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -698,6 +653,82 @@
 
 
             </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/migrant_workers"
+                        android:textAllCaps="true"
+                        android:layout_marginBottom="8dp"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/migrant"
+                        android:background="@drawable/white_back_round"
+                        android:hint="@string/tap_to_enter"
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/local_workers"
+                        android:textAllCaps="true"
+                        android:layout_marginBottom="8dp"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/local"
+                        android:background="@drawable/white_back_round"
+                        android:hint="@string/tap_to_enter"
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -807,24 +838,125 @@
                 android:inputType="textPostalAddress"
                 android:padding="10dp" />
 
-
-
-            <Button
-                android:id="@+id/submit"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/do_you_outsource_jobs_to_other_workers"
+                android:textAllCaps="true"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/outsource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/no_of_home_based_units" />
+
+            <EditText
+                android:id="@+id/home_based"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:digits="0123456789"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/location_of_home_based_units" />
+
+            <mabbas007.tagsedittext.TagsEditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:gravity="center_vertical"
+                android:hint="@string/hit_enter_to_add_location"
+                android:inputType="textPostalAddress"
+                android:padding="10dp"
+                app:allowSpaceInTag="true"
+                app:tagsBackground="@drawable/blue_back_round"
+                app:tagsPaddingBottom="5dp"
+                app:tagsPaddingLeft="20dp"
+                app:tagsPaddingRight="20dp"
+                app:tagsPaddingTop="5dp"
+                app:tagsTextColor="#ffffff"
+                app:tagsTextSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/blue_back_round"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingStart="20dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="8dp"
-                android:text="@string/submit"
-                android:textColor="#ffffff" />
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:weightSum="2"
+                >
+
+                <Button
+                    android:id="@+id/previous"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/blue_back_round"
+                    android:minWidth="0dp"
+                    android:layout_marginEnd="4dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/previous"
+                    android:textColor="#ffffff" />
+
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/blue_back_round"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/submit"
+                    android:textColor="#ffffff" />
+
+            </LinearLayout>
 
 
         </LinearLayout>

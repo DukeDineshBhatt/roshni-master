@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -101,13 +102,13 @@ import static android.app.Activity.RESULT_OK;
 public class contractor extends Fragment {
 
     private static final String TAG = "conracao";
-    private Spinner gender, establishment, experience, availability, firm, proof, firmtype, sector;
+    private Spinner gender, establishment, experience, availability, firm, proof, firmtype, sector , outsource;
 
     MultiSelectSpinner work;
 
-    private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect;
+    private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect , outs;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms , migrant , local;
 
     TagsEditText location;
 
@@ -115,9 +116,9 @@ public class contractor extends Fragment {
 
     CheckBox check;
 
-    private Button upload, submit;
+    private Button upload, submit , previous;
 
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1;
 
     private Uri uri;
     private File f1;
@@ -179,6 +180,8 @@ public class contractor extends Fragment {
         frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        out = new ArrayList<>();
+        out1 = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -220,6 +223,10 @@ public class contractor extends Fragment {
 
 
         looms = view.findViewById(R.id.looms);
+        migrant = view.findViewById(R.id.migrant);
+        local = view.findViewById(R.id.local);
+        outsource = view.findViewById(R.id.outsource);
+        previous = view.findViewById(R.id.previous);
         name = view.findViewById(R.id.editText);
         sector = view.findViewById(R.id.sector);
         dob = view.findViewById(R.id.dob);
@@ -292,6 +299,42 @@ public class contractor extends Fragment {
             }
         });*/
 
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.confirm))
+                        .setMessage(getString(R.string.close_app_text))
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                                Intent intent = new Intent(getActivity(), TermsAndConditions2.class);
+                                intent.putExtra("type", "contractor");
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+
+            }
+        });
+
         pdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -317,8 +360,29 @@ public class contractor extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");*/
 
+        est.add("1");
+        est.add("2");
+        est.add("3");
+        est.add("4");
+        est.add("5");
+        est.add("6");
+        est.add("7");
+        est.add("8");
+        est.add("9");
+        est.add("10");
+        est.add("11");
+        est.add("12");
+        est.add("13");
+        est.add("14");
+        est.add("15");
+        est.add("16");
+        est.add("17");
+        est.add("18");
+        est.add("19");
+        est.add("20");
+        est.add("20+");
 
-        est.add("1950-2000");
+       /* est.add("1950-2000");
         est.add("2001");
         est.add("2002");
         est.add("2003");
@@ -343,7 +407,7 @@ public class contractor extends Fragment {
         est.add("2022");
         est.add("2023");
         est.add("2024");
-        est.add("2025");
+        est.add("2025");*/
 
         /*exp.add("0 to 2 years");
         exp.add("3 to 5 years");
@@ -868,6 +932,57 @@ public class contractor extends Fragment {
             }
         });
 
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call7 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call7.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        out.add(response.body().getData().get(i).getTitle());
+                        out1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, out);
+
+
+                    outsource.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        outsource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                outs = out1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         /*work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -998,6 +1113,9 @@ public class contractor extends Fragment {
                 String e = employer.getText().toString();
                 String loo = looms.getText().toString();
 
+                String mig = migrant.getText().toString();
+                String loca = local.getText().toString();
+
                 String pp;
                 String ps;
                 String pd;
@@ -1022,8 +1140,6 @@ public class contractor extends Fragment {
 
                 if (n.length() > 0) {
 
-                    if (cst.length() > 0) {
-                        if (ca.length() > 0) {
                             if (cd.length() > 0) {
                                 if (cs.length() > 0) {
                                     if (cp.length() == 0 || cp.length() == 6) {
@@ -1100,7 +1216,10 @@ public class contractor extends Fragment {
                                                             String.valueOf(c2),
                                                             String.valueOf(c3),
                                                             String.valueOf(c4),
-                                                            String.valueOf(c5)
+                                                            String.valueOf(c5),
+                                                            outs,
+                                                            mig,
+                                                            loca
                                                     );
 
                                                     call.enqueue(new Callback<verifyBean>() {
@@ -1199,16 +1318,7 @@ public class contractor extends Fragment {
                                 cdistrict.setError("");
                                 cdistrict.requestFocus();
                             }
-                        } else {
-                            Toast.makeText(getContext(), "Invalid current area", Toast.LENGTH_SHORT).show();
-                            carea.setError("");
-                            carea.requestFocus();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Invalid current street", Toast.LENGTH_SHORT).show();
-                        cstreet.setError("");
-                        cstreet.requestFocus();
-                    }
+
 
                 } else {
                     Toast.makeText(getContext(), "Invalid name", Toast.LENGTH_SHORT).show();

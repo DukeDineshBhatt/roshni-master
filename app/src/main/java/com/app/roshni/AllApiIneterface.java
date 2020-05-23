@@ -282,7 +282,10 @@ public interface AllApiIneterface {
             @Part("c2") String c2,
             @Part("c3") String c3,
             @Part("c4") String c4,
-            @Part("c5") String c5
+            @Part("c5") String c5,
+            @Part("outsource") String outsource,
+            @Part("migrant") String migrant,
+            @Part("local") String local
     );
 
 

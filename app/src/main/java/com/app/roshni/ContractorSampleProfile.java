@@ -1,5 +1,6 @@
 package com.app.roshni;
 
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -84,7 +85,7 @@ public class ContractorSampleProfile extends Fragment {
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getContext() , list);
+        adapter = new SampleAdapter(getActivity() , list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
@@ -226,11 +227,26 @@ public class ContractorSampleProfile extends Fragment {
 
             final Datum item = list.get(position);
 
-            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
-            ImageLoader loader = ImageLoader.getInstance();
+            final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
+            final ImageLoader loader = ImageLoader.getInstance();
             loader.displayImage(item.getFile() , holder.image , options);
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    Dialog dialog = new Dialog(context , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    //      WindowManager.LayoutParams.MATCH_PARENT);
+                    dialog.setContentView(R.layout.zoom_dialog);
+                    dialog.setCancelable(true);
+                    dialog.show();
+
+                    ImageView img = dialog.findViewById(R.id.image);
+                    loader.displayImage(item.getFile() , img , options);
+
+                }
+            });
 
         }
 

@@ -102,7 +102,7 @@ public class brand extends Fragment {
 
     private String manuf, certi, frmy, frmytyp, sect;
 
-    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details;
+    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details , businessname;
 
 
     NachoTextView products, countries;
@@ -205,6 +205,7 @@ public class brand extends Fragment {
         }
 
         name = view.findViewById(R.id.editText);
+        businessname = view.findViewById(R.id.businessname);
         contact_details = view.findViewById(R.id.contact_details);
         regi = view.findViewById(R.id.editText2);
         person = view.findViewById(R.id.person);
@@ -718,6 +719,7 @@ public class brand extends Fragment {
                 String e = expiry.getText().toString();
                 String we = website.getText().toString();
                 String em = email.getText().toString();
+                String bn = businessname.getText().toString();
 
 
                 String pp;
@@ -821,7 +823,8 @@ public class brand extends Fragment {
                                                                 String.valueOf(c2),
                                                                 String.valueOf(c3),
                                                                 String.valueOf(c4),
-                                                                String.valueOf(c5)
+                                                                String.valueOf(c5),
+                                                                bn
                                                         );
 
                                                         call.enqueue(new Callback<verifyBean>() {

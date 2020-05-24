@@ -112,6 +112,9 @@ public class Data {
     @SerializedName("same")
     @Expose
     private String same;
+    @SerializedName("business_name")
+    @Expose
+    private String business_name;
 
     public String getId() {
         return id;
@@ -399,5 +402,13 @@ public class Data {
 
     public void setSame(String same) {
         this.same = same;
+    }
+
+    public String getBusiness_name() {
+        return business_name;
+    }
+
+    public void setBusiness_name(String business_name) {
+        this.business_name = business_name;
     }
 }

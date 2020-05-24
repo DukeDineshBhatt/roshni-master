@@ -200,7 +200,8 @@ public interface AllApiIneterface {
             @Part("c2") String c2,
             @Part("c3") String c3,
             @Part("c4") String c4,
-            @Part("c5") String c5
+            @Part("c5") String c5,
+            @Part("business_name") String business_name
     );
 
     @Multipart
@@ -236,6 +237,7 @@ public interface AllApiIneterface {
             @Part("website") String website,
             @Part("email") String email,
             @Part("same") String same,
+            @Part("business_name") String business_name,
             @Part MultipartBody.Part file1
     );
 

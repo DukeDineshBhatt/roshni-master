@@ -120,6 +120,26 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/name_of_business_if_any" />
+
+            <EditText
+                android:id="@+id/businessname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="textCapSentences"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/txtViewFirm"
@@ -256,6 +276,47 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/website_address" />
+
+            <EditText
+                android:id="@+id/website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:focusable="false"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="textWebEmailAddress"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/email_address1" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="textEmailAddress"
                 android:padding="10dp" />
 
             <TextView
@@ -686,7 +747,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-
+                    android:layout_marginBottom="24dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:focusable="false"
@@ -697,47 +758,7 @@
             </LinearLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/website_address" />
 
-            <EditText
-                android:id="@+id/website"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:focusable="false"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:hint="@string/tap_to_enter"
-                android:inputType="textWebEmailAddress"
-                android:padding="10dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/email_address1" />
-
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:focusable="false"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/white_back_round"
-                android:hint="@string/tap_to_enter"
-                android:inputType="textEmailAddress"
-                android:padding="10dp" />
 
 
             <Button

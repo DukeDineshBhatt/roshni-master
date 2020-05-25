@@ -244,7 +244,7 @@ public class FilterWorkerJob extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        final Call<skillsBean> call = cr.getRoles("1");
+        final Call<skillsBean> call = cr.getRoles("1" , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<skillsBean>() {
             @Override

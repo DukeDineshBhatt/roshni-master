@@ -260,7 +260,36 @@
                     android:padding="10dp" />
 
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="#cdcdcd" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="@string/job_location1"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="10dp" />
+
+            </LinearLayout>
 
 
             <TextView
@@ -300,12 +329,71 @@
 
 
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="#cdcdcd" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_name"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="@string/display_name_of_business"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_phone"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="@string/display_contact_number"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_person"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="@string/display_contact_person"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_email"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_marginStart="8dp"
+                android:text="@string/display_email_id"
+                android:layout_marginEnd="8dp"
+                />
+
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="@string/company_details"
+                android:textColor="@color/colorPrimaryDark"
+                android:visibility="gone" />
 
 
             <TextView

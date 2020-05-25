@@ -25,6 +25,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -60,17 +62,19 @@ public class PostJobContractor extends AppCompatActivity {
     Toolbar toolbar;
     Button submit , upload;
     ProgressBar progress;
-    Spinner type , experience , days  ,sector;
+    Spinner type , experience , days  ,sector , place;
     EditText rate;
 
     ImageView image;
 
-    List<String> typ, typ1 , exp , day;
+    List<String> typ, typ1 , exp , exp1 , day , pla , pla1;
 
-    String ty , ex , da , sect;
+    String ty , ex , da , sect , plac;
     List<String> sec, sec1;
     private Uri uri;
     private File f1;
+
+    CheckBox display_name , phone , contact_person , email , all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +84,23 @@ public class PostJobContractor extends AppCompatActivity {
         typ = new ArrayList<>();
         typ1 = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         day = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        pla = new ArrayList<>();
+        pla1 = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
+        place = findViewById(R.id.location);
         sector = findViewById(R.id.sector);
         submit = findViewById(R.id.submit);
         progress = findViewById(R.id.progress);
-
+        display_name = findViewById(R.id.display_name);
+        phone = findViewById(R.id.phone);
+        contact_person = findViewById(R.id.contact_person);
+        email = findViewById(R.id.email);
+        all = findViewById(R.id.all);
         type = findViewById(R.id.type);
         experience = findViewById(R.id.experience);
         days = findViewById(R.id.days);
@@ -110,20 +122,26 @@ public class PostJobContractor extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(getString(R.string.post_job));
 
-        exp.add("0 to 2 years");
+        /*exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
-        exp.add("more than 10 years");
+        exp.add("more than 10 years");*/
 
 
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(this),
-                R.layout.spinner_model, typ);
+        all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                display_name.setChecked(isChecked);
+                phone.setChecked(isChecked);
+                contact_person.setChecked(isChecked);
+                email.setChecked(isChecked);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, exp);
+            }
+        });
+
 
 
 
@@ -136,10 +154,18 @@ public class PostJobContractor extends AppCompatActivity {
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
                 R.layout.spinner_model, day);
 
-        type.setAdapter(adapter);
-        experience.setAdapter(adapter2);
         days.setAdapter(adapter3);
 
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -158,11 +184,12 @@ public class PostJobContractor extends AppCompatActivity {
 
 
 
-        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        days.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    ex = exp.get(i);
+                    da = day.get(i);
 
 
             }
@@ -173,12 +200,97 @@ public class PostJobContractor extends AppCompatActivity {
             }
         });
 
-        days.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call34 = cr.getPlace(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call34.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        pla.add(response.body().getData().get(i).getTitle());
+                        pla1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<>(PostJobContractor.this,
+                            R.layout.spinner_model, pla);
+
+                    place.setAdapter(adapter7);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+
+        place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    da = day.get(i);
+                plac =  pla1.get(i);
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call35 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call35.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        exp.add(response.body().getData().get(i).getTitle());
+                        exp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(PostJobContractor.this,
+                            R.layout.spinner_model, exp);
+
+                    experience.setAdapter(adapter2);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ex = exp1.get(i);
 
             }
 
@@ -235,6 +347,11 @@ public class PostJobContractor extends AppCompatActivity {
                                     ex,
                                     da,
                                     r,
+                                    plac,
+                                    String.valueOf(display_name.isChecked()),
+                                    String.valueOf(phone.isChecked()),
+                                    String.valueOf(contact_person.isChecked()),
+                                    String.valueOf(email.isChecked()),
                                     body
                             );
 
@@ -335,20 +452,11 @@ public class PostJobContractor extends AppCompatActivity {
         });
 
 
-        Bean b = (Bean) getApplicationContext();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(b.baseurl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
         progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getSectors();
+        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -389,7 +497,7 @@ public class PostJobContractor extends AppCompatActivity {
 
                 progress.setVisibility(View.VISIBLE);
 
-                Call<skillsBean> call2 = cr.getRoles(sect);
+                Call<skillsBean> call2 = cr.getRoles(sect , SharePreferenceUtils.getInstance().getString("lang"));
                 call2.enqueue(new Callback<skillsBean>() {
                     @Override
                     public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {

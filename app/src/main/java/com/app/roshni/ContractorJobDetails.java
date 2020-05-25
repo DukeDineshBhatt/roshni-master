@@ -1,12 +1,15 @@
 package com.app.roshni;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -32,12 +35,14 @@ public class ContractorJobDetails extends AppCompatActivity {
 
     ImageButton back;
     ImageView sample;
-    TextView title, type, experience, days, rate , sector;
+    TextView title, type, experience, days, rate , sector , location;
 
     Button active , edit;
 
     ProgressBar progress;
     String jid , status;
+
+    CheckBox display_name , display_phone , display_person , display_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,12 @@ public class ContractorJobDetails extends AppCompatActivity {
         back = findViewById(R.id.imageButton3);
         edit = findViewById(R.id.button9);
         sector = findViewById(R.id.sector);
-
+        display_name = findViewById(R.id.display_name);
+        display_phone = findViewById(R.id.display_phone);
+        display_person = findViewById(R.id.display_person);
+        display_email = findViewById(R.id.display_email);
         title = findViewById(R.id.textView30);
+        location = findViewById(R.id.location);
         type = findViewById(R.id.type);
         experience = findViewById(R.id.experience);
         days = findViewById(R.id.days);
@@ -181,6 +190,8 @@ public class ContractorJobDetails extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
+        Log.d("jid" , jid);
+
         Call<contractorJobDetailsBean> call = cr.getJobDetailsForContractor(SharePreferenceUtils.getInstance().getString("user_id"), jid);
 
         call.enqueue(new Callback<contractorJobDetailsBean>() {
@@ -190,20 +201,26 @@ public class ContractorJobDetails extends AppCompatActivity {
 
                 if (response.body().getStatus().equals("1")) {
 
-                    Data item = response.body().getData();
+                    final Data item = response.body().getData();
 
 
-                    DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
-                    ImageLoader loader = ImageLoader.getInstance();
+                    final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
+                    final ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getSample() , sample , options);
 
 
-                    title.setText(item.getTitle());
-                    sector.setText(item.getSector());
-                    type.setText(item.getJobType());
+                    title.setText("Job ID: CJ-" + item.getTitle());
+                    sector.setText(item.getSector1());
+                    type.setText(item.getJobType1());
                     days.setText(item.getDays());
-                    experience.setText(item.getExperience());
+                    experience.setText(item.getExperience1());
                     rate.setText(item.getRate());
+                    location.setText(item.getPlace1());
+
+                    display_name.setChecked(Boolean.parseBoolean(item.getDisplayName()));
+                    display_phone.setChecked(Boolean.parseBoolean(item.getDisplayPhone()));
+                    display_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
+                    display_email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
 
                     if (status.equals("Active"))
                     {
@@ -215,6 +232,23 @@ public class ContractorJobDetails extends AppCompatActivity {
                         active.setText("ACTIVE");
                         //apply.setEnabled(true);
                     }
+
+                    sample.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Dialog dialog = new Dialog(ContractorJobDetails.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getSample() , img , options);
+
+                        }
+                    });
 
                 }
 

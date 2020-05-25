@@ -354,6 +354,11 @@ public interface AllApiIneterface {
             @Part("experience") String experience,
             @Part("days") String days,
             @Part("rate") String rate,
+            @Part("place") String place,
+            @Part("display_name") String display_name,
+            @Part("display_phone") String display_phone,
+            @Part("display_person") String display_person,
+            @Part("display_email") String display_email,
             @Part MultipartBody.Part file1
     );
 
@@ -366,6 +371,11 @@ public interface AllApiIneterface {
             @Part("experience") String experience,
             @Part("days") String days,
             @Part("rate") String rate,
+            @Part("place") String place,
+            @Part("display_name") String display_name,
+            @Part("display_phone") String display_phone,
+            @Part("display_person") String display_person,
+            @Part("display_email") String display_email,
             @Part MultipartBody.Part file1
     );
 
@@ -624,7 +634,8 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getRoles.php")
     Call<skillsBean> getRoles(
-            @Part("sector_id") String sector_id
+            @Part("sector_id") String sector_id,
+            @Part("lang") String lang
     );
 
     @GET("goodbusinessapp/api/getSkills.php")

@@ -148,7 +148,7 @@ public class FilterContractorJob extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        final Call<skillsBean> call = cr.getRoles(SharePreferenceUtils.getInstance().getString("sector"));
+        final Call<skillsBean> call = cr.getRoles(SharePreferenceUtils.getInstance().getString("sector") , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<skillsBean>() {
             @Override

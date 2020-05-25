@@ -282,4 +282,5 @@
     <string name="display_contact_person">Display Contact Person</string>
     <string name="display_email_id">Display Email ID</string>
     <string name="display_all">Display All</string>
+    <string name="job_location1">Job Location</string>
 </resources>

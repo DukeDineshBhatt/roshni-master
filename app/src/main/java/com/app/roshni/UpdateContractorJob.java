@@ -25,6 +25,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -63,19 +65,21 @@ public class UpdateContractorJob extends AppCompatActivity {
     Toolbar toolbar;
     Button submit , upload;
     ProgressBar progress;
-    Spinner type , experience , days, sector;
+    Spinner type , experience , days, sector , place;
     EditText rate;
 
     ImageView image;
 
-    List<String> typ, typ1 , exp , day;
+    List<String> typ, typ1 , exp , exp1 , day , pla , pla1;
 
-    String ty , ex , da, sect;
+    String ty , ex , da , sect , plac;
     List<String> sec, sec1;
     private Uri uri;
     private File f1;
 
     String jid;
+
+    CheckBox display_name , phone , contact_person , email , all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,15 +91,23 @@ public class UpdateContractorJob extends AppCompatActivity {
         typ = new ArrayList<>();
         typ1 = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         day = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        pla = new ArrayList<>();
+        pla1 = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
         sector = findViewById(R.id.sector);
         submit = findViewById(R.id.submit);
         progress = findViewById(R.id.progress);
-
+        place = findViewById(R.id.location);
+        display_name = findViewById(R.id.display_name);
+        phone = findViewById(R.id.phone);
+        contact_person = findViewById(R.id.contact_person);
+        email = findViewById(R.id.email);
+        all = findViewById(R.id.all);
         type = findViewById(R.id.type);
         experience = findViewById(R.id.experience);
         days = findViewById(R.id.days);
@@ -117,18 +129,20 @@ public class UpdateContractorJob extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("UPDATE JOB");
 
-        exp.add("0 to 2 years");
-        exp.add("3 to 5 years");
-        exp.add("5 to 10 years");
-        exp.add("more than 10 years");
+        all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                display_name.setChecked(isChecked);
+                phone.setChecked(isChecked);
+                contact_person.setChecked(isChecked);
+                email.setChecked(isChecked);
+
+            }
+        });
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(this),
-                R.layout.spinner_model, typ);
 
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, exp);
 
 
 
@@ -141,8 +155,7 @@ public class UpdateContractorJob extends AppCompatActivity {
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
                 R.layout.spinner_model, day);
 
-        type.setAdapter(adapter);
-        experience.setAdapter(adapter2);
+
         days.setAdapter(adapter3);
 
 
@@ -164,7 +177,21 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    ex = exp.get(i);
+                    ex = exp1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                plac =  pla1.get(i);
 
             }
 
@@ -235,6 +262,11 @@ public class UpdateContractorJob extends AppCompatActivity {
                                     ex,
                                     da,
                                     r,
+                                    plac,
+                                    String.valueOf(display_name.isChecked()),
+                                    String.valueOf(phone.isChecked()),
+                                    String.valueOf(contact_person.isChecked()),
+                                    String.valueOf(email.isChecked()),
                                     body
                             );
 
@@ -515,7 +547,12 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                     rate.setText(item.getRate());
 
-                    final Call<sectorBean> call2 = cr.getSectors();
+                    display_name.setChecked(Boolean.parseBoolean(item.getDisplayName()));
+                    phone.setChecked(Boolean.parseBoolean(item.getDisplayPhone()));
+                    contact_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
+                    email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
+
+                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override
@@ -565,7 +602,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                             progress.setVisibility(View.VISIBLE);
 
-                            Call<skillsBean> call2 = cr.getRoles(sect);
+                            Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
                             call2.enqueue(new Callback<skillsBean>() {
                                 @Override
                                 public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
@@ -589,8 +626,8 @@ public class UpdateContractorJob extends AppCompatActivity {
                                         type.setAdapter(adapter);
 
                                         int cp = 0;
-                                        for (int i = 0; i < typ.size(); i++) {
-                                            if (item.getJobType().equals(typ.get(i))) {
+                                        for (int i = 0; i < typ1.size(); i++) {
+                                            if (item.getJobType().equals(typ1.get(i))) {
                                                 cp = i;
                                             }
                                         }
@@ -617,14 +654,98 @@ public class UpdateContractorJob extends AppCompatActivity {
                         }
                     });
 
+                    final Call<sectorBean> call5 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
 
-                    int cp = 0;
-                    for (int i = 0; i < typ.size(); i++) {
-                        if (item.getJobType().equals(typ.get(i))) {
-                            cp = i;
+                    call5.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                exp.clear();
+                                exp1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    exp.add(response.body().getData().get(i).getTitle());
+                                    exp1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(UpdateContractorJob.this,
+                                        R.layout.spinner_model, exp);
+
+
+                                experience.setAdapter(adapter2);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < exp1.size(); i++) {
+                                    if (item.getExperience().equals(exp1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                experience.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
                         }
-                    }
-                    type.setSelection(cp);
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+                    final Call<sectorBean> call10 = cr.getPlace(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call10.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                pla.clear();
+                                pla1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    pla.add(response.body().getData().get(i).getTitle());
+                                    pla1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter7 = new ArrayAdapter<>(UpdateContractorJob.this,
+                                        R.layout.spinner_model, pla);
+
+
+                                place.setAdapter(adapter7);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < pla1.size(); i++) {
+                                    if (item.getPlace().equals(pla1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                place.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
 
                     int cp1 = 0;
                     for (int i = 0; i < day.size(); i++) {
@@ -635,16 +756,6 @@ public class UpdateContractorJob extends AppCompatActivity {
                     days.setSelection(cp1);
 
 
-
-                    int gp = 0;
-                    for (int i = 0 ; i < exp.size() ; i++)
-                    {
-                        if (item.getExperience().equals(exp.get(i)))
-                        {
-                            gp = i;
-                        }
-                    }
-                    experience.setSelection(gp);
 
 
 

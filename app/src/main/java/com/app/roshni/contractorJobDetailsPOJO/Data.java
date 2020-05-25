@@ -34,9 +34,15 @@ public class Data {
     @SerializedName("sector")
     @Expose
     private String sector;
+    @SerializedName("sector1")
+    @Expose
+    private String sector1;
     @SerializedName("job_type")
     @Expose
     private String jobType;
+    @SerializedName("job_type1")
+    @Expose
+    private String jobType1;
     @SerializedName("title")
     @Expose
     private String title;
@@ -46,6 +52,15 @@ public class Data {
     @SerializedName("experience")
     @Expose
     private String experience;
+    @SerializedName("place")
+    @Expose
+    private String place;
+    @SerializedName("place1")
+    @Expose
+    private String place1;
+    @SerializedName("experience1")
+    @Expose
+    private String experience1;
     @SerializedName("rate")
     @Expose
     private String rate;
@@ -55,6 +70,18 @@ public class Data {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("display_name")
+    @Expose
+    private String displayName;
+    @SerializedName("display_phone")
+    @Expose
+    private String displayPhone;
+    @SerializedName("display_person")
+    @Expose
+    private String displayPerson;
+    @SerializedName("display_email")
+    @Expose
+    private String displayEmail;
     @SerializedName("products")
     @Expose
     private String products;
@@ -187,12 +214,28 @@ public class Data {
         this.sector = sector;
     }
 
+    public String getSector1() {
+        return sector1;
+    }
+
+    public void setSector1(String sector1) {
+        this.sector1 = sector1;
+    }
+
     public String getJobType() {
         return jobType;
     }
 
     public void setJobType(String jobType) {
         this.jobType = jobType;
+    }
+
+    public String getJobType1() {
+        return jobType1;
+    }
+
+    public void setJobType1(String jobType1) {
+        this.jobType1 = jobType1;
     }
 
     public String getTitle() {
@@ -219,6 +262,30 @@ public class Data {
         this.experience = experience;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getPlace1() {
+        return place1;
+    }
+
+    public void setPlace1(String place1) {
+        this.place1 = place1;
+    }
+
+    public String getExperience1() {
+        return experience1;
+    }
+
+    public void setExperience1(String experience1) {
+        this.experience1 = experience1;
+    }
+
     public String getRate() {
         return rate;
     }
@@ -241,6 +308,38 @@ public class Data {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayPhone() {
+        return displayPhone;
+    }
+
+    public void setDisplayPhone(String displayPhone) {
+        this.displayPhone = displayPhone;
+    }
+
+    public String getDisplayPerson() {
+        return displayPerson;
+    }
+
+    public void setDisplayPerson(String displayPerson) {
+        this.displayPerson = displayPerson;
+    }
+
+    public String getDisplayEmail() {
+        return displayEmail;
+    }
+
+    public void setDisplayEmail(String displayEmail) {
+        this.displayEmail = displayEmail;
     }
 
     public String getProducts() {

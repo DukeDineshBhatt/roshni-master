@@ -112,11 +112,14 @@
                 />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="VIEW PHONE NUMBER"
+                android:background="@drawable/blue_back_round"
                 android:padding="8dp"
-                android:textColor="#000000"
+                android:textColor="#ffffff"
                 android:id="@+id/phone"
                 />
 
@@ -206,6 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="3">
 
                 <TextView
@@ -230,6 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
+                android:visibility="gone"
                 android:layout_marginEnd="8dp"
                 android:background="#cdcdcd" />
 
@@ -549,8 +554,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/reject"
-        android:background="@drawable/white_back_round"
-        android:textColor="@color/colorPrimary"
+        android:background="@drawable/blue_back_round"
+        android:textColor="#ffffff"
         android:minHeight="0dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"

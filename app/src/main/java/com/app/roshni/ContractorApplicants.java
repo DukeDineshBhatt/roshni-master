@@ -105,7 +105,7 @@ public class ContractorApplicants extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerListBean> call = cr.getAppliedContractors(jid);
+        Call<workerListBean> call = cr.getAppliedContractors(jid , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerListBean>() {
             @Override

@@ -695,13 +695,15 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getAppliedWorkers.php")
     Call<workerListBean> getAppliedWorkers(
-            @Part("jid") String jid
+            @Part("jid") String jid,
+            @Part("lang") String lang
     );
 
     @Multipart
     @POST("goodbusinessapp/api/getAppliedContractors.php")
     Call<workerListBean> getAppliedContractors(
-            @Part("jid") String jid
+            @Part("jid") String jid,
+            @Part("lang") String lang
     );
 
     @Multipart

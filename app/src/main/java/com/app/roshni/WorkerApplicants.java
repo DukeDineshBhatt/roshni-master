@@ -103,7 +103,7 @@ public class WorkerApplicants extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerListBean> call = cr.getAppliedWorkers(jid);
+        Call<workerListBean> call = cr.getAppliedWorkers(jid , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerListBean>() {
             @Override

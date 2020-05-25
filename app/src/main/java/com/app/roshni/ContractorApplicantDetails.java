@@ -1,8 +1,11 @@
 package com.app.roshni;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -93,6 +96,42 @@ public class ContractorApplicantDetails extends AppCompatActivity {
         });
 
 
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContractorApplicantDetails.this);
+
+                builder.setMessage("Contact Admin for this Feature")
+                        .setTitle("View Contractor Phone");
+
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+
+                        Intent intent = new Intent(ContractorApplicantDetails.this , Support.class);
+                        intent.putExtra("title" , getString(R.string.support_help));
+                        intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
+                        startActivity(intent);
+
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+
+                        dialog.dismiss();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+
+            }
+        });
+
         jobtitle.setText(tit);
         jobcategory.setText("Job category: " + cat);
         salary.setText("Piece rate: " + sal);
@@ -146,12 +185,12 @@ public class ContractorApplicantDetails extends AppCompatActivity {
                 loader.displayImage(item.getPhoto() , image , options);
 
                 name.setText(item.getName());
-                phone.setText("+" + item.getPhone());
+                //phone.setText("+" + item.getPhone());
                 total.setText(String.valueOf(Integer.parseInt(item.getWorkersMale()) + Integer.parseInt(item.getWorkersFemale())) + " workers");
-                experience.setText(item.getExperience());
-                availability.setText(item.getAvailability());
+                experience.setText(item.getExperience1());
+                availability.setText(item.getAvailability1());
                 dob.setText(item.getDob());
-                gender.setText(item.getGender());
+                gender.setText(item.getGender1());
                 current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
                 permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
                 home_based.setText(item.getHomeUnits());
@@ -179,38 +218,61 @@ public class ContractorApplicantDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                progress.setVisibility(View.VISIBLE);
+                new AlertDialog.Builder(ContractorApplicantDetails.this)
+                        .setTitle(getString(R.string.confirm))
+                        .setMessage("Accept Job Application")
 
-                Bean b = (Bean) getApplicationContext();
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog2, int which) {
+                                progress.setVisibility(View.VISIBLE);
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                                Bean b = (Bean) getApplicationContext();
 
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
 
-
-                Call<verifyBean> call = cr.contractor_acept_reject(jid , id , "Approved");
-
-                call.enqueue(new Callback<verifyBean>() {
-                    @Override
-                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                        Toast.makeText(ContractorApplicantDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Call<verifyBean> call = cr.contractor_acept_reject(jid , id , "Approved");
 
-                        progress.setVisibility(View.GONE);
+                                call.enqueue(new Callback<verifyBean>() {
+                                    @Override
+                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
-                        finish();
-                    }
 
-                    @Override
-                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                        Toast.makeText(ContractorApplicantDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        progress.setVisibility(View.GONE);
+
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
+                                    }
+                                });
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+
+
 
             }
         });
@@ -219,38 +281,63 @@ public class ContractorApplicantDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                progress.setVisibility(View.VISIBLE);
 
-                Bean b = (Bean) getApplicationContext();
+                new AlertDialog.Builder(ContractorApplicantDetails.this)
+                        .setTitle(getString(R.string.confirm))
+                        .setMessage("Reject Job Application")
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog2, int which) {
+                                progress.setVisibility(View.VISIBLE);
 
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                Bean b = (Bean) getApplicationContext();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                Call<verifyBean> call = cr.contractor_acept_reject(jid , id , "Rejected");
+                                Call<verifyBean> call = cr.contractor_acept_reject(jid , id , "Rejected");
 
-                call.enqueue(new Callback<verifyBean>() {
-                    @Override
-                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                call.enqueue(new Callback<verifyBean>() {
+                                    @Override
+                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
 
-                        Toast.makeText(ContractorApplicantDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ContractorApplicantDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                        progress.setVisibility(View.GONE);
+                                        progress.setVisibility(View.GONE);
 
-                        finish();
-                    }
+                                        finish();
+                                    }
 
-                    @Override
-                    public void onFailure(Call<verifyBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                    @Override
+                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
+                                    }
+                                });
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+
+
+
 
             }
         });

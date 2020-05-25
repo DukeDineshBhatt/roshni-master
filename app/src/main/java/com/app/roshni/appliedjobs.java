@@ -119,7 +119,7 @@ public class appliedjobs extends Fragment {
                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                        Call<workerJobListBean> call = cr.getAppliedListForWorker(SharePreferenceUtils.getInstance().getString("user_id") , dd);
+                        Call<workerJobListBean> call = cr.getAppliedListForWorker(SharePreferenceUtils.getInstance().getString("user_id") , dd , SharePreferenceUtils.getInstance().getString("lang"));
 
                         call.enqueue(new Callback<workerJobListBean>() {
                             @Override
@@ -187,7 +187,7 @@ public class appliedjobs extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerJobListBean> call = cr.getAppliedListForWorker(SharePreferenceUtils.getInstance().getString("user_id") , dd);
+        Call<workerJobListBean> call = cr.getAppliedListForWorker(SharePreferenceUtils.getInstance().getString("user_id") , dd , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerJobListBean>() {
             @Override
@@ -246,10 +246,10 @@ public class appliedjobs extends Fragment {
             final Datum item = list.get(position);
 
 
-            holder.company.setText(item.getBrandName());
+            holder.company.setText(item.getHours());
             holder.title.setText(item.getTitle());
             holder.salary.setText(getString(R.string.salary)+ " - " + item.getSalary());
-            holder.address.setText(item.getBrandStreet() + ", " + item.getBrandArea());
+            holder.address.setText(item.getNature());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

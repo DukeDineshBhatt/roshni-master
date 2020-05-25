@@ -338,7 +338,11 @@ public interface AllApiIneterface {
             @Part("education") String education,
             @Part("hours") String hours,
             @Part("salary") String salary,
-            @Part("stype") String stype
+            @Part("stype") String stype,
+            @Part("display_name") String display_name,
+            @Part("display_phone") String display_phone,
+            @Part("display_person") String display_person,
+            @Part("display_email") String display_email
     );
 
     @Multipart

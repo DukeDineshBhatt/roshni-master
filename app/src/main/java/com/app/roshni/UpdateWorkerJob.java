@@ -13,6 +13,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -51,11 +53,13 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
     String skil, expe, loca, gend, educ, styp, sect, leve, natu , plac;
 
-    List<String> ski, exp, loc, gen, edu, rol, sty , pla;
+    List<String> ski, exp , exp1, loc, gen , gen1, edu , edu1, rol, sty , sty1 , pla , pla1;
     List<String> ski1, loc1, rol1;
-    List<String> sec, sec1, lev, nat;
+    List<String> sec, sec1, lev , lev1, nat , nat1;
 
     String jid;
+
+    CheckBox display_name , phone , contact_person , email , all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,21 +70,33 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
         ski = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         gen = new ArrayList<>();
+        gen1 = new ArrayList<>();
         loc = new ArrayList<>();
         edu = new ArrayList<>();
+        edu1 = new ArrayList<>();
         loc1 = new ArrayList<>();
         rol = new ArrayList<>();
         sty = new ArrayList<>();
+        sty1 = new ArrayList<>();
         ski1 = new ArrayList<>();
         rol1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
         lev = new ArrayList<>();
+        lev1 = new ArrayList<>();
         nat = new ArrayList<>();
+        nat1 = new ArrayList<>();
         pla = new ArrayList<>();
+        pla1 = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
+        display_name = findViewById(R.id.display_name);
+        phone = findViewById(R.id.phone);
+        contact_person = findViewById(R.id.contact_person);
+        email = findViewById(R.id.email);
+        all = findViewById(R.id.all);
         man_days_title = findViewById(R.id.man_days_title);
         piece_rate_title = findViewById(R.id.piece_rate_title);
         title = findViewById(R.id.title);
@@ -136,7 +152,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             }
         });
 
-        gen.add("Male");
+        /*gen.add("Male");
         gen.add("Female");
         gen.add("No Preference");
 
@@ -169,45 +185,31 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
         sty.add("Fortnightly");
         sty.add("Daily");
         sty.add("Piece-rate");
-        sty.add("Weekly");
+        sty.add("Weekly");*/
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(this),
-                R.layout.spinner_model, gen);
 
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, exp);
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, edu);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, sty);
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, lev);
 
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, nat);
 
-        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, pla);
 
-        experience.setAdapter(adapter2);
-        education.setAdapter(adapter3);
-        gender.setAdapter(adapter);
-        stype.setAdapter(adapter4);
-        skill_level.setAdapter(adapter5);
-        nature.setAdapter(adapter6);
-        place.setAdapter(adapter7);
+
+
+
+
+
+
+
 
 
         stype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                styp = sty.get(i);
+                styp = sty1.get(i);
 
             }
 
@@ -222,7 +224,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                gend = gen.get(i);
+                gend = gen1.get(i);
 
             }
 
@@ -250,7 +252,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                expe = exp.get(i);
+                expe = exp1.get(i);
 
             }
 
@@ -264,7 +266,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                leve = lev.get(i);
+                leve = lev1.get(i);
 
             }
 
@@ -278,7 +280,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                plac =  pla.get(i);
+                plac =  pla1.get(i);
 
             }
 
@@ -293,9 +295,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                natu = nat.get(i);
+                natu = nat1.get(i);
 
-                if (natu.equals("Home-Based"))
+                if (natu.equals("4"))
                 {
                     man_days.setVisibility(View.VISIBLE);
                     man_days_title.setVisibility(View.VISIBLE);
@@ -322,7 +324,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
         education.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                educ = edu.get(i);
+                educ = edu1.get(i);
             }
 
             @Override
@@ -406,7 +408,17 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
         });
 
 
+        all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                display_name.setChecked(isChecked);
+                phone.setChecked(isChecked);
+                contact_person.setChecked(isChecked);
+                email.setChecked(isChecked);
+
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -428,7 +440,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                         if (styp.length() > 0) {
 
-                            if (loca.equals("Others"))
+                            if (loca.equals("5"))
                             {
                                 loca = job_location.getText().toString();
                             }
@@ -463,7 +475,11 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                                     educ,
                                     h,
                                     s,
-                                    styp
+                                    styp,
+                                    String.valueOf(display_name.isChecked()),
+                                    String.valueOf(phone.isChecked()),
+                                    String.valueOf(contact_person.isChecked()),
+                                    String.valueOf(email.isChecked())
                             );
 
                             call1.enqueue(new Callback<verifyBean>() {
@@ -561,7 +577,12 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                     man_days.setText(item.getManDays());
                     piece_rate.setText(item.getPieceRate());
 
-                    final Call<sectorBean> call2 = cr.getSectors();
+                    display_name.setChecked(Boolean.parseBoolean(item.getDisplayName()));
+                    phone.setChecked(Boolean.parseBoolean(item.getDisplayPhone()));
+                    contact_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
+                    email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
+
+                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override
@@ -635,8 +656,8 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                                         skills.setAdapter(adapter);
 
                                         int cp = 0;
-                                        for (int i = 0; i < ski.size(); i++) {
-                                            if (item.getSkills().equals(ski.get(i))) {
+                                        for (int i = 0; i < ski1.size(); i++) {
+                                            if (item.getSkills().equals(ski1.get(i))) {
                                                 cp = i;
                                             }
                                         }
@@ -664,95 +685,388 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                     });
 
 
+                    final Call<sectorBean> call4 = cr.getGenderPreference(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call4.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                gen.clear();
+                                gen1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    gen.add(response.body().getData().get(i).getTitle());
+                                    gen1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(UpdateWorkerJob.this),
+                                        R.layout.spinner_model, gen);
 
 
+                                gender.setAdapter(adapter);
 
-                    int cp4 = 0;
-                    for (int i = 0; i < lev.size(); i++) {
-                        if (item.getSkillLevel().equals(lev.get(i))) {
-                            cp4 = i;
-                        }
-                    }
-                    skill_level.setSelection(cp4);
+                                int cp2 = 0;
+                                for (int i = 0; i < gen1.size(); i++) {
+                                    if (item.getGender().equals(gen1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                gender.setSelection(cp2);
 
-                    int cp3 = 0;
-                    for (int i = 0; i < nat.size(); i++) {
-                        if (item.getNature().equals(nat.get(i))) {
-                            cp3 = i;
-                        }
-                    }
-                    nature.setSelection(cp3);
-
-
-                    int cp5 = 0;
-                    for (int i = 0; i < pla.size(); i++) {
-                        if (item.getPlace().equals(pla.get(i))) {
-                            cp5 = i;
-                        }
-                    }
-                    place.setSelection(cp5);
-
-                    if (loc.contains(item.getLocation()))
-                    {
-                        int cp1 = 0;
-                        for (int i = 0; i < loc.size(); i++) {
-                            if (item.getLocation().equals(loc.get(i))) {
-                                cp1 = i;
                             }
+
+
+
+                            progress.setVisibility(View.GONE);
+
                         }
-                        location.setSelection(cp1);
-                    }
-                    else
-                    {
-                        location.setSelection(loc.size() - 1);
-                        job_location.setText(item.getLocation());
-                    }
 
-
-
-
-
-
-                    int gp = 0;
-                    for (int i = 0 ; i < exp.size() ; i++)
-                    {
-                        if (item.getExperience().equals(exp.get(i)))
-                        {
-                            gp = i;
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
                         }
-                    }
-                    experience.setSelection(gp);
+                    });
 
-                    int gp1 = 0;
-                    for (int i = 0 ; i < gen.size() ; i++)
-                    {
-                        if (item.getGender().equals(gen.get(i)))
-                        {
-                            gp1 = i;
+
+                    final Call<sectorBean> call5 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call5.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                exp.clear();
+                                exp1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    exp.add(response.body().getData().get(i).getTitle());
+                                    exp1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, exp);
+
+
+                                experience.setAdapter(adapter2);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < exp1.size(); i++) {
+                                    if (item.getExperience().equals(exp1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                experience.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
                         }
-                    }
-                    gender.setSelection(gp1);
 
-
-                    int gp2 = 0;
-                    for (int i = 0 ; i < edu.size() ; i++)
-                    {
-                        if (item.getEducation().equals(edu.get(i)))
-                        {
-                            gp2 = i;
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
                         }
-                    }
-                    education.setSelection(gp2);
+                    });
 
-                    int gp3 = 0;
-                    for (int i = 0 ; i < sty.size() ; i++)
-                    {
-                        if (item.getStype().equals(sty.get(i)))
-                        {
-                            gp3 = i;
+
+                    final Call<sectorBean> call6 = cr.getEducationJob(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call6.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                edu.clear();
+                                edu1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    edu.add(response.body().getData().get(i).getTitle());
+                                    edu1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter3 = new ArrayAdapter<>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, edu);
+
+
+                                education.setAdapter(adapter3);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < edu1.size(); i++) {
+                                    if (item.getEducation().equals(edu1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                education.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
                         }
-                    }
-                    stype.setSelection(gp3);
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+                    final Call<sectorBean> call7 = cr.getSalaryType(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call7.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                sty.clear();
+                                sty1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    sty.add(response.body().getData().get(i).getTitle());
+                                    sty1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter4 = new ArrayAdapter<>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, sty);
+
+
+                                stype.setAdapter(adapter4);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < sty1.size(); i++) {
+                                    if (item.getStype().equals(sty1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                stype.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                    final Call<sectorBean> call8 = cr.getSkillLevelJob(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call8.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                lev.clear();
+                                lev1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    lev.add(response.body().getData().get(i).getTitle());
+                                    lev1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter5 = new ArrayAdapter<>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, lev);
+
+
+                                skill_level.setAdapter(adapter5);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < lev1.size(); i++) {
+                                    if (item.getSkillLevel().equals(lev1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                skill_level.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+                    final Call<sectorBean> call9 = cr.getNature(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call9.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                nat.clear();
+                                nat1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    nat.add(response.body().getData().get(i).getTitle());
+                                    nat1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter6 = new ArrayAdapter<>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, nat);
+
+
+                                nature.setAdapter(adapter6);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < nat1.size(); i++) {
+                                    if (item.getNature().equals(nat1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                nature.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+                    final Call<sectorBean> call10 = cr.getPlace(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call10.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                pla.clear();
+                                pla1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    pla.add(response.body().getData().get(i).getTitle());
+                                    pla1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter7 = new ArrayAdapter<>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, pla);
+
+
+                                place.setAdapter(adapter7);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < pla1.size(); i++) {
+                                    if (item.getPlace().equals(pla1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                place.setSelection(cp2);
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                    final Call<sectorBean> call11 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call11.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                loc.clear();
+                                loc1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    loc.add(response.body().getData().get(i).getTitle());
+                                    loc1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateWorkerJob.this,
+                                        R.layout.spinner_model, loc);
+
+
+                                location.setAdapter(adapter);
+
+                                int sp = 0;
+                                for (int i = 0; i < loc1.size(); i++) {
+
+                                    if (item.getLocation().equals(loc1.get(i))) {
+                                        sp = i;
+                                        job_location.setText("");
+                                        job_location.setVisibility(View.GONE);
+                                        break;
+                                    } else {
+                                        job_location.setVisibility(View.VISIBLE);
+                                        job_location.setText(item.getLocation());
+                                        sp = loc.size() - 1;
+                                    }
+
+                                }
+                                location.setSelection(sp);
+
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
 
 
                 }

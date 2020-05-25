@@ -612,6 +612,53 @@
                 android:layout_marginEnd="8dp"
                 android:background="#cdcdcd" />
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_name"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="@string/display_name_of_business"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_phone"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="@string/display_contact_number"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_person"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="@string/display_contact_person"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/display_email"
+                android:padding="10dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_marginStart="8dp"
+                android:text="@string/display_email_id"
+                android:layout_marginEnd="8dp"
+                />
 
             <TextView
                 android:id="@+id/company"

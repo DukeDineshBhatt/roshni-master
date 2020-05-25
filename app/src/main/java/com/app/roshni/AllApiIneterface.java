@@ -311,7 +311,11 @@ public interface AllApiIneterface {
             @Part("education") String education,
             @Part("hours") String hours,
             @Part("salary") String salary,
-            @Part("stype") String stype
+            @Part("stype") String stype,
+            @Part("display_name") String display_name,
+            @Part("display_phone") String display_phone,
+            @Part("display_person") String display_person,
+            @Part("display_email") String display_email
     );
 
     @Multipart
@@ -472,7 +476,8 @@ public interface AllApiIneterface {
     @POST("goodbusinessapp/api/getJobDetailsForWorker.php")
     Call<workerJobDetailBean> getJobDetailForWorker(
             @Part("user_id") String user_id,
-            @Part("jid") String jid
+            @Part("jid") String jid,
+            @Part("lang") String lang
     );
 
     @Multipart
@@ -543,6 +548,42 @@ public interface AllApiIneterface {
     @Multipart
     @POST("goodbusinessapp/api/getExperience.php")
     Call<sectorBean> getExperience(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getGenderPreference.php")
+    Call<sectorBean> getGenderPreference(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getSkillLevelJob.php")
+    Call<sectorBean> getSkillLevelJob(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getNature.php")
+    Call<sectorBean> getNature(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getPlace.php")
+    Call<sectorBean> getPlace(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getEducationJob.php")
+    Call<sectorBean> getEducationJob(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("goodbusinessapp/api/getSalaryType.php")
+    Call<sectorBean> getSalaryType(
             @Part("lang") String lang
     );
 

@@ -43,15 +43,27 @@ public class Datum {
     @SerializedName("sector")
     @Expose
     private String sector;
+    @SerializedName("sector1")
+    @Expose
+    private String sector1;
     @SerializedName("skill_level")
     @Expose
     private String skillLevel;
+    @SerializedName("skill_level1")
+    @Expose
+    private String skillLevel1;
     @SerializedName("skills")
     @Expose
     private String skills;
+    @SerializedName("skills1")
+    @Expose
+    private String skills1;
     @SerializedName("nature")
     @Expose
     private String nature;
+    @SerializedName("nature1")
+    @Expose
+    private String nature1;
     @SerializedName("man_days")
     @Expose
     private String manDays;
@@ -61,21 +73,36 @@ public class Datum {
     @SerializedName("place")
     @Expose
     private String place;
+    @SerializedName("place1")
+    @Expose
+    private String place1;
     @SerializedName("location")
     @Expose
     private String location;
+    @SerializedName("location1")
+    @Expose
+    private String location1;
     @SerializedName("experience")
     @Expose
     private String experience;
+    @SerializedName("experience1")
+    @Expose
+    private String experience1;
     @SerializedName("role")
     @Expose
     private String role;
     @SerializedName("gender")
     @Expose
     private String gender;
+    @SerializedName("gender1")
+    @Expose
+    private String gender1;
     @SerializedName("education")
     @Expose
     private String education;
+    @SerializedName("education1")
+    @Expose
+    private String education1;
     @SerializedName("hours")
     @Expose
     private String hours;
@@ -85,6 +112,9 @@ public class Datum {
     @SerializedName("stype")
     @Expose
     private String stype;
+    @SerializedName("stype1")
+    @Expose
+    private String stype1;
     @SerializedName("created")
     @Expose
     private String created;
@@ -139,6 +169,18 @@ public class Datum {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("display_name")
+    @Expose
+    private String displayName;
+    @SerializedName("display_phone")
+    @Expose
+    private String displayPhone;
+    @SerializedName("display_person")
+    @Expose
+    private String displayPerson;
+    @SerializedName("display_email")
+    @Expose
+    private String displayEmail;
 
     public String getId() {
         return id;
@@ -244,12 +286,28 @@ public class Datum {
         this.sector = sector;
     }
 
+    public String getSector1() {
+        return sector1;
+    }
+
+    public void setSector1(String sector1) {
+        this.sector1 = sector1;
+    }
+
     public String getSkillLevel() {
         return skillLevel;
     }
 
     public void setSkillLevel(String skillLevel) {
         this.skillLevel = skillLevel;
+    }
+
+    public String getSkillLevel1() {
+        return skillLevel1;
+    }
+
+    public void setSkillLevel1(String skillLevel1) {
+        this.skillLevel1 = skillLevel1;
     }
 
     public String getSkills() {
@@ -260,12 +318,28 @@ public class Datum {
         this.skills = skills;
     }
 
+    public String getSkills1() {
+        return skills1;
+    }
+
+    public void setSkills1(String skills1) {
+        this.skills1 = skills1;
+    }
+
     public String getNature() {
         return nature;
     }
 
     public void setNature(String nature) {
         this.nature = nature;
+    }
+
+    public String getNature1() {
+        return nature1;
+    }
+
+    public void setNature1(String nature1) {
+        this.nature1 = nature1;
     }
 
     public String getManDays() {
@@ -292,6 +366,14 @@ public class Datum {
         this.place = place;
     }
 
+    public String getPlace1() {
+        return place1;
+    }
+
+    public void setPlace1(String place1) {
+        this.place1 = place1;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -300,12 +382,28 @@ public class Datum {
         this.location = location;
     }
 
+    public String getLocation1() {
+        return location1;
+    }
+
+    public void setLocation1(String location1) {
+        this.location1 = location1;
+    }
+
     public String getExperience() {
         return experience;
     }
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getExperience1() {
+        return experience1;
+    }
+
+    public void setExperience1(String experience1) {
+        this.experience1 = experience1;
     }
 
     public String getRole() {
@@ -324,12 +422,28 @@ public class Datum {
         this.gender = gender;
     }
 
+    public String getGender1() {
+        return gender1;
+    }
+
+    public void setGender1(String gender1) {
+        this.gender1 = gender1;
+    }
+
     public String getEducation() {
         return education;
     }
 
     public void setEducation(String education) {
         this.education = education;
+    }
+
+    public String getEducation1() {
+        return education1;
+    }
+
+    public void setEducation1(String education1) {
+        this.education1 = education1;
     }
 
     public String getHours() {
@@ -354,6 +468,14 @@ public class Datum {
 
     public void setStype(String stype) {
         this.stype = stype;
+    }
+
+    public String getStype1() {
+        return stype1;
+    }
+
+    public void setStype1(String stype1) {
+        this.stype1 = stype1;
     }
 
     public String getCreated() {
@@ -500,4 +622,35 @@ public class Datum {
         this.status = status;
     }
 
+    public String getDisplayEmail() {
+        return displayEmail;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getDisplayPerson() {
+        return displayPerson;
+    }
+
+    public String getDisplayPhone() {
+        return displayPhone;
+    }
+
+    public void setDisplayEmail(String displayEmail) {
+        this.displayEmail = displayEmail;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public void setDisplayPerson(String displayPerson) {
+        this.displayPerson = displayPerson;
+    }
+
+    public void setDisplayPhone(String displayPhone) {
+        this.displayPhone = displayPhone;
+    }
 }

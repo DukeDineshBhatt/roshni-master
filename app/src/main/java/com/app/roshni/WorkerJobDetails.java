@@ -7,11 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,6 +43,8 @@ public class WorkerJobDetails extends AppCompatActivity {
     ProgressBar progress;
     String jid , status;
 
+    CheckBox display_name , display_phone , display_person , display_email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,10 @@ public class WorkerJobDetails extends AppCompatActivity {
         back = findViewById(R.id.imageButton3);
         edit = findViewById(R.id.button9);
 
+        display_name = findViewById(R.id.display_name);
+        display_phone = findViewById(R.id.display_phone);
+        display_person = findViewById(R.id.display_person);
+        display_email = findViewById(R.id.display_email);
         title = findViewById(R.id.textView30);
         positions = findViewById(R.id.positions);
         sector = findViewById(R.id.sector);
@@ -212,7 +220,10 @@ public class WorkerJobDetails extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<workerJobDetailBean> call = cr.getJobDetailForWorker(SharePreferenceUtils.getInstance().getString("user_id"), jid);
+        Log.d("userid" , SharePreferenceUtils.getInstance().getString("user_id"));
+        Log.d("jid" , jid);
+
+        Call<workerJobDetailBean> call = cr.getJobDetailForWorker(SharePreferenceUtils.getInstance().getString("user_id"), jid , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerJobDetailBean>() {
             @Override
@@ -223,23 +234,28 @@ public class WorkerJobDetails extends AppCompatActivity {
 
                     Datum item = response.body().getData();
 
-                    title.setText(item.getTitle());
+                    title.setText("Job ID: WJ-" + item.getId() + " " + item.getTitle());
                     positions.setText(item.getPosition());
-                    sector.setText(item.getSector());
-                    skill_level.setText(item.getSkillLevel());
-                    skills.setText(item.getSkills());
-                    nature.setText(item.getNature());
+                    sector.setText(item.getSector1());
+                    skill_level.setText(item.getSkillLevel1());
+                    skills.setText(item.getSkills1());
+                    nature.setText(item.getNature1());
                     man_days.setText(item.getManDays());
                     piece_rate.setText(item.getPieceRate());
-                    place.setText(item.getPlace());
-                    location.setText(item.getLocation());
-                    experience.setText(item.getExperience());
+                    place.setText(item.getPlace1());
+                    location.setText(item.getLocation1());
+                    experience.setText(item.getExperience1());
                     role.setText(item.getRole());
-                    gender.setText(item.getGender());
-                    education.setText(item.getEducation());
+                    gender.setText(item.getGender1());
+                    education.setText(item.getEducation1());
                     hours.setText(item.getHours());
                     salary.setText(item.getSalary());
-                    stype.setText(item.getStype());
+                    stype.setText(item.getStype1());
+
+                    display_name.setChecked(Boolean.parseBoolean(item.getDisplayName()));
+                    display_phone.setChecked(Boolean.parseBoolean(item.getDisplayPhone()));
+                    display_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
+                    display_email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
 
                     if (status.equals("Active"))
                     {

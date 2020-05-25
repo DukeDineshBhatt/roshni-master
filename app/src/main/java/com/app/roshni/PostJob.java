@@ -13,6 +13,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -51,9 +53,11 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
     String skil, expe, loca, gend, educ, styp, sect, leve, natu , plac;
 
-    List<String> ski, exp, loc, gen, edu, rol, sty , pla;
+    List<String> ski, exp , exp1, loc, gen , gen1, edu , edu1, rol, sty , sty1 , pla , pla1;
     List<String> ski1, loc1, rol1;
-    List<String> sec, sec1, lev, nat;
+    List<String> sec, sec1, lev , lev1, nat , nat1;
+
+    CheckBox display_name , phone , contact_person , email , all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,21 +67,33 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         ski = new ArrayList<>();
         exp = new ArrayList<>();
+        exp1 = new ArrayList<>();
         gen = new ArrayList<>();
+        gen1 = new ArrayList<>();
         loc = new ArrayList<>();
         edu = new ArrayList<>();
+        edu1 = new ArrayList<>();
         loc1 = new ArrayList<>();
         rol = new ArrayList<>();
         sty = new ArrayList<>();
+        sty1 = new ArrayList<>();
         ski1 = new ArrayList<>();
         rol1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
         lev = new ArrayList<>();
+        lev1 = new ArrayList<>();
         nat = new ArrayList<>();
+        nat1 = new ArrayList<>();
         pla = new ArrayList<>();
+        pla1 = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
+        display_name = findViewById(R.id.display_name);
+        phone = findViewById(R.id.phone);
+        contact_person = findViewById(R.id.contact_person);
+        email = findViewById(R.id.email);
+        all = findViewById(R.id.all);
         man_days_title = findViewById(R.id.man_days_title);
         piece_rate_title = findViewById(R.id.piece_rate_title);
         title = findViewById(R.id.title);
@@ -133,223 +149,69 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
         });
 
-        gen.add("Male");
+        /*gen.add("Male");
         gen.add("Female");
-        gen.add("No Preference");
+        gen.add("No Preference");*/
 
-        lev.add("Unskilled");
+        /*lev.add("Unskilled");
         lev.add("Semi-skilled");
         lev.add("Skilled");
-        lev.add("Highly Skilled");
+        lev.add("Highly Skilled");*/
 
-        nat.add("Permanent");
+        /*nat.add("Permanent");
         nat.add("Temporary");
         nat.add("Contractual");
-        nat.add("Home-Based");
+        nat.add("Home-Based");*/
 
-        pla.add("Factory(In-house)");
-        pla.add("Outside factory");
+        /*pla.add("Factory(In-house)");
+        pla.add("Outside factory");*/
 
-        exp.add("0 to 2 years");
+       /* exp.add("0 to 2 years");
         exp.add("3 to 5 years");
         exp.add("5 to 10 years");
-        exp.add("more than 10 years");
+        exp.add("more than 10 years");*/
 
-        edu.add("Not required");
+        /*edu.add("Not required");
         edu.add("Primary");
         edu.add("Secondary");
         edu.add("Higher secondary");
         edu.add("Graduation");
-        edu.add("Post-graduation");
+        edu.add("Post-graduation");*/
 
-        sty.add("Monthly");
+        /*sty.add("Monthly");
         sty.add("Fortnightly");
         sty.add("Daily");
         sty.add("Piece-rate");
-        sty.add("Weekly");
+        sty.add("Weekly");*/
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(this),
-                R.layout.spinner_model, gen);
 
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, exp);
-
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, edu);
-
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, sty);
-
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, lev);
-
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, nat);
-
-        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(this,
-                R.layout.spinner_model, pla);
-
-        experience.setAdapter(adapter2);
-        education.setAdapter(adapter3);
-        gender.setAdapter(adapter);
-        stype.setAdapter(adapter4);
-        skill_level.setAdapter(adapter5);
-        nature.setAdapter(adapter6);
-        place.setAdapter(adapter7);
 
 
-        stype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
+
+        all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                styp = sty.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                display_name.setChecked(isChecked);
+                phone.setChecked(isChecked);
+                contact_person.setChecked(isChecked);
+                email.setChecked(isChecked);
 
             }
         });
 
 
-        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                gend = gen.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                skil = ski1.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    expe = exp.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        skill_level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                leve = lev.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                plac =  pla.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
-        nature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                natu = nat.get(i);
-
-                if (natu.equals("Home-Based"))
-                {
-                    man_days.setVisibility(View.VISIBLE);
-                    man_days_title.setVisibility(View.VISIBLE);
-                    piece_rate.setVisibility(View.VISIBLE);
-                    piece_rate_title.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    man_days.setVisibility(View.GONE);
-                    man_days_title.setVisibility(View.GONE);
-                    piece_rate.setVisibility(View.GONE);
-                    piece_rate_title.setVisibility(View.GONE);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
-        education.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    educ = edu.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
-        location.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                loca = loc.get(i);
-
-                if (loca.equals("Others"))
-                {
-                    job_location.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    job_location.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         Bean b = (Bean) getApplicationContext();
 
@@ -364,7 +226,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
         progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getSectors();
+        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -449,6 +311,404 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
         });
 
+        skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                skil = ski1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call31 = cr.getGenderPreference(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call31.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        gen.add(response.body().getData().get(i).getTitle());
+                        gen1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(PostJob.this),
+                            R.layout.spinner_model, gen);
+
+                    gender.setAdapter(adapter);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                gend = gen1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call32 = cr.getSkillLevelJob(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call32.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        lev.add(response.body().getData().get(i).getTitle());
+                        lev1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter5 = new ArrayAdapter<>(PostJob.this,
+                            R.layout.spinner_model, lev);
+
+                    skill_level.setAdapter(adapter5);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        skill_level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                leve = lev1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call33 = cr.getNature(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call33.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        nat.add(response.body().getData().get(i).getTitle());
+                        nat1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(PostJob.this,
+                            R.layout.spinner_model, nat);
+
+                    nature.setAdapter(adapter6);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        nature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                natu = nat1.get(i);
+
+                if (natu.equals("4"))
+                {
+                    man_days.setVisibility(View.VISIBLE);
+                    man_days_title.setVisibility(View.VISIBLE);
+                    piece_rate.setVisibility(View.VISIBLE);
+                    piece_rate_title.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    man_days.setVisibility(View.GONE);
+                    man_days_title.setVisibility(View.GONE);
+                    piece_rate.setVisibility(View.GONE);
+                    piece_rate_title.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call34 = cr.getPlace(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call34.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        pla.add(response.body().getData().get(i).getTitle());
+                        pla1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<>(PostJob.this,
+                            R.layout.spinner_model, pla);
+
+                    place.setAdapter(adapter7);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+
+        place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                plac =  pla1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        stype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                styp = sty1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call35 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call35.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        exp.add(response.body().getData().get(i).getTitle());
+                        exp1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(PostJob.this,
+                            R.layout.spinner_model, exp);
+
+                    experience.setAdapter(adapter2);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    expe = exp1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call36 = cr.getEducationJob(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call36.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        edu.add(response.body().getData().get(i).getTitle());
+                        edu1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(PostJob.this,
+                            R.layout.spinner_model, edu);
+
+                    education.setAdapter(adapter3);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+
+
+        education.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    educ = edu1.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call37 = cr.getSalaryType(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call37.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        sty.add(response.body().getData().get(i).getTitle());
+                        sty1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(PostJob.this,
+                            R.layout.spinner_model, sty);
+
+                    stype.setAdapter(adapter4);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        location.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                loca = loc1.get(i);
+
+                if (loca.equals("5"))
+                {
+                    job_location.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    job_location.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
+
         Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
         call3.enqueue(new Callback<sectorBean>() {
@@ -507,7 +767,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                         if (styp.length() > 0) {
 
-                            if (loca.equals("Others"))
+                            if (loca.equals("5"))
                             {
                                 loca = job_location.getText().toString();
                             }
@@ -542,7 +802,11 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
                                     educ,
                                     h,
                                     s,
-                                    styp
+                                    styp,
+                                    String.valueOf(display_name.isChecked()),
+                                    String.valueOf(phone.isChecked()),
+                                    String.valueOf(contact_person.isChecked()),
+                                    String.valueOf(email.isChecked())
                             );
 
                             call1.enqueue(new Callback<verifyBean>() {

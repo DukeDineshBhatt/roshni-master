@@ -277,4 +277,9 @@
     <string name="do_you_outsource_jobs_to_other_workers">Do you outsource jobs to other workers</string>
     <string name="migrant_workers">Migrant Workers</string>
     <string name="local_workers">Local Workers</string>
+    <string name="display_name_of_business">Display name of Business</string>
+    <string name="display_contact_number">Display Contact number</string>
+    <string name="display_contact_person">Display Contact Person</string>
+    <string name="display_email_id">Display Email ID</string>
+    <string name="display_all">Display All</string>
 </resources>

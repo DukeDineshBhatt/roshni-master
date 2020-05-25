@@ -161,6 +161,12 @@
                 android:layout_marginEnd="8dp"
                 android:background="#cdcdcd" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/person_layout"
+                android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,7 +199,13 @@
                 android:layout_marginEnd="8dp"
                 android:background="#cdcdcd" />
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone_layout"
+                android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -225,6 +237,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="#cdcdcd" />
 
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -442,6 +455,11 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email_layout"
+                android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -471,6 +489,8 @@
                     android:layout_weight="2"
                     android:gravity="end"
                     android:padding="10dp" />
+
+            </LinearLayout>
 
             </LinearLayout>
 

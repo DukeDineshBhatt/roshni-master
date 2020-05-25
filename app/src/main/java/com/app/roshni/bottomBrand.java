@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class bottomBrand extends BottomSheetDialogFragment {
         return new bottomBrand();
     }
 
+    LinearLayout person_layout , phone_layout , email_layout;
 
 
     @Nullable
@@ -52,6 +54,9 @@ public class bottomBrand extends BottomSheetDialogFragment {
         jid = getArguments().getString("jid");
 
         progress = view.findViewById(R.id.progressBar4);
+        person_layout = view.findViewById(R.id.person_layout);
+        phone_layout = view.findViewById(R.id.phone_layout);
+        email_layout = view.findViewById(R.id.email_layout);
         company = view.findViewById(R.id.textView30);
         products = view.findViewById(R.id.textView31);
         allJobs = view.findViewById(R.id.textView33);
@@ -68,6 +73,7 @@ public class bottomBrand extends BottomSheetDialogFragment {
         website = view.findViewById(R.id.website);
         email = view.findViewById(R.id.email);
         image = view.findViewById(R.id.imageView6);
+
 
 
         allJobs.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +165,41 @@ public class bottomBrand extends BottomSheetDialogFragment {
                     stype.setText(item.getStype());
 */
 
+                    if (Boolean.parseBoolean(item.getDisplayName()))
+                    {
+                        company.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        company.setVisibility(View.GONE);
+                    }
+
+                    if (Boolean.parseBoolean(item.getDisplayPerson()))
+                    {
+                        person_layout.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        person_layout.setVisibility(View.GONE);
+                    }
+
+                    if (Boolean.parseBoolean(item.getDisplayPhone()))
+                    {
+                        phone_layout.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        phone_layout.setVisibility(View.GONE);
+                    }
+
+                    if (Boolean.parseBoolean(item.getDisplayEmail()))
+                    {
+                        email_layout.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        email_layout.setVisibility(View.GONE);
+                    }
 
                 }
 

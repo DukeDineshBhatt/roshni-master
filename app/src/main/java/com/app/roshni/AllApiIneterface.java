@@ -444,7 +444,8 @@ public interface AllApiIneterface {
     @POST("goodbusinessapp/api/getJobListForWorker.php")
     Call<workerJobListBean> getJobListForWorker(
             @Part("user_id") String user_id,
-            @Part("date") String date
+            @Part("date") String date,
+            @Part("lang") String lang
     );
 
     @Multipart

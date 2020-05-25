@@ -44,6 +44,8 @@ public class JobDetails extends AppCompatActivity {
 
     View header;
 
+    boolean dname , dphone , dperson , demail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,23 +215,23 @@ public class JobDetails extends AppCompatActivity {
 
                     title.setText(item.getTitle());
                     company.setText(item.getBrandName());
-                    address.setText(item.getBrandStreet() + ", " + item.getBrandArea());
-                    skills.setText(item.getSkills());
-                    preferred.setText(item.getSkillLevel());
-                    location.setText(item.getLocation());
-                    experience.setText(item.getExperience());
+                    address.setText(item.getBrandDistrict() + ", " + item.getBrandState());
+                    skills.setText(item.getSkills1());
+                    preferred.setText(item.getSkillLevel1());
+                    location.setText(item.getLocation1());
+                    experience.setText(item.getExperience1());
                     role.setText(item.getRole());
-                    gender.setText(item.getGender());
-                    education.setText(item.getEducation());
+                    gender.setText(item.getGender1());
+                    education.setText(item.getEducation1());
                     hours.setText(item.getHours());
                     salary.setText(item.getSalary());
-                    stype.setText(item.getStype());
+                    stype.setText(item.getStype1());
                     positions.setText(item.getPosition());
-                    sector.setText(item.getSector());
-                    nature.setText(item.getNature());
+                    sector.setText(item.getSector1());
+                    nature.setText(item.getNature1());
                     man_days.setText(item.getManDays());
                     rate.setText(item.getPieceRate());
-                    place.setText(item.getPlace());
+                    place.setText(item.getPlace1());
 
                     if (item.getStatus().equals("1"))
                     {
@@ -241,6 +243,23 @@ public class JobDetails extends AppCompatActivity {
                         apply.setText("APPLY NOW");
                         //apply.setEnabled(true);
                     }
+
+/*
+                    dname = Boolean.parseBoolean(item.getDisplayName());
+                    dphone = Boolean.parseBoolean(item.getDisplayPhone());
+                    dperson = Boolean.parseBoolean(item.getDisplayPerson());
+                    demail = Boolean.parseBoolean(item.getDisplayEmail());
+*/
+
+                    if (Boolean.parseBoolean(item.getDisplayName()))
+                    {
+                        company.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        company.setVisibility(View.GONE);
+                    }
+
 
                 }
 

@@ -118,7 +118,7 @@ public class appliedjobs2 extends Fragment {
                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                        Call<workerJobListBean> call = cr.getAppliedListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd);
+                        Call<workerJobListBean> call = cr.getAppliedListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd , SharePreferenceUtils.getInstance().getString("lang"));
 
                         call.enqueue(new Callback<workerJobListBean>() {
                             @Override
@@ -186,7 +186,7 @@ public class appliedjobs2 extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerJobListBean> call = cr.getAppliedListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd);
+        Call<workerJobListBean> call = cr.getAppliedListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd , SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<workerJobListBean>() {
             @Override
@@ -245,7 +245,7 @@ public class appliedjobs2 extends Fragment {
             final Datum item = list.get(position);
 
 
-            holder.company.setText(item.getBrandName());
+            holder.company.setText(item.getPlace());
             holder.title.setText(item.getTitle());
             holder.salary.setText(getString(R.string.piece_rate) + " - " + item.getSalary());
             holder.address.setText(item.getBrandStreet() + ", " + item.getBrandArea());

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
         return new bottomBrand2();
     }
 
-
+    LinearLayout person_layout , phone_layout , email_layout;
 
     @Nullable
     @Override
@@ -53,6 +54,9 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
 
         jid = getArguments().getString("jid");
 
+        person_layout = view.findViewById(R.id.person_layout);
+        phone_layout = view.findViewById(R.id.phone_layout);
+        email_layout = view.findViewById(R.id.email_layout);
         progress = view.findViewById(R.id.progressBar4);
         company = view.findViewById(R.id.textView30);
         products = view.findViewById(R.id.textView31);
@@ -160,7 +164,41 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
                     salary.setText(item.getSalary());
                     stype.setText(item.getStype());
 */
+                    if (Boolean.parseBoolean(item.getDisplayName()))
+                    {
+                        company.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        company.setVisibility(View.GONE);
+                    }
 
+                    if (Boolean.parseBoolean(item.getDisplayPerson()))
+                    {
+                        person_layout.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        person_layout.setVisibility(View.GONE);
+                    }
+
+                    if (Boolean.parseBoolean(item.getDisplayPhone()))
+                    {
+                        phone_layout.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        phone_layout.setVisibility(View.GONE);
+                    }
+
+                    if (Boolean.parseBoolean(item.getDisplayEmail()))
+                    {
+                        email_layout.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        email_layout.setVisibility(View.GONE);
+                    }
 
                 }
 

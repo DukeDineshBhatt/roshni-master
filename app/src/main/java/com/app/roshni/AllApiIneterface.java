@@ -401,6 +401,13 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("goodbusinessapp/api/withdrawJob2.php")
+    Call<verifyBean> withdrawJob2(
+            @Part("job_id") String job_id,
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
     @POST("goodbusinessapp/api/worker_ac_inac.php")
     Call<verifyBean> worker_ac_inac(
             @Part("jid") String jid,
@@ -459,7 +466,8 @@ public interface AllApiIneterface {
     @POST("goodbusinessapp/api/getJobListForContractor.php")
     Call<workerJobListBean> getJobListForContractor(
             @Part("user_id") String user_id,
-            @Part("date") String date
+            @Part("date") String date,
+            @Part("lang") String lang
     );
 
 
@@ -492,7 +500,8 @@ public interface AllApiIneterface {
     @POST("goodbusinessapp/api/getAppliedListForContractor.php")
     Call<workerJobListBean> getAppliedListForContractor(
             @Part("user_id") String user_id,
-            @Part("date") String date
+            @Part("date") String date,
+            @Part("lang") String lang
     );
 
     @Multipart

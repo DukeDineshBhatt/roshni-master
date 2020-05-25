@@ -1,5 +1,6 @@
 package com.app.roshni;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -36,7 +37,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class JobDetails2 extends AppCompatActivity {
 
     ImageButton back;
-    TextView title, company, address, type, experience, days, rate , commp , sector;
+    TextView title, company, address, type, experience, days, rate , commp , sector  ,location;
 
     Button apply;
 
@@ -54,6 +55,7 @@ public class JobDetails2 extends AppCompatActivity {
         jid = getIntent().getStringExtra("jid");
 
         back = findViewById(R.id.imageButton3);
+        location = findViewById(R.id.location);
         image = findViewById(R.id.imageView6);
         title = findViewById(R.id.textView30);
         company = findViewById(R.id.textView31);
@@ -86,55 +88,148 @@ public class JobDetails2 extends AppCompatActivity {
                 if (t.equals("APPLY NOW"))
                 {
 
-                    progress.setVisibility(View.VISIBLE);
 
-                    Bean b = (Bean) getApplicationContext();
+                    new AlertDialog.Builder(JobDetails2.this)
+                            .setTitle(getString(R.string.confirm))
+                            .setMessage("Apply For Job")
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(b.baseurl)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog2, int which) {
+                                    progress.setVisibility(View.VISIBLE);
 
-                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                    Bean b = (Bean) getApplicationContext();
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(b.baseurl)
+                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
+
+                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                    Call<verifyBean> call = cr.apply_job2(jid , SharePreferenceUtils.getInstance().getString("user_id"));
+                                    Call<verifyBean> call = cr.apply_job2(jid , SharePreferenceUtils.getInstance().getString("user_id"));
 
-                    call.enqueue(new Callback<verifyBean>() {
-                        @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                    call.enqueue(new Callback<verifyBean>() {
+                                        @Override
+                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                            if (response.body().getStatus().equals("1"))
+                                            {
+                                                final Dialog dialog = new Dialog(JobDetails2.this);
+                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                                dialog.setCancelable(true);
+                                                dialog.setContentView(R.layout.apply_dialog);
+                                                dialog.show();
+
+                                                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                                    @Override
+                                                    public void onCancel(DialogInterface dialogInterface) {
+                                                        dialog.dismiss();
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(JobDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
 
 
-                            final Dialog dialog = new Dialog(JobDetails2.this);
-                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                            dialog.setCancelable(true);
-                            dialog.setContentView(R.layout.apply_dialog);
-                            dialog.show();
 
-                            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialogInterface) {
-                                    dialog.dismiss();
-                                    finish();
+
+
+                                            progress.setVisibility(View.GONE);
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                            progress.setVisibility(View.GONE);
+                                        }
+                                    });
                                 }
-                            });
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+
+                                }
+                            })
+                            .show();
 
 
-
-                            progress.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                        }
-                    });
 
                 }
                 else
                 {
-                    Toast.makeText(JobDetails2.this, "You have already applied for this job" , Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(JobDetails2.this)
+                            .setTitle(getString(R.string.confirm))
+                            .setMessage("Withdraw Job Application")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog2, int which) {
+                                    progress.setVisibility(View.VISIBLE);
+
+                                    Bean b = (Bean) getApplicationContext();
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(b.baseurl)
+                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
+
+                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+
+                                    Call<verifyBean> call = cr.withdrawJob2(jid , SharePreferenceUtils.getInstance().getString("user_id"));
+
+                                    call.enqueue(new Callback<verifyBean>() {
+                                        @Override
+                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                            if (response.body().getStatus().equals("1"))
+                                            {
+                                                Toast.makeText(JobDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                onResume();
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(JobDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+
+
+
+
+
+                                            progress.setVisibility(View.GONE);
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                            progress.setVisibility(View.GONE);
+                                        }
+                                    });
+                                }
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+
+                                }
+                            })
+                            .show();
                 }
 
             }
@@ -197,23 +292,24 @@ public class JobDetails2 extends AppCompatActivity {
 
                 if (response.body().getStatus().equals("1")) {
 
-                    Data item = response.body().getData();
+                    final Data item = response.body().getData();
 
-                    DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
-                    ImageLoader loader = ImageLoader.getInstance();
+                    final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
+                    final ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getLogo() , image , options);
 
                     loader.displayImage(item.getSample() , sample , options);
 
-                    title.setText(item.getTitle());
+                    title.setText("Job ID: CJ-" + item.getTitle());
                     company.setText(item.getBrandName());
-                    address.setText(item.getBrandStreet() + ", " + item.getBrandArea());
-                    title.setText(item.getTitle());
-                    type.setText(item.getJobType());
+                    address.setText(item.getBrandDistrict() + ", " + item.getBrandState());
+
+                    type.setText(item.getJobType1());
                     days.setText(item.getDays());
-                    experience.setText(item.getExperience());
+                    experience.setText(item.getExperience1());
                     rate.setText(item.getRate());
-                    sector.setText(item.getSector());
+                    sector.setText(item.getSector1());
+                    location.setText(item.getPlace1());
 
                     if (item.getStatus().equals("1"))
                     {
@@ -225,6 +321,33 @@ public class JobDetails2 extends AppCompatActivity {
                         apply.setText("APPLY NOW");
                         //apply.setEnabled(true);
                     }
+
+                    if (Boolean.parseBoolean(item.getDisplayName()))
+                    {
+                        company.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        company.setVisibility(View.GONE);
+                    }
+
+
+                    sample.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Dialog dialog = new Dialog(JobDetails2.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getSample() , img , options);
+
+                        }
+                    });
 
                 }
 

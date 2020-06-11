@@ -286,4 +286,7 @@
     <string name="no_of_workers_without_bank_account">No of Workers without Bank account</string>
     <string name="non_school_going">Non school going</string>
     <string name="children_school_going">Children School going</string>
+    <string name="type_of_market">Type of Market</string>
+    <string name="type_of_unit_processes">Type of Unit/ Processes</string>
+    <string name="certified_verified_number">Certified/Verified number</string>
 </resources>

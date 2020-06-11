@@ -660,6 +660,52 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/type_of_unit_processes" />
+
+            <EditText
+                android:id="@+id/processes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:digits="0123456789"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/type_of_market" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/market"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/importing_countries3" />
 
             <com.hootsuite.nachos.NachoTextView
@@ -734,6 +780,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:textAllCaps="true"
+                    android:text="Certified/Verified  number" />
+
+                <EditText
+                    android:id="@+id/certification_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:focusable="false"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/white_back_round"
+                    android:hint="@string/tap_to_enter"
+                    android:inputType="text"
+                    android:padding="10dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -747,7 +815,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="24dp"
+
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:focusable="false"
@@ -757,7 +825,30 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="Whether Outsourcing for Production" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/outsourcing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
 
 
 

@@ -80,6 +80,8 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
+import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
+import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import mabbas007.tagsedittext.TagsEditText;
 import me.originqiu.library.EditTag;
 import okhttp3.MediaType;
@@ -113,7 +115,7 @@ public class brand extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1;
+    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1, wty, wty1, mar;
 
     private CustomViewPager pager;
 
@@ -148,8 +150,12 @@ public class brand extends Fragment {
         this.c5 = c5;
     }
 
-    String lat = "", lng = "";
+    String lat = "", lng = "" , wtyp, mark , outs;
     String same = "0";
+
+    MultiSelectSpinner processes;
+    Spinner market , outsourcing;
+    EditText certification_number;
 
     @Nullable
     @Override
@@ -165,6 +171,9 @@ public class brand extends Fragment {
         frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        wty = new ArrayList<>();
+        wty1 = new ArrayList<>();
+        mar = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -205,6 +214,10 @@ public class brand extends Fragment {
         }
 
         name = view.findViewById(R.id.editText);
+        processes = view.findViewById(R.id.processes);
+        market = view.findViewById(R.id.market);
+        certification_number = view.findViewById(R.id.certification_number);
+        outsourcing = view.findViewById(R.id.outsourcing);
         businessname = view.findViewById(R.id.businessname);
         contact_details = view.findViewById(R.id.contact_details);
         regi = view.findViewById(R.id.editText2);
@@ -334,6 +347,10 @@ public class brand extends Fragment {
         man.add("11");
         man.add("12");
 
+
+        mar.add("Domestic");
+        mar.add("Export");
+
        /* frm.add(getString(R.string.sole_properietor));
         frm.add(getString(R.string.partnership));
         frm.add(getString(R.string.pvt_ltd));
@@ -353,8 +370,11 @@ public class brand extends Fragment {
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, man);
 
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
+                R.layout.spinner_model, mar);
 
         manufacturing.setAdapter(adapter1);
+        market.setAdapter(adapter2);
 
 
         manufacturing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -371,6 +391,19 @@ public class brand extends Fragment {
             }
         });
 
+        market.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mark = mar.get(i);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -437,6 +470,86 @@ public class brand extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 sect = sec1.get(i);
+
+                Call<skillsBean> call2 = cr.getSkills1(
+                        sect,
+                        SharePreferenceUtils.getInstance().getString("lang")
+                );
+                call2.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            wty.clear();
+                            wty1.clear();
+
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                wty.add(response.body().getData().get(i).getTitle());
+                                wty1.add(response.body().getData().get(i).getId());
+
+                            }
+
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    android.R.layout.simple_list_item_multiple_choice, wty);
+
+
+                            processes.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
+                                @Override
+                                public void onItemsSelected(boolean[] selected) {
+
+                                    wtyp = "";
+                                    List<String> sklist = new ArrayList<>();
+
+                                    if (selected[0]) {
+
+                                        for (int j = 0; j < selected.length; j++) {
+                                            processes.selectItem(j, false);
+                                        }
+                                        processes.selectItem(0, true);
+                                        sklist.add(wty1.get(0));
+
+                                    } else {
+                                        for (int i = 0; i < selected.length; i++) {
+                                            if (selected[i]) {
+
+                                                sklist.add(wty1.get(i));
+                                            }
+                                        }
+                                    }
+
+
+                                    wtyp = TextUtils.join(",", sklist);
+
+                                    Log.d("wtype", wtyp);
+
+                                }
+                            });
+
+
+
+                            /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, wty);
+
+                            work.setAdapter(adapter);*/
+
+                        }
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+
             }
 
             @Override
@@ -444,7 +557,6 @@ public class brand extends Fragment {
 
             }
         });
-
         progress.setVisibility(View.VISIBLE);
 
         Call<sectorBean> call1 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
@@ -468,6 +580,13 @@ public class brand extends Fragment {
 
 
                     certification.setAdapter(adapter);
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            R.layout.spinner_model, cer);
+
+
+                    outsourcing.setAdapter(adapter2);
+
 
                 }
 
@@ -501,6 +620,20 @@ public class brand extends Fragment {
 
             }
         });
+
+        outsourcing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                outs = cer1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         progress.setVisibility(View.VISIBLE);
 
@@ -720,6 +853,7 @@ public class brand extends Fragment {
                 String we = website.getText().toString();
                 String em = email.getText().toString();
                 String bn = businessname.getText().toString();
+                String cn = certification_number.getText().toString();
 
 
                 String pp;
@@ -824,7 +958,11 @@ public class brand extends Fragment {
                                                                 String.valueOf(c3),
                                                                 String.valueOf(c4),
                                                                 String.valueOf(c5),
-                                                                bn
+                                                                bn,
+                                                                wtyp,
+                                                                mark,
+                                                                cn,
+                                                                outs
                                                         );
 
                                                         call.enqueue(new Callback<verifyBean>() {

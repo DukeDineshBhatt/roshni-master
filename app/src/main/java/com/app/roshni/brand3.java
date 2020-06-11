@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
@@ -81,6 +82,8 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
+import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
+import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -114,7 +117,7 @@ public class brand3 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1;
+    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1, wty, wty1, mar;
 
     private CustomViewPager pager;
 
@@ -144,6 +147,14 @@ public class brand3 extends Fragment {
         this.pager = pager;
     }
     String same = "0";
+
+
+    String wtyp, mark , outs;
+
+    MultiSelectSpinner processes;
+    Spinner market , outsourcing;
+    EditText certification_number;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -158,6 +169,9 @@ public class brand3 extends Fragment {
         frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        wty = new ArrayList<>();
+        wty1 = new ArrayList<>();
+        mar = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -198,6 +212,10 @@ public class brand3 extends Fragment {
         }
 
         name = view.findViewById(R.id.editText);
+        processes = view.findViewById(R.id.processes);
+        market = view.findViewById(R.id.market);
+        certification_number = view.findViewById(R.id.certification_number);
+        outsourcing = view.findViewById(R.id.outsourcing);
         businessname = view.findViewById(R.id.businessname);
         contact_details = view.findViewById(R.id.contact_details);
         regi = view.findViewById(R.id.editText2);
@@ -325,14 +343,17 @@ public class brand3 extends Fragment {
         man.add("11");
         man.add("12");
 
-
+        mar.add("Domestic");
+        mar.add("Export");
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, man);
 
-
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
+                R.layout.spinner_model, mar);
 
         manufacturing.setAdapter(adapter1);
+        market.setAdapter(adapter2);
 
 
         manufacturing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -349,6 +370,19 @@ public class brand3 extends Fragment {
             }
         });
 
+        market.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mark = mar.get(i);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -379,18 +413,6 @@ public class brand3 extends Fragment {
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                sect = sec1.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -509,6 +531,7 @@ public class brand3 extends Fragment {
                 String we = website.getText().toString();
                 String em = email.getText().toString();
                 String bn = businessname.getText().toString();
+                String cn = certification_number.getText().toString();
 
 
                 String pp;
@@ -607,6 +630,10 @@ public class brand3 extends Fragment {
                                                                                                 em,
                                                                                                 same,
                                                                                                 bn,
+                                                                                                wtyp,
+                                                                                                mark,
+                                                                                                cn,
+                                                                                                outs,
                                                                                                 body
                                                                                         );
 
@@ -1117,6 +1144,7 @@ public class brand3 extends Fragment {
                     expiry.setText(item.getExpiry());
                     website.setText(item.getWebsite());
                     email.setText(item.getEmail());
+                    certification_number.setText(item.getCertification_number());
 
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();
@@ -1173,6 +1201,109 @@ public class brand3 extends Fragment {
                     });
 
 
+                    sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            sect = sec1.get(i);
+
+                            progress.setVisibility(View.VISIBLE);
+
+                            Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
+                            call2.enqueue(new Callback<skillsBean>() {
+                                @Override
+                                public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+
+                                    if (response.body().getStatus().equals("1")) {
+
+                                        wty.clear();
+                                        wty1.clear();
+
+                                        for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                            wty.add(response.body().getData().get(i).getTitle());
+                                            wty1.add(response.body().getData().get(i).getId());
+
+                                        }
+
+
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                                android.R.layout.simple_list_item_multiple_choice, wty);
+
+                                        wtyp = item.getProcesses();
+
+                                        processes.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
+                                            @Override
+                                            public void onItemsSelected(boolean[] selected) {
+
+                                                wtyp = "";
+                                                List<String> sklist = new ArrayList<>();
+
+                                                if (selected[0]) {
+
+                                                    for (int j = 0; j < selected.length; j++) {
+                                                        processes.selectItem(j, false);
+                                                    }
+                                                    processes.selectItem(0, true);
+                                                    sklist.add(wty1.get(0));
+
+                                                } else {
+                                                    for (int i = 0; i < selected.length; i++) {
+                                                        if (selected[i]) {
+
+                                                            sklist.add(wty1.get(i));
+                                                        }
+                                                    }
+                                                }
+
+
+                                                wtyp = TextUtils.join(",", sklist);
+
+                                                Log.d("wtype", wtyp);
+
+                                            }
+                                        });
+
+                                        String[] dd = item.getProcesses().split(",");
+
+                                        int cp = 0;
+                                        for (int i = 0; i < wty1.size(); i++) {
+
+                                            for (int j = 0 ; j < dd.length ; j++)
+                                            {
+
+                                                if (dd[j].equals(wty1.get(i))) {
+                                                    cp = i;
+                                                    processes.selectItem(i , true);
+                                                }
+
+                                            }
+
+
+                                        }
+
+                                    }
+
+                                    progress.setVisibility(View.GONE);
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<skillsBean> call, Throwable t) {
+                                    progress.setVisibility(View.GONE);
+                                }
+                            });
+
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
 
                     final Call<sectorBean> call3 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
 
@@ -1205,6 +1336,23 @@ public class brand3 extends Fragment {
                                 }
                                 certification.setSelection(cp2);
 
+
+
+                                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, cer);
+
+                                outsourcing.setAdapter(adapter2);
+
+                                int cp22 = 0;
+                                for (int i = 0; i < cer1.size(); i++) {
+                                    if (item.getOutsourcing().equals(cer1.get(i))) {
+                                        cp22 = i;
+                                    }
+                                }
+                                outsourcing.setSelection(cp22);
+
+
+
                             }
 
                             certification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1220,6 +1368,19 @@ public class brand3 extends Fragment {
                                     }
 
 
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+
+
+                            outsourcing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    outs = cer1.get(i);
                                 }
 
                                 @Override
@@ -1366,6 +1527,15 @@ public class brand3 extends Fragment {
                         }
                     }
                     manufacturing.setSelection(cp);
+
+
+                    int cp2 = 0;
+                    for (int i = 0; i < mar.size(); i++) {
+                        if (item.getMarket().equals(mar.get(i))) {
+                            cp2 = i;
+                        }
+                    }
+                    market.setSelection(cp2);
 
                 }
 

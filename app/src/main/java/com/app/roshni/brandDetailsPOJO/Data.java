@@ -115,6 +115,18 @@ public class Data {
     @SerializedName("business_name")
     @Expose
     private String business_name;
+    @SerializedName("processes")
+    @Expose
+    private String processes;
+    @SerializedName("market")
+    @Expose
+    private String market;
+    @SerializedName("certification_number")
+    @Expose
+    private String certification_number;
+    @SerializedName("outsourcing")
+    @Expose
+    private String outsourcing;
 
     public String getId() {
         return id;
@@ -410,5 +422,37 @@ public class Data {
 
     public void setBusiness_name(String business_name) {
         this.business_name = business_name;
+    }
+
+    public String getCertification_number() {
+        return certification_number;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public String getOutsourcing() {
+        return outsourcing;
+    }
+
+    public String getProcesses() {
+        return processes;
+    }
+
+    public void setCertification_number(String certification_number) {
+        this.certification_number = certification_number;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
+    }
+
+    public void setOutsourcing(String outsourcing) {
+        this.outsourcing = outsourcing;
+    }
+
+    public void setProcesses(String processes) {
+        this.processes = processes;
     }
 }

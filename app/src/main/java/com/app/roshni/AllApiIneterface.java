@@ -201,7 +201,11 @@ public interface AllApiIneterface {
             @Part("c3") String c3,
             @Part("c4") String c4,
             @Part("c5") String c5,
-            @Part("business_name") String business_name
+            @Part("business_name") String business_name,
+            @Part("processes") String processes,
+            @Part("market") String market,
+            @Part("certification_number") String certification_number,
+            @Part("outsourcing") String outsourcing
     );
 
     @Multipart
@@ -238,6 +242,10 @@ public interface AllApiIneterface {
             @Part("email") String email,
             @Part("same") String same,
             @Part("business_name") String business_name,
+            @Part("processes") String processes,
+            @Part("market") String market,
+            @Part("certification_number") String certification_number,
+            @Part("outsourcing") String outsourcing,
             @Part MultipartBody.Part file1
     );
 

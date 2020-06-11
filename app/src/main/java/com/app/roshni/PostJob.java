@@ -249,6 +249,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                 }
 
+
                 progress.setVisibility(View.GONE);
 
             }
@@ -818,6 +819,10 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                                         finish();
 
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(PostJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
 
 

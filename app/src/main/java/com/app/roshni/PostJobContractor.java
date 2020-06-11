@@ -366,6 +366,10 @@ public class PostJobContractor extends AppCompatActivity {
                                         finish();
 
                                     }
+                                    else
+                                    {
+                                        Toast.makeText(PostJobContractor.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
 
 
                                     progress.setVisibility(View.GONE);

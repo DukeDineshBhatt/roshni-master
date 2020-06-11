@@ -111,7 +111,7 @@ public class brand2 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer , cer1, frm , frm1, frmtyp , frmtyp1, sec, sec1;
+    private List<String> man, cer , cer1, frm , frm1, frmtyp , frmtyp1, sec, sec1 , mar;
 
     private CustomViewPager pager;
 
@@ -136,6 +136,8 @@ public class brand2 extends Fragment {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient mPlacesClient;
 
+    EditText processes , certification_number;
+    Spinner market , outsourcing;
 
     @Nullable
     @Override
@@ -151,6 +153,7 @@ public class brand2 extends Fragment {
         frmtyp1 = new ArrayList<>();
         sec = new ArrayList<>();
         sec1 = new ArrayList<>();
+        mar = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -187,6 +190,11 @@ public class brand2 extends Fragment {
         } catch (Exception e) {
             Log.e("Exception1: %s", e.getMessage());
         }
+
+        processes = view.findViewById(R.id.processes);
+        market = view.findViewById(R.id.market);
+        certification_number = view.findViewById(R.id.certification_number);
+        outsourcing = view.findViewById(R.id.outsourcing);
         phone = view.findViewById(R.id.phone);
         businessname = view.findViewById(R.id.businessname);
         name = view.findViewById(R.id.editText);
@@ -236,6 +244,8 @@ public class brand2 extends Fragment {
 
         firm.setEnabled(false);
         firmtype.setEnabled(false);
+        market.setEnabled(false);
+        outsourcing.setEnabled(false);
 
         sector.setEnabled(false);
         //person.setEnabled(false);
@@ -349,6 +359,9 @@ public class brand2 extends Fragment {
         man.add("11");
         man.add("12");
 
+        mar.add("Domestic");
+        mar.add("Export");
+
         /*frm.add(getString(R.string.sole_properietor));
         frm.add(getString(R.string.partnership));
         frm.add(getString(R.string.pvt_ltd));
@@ -372,10 +385,14 @@ public class brand2 extends Fragment {
 
 
 
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
+                R.layout.spinner_model, mar);
+
+
 
 
         manufacturing.setAdapter(adapter1);
-
+        market.setAdapter(adapter2);
 
 
 
@@ -771,6 +788,8 @@ public class brand2 extends Fragment {
                     email.setText(item.getEmail());
                     phone.setText(item.getPhone());
                     businessname.setText(item.getBusiness_name());
+                    certification_number.setText(item.getCertification_number());
+                    processes.setText(item.getProcesses());
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();
 
@@ -865,6 +884,21 @@ public class brand2 extends Fragment {
                                     }
                                 }
                                 certification.setSelection(cp2);
+
+
+                                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, cer);
+
+                                outsourcing.setAdapter(adapter2);
+
+                                int cp21 = 0;
+                                for (int i = 0; i < cer1.size(); i++) {
+                                    if (item.getOutsourcing().equals(cer1.get(i))) {
+                                        cp21 = i;
+                                    }
+                                }
+                                outsourcing.setSelection(cp21);
+
 
                             }
 
@@ -993,6 +1027,14 @@ public class brand2 extends Fragment {
                         }
                     }
                     manufacturing.setSelection(cp);
+
+                    int cp2 = 0;
+                    for (int i = 0; i < mar.size(); i++) {
+                        if (item.getMarket().equals(mar.get(i))) {
+                            cp2 = i;
+                        }
+                    }
+                    market.setSelection(cp2);
 
                 }
 

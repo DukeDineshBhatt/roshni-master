@@ -41,13 +41,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance;
+    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance , availability;
 
     MultiSelectSpinner skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt;
+    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt , avai;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -83,12 +83,15 @@ public class professional extends Fragment {
         loc = new ArrayList<>();
         ban = new ArrayList<>();
         ban1 = new ArrayList<>();
+        ava = new ArrayList<>();
+        ava1 = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
+        availability = view.findViewById(R.id.availability);
         bank = view.findViewById(R.id.bank);
         skills = view.findViewById(R.id.skills);
         experience = view.findViewById(R.id.experience);
@@ -203,6 +206,43 @@ public class professional extends Fragment {
                 progress.setVisibility(View.GONE);
             }
         });
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call131 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call131.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        ava.add(response.body().getData().get(i).getTitle());
+                        ava1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, ava);
+
+
+                    availability.setAdapter(adapter2);
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
 
         progress.setVisibility(View.VISIBLE);
 
@@ -327,6 +367,21 @@ public class professional extends Fragment {
 
             }
         });
+
+        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                avai = ava1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         bank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -639,6 +694,7 @@ public class professional extends Fragment {
                                 sect,
                                 skil,
                                 expe,
+                                avai,
                                 empl,
                                 emplo,
                                 hhom,

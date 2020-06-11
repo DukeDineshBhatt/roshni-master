@@ -39,11 +39,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerProfessionalProfile extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance;
+    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance , availability;
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -74,12 +74,15 @@ public class WorkerProfessionalProfile extends Fragment {
         loc = new ArrayList<>();
         ban = new ArrayList<>();
         ban1 = new ArrayList<>();
+        ava = new ArrayList<>();
+        ava1 = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
+        availability = view.findViewById(R.id.availability);
         bank = view.findViewById(R.id.bank);
         skills = view.findViewById(R.id.skills);
         experience = view.findViewById(R.id.experience);
@@ -552,6 +555,53 @@ public class WorkerProfessionalProfile extends Fragment {
 
                             }
                             location.setSelection(sp);
+
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call9 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call9.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            ava.clear();
+                            ava1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                ava.add(response.body().getData().get(i).getTitle());
+                                ava1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, ava);
+
+
+                            availability.setAdapter(adapter);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < ava1.size(); i++) {
+                                if (item.get(0).getAvailability().equals(ava1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            availability.setSelection(cp2);
 
 
                         }

@@ -680,7 +680,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/number_of_children_going_to_school" />
+                    android:text="@string/children_going_to_school_between_6_14_yrs" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -692,6 +692,30 @@
 
                     <Spinner
                         android:id="@+id/goingtoschool"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/children_going_to_school_between_15_18_yrs" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/white_back_round">
+
+                    <Spinner
+                        android:id="@+id/goingtoschool2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true" />

@@ -289,4 +289,6 @@
     <string name="type_of_market">Type of Market</string>
     <string name="type_of_unit_processes">Type of Unit/ Processes</string>
     <string name="certified_verified_number">Certified/Verified number</string>
+    <string name="children_going_to_school_between_6_14_yrs">Children going to school between 6-14 yrs.</string>
+    <string name="children_going_to_school_between_15_18_yrs">Children going to school between 15-18 yrs.</string>
 </resources>

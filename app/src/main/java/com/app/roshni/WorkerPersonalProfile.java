@@ -40,7 +40,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerPersonalProfile extends Fragment {
 
-    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
+    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool , goingtoschool2, proof , age;
 
 
     private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu , phone;
@@ -98,6 +98,7 @@ public class WorkerPersonalProfile extends Fragment {
         ski1 = new ArrayList<>();
 
         certified = view.findViewById(R.id.certified);
+        goingtoschool2 = view.findViewById(R.id.goingtoschool2);
         skill_level = view.findViewById(R.id.skill_level);
         certificate_number_title = view.findViewById(R.id.certificate_number_title);
         skill_level_title = view.findViewById(R.id.skill_level_title);
@@ -227,6 +228,7 @@ public class WorkerPersonalProfile extends Fragment {
         fifteento18.setEnabled(false);
         goingtoschool.setEnabled(false);
         age.setEnabled(false);
+        goingtoschool2.setEnabled(false);
 
         certified.setEnabled(false);
         skill_level.setEnabled(false);
@@ -244,6 +246,7 @@ public class WorkerPersonalProfile extends Fragment {
         sixto14.setAdapter(adapter5);
         fifteento18.setAdapter(adapter5);
         goingtoschool.setAdapter(adapter5);
+        goingtoschool2.setAdapter(adapter5);
 
         age.setAdapter(adapter7);
 
@@ -259,6 +262,7 @@ public class WorkerPersonalProfile extends Fragment {
 
             }
         });
+
 
 
         setPrevious();
@@ -571,16 +575,17 @@ public class WorkerPersonalProfile extends Fragment {
 
                             marital.setAdapter(adapter4);
 
+                            int cp2 = 0;
+                            for (int i = 0; i < mar1.size(); i++) {
+                                if (item.get(0).getMarital().equals(mar1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            marital.setSelection(cp2);
 
 
-                            int mt = 0;
-                            for (int j = 0; j < mar1.size(); j++) {
-
-                                if (item.get(0).getMarital().equals(mar1.get(j))) {
-                                    mt = j;
+                                if (item.get(0).getMarital().equals("1")) {
                                     child.setVisibility(View.GONE);
-                                    break;
-
                                 } else {
 
                                     child.setVisibility(View.VISIBLE);
@@ -626,10 +631,17 @@ public class WorkerPersonalProfile extends Fragment {
                                     }
                                     goingtoschool.setSelection(gop);
 
+                                    int gop1 = 0;
+                                    for (int i = 0; i < chi.size(); i++) {
+                                        if (item.get(0).getGoingtoschool2().equals(chi.get(i))) {
+                                            gop1 = i;
+                                        }
+                                    }
+                                    goingtoschool2.setSelection(gop1);
+
 
                                 }
-                            }
-                            marital.setSelection(mt);
+
 
                         }
 

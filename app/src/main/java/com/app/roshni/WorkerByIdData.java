@@ -185,6 +185,12 @@ public class WorkerByIdData {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("availability")
+    @Expose
+    private String availability;
+    @SerializedName("goingtoschool2")
+    @Expose
+    private String goingtoschool2;
 
     public String getUserId() {
         return userId;
@@ -666,4 +672,19 @@ public class WorkerByIdData {
         this.created = created;
     }
 
+    public String getAvailability() {
+        return availability;
+    }
+
+    public String getGoingtoschool2() {
+        return goingtoschool2;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
+    public void setGoingtoschool2(String goingtoschool2) {
+        this.goingtoschool2 = goingtoschool2;
+    }
 }

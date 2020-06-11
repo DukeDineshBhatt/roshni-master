@@ -42,13 +42,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Professional2 extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance;
+    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance  , availability;
 
     MultiSelectSpinner skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt;
+    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt , avai;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -88,9 +88,12 @@ public class Professional2 extends Fragment {
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
+        ava = new ArrayList<>();
+        ava1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
         previous = view.findViewById(R.id.previous);
+        availability = view.findViewById(R.id.availability);
         govtinsurance = view.findViewById(R.id.govtinsurance);
         skills = view.findViewById(R.id.skills);
         bank = view.findViewById(R.id.bank);
@@ -187,6 +190,21 @@ public class Professional2 extends Fragment {
 
             }
         });
+
+        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                avai = ava1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         bank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -320,6 +338,7 @@ public class Professional2 extends Fragment {
                                 sect,
                                 skil,
                                 expe,
+                                avai,
                                 empl,
                                 emplo,
                                 hhom,
@@ -467,6 +486,7 @@ public class Professional2 extends Fragment {
                                                                     sect,
                                                                     skil,
                                                                     expe,
+                                                                    avai,
                                                                     empl,
                                                                     emplo,
                                                                     hhom,
@@ -938,6 +958,62 @@ public class Professional2 extends Fragment {
                         progress.setVisibility(View.GONE);
                     }
                 });
+
+                final Call<sectorBean> call71 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call71.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            ava.clear();
+                            ava1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                ava.add(response.body().getData().get(i).getTitle());
+                                ava1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, ava);
+
+
+                            availability.setAdapter(adapter6);
+
+                            int cp21 = 0;
+                            for (int i = 0; i < ava1.size(); i++) {
+                                if (item.get(0).getAvailability().equals(ava1.get(i))) {
+                                    cp21 = i;
+                                }
+                            }
+                            availability.setSelection(cp21);
+
+
+                            int cp2 = 0;
+                            for (int i = 0; i < ban1.size(); i++) {
+                                if (item.get(0).getBank().equals(ban1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            bank.setSelection(cp2);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
 
                 final Call<sectorBean> call8 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 

@@ -224,7 +224,7 @@
     <string name="do_you_have_bank_account">DO YOU HAVE AN ACTIVE BANK ACCOUNT?</string>
     <string name="bank_account">BANK ACCOUNT</string>
     <string name="hit_enter_to_add_location">hit enter to add location</string>
-    <string name="survey_officer">Survey VALIDATION officer</string>
+    <string name="survey_officer">Verifying Officer</string>
     <string name="approve">APPROVE</string>
     <string name="previous">PREVIOUS</string>
     <string name="faqs1">FAQs</string>
@@ -283,4 +283,7 @@
     <string name="display_email_id">Display Email ID</string>
     <string name="display_all">Display All</string>
     <string name="job_location1">Job Location</string>
+    <string name="no_of_workers_without_bank_account">No of Workers without Bank account</string>
+    <string name="non_school_going">Non school going</string>
+    <string name="children_school_going">Children School going</string>
 </resources>

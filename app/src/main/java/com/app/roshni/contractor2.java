@@ -144,6 +144,8 @@ public class contractor2 extends Fragment {
         this.pager = pager;
     }
 
+    EditText email ,non_school , school , without_bank;
+
     int ag2 = 0;
     String same = "0";
     @Nullable
@@ -211,7 +213,10 @@ public class contractor2 extends Fragment {
             Log.e("Exception1: %s", e.getMessage());
         }
 
-
+        email = view.findViewById(R.id.email);
+        non_school = view.findViewById(R.id.non_school);
+        school = view.findViewById(R.id.school);
+        without_bank = view.findViewById(R.id.without_bank);
         looms = view.findViewById(R.id.looms);
         migrant = view.findViewById(R.id.migrant);
         local = view.findViewById(R.id.local);
@@ -533,6 +538,11 @@ public class contractor2 extends Fragment {
                 String mig = migrant.getText().toString();
                 String loca = local.getText().toString();
 
+                String ema = email.getText().toString();
+                String nons = non_school.getText().toString();
+                String sch = school.getText().toString();
+                String with = without_bank.getText().toString();
+
                 String pp;
                 String ps;
                 String pd;
@@ -637,6 +647,10 @@ public class contractor2 extends Fragment {
                                                             outs,
                                                             mig,
                                                             loca,
+                                                            with,
+                                                            sch,
+                                                            nons,
+                                                            ema,
                                                             body
                                                     );
 
@@ -1072,6 +1086,12 @@ public class contractor2 extends Fragment {
                 about.setText(item.getAbout());
                 migrant.setText(item.getMigrant());
                 local.setText(item.getLocal());
+
+                without_bank.setText(item.getWithout_bank());
+                school.setText(item.getSchool());
+                non_school.setText(item.getNon_school());
+                email.setText(item.getEmail());
+
                 ag2 = getAge(item.getDob());
 
 

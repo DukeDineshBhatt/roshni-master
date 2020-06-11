@@ -750,6 +750,69 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/no_of_workers_without_bank_account" />
+
+            <EditText
+                android:id="@+id/without_bank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/children_school_going" />
+
+            <EditText
+                android:id="@+id/school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/non_school_going" />
+
+            <EditText
+                android:id="@+id/non_school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -924,7 +987,6 @@
                 android:hint="@string/hit_enter_to_add_products"
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
-                android:layout_marginBottom="16dp"
                 android:enabled="false"
                 app:allowSpaceInTag="true"
                 app:tagsBackground="@drawable/blue_back_round"
@@ -937,6 +999,26 @@
                 app:tagsTextColor="#ffffff"
                 app:tagsTextSize="12sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/email_address" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
 
         </LinearLayout>
 

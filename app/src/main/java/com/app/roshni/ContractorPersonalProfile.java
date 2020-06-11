@@ -101,6 +101,7 @@ public class ContractorPersonalProfile extends Fragment {
         this.pager = pager;
     }
 
+    EditText email ,non_school , school , without_bank;
 
     @Nullable
     @Override
@@ -127,6 +128,10 @@ public class ContractorPersonalProfile extends Fragment {
         out = new ArrayList<>();
         out1 = new ArrayList<>();
 
+        email = view.findViewById(R.id.email);
+        non_school = view.findViewById(R.id.non_school);
+        school = view.findViewById(R.id.school);
+        without_bank = view.findViewById(R.id.without_bank);
         phone = view.findViewById(R.id.phone);
         migrant = view.findViewById(R.id.migrant);
         local = view.findViewById(R.id.local);
@@ -406,6 +411,10 @@ public class ContractorPersonalProfile extends Fragment {
                 phone.setText(item.getPhone());
                 migrant.setText(item.getMigrant());
                 local.setText(item.getLocal());
+                non_school.setText(item.getNon_school());
+                school.setText(item.getSchool());
+                without_bank.setText(item.getWithout_bank());
+                email.setText(item.getEmail());
 
                 final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 

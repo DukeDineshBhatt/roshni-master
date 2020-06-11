@@ -158,6 +158,8 @@ public class contractor extends Fragment {
 
     String same = "0";
 
+    EditText email ,non_school , school , without_bank;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -222,6 +224,10 @@ public class contractor extends Fragment {
         }
 
 
+        email = view.findViewById(R.id.email);
+        non_school = view.findViewById(R.id.non_school);
+        school = view.findViewById(R.id.school);
+        without_bank = view.findViewById(R.id.without_bank);
         looms = view.findViewById(R.id.looms);
         migrant = view.findViewById(R.id.migrant);
         local = view.findViewById(R.id.local);
@@ -1116,6 +1122,12 @@ public class contractor extends Fragment {
                 String mig = migrant.getText().toString();
                 String loca = local.getText().toString();
 
+
+                String ema = email.getText().toString();
+                String nons = non_school.getText().toString();
+                String sch = school.getText().toString();
+                String with = without_bank.getText().toString();
+
                 String pp;
                 String ps;
                 String pd;
@@ -1219,7 +1231,11 @@ public class contractor extends Fragment {
                                                             String.valueOf(c5),
                                                             outs,
                                                             mig,
-                                                            loca
+                                                            loca,
+                                                            with,
+                                                            sch,
+                                                            nons,
+                                                            ema
                                                     );
 
                                                     call.enqueue(new Callback<verifyBean>() {

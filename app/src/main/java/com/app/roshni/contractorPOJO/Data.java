@@ -149,6 +149,18 @@ public class Data {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("without_bank")
+    @Expose
+    private String without_bank;
+    @SerializedName("school")
+    @Expose
+    private String school;
+    @SerializedName("non_school")
+    @Expose
+    private String non_school;
+    @SerializedName("email")
+    @Expose
+    private String email;
 
     public String getId() {
         return id;
@@ -534,4 +546,35 @@ public class Data {
         this.created = created;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNon_school() {
+        return non_school;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public String getWithout_bank() {
+        return without_bank;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNon_school(String non_school) {
+        this.non_school = non_school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setWithout_bank(String without_bank) {
+        this.without_bank = without_bank;
+    }
 }

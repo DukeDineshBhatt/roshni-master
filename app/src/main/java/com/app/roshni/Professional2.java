@@ -42,22 +42,22 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Professional2 extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance  , availability;
+    Spinner sector, experience, employment, home, workers, location, bank, govtinsurance, availability;
 
     MultiSelectSpinner skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt , avai;
+    String sect, skil, expe, empl, hhom, work, loom, loca, bann, govt, avai;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1;
+    List<String> sec, ski, exp, exp1, emp, emp1, hom, hom1, wor, loc, ban, ban1, ava, ava1, gov, gov1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
 
-    EditText employer , looms;
+    EditText employer, looms;
     String id, profile_id;
     boolean loc_bool = false;
 
-    Button reject, approve , previous;
+    Button reject, approve, previous;
     EditText editTxtLoc;
     LinearLayout yes;
 
@@ -84,6 +84,8 @@ public class Professional2 extends Fragment {
         loc = new ArrayList<>();
         ban = new ArrayList<>();
         ban1 = new ArrayList<>();
+        gov = new ArrayList<>();
+        gov1 = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
@@ -181,7 +183,7 @@ public class Professional2 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                govt = ban1.get(i);
+                govt = gov1.get(i);
 
             }
 
@@ -297,13 +299,6 @@ public class Professional2 extends Fragment {
         progress.setVisibility(View.VISIBLE);
 
 
-
-
-
-
-
-
-
         approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -331,7 +326,7 @@ public class Professional2 extends Fragment {
 
                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                        Log.d("asdsad" , SharePreferenceUtils.getInstance().getString("user_id"));
+                        Log.d("asdsad", SharePreferenceUtils.getInstance().getString("user_id"));
 
                         Call<verifyBean> call = cr.updateWorkerProfessional2(
                                 SharePreferenceUtils.getInstance().getString("survey_id"),
@@ -428,7 +423,6 @@ public class Professional2 extends Fragment {
         });
 
 
-
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -461,100 +455,74 @@ public class Professional2 extends Fragment {
                             Log.d("res", value);
 
                             if (sect.length() > 0) {
-                                if (skil.length() > 0) {
-                                    if (expe.length() > 0) {
-                                        if (empl.length() > 0) {
-                                            if (hhom.length() > 0) {
-                                                if (work.length() > 0) {
-                                                    if (loom.length() > 0) {
-                                                        if (loca.length() > 0) {
+                                if (hhom.length() > 0) {
 
-                                                            progress.setVisibility(View.VISIBLE);
+                                    progress.setVisibility(View.VISIBLE);
 
-                                                            Bean b = (Bean) getContext().getApplicationContext();
+                                    Bean b = (Bean) getContext().getApplicationContext();
 
-                                                            Retrofit retrofit = new Retrofit.Builder()
-                                                                    .baseUrl(b.baseurl)
-                                                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                                                    .addConverterFactory(GsonConverterFactory.create())
-                                                                    .build();
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(b.baseurl)
+                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
 
-                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                                                            Call<verifyBean> call = cr.rejectWorkerProfessional(
-                                                                    profile_id,
-                                                                    sect,
-                                                                    skil,
-                                                                    expe,
-                                                                    avai,
-                                                                    empl,
-                                                                    emplo,
-                                                                    hhom,
-                                                                    work,
-                                                                    loom,
-                                                                    loca,
-                                                                    value,
-                                                                    bann,
-                                                                    SharePreferenceUtils.getInstance().getString("id"),
-                                                                    govt
-                                                            );
+                                    Call<verifyBean> call = cr.rejectWorkerProfessional(
+                                            profile_id,
+                                            sect,
+                                            skil,
+                                            expe,
+                                            avai,
+                                            empl,
+                                            emplo,
+                                            hhom,
+                                            work,
+                                            loom,
+                                            loca,
+                                            value,
+                                            bann,
+                                            SharePreferenceUtils.getInstance().getString("id"),
+                                            govt
+                                    );
 
-                                                            call.enqueue(new Callback<verifyBean>() {
-                                                                @Override
-                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                    call.enqueue(new Callback<verifyBean>() {
+                                        @Override
+                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
-                                                                    if (response.body().getStatus().equals("1")) {
-                                                                        Data item = response.body().getData();
+                                            if (response.body().getStatus().equals("1")) {
+                                                Data item = response.body().getData();
 
-                                                                        Intent intent = new Intent(getContext(), MainActivity4.class);
-                                                                        startActivity(intent);
-                                                                        getActivity().finish();
+                                                Intent intent = new Intent(getContext(), MainActivity4.class);
+                                                startActivity(intent);
+                                                getActivity().finish();
 
 
-                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                    } else {
-                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                    }
-
-
-                                                                    progress.setVisibility(View.GONE);
-
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                    progress.setVisibility(View.GONE);
-                                                                }
-                                                            });
-
-                                                        } else {
-                                                            Toast.makeText(getContext(), "Invalid location", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(getContext(), "Invalid no. of looms", Toast.LENGTH_SHORT).show();
-                                                    }
-
-                                                } else {
-                                                    Toast.makeText(getContext(), "Invalid no. of workers", Toast.LENGTH_SHORT).show();
-                                                }
+                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
-                                        } else {
-                                            Toast.makeText(getContext(), "Invalid employment status", Toast.LENGTH_SHORT).show();
+
+
+                                            progress.setVisibility(View.GONE);
+
                                         }
-                                    } else {
-                                        Toast.makeText(getContext(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                                    }
+
+                                        @Override
+                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                            progress.setVisibility(View.GONE);
+                                        }
+                                    });
                                 } else {
-                                    Toast.makeText(getContext(), "Invalid skill", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
                             }
 
                         } else {
-                            
+
                             Toast.makeText(getContext(), "Invalid Reason ", Toast.LENGTH_SHORT).show();
 
                         }
@@ -565,7 +533,7 @@ public class Professional2 extends Fragment {
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled.
-                        Log.d("CANCEL","cancel");
+                        Log.d("CANCEL", "cancel");
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -605,7 +573,7 @@ public class Professional2 extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(id , SharePreferenceUtils.getInstance().getString("lang"));
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(id, SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
@@ -728,12 +696,11 @@ public class Professional2 extends Fragment {
                                     int cp = 0;
                                     for (int i = 0; i < ski1.size(); i++) {
 
-                                        for (int j = 0 ; j < dd.length ; j++)
-                                        {
+                                        for (int j = 0; j < dd.length; j++) {
 
                                             if (dd[j].equals(ski1.get(i))) {
                                                 cp = i;
-                                                skills.selectItem(i , true);
+                                                skills.selectItem(i, true);
                                             }
 
                                         }
@@ -798,7 +765,6 @@ public class Professional2 extends Fragment {
                         }
 
 
-
                         progress.setVisibility(View.GONE);
 
                     }
@@ -842,7 +808,6 @@ public class Professional2 extends Fragment {
                             employment.setSelection(cp2);
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -890,7 +855,6 @@ public class Professional2 extends Fragment {
                         }
 
 
-
                         progress.setVisibility(View.GONE);
 
                     }
@@ -921,20 +885,9 @@ public class Professional2 extends Fragment {
 
                             ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
                                     R.layout.spinner_model, ban);
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
-                                    R.layout.spinner_model, ban);
 
 
                             bank.setAdapter(adapter6);
-                            govtinsurance.setAdapter(adapter6);
-
-                            int cp21 = 0;
-                            for (int i = 0; i < ban1.size(); i++) {
-                                if (item.get(0).getGovt().equals(ban1.get(i))) {
-                                    cp21 = i;
-                                }
-                            }
-                            govtinsurance.setSelection(cp21);
 
 
                             int cp2 = 0;
@@ -947,6 +900,51 @@ public class Professional2 extends Fragment {
 
                         }
 
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call72 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call72.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            gov.clear();
+                            gov1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                gov.add(response.body().getData().get(i).getTitle());
+                                gov1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, gov);
+
+
+                            govtinsurance.setAdapter(adapter6);
+
+                            int cp21 = 0;
+                            for (int i = 0; i < gov1.size(); i++) {
+                                if (item.get(0).getGovt().equals(gov1.get(i))) {
+                                    cp21 = i;
+                                }
+                            }
+                            govtinsurance.setSelection(cp21);
+
+
+                        }
 
 
                         progress.setVisibility(View.GONE);
@@ -1001,7 +999,6 @@ public class Professional2 extends Fragment {
                             bank.setSelection(cp2);
 
                         }
-
 
 
                         progress.setVisibility(View.GONE);
@@ -1060,7 +1057,6 @@ public class Professional2 extends Fragment {
                         }
 
 
-
                         progress.setVisibility(View.GONE);
 
                     }
@@ -1079,9 +1075,6 @@ public class Professional2 extends Fragment {
                     }
                 }
                 workers.setSelection(chp);
-
-
-
 
 
             }

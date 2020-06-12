@@ -47,7 +47,7 @@ public class professional extends Fragment {
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt , avai;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -85,6 +85,8 @@ public class professional extends Fragment {
         ban1 = new ArrayList<>();
         ava = new ArrayList<>();
         ava1 = new ArrayList<>();
+        gov = new ArrayList<>();
+        gov1 = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
@@ -300,11 +302,7 @@ public class professional extends Fragment {
                     ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
                             R.layout.spinner_model, ban);
 
-                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, ban);
 
-
-                    govtinsurance.setAdapter(adapter7);
 
                     bank.setAdapter(adapter6);
                 }
@@ -318,6 +316,47 @@ public class professional extends Fragment {
                 progress.setVisibility(View.GONE);
             }
         });
+
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call331 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call331.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        gov.add(response.body().getData().get(i).getTitle());
+                        gov1.add(response.body().getData().get(i).getId());
+
+                    }
+
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, gov);
+
+
+                    govtinsurance.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
 
         progress.setVisibility(View.VISIBLE);
 
@@ -401,7 +440,7 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                govt = ban1.get(i);
+                govt = gov1.get(i);
 
             }
 

@@ -647,6 +647,12 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("workersjoint/api/getGovt.php")
+    Call<sectorBean> getGovt(
+            @Part("lang") String lang
+    );
+
+    @Multipart
     @POST("workersjoint/api/getAvailability.php")
     Call<sectorBean> getAvailability(
             @Part("lang") String lang

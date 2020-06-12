@@ -209,7 +209,7 @@
     <string name="place_of_employment1">Place of Employment</string>
     <string name="man_days_required2">MAN-DAYS REQUIRED <font color="red">*</font></string>
     <string name="enter_id_number">enter id number</string>
-    <string name="google_maps_key" translatable="false">AIzaSyCgsH_uHFwFsCY4hUXgJsIjnSx2DwxK1Rw</string>
+    <string name="google_maps_key" translatable="false">AIzaSyC3Aly60WKkfjb_PXa5ELNev8TKYQXUGzc</string>
     <string name="enter_religion">enter religion</string>
     <string name="i_agree_to_all_terms_amp_conditions_and_data_privacy"><![CDATA[I agree to all terms & conditions and data privacy.]]></string>
     <string name="i_agree_that_goodweave_have_no_responsibility_or_commitment_to_provide_business_or_any_financial_obligation_related_to_it">I agree that Goodweave have no responsibility or commitment to provide business or any financial obligation related to it.</string>
@@ -272,7 +272,7 @@
     <string name="skill_level2">SKILL LEVEL</string>
     <string name="annual_income">ANNUAL INCOME</string>
     <string name="other_sources_of_income">OTHER SOURCES OF INCOME</string>
-    <string name="are_you_covered_under_any_of_the_govt_health_insurance_scheme">Are you covered under any of the Govt Health Insurance scheme ?</string>
+    <string name="are_you_covered_under_any_of_the_govt_health_insurance_scheme">Social Security Benefits?</string>
     <string name="enter_religion3">ENTER RELIGION</string>
     <string name="do_you_outsource_jobs_to_other_workers">Do you outsource jobs to other workers</string>
     <string name="migrant_workers">Migrant Workers</string>

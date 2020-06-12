@@ -5,7 +5,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     signingConfigs {
         config {
-            storeFile file('D:\\mukul\\StudioProjects\\goodbusinessapp\\roshni.jks')
+            storeFile file('C:\\Users\\mukul\\StudioProjects\\roshni-master\\roshni.jks')
             storePassword 'roshni@123'
             keyAlias = 'roshni'
             keyPassword 'roshni@123'

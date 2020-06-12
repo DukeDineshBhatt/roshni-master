@@ -104,7 +104,7 @@ public class Personal2 extends Fragment {
 
     private CircleImageView image;
 
-    private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin , goin2, id, prf, anua;
+    private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, goin2, id, prf, anua;
 
     private CheckBox check;
     private File f1;
@@ -122,7 +122,7 @@ public class Personal2 extends Fragment {
     private List<String> gen, gen1, cat, cat1, rel, rel1, edu, edu1, mar, mar1, chi, prof, prof1, agg, anu;
     private LinearLayout permanent, child;
 
-    private Button upload, submit , previous;
+    private Button upload, submit, previous;
     private Location mLastKnownLocation;
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -372,12 +372,12 @@ public class Personal2 extends Fragment {
         });*/
 
 
-       previous.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               getActivity().finish();
-           }
-       });
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 
         cdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -865,18 +865,12 @@ public class Personal2 extends Fragment {
                                             if (ps.length() > 0) {
                                                 if (pp.length() == 0 || pp.length() == 6) {
 
+                                                    if (Integer.parseInt(belo) <= Integer.parseInt(chil)) {
+                                                        if (Integer.parseInt(sixt) <= Integer.parseInt(chil)) {
 
-                                                    if (Integer.parseInt(belo) <= Integer.parseInt(chil))
-                                                    {
-                                                        if (Integer.parseInt(sixt) <= Integer.parseInt(chil))
-                                                        {
-
-                                                            if (Integer.parseInt(fift) <= Integer.parseInt(chil))
-                                                            {
-                                                                if (Integer.parseInt(goin) <= Integer.parseInt(chil))
-                                                                {
-                                                                    if (Integer.parseInt(goin2) <= Integer.parseInt(chil))
-                                                                    {
+                                                            if (Integer.parseInt(fift) <= Integer.parseInt(chil)) {
+                                                                if (Integer.parseInt(goin) <= Integer.parseInt(chil)) {
+                                                                    if (Integer.parseInt(goin2) <= Integer.parseInt(chil)) {
                                                                         MultipartBody.Part body = null;
                                                                         try {
 
@@ -1010,38 +1004,23 @@ public class Personal2 extends Fragment {
                                                                             }
                                                                         });
 
-                                                                    }
-                                                                    else
-                                                                    {
+                                                                    } else {
                                                                         Toast.makeText(getContext(), "Invalid Number of children going to school b/w 15-18", Toast.LENGTH_SHORT).show();
                                                                     }
 
 
-
-
-                                                                }
-                                                                else
-                                                                {
+                                                                } else {
                                                                     Toast.makeText(getContext(), "Invalid Number of children going to school b/w 6-14", Toast.LENGTH_SHORT).show();
                                                                 }
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 Toast.makeText(getContext(), "Invalid Number of Children in the age group of 15-18 years", Toast.LENGTH_SHORT).show();
                                                             }
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             Toast.makeText(getContext(), "Invalid Number of Children in the age group of 6-14 years", Toast.LENGTH_SHORT).show();
                                                         }
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         Toast.makeText(getContext(), "Invalid Number of Children below 6 years", Toast.LENGTH_SHORT).show();
                                                     }
-
-
-
 
 
                                                 } else {

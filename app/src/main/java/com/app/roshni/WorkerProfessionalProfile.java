@@ -43,7 +43,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1;
+    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
@@ -76,6 +76,8 @@ public class WorkerProfessionalProfile extends Fragment {
         ban1 = new ArrayList<>();
         ava = new ArrayList<>();
         ava1 = new ArrayList<>();
+        gov1 = new ArrayList<>();
+        gov = new ArrayList<>();
 
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
@@ -483,7 +485,6 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
                             bank.setAdapter(adapter6);
-                            govtinsurance.setAdapter(adapter6);
 
                             int cp2 = 0;
                             for (int i = 0; i < ban1.size(); i++) {
@@ -493,9 +494,49 @@ public class WorkerProfessionalProfile extends Fragment {
                             }
                             bank.setSelection(cp2);
 
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call71 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call71.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            gov.clear();
+                            gov1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                gov.add(response.body().getData().get(i).getTitle());
+                                gov1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, gov);
+
+
+                            govtinsurance.setAdapter(adapter6);
+
+
                             int cp21 = 0;
-                            for (int i = 0; i < ban1.size(); i++) {
-                                if (item.get(0).getGovt().equals(ban1.get(i))) {
+                            for (int i = 0; i < gov1.size(); i++) {
+                                if (item.get(0).getGovt().equals(gov1.get(i))) {
                                     cp21 = i;
                                 }
                             }
@@ -514,6 +555,7 @@ public class WorkerProfessionalProfile extends Fragment {
                         progress.setVisibility(View.GONE);
                     }
                 });
+
 
                 final Call<sectorBean> call8 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 

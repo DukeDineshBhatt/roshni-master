@@ -93,7 +93,7 @@ public class Signup extends AppCompatActivity {
                                     intent.putExtra("phone" , pho);
                                     startActivity(intent);
                                     Toast.makeText(Signup.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
-                                    finishAffinity();
+                                    //finishAffinity();
 
                                 }
                                 else

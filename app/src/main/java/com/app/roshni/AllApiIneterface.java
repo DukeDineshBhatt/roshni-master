@@ -545,6 +545,13 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("workersjoint/api/getContractorSector.php")
+    Call<sectorBean> getContractorSector(
+            @Part("lang") String lang,
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
     @POST("workersjoint/api/getCerts.php")
     Call<sectorBean> getCerts(
             @Part("lang") String lang

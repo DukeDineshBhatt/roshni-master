@@ -100,13 +100,13 @@ import static android.app.Activity.RESULT_OK;
 
 public class contractor2 extends Fragment {
 
-    private Spinner gender, establishment, experience, availability, firm, proof, firmtype, sector , outsource;
+    private Spinner gender, establishment, experience, availability, firm, proof, firmtype, sector, outsource;
 
     MultiSelectSpinner work;
 
-    private String gend, sect, esta, expe, wtyp = "", avai, frmy, prf, frmytyp , outs;
+    private String gend, sect, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, outs;
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , looms , migrant , local;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms, migrant, local;
 
     TagsEditText location;
 
@@ -118,7 +118,7 @@ public class contractor2 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1, out, out1;
 
     private Uri uri;
     private File f1;
@@ -137,17 +137,18 @@ public class contractor2 extends Fragment {
     private CustomViewPager pager;
     String id;
 
-    String lat = "" , lng = "";
-    String lat1 = "" , lng1 = "";
+    String lat = "", lng = "";
+    String lat1 = "", lng1 = "";
 
     void setData(CustomViewPager pager) {
         this.pager = pager;
     }
 
-    EditText email ,non_school , school , without_bank;
+    EditText email, non_school, school, without_bank;
 
     int ag2 = 0;
     String same = "0";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -182,6 +183,15 @@ public class contractor2 extends Fragment {
 
         try {
             if (mLocationPermissionGranted) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                }
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -256,27 +266,14 @@ public class contractor2 extends Fragment {
 
 
 
-        est.add("1");
-        est.add("2");
-        est.add("3");
-        est.add("4");
-        est.add("5");
-        est.add("6");
-        est.add("7");
-        est.add("8");
-        est.add("9");
-        est.add("10");
-        est.add("11");
-        est.add("12");
-        est.add("13");
-        est.add("14");
-        est.add("15");
-        est.add("16");
-        est.add("17");
-        est.add("18");
-        est.add("19");
-        est.add("20");
-        est.add("20+");
+        est.add("2020-2024");
+        est.add("2015-2019");
+        est.add("2010-2014");
+        est.add("2005-2009");
+        est.add("2000-2004");
+        est.add("1975-1999");
+        est.add("1950-1974");
+        est.add("before 1950");
 
 
         permanent = view.findViewById(R.id.permanent);

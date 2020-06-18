@@ -270,7 +270,7 @@ public class SignupLogin extends AppCompatActivity {
                                 intent.putExtra("phone" , pho);
                                 startActivity(intent);
                                 Toast.makeText(SignupLogin.this, R.string.please_verify_otp, Toast.LENGTH_SHORT).show();
-                                finish();
+                                //finish();
 
                             } else if(response.body().getStatus().equals("2"))
                             {
@@ -279,7 +279,7 @@ public class SignupLogin extends AppCompatActivity {
 
                                 Intent intent = new Intent(SignupLogin.this, EnterPIN.class);
                                 startActivity(intent);
-                                finishAffinity();
+                                //finishAffinity();
                             }
                             else if (response.body().getStatus().equals("3"))
                             {
@@ -381,7 +381,7 @@ public class SignupLogin extends AppCompatActivity {
                                 intent.putExtra("phone" , pho);
                                 startActivity(intent);
                                 Toast.makeText(SignupLogin.this, R.string.please_verify_otp, Toast.LENGTH_SHORT).show();
-                                finish();
+                                //finish();
 
                             }
                             else
@@ -421,7 +421,7 @@ public class SignupLogin extends AppCompatActivity {
                     Intent intent = new Intent(SignupLogin.this , Signup.class);
                     intent.putExtra("type" , type);
                     startActivity(intent);
-                    finishAffinity();
+                    //finishAffinity();
 
             }
         });

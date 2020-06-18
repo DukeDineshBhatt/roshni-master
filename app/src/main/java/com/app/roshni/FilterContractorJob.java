@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
@@ -33,9 +34,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class FilterContractorJob extends AppCompatActivity {
 
     ImageView cross;
-    ChipGroup skills, experience;
+    ChipGroup location, sector;
+    TextView start , end;
 
-    List<String> sk, ex;
+    List<String> lo, se;
 
     ProgressBar progress;
     LayoutInflater inflater;
@@ -59,15 +61,17 @@ public class FilterContractorJob extends AppCompatActivity {
         ski = new ArrayList<>();
 
 
-        sk = new ArrayList<>();
+        lo = new ArrayList<>();
 
-        ex = new ArrayList<>();
+        se = new ArrayList<>();
 
 
-        skills = findViewById(R.id.skills);
+        location = findViewById(R.id.location);
         cross = findViewById(R.id.imageButton4);
+        start = findViewById(R.id.start);
+        end = findViewById(R.id.end);
 
-        experience = findViewById(R.id.experience);
+        sector = findViewById(R.id.sector);
 
 
         progress = findViewById(R.id.progressBar6);
@@ -87,54 +91,6 @@ public class FilterContractorJob extends AppCompatActivity {
         inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
 
-        exp.add("0 to 2 years");
-        exp.add("3 to 5 years");
-        exp.add("5 to 10 years");
-        exp.add("more than 10 years");
-
-
-        experience.removeAllViews();
-
-        String[] exp1 = expe1.split(",");
-
-        for (int i = 0; i < exp.size(); i++) {
-
-            Chip chip = (Chip) inflater.inflate(R.layout.chip, null);
-            chip.setText(exp.get(i));
-
-            for (String s : exp1) {
-                if (exp.get(i).equals(s)) {
-                    chip.setChecked(true);
-                }
-            }
-
-            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    if (b) {
-                        ex.add(compoundButton.getText().toString());
-                    } else {
-                        ex.remove(compoundButton.getText().toString());
-                    }
-
-                }
-            });
-
-            experience.addView(chip);
-
-        }
-
-
-        /*ski.add("Embroidery");
-        ski.add("Adda-Work");
-        ski.add("Fashion Jewelry");
-        ski.add("Bead-Work");
-        ski.add("Stone-Work");
-        ski.add("Artificial Jewelry");
-*/
-
-
         progress.setVisibility(View.VISIBLE);
 
         Bean b = (Bean) getApplicationContext();
@@ -148,13 +104,13 @@ public class FilterContractorJob extends AppCompatActivity {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        final Call<skillsBean> call = cr.getRoles(SharePreferenceUtils.getInstance().getString("sector") , SharePreferenceUtils.getInstance().getString("lang"));
+        final Call<sectorBean> call = cr.getPlace(SharePreferenceUtils.getInstance().getString("lang"));
 
-        call.enqueue(new Callback<skillsBean>() {
+        call.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
 
-                skills.removeAllViews();
+                location.removeAllViews();
 
                 String[] ski1 = skil1.split(",");
 
@@ -177,17 +133,17 @@ public class FilterContractorJob extends AppCompatActivity {
 
                                 if (b)
                                 {
-                                    sk.add(compoundButton.getText().toString());
+                                    lo.add(compoundButton.getText().toString());
                                 }
                                 else
                                 {
-                                    sk.remove(compoundButton.getText().toString());
+                                    lo.remove(compoundButton.getText().toString());
                                 }
 
                             }
                         });
 
-                        skills.addView(chip);
+                        location.addView(chip);
 
 
                     }
@@ -197,46 +153,75 @@ public class FilterContractorJob extends AppCompatActivity {
                 }
 
 
+                progress.setVisibility(View.GONE);
 
-               /* for (int i = 0; i < ski.size(); i++) {
+            }
 
-                    Chip chip = (Chip) inflater.inflate(R.layout.chip, null);
-                    chip.setText(ski.get(i));
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
 
-                    for (String s : ski1) {
-                        if (ski.get(i).equals(s)) {
-                            chip.setChecked(true);
+
+        final Call<sectorBean> call2 = cr.getContractorSector(SharePreferenceUtils.getInstance().getString("lang") , SharePreferenceUtils.getInstance().getString("user_id"));
+
+        call2.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                sector.removeAllViews();
+
+                String[] ski1 = skil1.split(",");
+
+                if (response.body().getStatus().equals("1")) {
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        Chip chip = (Chip) inflater.inflate(R.layout.chip , null);
+                        chip.setText(response.body().getData().get(i).getTitle());
+
+                        for (String s : ski1) {
+                            if (response.body().getData().get(i).getTitle().equals(s)) {
+                                chip.setChecked(true);
+                            }
                         }
+
+                        chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                                if (b)
+                                {
+                                    se.add(compoundButton.getText().toString());
+                                }
+                                else
+                                {
+                                    se.remove(compoundButton.getText().toString());
+                                }
+
+                            }
+                        });
+
+                        sector.addView(chip);
+
+
                     }
 
-                    chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                            if (b) {
-                                sk.add(compoundButton.getText().toString());
-                            } else {
-                                sk.remove(compoundButton.getText().toString());
-                            }
 
-                        }
-                    });
+                }
 
-                    skills.addView(chip);
-
-                }*/
 
                 progress.setVisibility(View.GONE);
 
             }
 
             @Override
-            public void onFailure(Call<skillsBean> call, Throwable t) {
+            public void onFailure(Call<sectorBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
-
-
 
 
 
@@ -244,14 +229,14 @@ public class FilterContractorJob extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                skills.clearCheck();
+                location.clearCheck();
 
-                experience.clearCheck();
+                sector.clearCheck();
 
 
-                sk.clear();
+                lo.clear();
 
-                ex.clear();
+                se.clear();
 
 
             }
@@ -262,8 +247,8 @@ public class FilterContractorJob extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String skil = TextUtils.join(",", sk);
-                String expe = TextUtils.join(",", ex);
+                String skil = TextUtils.join(",", lo);
+                String expe = TextUtils.join(",", se);
 
 
                 Intent intent = new Intent();

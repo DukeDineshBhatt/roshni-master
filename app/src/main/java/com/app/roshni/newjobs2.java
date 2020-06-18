@@ -52,7 +52,7 @@ public class newjobs2 extends Fragment {
     ImageView nodata;
     TextView date;
     String dd;
-    List<String> sk , ex;
+    List<String> lo , se;
     FloatingActionButton filter;
 
     @Nullable
@@ -61,9 +61,9 @@ public class newjobs2 extends Fragment {
         View view = inflater.inflate(R.layout.jobs_layout3, container, false);
 
         list = new ArrayList<>();
-        sk = new ArrayList<>();
+        lo = new ArrayList<>();
 
-        ex = new ArrayList<>();
+        se = new ArrayList<>();
 
 
         grid = view.findViewById(R.id.grid);
@@ -174,9 +174,9 @@ public class newjobs2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String skil = TextUtils.join(",", sk);
+                String skil = TextUtils.join(",", lo);
 
-                String expe = TextUtils.join(",", ex);
+                String expe = TextUtils.join(",", se);
 
 
 
@@ -190,9 +190,9 @@ public class newjobs2 extends Fragment {
 
 
                 Intent intent = new Intent(getContext() , FilterContractorJob.class);
-                intent.putExtra("skill" , skil);
+                intent.putExtra("location" , skil);
 
-                intent.putExtra("experience" , expe);
+                intent.putExtra("sector" , expe);
 
 
 
@@ -251,8 +251,8 @@ public class newjobs2 extends Fragment {
 
 
 
-                ex.clear();
-                sk.clear();
+                lo.clear();
+                se.clear();
 
 
                 list.clear();
@@ -264,21 +264,21 @@ public class newjobs2 extends Fragment {
 
                 ll1 = list;
 
-                if (skil1.length() > 0)
+                if (loca1.length() > 0)
                 {
-                    String [] ski1 = skil1.split(",");
-                    sk.addAll(Arrays.asList(ski1));
+                    String [] ski1 = loca1.split(",");
+                    lo.addAll(Arrays.asList(ski1));
 
                     ll2.clear();
 
                     for (int i = 0 ; i < ll1.size() ; i++)
                     {
-                        for (int j = 0 ; j < sk.size() ; j++)
+                        for (int j = 0 ; j < lo.size() ; j++)
                         {
 
                             //Log.d("sec" , sk.get(j));
                             //Log.d("sec1" , ll1.get(i).getJobType());
-                            if (ll1.get(i).getJobType().equals(sk.get(j)))
+                            if (ll1.get(i).getPlace().equals(lo.get(j)))
                             {
                                 ll2.add(ll1.get(i));
                             }
@@ -290,7 +290,7 @@ public class newjobs2 extends Fragment {
                 }
                 else
                 {
-                    sk.clear();
+                    lo.clear();
                     ll1 = list;
                 }
 
@@ -300,18 +300,18 @@ public class newjobs2 extends Fragment {
 
 
 
-                if (expe1.length() > 0)
+                if (sect1.length() > 0)
                 {
-                    String [] exp1 = expe1.split(",");
-                    ex.addAll(Arrays.asList(exp1));
+                    String [] exp1 = sect1.split(",");
+                    se.addAll(Arrays.asList(exp1));
 
                     ll2.clear();
 
                     for (int i = 0 ; i < ll1.size() ; i++)
                     {
-                        for (int j = 0 ; j < ex.size() ; j++)
+                        for (int j = 0 ; j < se.size() ; j++)
                         {
-                            if (ll1.get(i).getExperience().equals(ex.get(j)))
+                            if (ll1.get(i).getSector1().equals(se.get(j)))
                             {
                                 ll2.add(ll1.get(i));
                             }
@@ -323,7 +323,7 @@ public class newjobs2 extends Fragment {
                 }
                 else
                 {
-                    ex.clear();
+                    se.clear();
                 }
 
 
@@ -422,18 +422,18 @@ public class newjobs2 extends Fragment {
         if (requestCode == 123 && resultCode == RESULT_OK)
         {
 
-            skil1 = data.getStringExtra("skill");
+            loca1 = data.getStringExtra("location");
 
-            expe1 = data.getStringExtra("experience");
-
-
+            sect1 = data.getStringExtra("sector");
 
 
 
 
-            Log.d("skills" , skil1);
 
-            Log.d("experience" , expe1);
+
+            Log.d("skills" , loca1);
+
+            Log.d("experience" , sect1);
 
 
 
@@ -444,6 +444,6 @@ public class newjobs2 extends Fragment {
         }
     }
 
-    private String skil1 = "" , expe1 = "";
+    private String loca1 = "" , sect1 = "";
 
 }

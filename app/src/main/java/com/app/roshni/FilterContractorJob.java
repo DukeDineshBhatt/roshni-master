@@ -43,7 +43,7 @@ public class FilterContractorJob extends AppCompatActivity {
     LayoutInflater inflater;
     List<String> exp, ski;
 
-    String skil1, expe1;
+    String loca1, sect1;
 
     Button filter, clear;
 
@@ -52,9 +52,9 @@ public class FilterContractorJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_contractor_job);
 
-        skil1 = getIntent().getStringExtra("skill");
+        loca1 = getIntent().getStringExtra("location");
 
-        expe1 = getIntent().getStringExtra("experience");
+        sect1 = getIntent().getStringExtra("sector");
 
 
         exp = new ArrayList<>();
@@ -112,7 +112,7 @@ public class FilterContractorJob extends AppCompatActivity {
 
                 location.removeAllViews();
 
-                String[] ski1 = skil1.split(",");
+                String[] ski1 = loca1.split(",");
 
                 if (response.body().getStatus().equals("1")) {
 
@@ -172,7 +172,7 @@ public class FilterContractorJob extends AppCompatActivity {
 
                 sector.removeAllViews();
 
-                String[] ski1 = skil1.split(",");
+                String[] ski1 = sect1.split(",");
 
                 if (response.body().getStatus().equals("1")) {
 
@@ -247,13 +247,13 @@ public class FilterContractorJob extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String skil = TextUtils.join(",", lo);
-                String expe = TextUtils.join(",", se);
+                String loca1 = TextUtils.join(",", lo);
+                String sect1 = TextUtils.join(",", se);
 
 
                 Intent intent = new Intent();
-                intent.putExtra("skill", skil);
-                intent.putExtra("experience", expe);
+                intent.putExtra("location", loca1);
+                intent.putExtra("sector", sect1);
                 setResult(RESULT_OK, intent);
                 finish();
 

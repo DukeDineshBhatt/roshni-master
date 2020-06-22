@@ -816,21 +816,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/types_of_work1" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/work"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <io.apptik.widget.multiselectspinner.MultiSelectSpinner
-                    android:id="@+id/work"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"

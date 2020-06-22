@@ -52,6 +52,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roshni.SkillsPOJO.Datum;
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.Data;
 import com.app.roshni.sectorPOJO.sectorBean;
@@ -111,9 +112,7 @@ public class contractor extends Fragment {
     private static final String TAG = "conracao";
     private Spinner gender, establishment, experience, availability, firm, proof, firmtype, outsource;
 
-    EditText sector;
-
-    MultiSelectSpinner work;
+    EditText sector , work;
 
     private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect, outs;
 
@@ -127,9 +126,10 @@ public class contractor extends Fragment {
 
     private Button upload, submit, previous;
 
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1;
+    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1;
 
     List<Data> sec;
+    List<Datum> wty;
 
     private Uri uri;
     private File f1;
@@ -466,13 +466,9 @@ public class contractor extends Fragment {
                 R.layout.spinner_model, est);
 
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinner_model, wty);
-
-
         establishment.setAdapter(adapter1);
 
-        work.setAdapter(adapter3);
+
 
 
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -530,12 +526,14 @@ public class contractor extends Fragment {
 
                 RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
                 Button ok = dialog.findViewById(R.id.button30);
-                ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
 
                 final SectorAdapter adapter = new SectorAdapter(getActivity() , sec);
                 GridLayoutManager manager = new GridLayoutManager(getActivity() , 1);
                 sectorgrid.setAdapter(adapter);
                 sectorgrid.setLayoutManager(manager);
+
+                bar.setVisibility(View.VISIBLE);
 
                 final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
@@ -545,19 +543,18 @@ public class contractor extends Fragment {
 
                         if (response.body().getStatus().equals("1")) {
 
-                            Log.d("asdadasd" , String.valueOf(response.body().getData().size()));
 
                             adapter.setData(response.body().getData());
 
                         }
 
-                        progress.setVisibility(View.GONE);
+                        bar.setVisibility(View.GONE);
 
                     }
 
                     @Override
                     public void onFailure(Call<sectorBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
+                        bar.setVisibility(View.GONE);
                     }
                 });
 
@@ -576,6 +573,68 @@ public class contractor extends Fragment {
 
             }
         });
+
+
+        work.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
+
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+
+                final WorkAdapter adapter = new WorkAdapter(getActivity() , wty);
+                GridLayoutManager manager = new GridLayoutManager(getActivity() , 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
+
+                final Call<skillsBean> call = cr.getSkills1(TextUtils.join(",", sec1), SharePreferenceUtils.getInstance().getString("lang"));
+
+                bar.setVisibility(View.VISIBLE);
+
+                call.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            adapter.setData(response.body().getData());
+
+                        }
+
+                        bar.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        wty1 = adapter.getIds();
+                        dialog.dismiss();
+
+                        work.setText(TextUtils.join(", ", adapter.getWorks()));
+                        Log.d("sectors" , TextUtils.join(",", wty1));
+
+
+                    }
+                });
+
+            }
+        });
+
 
 /*
         final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
@@ -1952,6 +2011,105 @@ public class contractor extends Fragment {
 
         public List<String> getSecs() {
             return secs;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder
+        {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
+    class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder>
+    {
+
+        Context context;
+        List<Datum> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> works = new ArrayList<>();
+
+        public WorkAdapter(Context context , List<Datum> list)
+        {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<Datum> list)
+        {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model , parent , false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+            final Datum item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (wty1.contains(item.getId()))
+            {
+                ids.add(item.getId());
+                works.add(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            }
+            else
+            {
+                ids.remove(item.getId());
+                works.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white)))
+                    {
+                        ids.add(item.getId());
+                        works.add(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                    }
+                    else
+                    {
+                        ids.remove(item.getId());
+                        works.remove(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getWorks() {
+            return works;
         }
 
         public List<String> getIds() {

@@ -165,6 +165,8 @@ public class contractor extends Fragment {
 
     String lat = "", lng = "";
 
+    EditText otherwork;
+
     int ag2 = 0;
 
     String same = "0";
@@ -246,6 +248,7 @@ public class contractor extends Fragment {
 
 
         email = view.findViewById(R.id.email);
+        otherwork = view.findViewById(R.id.otherwork);
         non_school = view.findViewById(R.id.non_school);
         school = view.findViewById(R.id.school);
         without_bank = view.findViewById(R.id.without_bank);
@@ -1969,7 +1972,7 @@ public class contractor extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
+            holder.setIsRecyclable(false);
             final Data item = list.get(position);
 
             holder.title.setText(item.getTitle());
@@ -2069,14 +2072,19 @@ public class contractor extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
+            holder.setIsRecyclable(false);
+
             final Datum item = list.get(position);
 
             holder.title.setText(item.getTitle());
 
             if (wty1.contains(item.getId()))
             {
-                ids.add(item.getId());
-                works.add(item.getTitle());
+                if (!ids.contains(item.getId()))
+                {
+                    ids.add(item.getId());
+                    works.add(item.getTitle());
+                }
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
             }
             else
@@ -2092,15 +2100,71 @@ public class contractor extends Fragment {
 
                     if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white)))
                     {
-                        ids.add(item.getId());
-                        works.add(item.getTitle());
-                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+
+                        if (item.getId().equals("59"))
+                        {
+                            final Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.other_dialog);
+                            dialog.show();
+
+                            final EditText other = dialog.findViewById(R.id.other);
+                            Button sub = dialog.findViewById(R.id.submit);
+
+                            sub.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    String ot = other.getText().toString();
+
+                                    if (ot.length() > 0)
+                                    {
+                                        dialog.dismiss();
+                                        otherwork.setText(ot);
+                                        otherwork.setVisibility(View.VISIBLE);
+                                        ids.add(item.getId());
+                                        works.add(item.getTitle());
+                                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(context, "Invalid work type", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
+                        }
+                        else
+                        {
+                            ids.add(item.getId());
+                            works.add(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                        }
+
+
                     }
                     else
                     {
-                        ids.remove(item.getId());
-                        works.remove(item.getTitle());
-                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+
+                        if (item.getId().equals("59"))
+                        {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                            otherwork.setText("");
+                            otherwork.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                        }
+
+
+
                     }
 
                 }

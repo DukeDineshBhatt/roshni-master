@@ -283,6 +283,7 @@ public interface AllApiIneterface {
             @Part("workers_female") String workers_female,
             @Part("experience") String experience,
             @Part("work_type") String work_type,
+            @Part("otherwork") String otherwork,
             @Part("availability") String availability,
             @Part("employer") String employer,
             @Part("about") String about,

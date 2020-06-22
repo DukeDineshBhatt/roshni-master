@@ -792,21 +792,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/experience1" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:maxLength="2"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/experience"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
 
             <TextView
@@ -928,6 +925,11 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_layout"
+                android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -975,6 +977,7 @@
                 app:tagsPaddingTop="5dp"
                 app:tagsTextColor="#ffffff"
                 app:tagsTextSize="12sp" />
+            </LinearLayout>
 
 
             <TextView
@@ -982,6 +985,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:textAllCaps="true"
                 android:text="@string/email_address" />
 
             <EditText

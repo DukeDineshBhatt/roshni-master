@@ -60,67 +60,14 @@
                 android:textColor="@color/colorPrimary"
                 android:text="@string/by_date" />
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/date"
+                android:background="@drawable/white_back_round"
+                android:padding="8dp"
                 android:layout_marginTop="8dp"
-                android:weightSum="2"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="4dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/start_date"
-                        android:textAllCaps="true"
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/start"
-                        android:background="@drawable/white_back_round"
-                        android:padding="8dp"
-                        android:layout_marginTop="8dp"
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_marginStart="4dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/end_date"
-                        android:textAllCaps="true"
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/end"
-                        android:background="@drawable/white_back_round"
-                        android:padding="8dp"
-                        android:layout_marginTop="8dp"
-                        />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                />
 
 
 

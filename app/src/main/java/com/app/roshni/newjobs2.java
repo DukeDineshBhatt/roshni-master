@@ -191,7 +191,7 @@ public class newjobs2 extends Fragment {
 
                 Intent intent = new Intent(getContext() , FilterContractorJob.class);
                 intent.putExtra("location" , skil);
-
+                intent.putExtra("date" , date1);
                 intent.putExtra("sector" , expe);
 
 
@@ -234,7 +234,7 @@ public class newjobs2 extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerJobListBean> call = cr.getJobListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd, SharePreferenceUtils.getInstance().getString("lang") );
+        Call<workerJobListBean> call = cr.getJobListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , date1, SharePreferenceUtils.getInstance().getString("lang") );
 
         call.enqueue(new Callback<workerJobListBean>() {
             @Override
@@ -426,6 +426,8 @@ public class newjobs2 extends Fragment {
 
             sect1 = data.getStringExtra("sector");
 
+            date1 = data.getStringExtra("date");
+
 
 
 
@@ -444,6 +446,6 @@ public class newjobs2 extends Fragment {
         }
     }
 
-    private String loca1 = "" , sect1 = "";
+    private String loca1 = "" , sect1 = "" , date1 = "";
 
 }

@@ -18,10 +18,13 @@ import android.widget.TextView;
 
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,11 +34,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class FilterContractorJob extends AppCompatActivity {
+public class FilterContractorJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     ImageView cross;
     ChipGroup location, sector;
-    TextView start , end;
+    TextView date;
 
     List<String> lo, se;
 
@@ -43,7 +46,7 @@ public class FilterContractorJob extends AppCompatActivity {
     LayoutInflater inflater;
     List<String> exp, ski;
 
-    String loca1, sect1;
+    String loca1, sect1 , date1;
 
     Button filter, clear;
 
@@ -53,7 +56,7 @@ public class FilterContractorJob extends AppCompatActivity {
         setContentView(R.layout.activity_filter_contractor_job);
 
         loca1 = getIntent().getStringExtra("location");
-
+        date1 = getIntent().getStringExtra("date");
         sect1 = getIntent().getStringExtra("sector");
 
 
@@ -68,8 +71,7 @@ public class FilterContractorJob extends AppCompatActivity {
 
         location = findViewById(R.id.location);
         cross = findViewById(R.id.imageButton4);
-        start = findViewById(R.id.start);
-        end = findViewById(R.id.end);
+        date = findViewById(R.id.date);
 
         sector = findViewById(R.id.sector);
 
@@ -90,6 +92,7 @@ public class FilterContractorJob extends AppCompatActivity {
 
         inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
+        date.setText(date1);
 
         progress.setVisibility(View.VISIBLE);
 
@@ -163,6 +166,21 @@ public class FilterContractorJob extends AppCompatActivity {
             }
         });
 
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        FilterContractorJob.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+
+            }
+        });
 
         final Call<sectorBean> call2 = cr.getContractorSector(SharePreferenceUtils.getInstance().getString("lang") , SharePreferenceUtils.getInstance().getString("user_id"));
 
@@ -233,6 +251,8 @@ public class FilterContractorJob extends AppCompatActivity {
 
                 sector.clearCheck();
 
+                date.setText("");
+                date1 = "";
 
                 lo.clear();
 
@@ -254,6 +274,7 @@ public class FilterContractorJob extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("location", loca1);
                 intent.putExtra("sector", sect1);
+                intent.putExtra("date", date.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
 
@@ -268,5 +289,24 @@ public class FilterContractorJob extends AppCompatActivity {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(Calendar.YEAR, year);
+        cal1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        cal1.set(Calendar.MONTH, monthOfYear);
+        String format1= new SimpleDateFormat("yyyy-MM-dd").format(cal1.getTime());
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(Calendar.YEAR, yearEnd);
+        cal2.set(Calendar.DAY_OF_MONTH, dayOfMonthEnd);
+        cal2.set(Calendar.MONTH, monthOfYearEnd);
+        String format2= new SimpleDateFormat("yyyy-MM-dd").format(cal2.getTime());
+
+        date.setText(format1 + " to " + format2);
+
     }
 }

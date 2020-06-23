@@ -85,7 +85,7 @@ public class WorkerByIdData {
     private String educational;
     @SerializedName("educational1")
     @Expose
-    private String educational1;
+    private Object educational1;
     @SerializedName("marital")
     @Expose
     private String marital;
@@ -107,9 +107,15 @@ public class WorkerByIdData {
     @SerializedName("goingtoschool")
     @Expose
     private String goingtoschool;
+    @SerializedName("goingtoschool2")
+    @Expose
+    private String goingtoschool2;
     @SerializedName("skills_id")
     @Expose
     private String skillsId;
+    @SerializedName("otherwork")
+    @Expose
+    private String otherwork;
     @SerializedName("sector_id")
     @Expose
     private String sectorId;
@@ -122,6 +128,9 @@ public class WorkerByIdData {
     @SerializedName("experience")
     @Expose
     private String experience;
+    @SerializedName("availability")
+    @Expose
+    private String availability;
     @SerializedName("experience1")
     @Expose
     private String experience1;
@@ -185,12 +194,6 @@ public class WorkerByIdData {
     @SerializedName("created")
     @Expose
     private String created;
-    @SerializedName("availability")
-    @Expose
-    private String availability;
-    @SerializedName("goingtoschool2")
-    @Expose
-    private String goingtoschool2;
 
     public String getUserId() {
         return userId;
@@ -400,11 +403,11 @@ public class WorkerByIdData {
         this.educational = educational;
     }
 
-    public String getEducational1() {
+    public Object getEducational1() {
         return educational1;
     }
 
-    public void setEducational1(String educational1) {
+    public void setEducational1(Object educational1) {
         this.educational1 = educational1;
     }
 
@@ -464,12 +467,28 @@ public class WorkerByIdData {
         this.goingtoschool = goingtoschool;
     }
 
+    public String getGoingtoschool2() {
+        return goingtoschool2;
+    }
+
+    public void setGoingtoschool2(String goingtoschool2) {
+        this.goingtoschool2 = goingtoschool2;
+    }
+
     public String getSkillsId() {
         return skillsId;
     }
 
     public void setSkillsId(String skillsId) {
         this.skillsId = skillsId;
+    }
+
+    public String getOtherwork() {
+        return otherwork;
+    }
+
+    public void setOtherwork(String otherwork) {
+        this.otherwork = otherwork;
     }
 
     public String getSectorId() {
@@ -502,6 +521,14 @@ public class WorkerByIdData {
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
     }
 
     public String getExperience1() {
@@ -670,21 +697,5 @@ public class WorkerByIdData {
 
     public void setCreated(String created) {
         this.created = created;
-    }
-
-    public String getAvailability() {
-        return availability;
-    }
-
-    public String getGoingtoschool2() {
-        return goingtoschool2;
-    }
-
-    public void setAvailability(String availability) {
-        this.availability = availability;
-    }
-
-    public void setGoingtoschool2(String goingtoschool2) {
-        this.goingtoschool2 = goingtoschool2;
     }
 }

@@ -183,6 +183,7 @@ public class WorkerPersonalProfile extends Fragment {
         mar.add("Divorcee");
         mar.add("Separated");
 */
+        chi.add("--- Select ---");
         chi.add("0");
         chi.add("1");
         chi.add("2");
@@ -477,7 +478,7 @@ public class WorkerPersonalProfile extends Fragment {
                                 } else {
                                     editTxtRelg.setVisibility(View.VISIBLE);
                                     editTxtRelg.setText(item.get(0).getReligion());
-                                    re = 4;
+                                    re = 5;
                                 }
                             }
                             religion.setSelection(re);
@@ -532,7 +533,7 @@ public class WorkerPersonalProfile extends Fragment {
                                 } else {
                                     editTxtedu.setVisibility(View.VISIBLE);
                                     editTxtedu.setText(item.get(0).getEducational());
-                                    ed = 7;
+                                    ed = 8;
                                 }
                             }
                             educational.setSelection(ed);
@@ -584,7 +585,7 @@ public class WorkerPersonalProfile extends Fragment {
                             marital.setSelection(cp2);
 
 
-                                if (item.get(0).getMarital().equals("1")) {
+                                if (item.get(0).getMarital().equals("2")) {
                                     child.setVisibility(View.GONE);
                                 } else {
 
@@ -740,7 +741,7 @@ public class WorkerPersonalProfile extends Fragment {
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                     cert = cer1.get(i);
 
-                                    if (cert.equals("1"))
+                                    if (cert.equals("2"))
                                     {
                                         certificate_number_title.setVisibility(View.VISIBLE);
                                         skill_level_title.setVisibility(View.VISIBLE);

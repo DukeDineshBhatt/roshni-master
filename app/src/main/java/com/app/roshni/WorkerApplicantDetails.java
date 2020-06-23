@@ -153,7 +153,7 @@ public class WorkerApplicantDetails extends AppCompatActivity {
                 permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
                 category.setText(item.getCategory1());
                 religion.setText(item.getReligion1());
-                educational.setText(item.getEducational1());
+                educational.setText(item.getEducational());
                 marital.setText(item.getMarital1());
                 sector.setText(item.getSector());
                 employer.setText(item.getEmployer());

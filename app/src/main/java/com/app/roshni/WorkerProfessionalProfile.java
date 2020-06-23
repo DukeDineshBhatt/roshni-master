@@ -39,7 +39,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerProfessionalProfile extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance , availability;
+    Spinner experience, employment, home, workers, location , bank , govtinsurance , availability;
 
     String sect, skil, expe, empl, hhom, work, loom, loca , bann;
 
@@ -50,7 +50,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
     String user_id;
 
-    EditText employer,editTextLoc , skills , looms;
+    EditText employer,editTextLoc , skills , looms , otherwork , othergovt , sector;
     TextView txtStatus;
 
 
@@ -84,6 +84,8 @@ public class WorkerProfessionalProfile extends Fragment {
         ski1 = new ArrayList<>();
 
         sector = view.findViewById(R.id.sector);
+        otherwork = view.findViewById(R.id.otherwork);
+        othergovt = view.findViewById(R.id.othergovt);
         availability = view.findViewById(R.id.availability);
         bank = view.findViewById(R.id.bank);
         skills = view.findViewById(R.id.skills);
@@ -145,9 +147,9 @@ public class WorkerProfessionalProfile extends Fragment {
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
                 R.layout.spinner_model, wor);
 
-        sector.setEnabled(false);
 
         experience.setEnabled(false);
+        availability.setEnabled(false);
         employment.setEnabled(false);
         home.setEnabled(false);
         workers.setEnabled(false);
@@ -219,109 +221,18 @@ public class WorkerProfessionalProfile extends Fragment {
 
                 employer.setText(item.get(0).getEmployer());
                 skills.setText(item.get(0).getSkills());
+                sector.setText(item.get(0).getSector());
                 looms.setText(item.get(0).getTools());
+                otherwork.setText(item.get(0).getOtherwork());
 
-
-
-                final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
-
-                call2.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                        if (response.body().getStatus().equals("1")) {
-
-                            sec.clear();
-                            sec1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                sec.add(response.body().getData().get(i).getTitle());
-                                sec1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                    R.layout.spinner_model, sec);
-
-                            sector.setAdapter(adapter);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < sec1.size(); i++) {
-                                if (item.get(0).getSectorId().equals(sec1.get(i))) {
-                                    cp2 = i;
-                                }
-                            }
-                            sector.setSelection(cp2);
-
-                        }
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
-
-
-                sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        sect = sec1.get(i);
-
-                        progress.setVisibility(View.VISIBLE);
-
-                        Call<skillsBean> call2 = cr.getSkills1(sect,SharePreferenceUtils.getInstance().getString("lang"));
-                        call2.enqueue(new Callback<skillsBean>() {
-                            @Override
-                            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
-
-
-                                if (response.body().getStatus().equals("1")) {
-
-                                    ski.clear();
-                                    ski1.clear();
-
-                                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                        ski.add(response.body().getData().get(i).getTitle());
-                                        ski1.add(response.body().getData().get(i).getId());
-
-                                    }
-
-
-                                    int cp = 0;
-                                    for (int i = 0; i < ski1.size(); i++) {
-                                        if (item.get(0).getSkillsId().equals(ski1.get(i))) {
-                                            cp = i;
-                                        }
-                                    }
-                                    //skills.setSelection(cp);
-
-                                }
-
-                                progress.setVisibility(View.GONE);
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<skillsBean> call, Throwable t) {
-                                progress.setVisibility(View.GONE);
-                            }
-                        });
-
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
+                if (item.get(0).getOtherwork().length() > 0)
+                {
+                    otherwork.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    otherwork.setVisibility(View.GONE);
+                }
 
 
                 final Call<sectorBean> call4 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
@@ -534,13 +445,23 @@ public class WorkerProfessionalProfile extends Fragment {
                             govtinsurance.setAdapter(adapter6);
 
 
-                            int cp21 = 0;
+                            int sp = 0;
                             for (int i = 0; i < gov1.size(); i++) {
+
                                 if (item.get(0).getGovt().equals(gov1.get(i))) {
-                                    cp21 = i;
+                                    sp = i;
+                                    othergovt.setText("");
+                                    othergovt.setVisibility(View.GONE);
+                                    break;
+                                } else {
+                                    othergovt.setVisibility(View.VISIBLE);
+                                    othergovt.setText(item.get(0).getGovt());
+                                    sp = gov.size() - 1;
                                 }
+
                             }
-                            govtinsurance.setSelection(cp21);
+                            govtinsurance.setSelection(sp);
+
 
                         }
 

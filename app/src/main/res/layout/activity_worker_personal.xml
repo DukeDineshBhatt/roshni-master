@@ -680,6 +680,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
+                    android:textAllCaps="true"
                     android:text="@string/children_going_to_school_between_6_14_yrs" />
 
                 <RelativeLayout
@@ -704,6 +705,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
+                    android:textAllCaps="true"
                     android:text="@string/children_going_to_school_between_15_18_yrs" />
 
                 <RelativeLayout

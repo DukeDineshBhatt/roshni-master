@@ -302,7 +302,8 @@ public interface AllApiIneterface {
             @Part("without_bank") String without_bank,
             @Part("school") String school,
             @Part("non_school") String non_school,
-            @Part("email") String email
+            @Part("email") String email,
+            @Part("govt") String govt
     );
 
 

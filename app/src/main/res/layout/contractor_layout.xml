@@ -1000,6 +1000,44 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/are_you_covered_under_any_of_the_govt_health_insurance_scheme" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/govtinsurance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/othergovt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

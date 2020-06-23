@@ -110,11 +110,11 @@ import static android.app.Activity.RESULT_OK;
 public class contractor extends Fragment {
 
     private static final String TAG = "conracao";
-    private Spinner gender, establishment, availability, firm, proof, firmtype, outsource;
+    private Spinner gender, establishment, availability, firm, proof, firmtype, outsource, govtinsurance;
 
-    EditText sector , work , experience;
+    EditText sector, work, experience;
 
-    private String gend, esta, expe, wtyp = "", avai, frmy, prf, frmytyp, sect, outs;
+    private String gend = "", esta = "", expe = "", wtyp = "", avai = "", frmy = "", prf = "", frmytyp = "", sect = "", outs = "", govt = "";
 
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms, migrant, local;
 
@@ -126,7 +126,7 @@ public class contractor extends Fragment {
 
     private Button upload, submit, previous;
 
-    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1;
+    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1, gov, gov1;
 
     List<Data> sec;
     List<Datum> wty;
@@ -163,9 +163,11 @@ public class contractor extends Fragment {
         this.c5 = c5;
     }
 
+    boolean gov_bool = false;
+
     String lat = "", lng = "";
 
-    EditText otherwork;
+    EditText otherwork, othergovt;
 
     int ag2 = 0;
 
@@ -199,6 +201,8 @@ public class contractor extends Fragment {
         sec1 = new ArrayList<>();
         out = new ArrayList<>();
         out1 = new ArrayList<>();
+        gov = new ArrayList<>();
+        gov1 = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -250,6 +254,7 @@ public class contractor extends Fragment {
 
 
         email = view.findViewById(R.id.email);
+        othergovt = view.findViewById(R.id.othergovt);
         otherwork = view.findViewById(R.id.otherwork);
         home_layout = view.findViewById(R.id.home_layout);
         non_school = view.findViewById(R.id.non_school);
@@ -286,6 +291,7 @@ public class contractor extends Fragment {
         proof = view.findViewById(R.id.proof);
         firmtype = view.findViewById(R.id.firmtype);
         reg_no = view.findViewById(R.id.reg_no);
+        govtinsurance = view.findViewById(R.id.govtinsurance);
 
         /* cstate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -393,6 +399,7 @@ public class contractor extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");*/
 
+        est.add("--- Select ---");
         est.add("2020-2024");
         est.add("2015-2019");
         est.add("2010-2014");
@@ -475,11 +482,10 @@ public class contractor extends Fragment {
         establishment.setAdapter(adapter1);
 
 
-
-
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 esta = est.get(i);
 
             }
@@ -534,8 +540,8 @@ public class contractor extends Fragment {
                 Button ok = dialog.findViewById(R.id.button30);
                 final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
 
-                final SectorAdapter adapter = new SectorAdapter(getActivity() , sec);
-                GridLayoutManager manager = new GridLayoutManager(getActivity() , 1);
+                final SectorAdapter adapter = new SectorAdapter(getActivity(), sec);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
                 sectorgrid.setAdapter(adapter);
                 sectorgrid.setLayoutManager(manager);
 
@@ -572,11 +578,48 @@ public class contractor extends Fragment {
                         dialog.dismiss();
 
                         sector.setText(TextUtils.join(", ", adapter.getSecs()));
-                        Log.d("sectors" , TextUtils.join(",", sec1));
+                        Log.d("sectors", TextUtils.join(",", sec1));
 
                     }
                 });
 
+            }
+        });
+
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call331 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call331.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        gov.add(response.body().getData().get(i).getTitle());
+                        gov1.add(response.body().getData().get(i).getId());
+
+                    }
+
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, gov);
+
+
+                    govtinsurance.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
             }
         });
 
@@ -595,8 +638,8 @@ public class contractor extends Fragment {
                 Button ok = dialog.findViewById(R.id.button30);
                 final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
 
-                final WorkAdapter adapter = new WorkAdapter(getActivity() , wty);
-                GridLayoutManager manager = new GridLayoutManager(getActivity() , 1);
+                final WorkAdapter adapter = new WorkAdapter(getActivity(), wty);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
                 sectorgrid.setAdapter(adapter);
                 sectorgrid.setLayoutManager(manager);
 
@@ -632,7 +675,7 @@ public class contractor extends Fragment {
                         dialog.dismiss();
 
                         work.setText(TextUtils.join(", ", adapter.getWorks()));
-                        Log.d("sectors" , TextUtils.join(",", wty1));
+                        Log.d("sectors", TextUtils.join(",", wty1));
 
 
                     }
@@ -640,6 +683,31 @@ public class contractor extends Fragment {
 
             }
         });
+
+
+        govtinsurance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                govt = gov1.get(i);
+
+                if (govt.equals("5")) {
+                    gov_bool = true;
+                    othergovt.setVisibility(View.VISIBLE);
+                } else {
+                    gov_bool = false;
+                    othergovt.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
 
 /*
@@ -839,7 +907,10 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                gend = gen1.get(i);
+                if (i > 0) {
+                    gend = gen1.get(i);
+                }
+
 
             }
 
@@ -991,8 +1062,9 @@ public class contractor extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                avai = ava1.get(i);
-
+                if (i > 0) {
+                    avai = ava1.get(i);
+                }
 
             }
 
@@ -1144,12 +1216,9 @@ public class contractor extends Fragment {
 
                 outs = out1.get(i);
 
-                if (outs.equals("1"))
-                {
+                if (outs.equals("2")) {
                     home_layout.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     home_layout.setVisibility(View.GONE);
                 }
 
@@ -1225,8 +1294,6 @@ public class contractor extends Fragment {
 
             }
         });
-
-
 
 
         dob.setOnClickListener(new View.OnClickListener() {
@@ -1330,32 +1397,32 @@ public class contractor extends Fragment {
                     pst = pstreet.getText().toString();
                 }
 
+                if (gov_bool) {
+                    govt = othergovt.getText().toString();
+                }
+
                 if (n.length() > 0) {
+                    if (gend.length() > 0) {
+                        if (cd.length() > 0) {
+                            if (cs.length() > 0) {
+                                if (cp.length() == 0 || cp.length() == 6) {
 
-                            if (cd.length() > 0) {
-                                if (cs.length() > 0) {
-                                    if (cp.length() == 0 || cp.length() == 6) {
+                                    if (sect.length() > 0) {
+                                        if (m.length() > 0) {
 
-                                        if (sect.length() > 0)
-                                        {
-                                            if (m.length() > 0) {
+                                            if (f.length() > 0) {
 
-                                                if (f.length() > 0) {
+                                                int totw = Integer.parseInt(m) + Integer.parseInt(f);
 
-                                                    int totw = Integer.parseInt(m) + Integer.parseInt(f);
+                                                if (mig.length() > 0) {
+                                                    if (Integer.parseInt(mig) <= totw) {
+                                                        if (loca.length() > 0) {
+                                                            if (Integer.parseInt(loca) <= totw) {
+                                                                if (expe.length() > 0) {
+                                                                    if (wtyp.length() > 0) {
 
-                                                    if (mig.length() > 0)
-                                                    {
-                                                        if (Integer.parseInt(mig) <= totw)
-                                                        {
-                                                            if (loca.length() > 0)
-                                                            {
-                                                                if (Integer.parseInt(loca) <= totw)
-                                                                {
-                                                                    if (expe.length() > 0)
-                                                                    {
-                                                                        if (wtyp.length() > 0) {
-                                                                    /*Log.d("contractorc1", String.valueOf(c1));
+                                                                        if (avai.length() > 0) {
+/*Log.d("contractorc1", String.valueOf(c1));
 
                                                                     MultipartBody.Part body = null;
 
@@ -1430,7 +1497,8 @@ public class contractor extends Fragment {
                                                                             with,
                                                                             sch,
                                                                             nons,
-                                                                            ema
+                                                                            ema,
+                                                                            govt
                                                                     );
 
                                                                     call.enqueue(new Callback<verifyBean>() {
@@ -1497,81 +1565,76 @@ public class contractor extends Fragment {
                                                                         }
                                                                     });*/
                                                                         } else {
-                                                                            Toast.makeText(getContext(), "Please select type of work", Toast.LENGTH_SHORT).show();
-                                                                            work.requestFocus();
+                                                                            Toast.makeText(getContext(), "Please select availability", Toast.LENGTH_SHORT).show();
+                                                                            availability.requestFocus();
                                                                         }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        Toast.makeText(getContext(), "Invalid experience", Toast.LENGTH_SHORT).show();
-                                                                    }
 
+
+                                                                    } else {
+                                                                        Toast.makeText(getContext(), "Please select type of work", Toast.LENGTH_SHORT).show();
+                                                                        work.requestFocus();
+                                                                    }
+                                                                } else {
+                                                                    Toast.makeText(getContext(), "Invalid experience", Toast.LENGTH_SHORT).show();
                                                                 }
-                                                                else
-                                                                {
-                                                                    Toast.makeText(getContext(), "Invalid local workers", Toast.LENGTH_SHORT).show();
-                                                                    local.setError("");
-                                                                    local.requestFocus();
-                                                                }
-                                                            }
-                                                            else
-                                                            {
+
+                                                            } else {
                                                                 Toast.makeText(getContext(), "Invalid local workers", Toast.LENGTH_SHORT).show();
                                                                 local.setError("");
                                                                 local.requestFocus();
                                                             }
+                                                        } else {
+                                                            Toast.makeText(getContext(), "Invalid local workers", Toast.LENGTH_SHORT).show();
+                                                            local.setError("");
+                                                            local.requestFocus();
                                                         }
-                                                        else
-                                                        {
-                                                            Toast.makeText(getContext(), "Invalid migrant workers", Toast.LENGTH_SHORT).show();
-                                                            migrant.setError("");
-                                                            migrant.requestFocus();
-                                                        }
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         Toast.makeText(getContext(), "Invalid migrant workers", Toast.LENGTH_SHORT).show();
                                                         migrant.setError("");
                                                         migrant.requestFocus();
                                                     }
-
-
-
-
                                                 } else {
-                                                    Toast.makeText(getContext(), "Invalid female workers", Toast.LENGTH_SHORT).show();
-                                                    female.setError("");
-                                                    female.requestFocus();
+                                                    Toast.makeText(getContext(), "Invalid migrant workers", Toast.LENGTH_SHORT).show();
+                                                    migrant.setError("");
+                                                    migrant.requestFocus();
                                                 }
 
+
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid male workers", Toast.LENGTH_SHORT).show();
-                                                male.setError("");
-                                                male.requestFocus();
+                                                Toast.makeText(getContext(), "Invalid female workers", Toast.LENGTH_SHORT).show();
+                                                female.setError("");
+                                                female.requestFocus();
                                             }
+
+                                        } else {
+                                            Toast.makeText(getContext(), "Invalid male workers", Toast.LENGTH_SHORT).show();
+                                            male.setError("");
+                                            male.requestFocus();
                                         }
-                                        else
-                                        {
-                                            Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
-                                        }
-
-
-
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
-                                        cpin.setError("");
-                                        cpin.requestFocus();
+                                        Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
                                     }
+
+
                                 } else {
-                                    Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
-                                    cstate.setError("");
-                                    cstate.requestFocus();
+                                    Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                    cpin.setError("");
+                                    cpin.requestFocus();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
-                                cdistrict.setError("");
-                                cdistrict.requestFocus();
+                                Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                cstate.setError("");
+                                cstate.requestFocus();
                             }
+                        } else {
+                            Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                            cdistrict.setError("");
+                            cdistrict.requestFocus();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Invalid gender", Toast.LENGTH_SHORT).show();
+                        gender.requestFocus();
+                    }
 
 
                 } else {
@@ -2017,22 +2080,19 @@ public class contractor extends Fragment {
         return age;
     }
 
-    class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder>
-    {
+    class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder> {
 
         Context context;
         List<Data> list = new ArrayList<>();
         List<String> ids = new ArrayList<>();
         List<String> secs = new ArrayList<>();
 
-        public SectorAdapter(Context context , List<Data> list)
-        {
+        public SectorAdapter(Context context, List<Data> list) {
             this.context = context;
             this.list = list;
         }
 
-        public void setData(List<Data> list)
-        {
+        public void setData(List<Data> list) {
             this.list = list;
             notifyDataSetChanged();
         }
@@ -2040,8 +2100,8 @@ public class contractor extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sector_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -2052,14 +2112,11 @@ public class contractor extends Fragment {
 
             holder.title.setText(item.getTitle());
 
-            if (sec1.contains(item.getId()))
-            {
+            if (sec1.contains(item.getId())) {
                 ids.add(item.getId());
                 secs.add(item.getTitle());
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
-            }
-            else
-            {
+            } else {
                 ids.remove(item.getId());
                 secs.remove(item.getTitle());
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
@@ -2069,14 +2126,11 @@ public class contractor extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white)))
-                    {
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
                         ids.add(item.getId());
                         secs.add(item.getTitle());
                         holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
-                    }
-                    else
-                    {
+                    } else {
                         ids.remove(item.getId());
                         secs.remove(item.getTitle());
                         holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
@@ -2100,8 +2154,7 @@ public class contractor extends Fragment {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             TextView title;
             CardView card;
@@ -2116,22 +2169,19 @@ public class contractor extends Fragment {
         }
     }
 
-    class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder>
-    {
+    class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
         Context context;
         List<Datum> list = new ArrayList<>();
         List<String> ids = new ArrayList<>();
         List<String> works = new ArrayList<>();
 
-        public WorkAdapter(Context context , List<Datum> list)
-        {
+        public WorkAdapter(Context context, List<Datum> list) {
             this.context = context;
             this.list = list;
         }
 
-        public void setData(List<Datum> list)
-        {
+        public void setData(List<Datum> list) {
             this.list = list;
             notifyDataSetChanged();
         }
@@ -2139,8 +2189,8 @@ public class contractor extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sector_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -2153,17 +2203,13 @@ public class contractor extends Fragment {
 
             holder.title.setText(item.getTitle());
 
-            if (wty1.contains(item.getId()))
-            {
-                if (!ids.contains(item.getId()))
-                {
+            if (wty1.contains(item.getId())) {
+                if (!ids.contains(item.getId())) {
                     ids.add(item.getId());
                     works.add(item.getTitle());
                 }
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
-            }
-            else
-            {
+            } else {
                 ids.remove(item.getId());
                 works.remove(item.getTitle());
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
@@ -2173,11 +2219,9 @@ public class contractor extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white)))
-                    {
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
 
-                        if (item.getId().equals("59"))
-                        {
+                        if (item.getId().equals("59")) {
                             final Dialog dialog = new Dialog(context);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             dialog.setCancelable(true);
@@ -2193,51 +2237,40 @@ public class contractor extends Fragment {
 
                                     String ot = other.getText().toString();
 
-                                    if (ot.length() > 0)
-                                    {
+                                    if (ot.length() > 0) {
                                         dialog.dismiss();
                                         otherwork.setText(ot);
                                         otherwork.setVisibility(View.VISIBLE);
                                         ids.add(item.getId());
                                         works.add(item.getTitle());
                                         holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(context, "Invalid work type", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
                             });
 
-                        }
-                        else
-                        {
+                        } else {
                             ids.add(item.getId());
                             works.add(item.getTitle());
                             holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
                         }
 
 
-                    }
-                    else
-                    {
+                    } else {
 
-                        if (item.getId().equals("59"))
-                        {
+                        if (item.getId().equals("59")) {
                             ids.remove(item.getId());
                             works.remove(item.getTitle());
                             holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
                             otherwork.setText("");
                             otherwork.setVisibility(View.GONE);
-                        }
-                        else
-                        {
+                        } else {
                             ids.remove(item.getId());
                             works.remove(item.getTitle());
                             holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
                         }
-
 
 
                     }
@@ -2260,8 +2293,7 @@ public class contractor extends Fragment {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             TextView title;
             CardView card;

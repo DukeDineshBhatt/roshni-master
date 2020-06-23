@@ -272,7 +272,7 @@
     <string name="skill_level2">SKILL LEVEL</string>
     <string name="annual_income">ANNUAL INCOME</string>
     <string name="other_sources_of_income">OTHER SOURCES OF INCOME</string>
-    <string name="are_you_covered_under_any_of_the_govt_health_insurance_scheme">Social Security Benefits?</string>
+    <string name="are_you_covered_under_any_of_the_govt_health_insurance_scheme">Are you covered under any Government social security schemes?</string>
     <string name="enter_religion3">ENTER RELIGION</string>
     <string name="do_you_outsource_jobs_to_other_workers">Do you outsource jobs to other workers</string>
     <string name="migrant_workers">Migrant Workers</string>

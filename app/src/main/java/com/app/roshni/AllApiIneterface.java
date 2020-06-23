@@ -477,7 +477,8 @@ public interface AllApiIneterface {
     Call<workerJobListBean> getJobListForWorker(
             @Part("user_id") String user_id,
             @Part("date") String date,
-            @Part("lang") String lang
+            @Part("lang") String lang,
+            @Part("sort") String sort
     );
 
     @Multipart
@@ -551,6 +552,13 @@ public interface AllApiIneterface {
     @Multipart
     @POST("workersjoint/api/getContractorSector.php")
     Call<sectorBean> getContractorSector(
+            @Part("lang") String lang,
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("workersjoint/api/getWorkerSector.php")
+    Call<sectorBean> getWorkerSector(
             @Part("lang") String lang,
             @Part("user_id") String user_id
     );

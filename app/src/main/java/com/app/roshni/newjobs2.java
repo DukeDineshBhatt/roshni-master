@@ -196,9 +196,6 @@ public class newjobs2 extends Fragment {
                 intent.putExtra("date" , date1);
                 intent.putExtra("sector" , expe);
                 intent.putExtra("sort" , sort);
-
-
-
                 startActivityForResult(intent , 123);
 
             }

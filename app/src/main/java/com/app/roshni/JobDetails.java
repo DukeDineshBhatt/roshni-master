@@ -211,7 +211,7 @@ public class JobDetails extends AppCompatActivity {
                                             if (response.body().getStatus().equals("1"))
                                             {
                                                 Toast.makeText(JobDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                onResume();
+                                                finish();
                                             }
                                             else
                                             {
@@ -334,7 +334,7 @@ public class JobDetails extends AppCompatActivity {
 
                     if (item.getStatus().equals("1"))
                     {
-                        apply.setText("APPLIED");
+                        apply.setText("WITHDRAW");
                         //apply.setEnabled(false);
                     }
                     else

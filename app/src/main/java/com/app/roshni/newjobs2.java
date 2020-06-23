@@ -55,6 +55,8 @@ public class newjobs2 extends Fragment {
     List<String> lo , se;
     FloatingActionButton filter;
 
+    String sort = "DESC";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,7 +134,7 @@ public class newjobs2 extends Fragment {
                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-                        Call<workerJobListBean> call = cr.getJobListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd , SharePreferenceUtils.getInstance().getString("lang") );
+                        Call<workerJobListBean> call = cr.getJobListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , dd , SharePreferenceUtils.getInstance().getString("lang"), sort);
 
                         call.enqueue(new Callback<workerJobListBean>() {
                             @Override
@@ -193,6 +195,7 @@ public class newjobs2 extends Fragment {
                 intent.putExtra("location" , skil);
                 intent.putExtra("date" , date1);
                 intent.putExtra("sector" , expe);
+                intent.putExtra("sort" , sort);
 
 
 
@@ -234,7 +237,7 @@ public class newjobs2 extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<workerJobListBean> call = cr.getJobListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , date1, SharePreferenceUtils.getInstance().getString("lang") );
+        Call<workerJobListBean> call = cr.getJobListForContractor(SharePreferenceUtils.getInstance().getString("user_id") , date1, SharePreferenceUtils.getInstance().getString("lang"), sort);
 
         call.enqueue(new Callback<workerJobListBean>() {
             @Override
@@ -427,6 +430,8 @@ public class newjobs2 extends Fragment {
             sect1 = data.getStringExtra("sector");
 
             date1 = data.getStringExtra("date");
+
+            sort = data.getStringExtra("sort");
 
 
 

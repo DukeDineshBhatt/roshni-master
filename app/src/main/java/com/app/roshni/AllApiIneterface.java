@@ -484,7 +484,8 @@ public interface AllApiIneterface {
     Call<workerJobListBean> getJobListForContractor(
             @Part("user_id") String user_id,
             @Part("date") String date,
-            @Part("lang") String lang
+            @Part("lang") String lang,
+            @Part("sort") String sort
     );
 
 

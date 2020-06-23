@@ -100,6 +100,42 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textAllCaps="true"
+                android:text="@string/sort_by" />
+
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/sort"
+    >
+
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Newest"
+        android:gravity="center_vertical"
+        android:id="@+id/newest"
+        android:padding="4dp"
+        />
+
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Oldest"
+        android:gravity="center_vertical"
+        android:id="@+id/oldest"
+        android:padding="4dp"
+        />
+
+
+</RadioGroup>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

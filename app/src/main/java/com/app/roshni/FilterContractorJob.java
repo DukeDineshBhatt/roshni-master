@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.app.roshni.SkillsPOJO.skillsBean;
@@ -46,9 +48,12 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
     LayoutInflater inflater;
     List<String> exp, ski;
 
-    String loca1, sect1 , date1;
+    String loca1, sect1 , date1 , sort;
 
     Button filter, clear;
+
+    RadioButton newest , oldest;
+    RadioGroup sort1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,7 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
         loca1 = getIntent().getStringExtra("location");
         date1 = getIntent().getStringExtra("date");
         sect1 = getIntent().getStringExtra("sector");
+        sort = getIntent().getStringExtra("sort");
 
 
         exp = new ArrayList<>();
@@ -70,6 +76,9 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
 
 
         location = findViewById(R.id.location);
+        sort1 = findViewById(R.id.sort);
+        oldest = findViewById(R.id.oldest);
+        newest = findViewById(R.id.newest);
         cross = findViewById(R.id.imageButton4);
         date = findViewById(R.id.date);
 
@@ -121,7 +130,7 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
-                        Chip chip = (Chip) inflater.inflate(R.layout.chip , null);
+                        Chip chip = (Chip) inflater.inflate(R.layout.chip, null);
                         chip.setText(response.body().getData().get(i).getTitle());
 
                         for (String s : ski1) {
@@ -134,12 +143,9 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
                             @Override
                             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                                if (b)
-                                {
+                                if (b) {
                                     lo.add(compoundButton.getText().toString());
-                                }
-                                else
-                                {
+                                } else {
                                     lo.remove(compoundButton.getText().toString());
                                 }
 
@@ -150,7 +156,6 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
 
 
                     }
-
 
 
                 }
@@ -165,6 +170,31 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
                 progress.setVisibility(View.GONE);
             }
         });
+
+        sort1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.newest)
+                {
+                    sort = "DESC";
+                }
+                else
+                {
+                    sort = "ASC";
+                }
+
+            }
+        });
+
+        if (sort.equals("DESC"))
+        {
+            newest.setChecked(true);
+        }
+        else
+        {
+            oldest.setChecked(true);
+        }
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,6 +281,8 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
 
                 sector.clearCheck();
 
+                newest.setChecked(true);
+
                 date.setText("");
                 date1 = "";
 
@@ -271,9 +303,11 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
                 String sect1 = TextUtils.join(",", se);
 
 
+
                 Intent intent = new Intent();
                 intent.putExtra("location", loca1);
                 intent.putExtra("sector", sect1);
+                intent.putExtra("sort", sort);
                 intent.putExtra("date", date.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();

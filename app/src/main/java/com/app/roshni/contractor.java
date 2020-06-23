@@ -1422,7 +1422,10 @@ public class contractor extends Fragment {
                                                                     if (wtyp.length() > 0) {
 
                                                                         if (avai.length() > 0) {
-/*Log.d("contractorc1", String.valueOf(c1));
+Log.d("contractorc1", String.valueOf(c1));
+
+submit.setFocusable(false);
+submit.setClickable(false);
 
                                                                     MultipartBody.Part body = null;
 
@@ -1509,6 +1512,8 @@ public class contractor extends Fragment {
                                                                             if (response.body().getStatus().equals("1")) {
                                                                                 com.app.roshni.verifyPOJO.Data item = response.body().getData();
 
+                                                                                submit.setFocusable(true);
+                                                                                submit.setClickable(true);
 
                                                                                 SharePreferenceUtils.getInstance().saveString("name", item.getName());
                                                                                 SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
@@ -1543,14 +1548,14 @@ public class contractor extends Fragment {
 
                                                                                 LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
 
-                                                                                Intent intent = new Intent(getContext(), MainActivity3.class);
-                                                                                startActivity(intent);
-                                                                                getActivity().finishAffinity();
-
                                                                                 pager.setCurrentItem(1);
 
                                                                                 Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                             } else {
+
+                                                                                submit.setFocusable(true);
+                                                                                submit.setClickable(true);
+
                                                                                 Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                             }
 
@@ -1562,8 +1567,10 @@ public class contractor extends Fragment {
                                                                         @Override
                                                                         public void onFailure(Call<verifyBean> call, Throwable t) {
                                                                             progress.setVisibility(View.GONE);
+                                                                            submit.setFocusable(true);
+                                                                            submit.setClickable(true);
                                                                         }
-                                                                    });*/
+                                                                    });
                                                                         } else {
                                                                             Toast.makeText(getContext(), "Please select availability", Toast.LENGTH_SHORT).show();
                                                                             availability.requestFocus();

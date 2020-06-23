@@ -67,6 +67,10 @@ public class Signup extends AppCompatActivity {
 
                     if (group.getCheckedRadioButtonId() != -1)
                     {
+
+                        signup.setClickable(false);
+                        signup.setFocusable(false);
+
                         final String pho = code.getFullNumber();
 
                         progress.setVisibility(View.VISIBLE);
@@ -93,12 +97,16 @@ public class Signup extends AppCompatActivity {
                                     intent.putExtra("phone" , pho);
                                     startActivity(intent);
                                     Toast.makeText(Signup.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
+                                    signup.setClickable(true);
+                                    signup.setFocusable(true);
                                     //finishAffinity();
 
                                 }
                                 else
                                 {
                                     Toast.makeText(Signup.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    signup.setClickable(true);
+                                    signup.setFocusable(true);
                                 }
 
                                 progress.setVisibility(View.GONE);
@@ -108,6 +116,8 @@ public class Signup extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<verifyBean> call, Throwable t) {
                                 progress.setVisibility(View.GONE);
+                                signup.setClickable(true);
+                                signup.setFocusable(true);
                             }
                         });
                     }

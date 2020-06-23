@@ -1084,9 +1084,9 @@ public class contractor2 extends Fragment {
                 migrant.setText(item.getMigrant());
                 local.setText(item.getLocal());
 
-                without_bank.setText(item.getWithout_bank());
+                without_bank.setText(item.getWithoutBank());
                 school.setText(item.getSchool());
-                non_school.setText(item.getNon_school());
+                non_school.setText(item.getNonSchool());
                 email.setText(item.getEmail());
 
                 ag2 = getAge(item.getDob());

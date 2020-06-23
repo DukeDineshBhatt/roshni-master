@@ -577,21 +577,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/your_sector" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/sector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/sector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
 
 
@@ -821,22 +818,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/experience1" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/experience"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
-
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -857,6 +850,21 @@
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
                 android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/otherwork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:focusable="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -945,6 +953,12 @@
 
             </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_layout"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -998,11 +1012,12 @@
                 app:tagsPaddingTop="5dp"
                 app:tagsTextColor="#ffffff"
                 app:tagsTextSize="12sp" />
-
+        </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:textAllCaps="true"
                 android:layout_marginTop="16dp"
                 android:text="@string/email_address" />
 
@@ -1013,12 +1028,53 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:focusable="false"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textEmailAddress"
                 android:padding="10dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/are_you_covered_under_any_of_the_govt_health_insurance_scheme" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/govtinsurance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/othergovt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="16dp"
+                android:focusable="false"
+                android:longClickable="false"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
+
 
         </LinearLayout>
 

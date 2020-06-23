@@ -154,7 +154,7 @@ public class SingleContgractor extends AppCompatActivity {
                 name.setText(item.getName());
                 //phone.setText("+" + item.getPhone());
                 total.setText(String.valueOf(Integer.parseInt(item.getWorkersMale()) + Integer.parseInt(item.getWorkersFemale())) + " workers");
-                experience.setText(item.getExperience1());
+                experience.setText(item.getExperience());
                 availability.setText(item.getAvailability1());
                 dob.setText(item.getDob());
                 gender.setText(item.getGender1());

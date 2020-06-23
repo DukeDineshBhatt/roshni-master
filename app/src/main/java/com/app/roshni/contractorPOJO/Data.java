@@ -3,8 +3,8 @@ package com.app.roshni.contractorPOJO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
-
+public class Data
+{
     @SerializedName("id")
     @Expose
     private String id;
@@ -89,9 +89,6 @@ public class Data {
     @SerializedName("experience")
     @Expose
     private String experience;
-    @SerializedName("experience1")
-    @Expose
-    private String experience1;
     @SerializedName("home_units")
     @Expose
     private String homeUnits;
@@ -110,6 +107,9 @@ public class Data {
     @SerializedName("work_type_id")
     @Expose
     private String workTypeId;
+    @SerializedName("otherwork")
+    @Expose
+    private String otherwork;
     @SerializedName("availability")
     @Expose
     private String availability;
@@ -131,6 +131,9 @@ public class Data {
     @SerializedName("sector")
     @Expose
     private String sector;
+    @SerializedName("sector2")
+    @Expose
+    private String sector2;
     @SerializedName("tools")
     @Expose
     private String tools;
@@ -146,21 +149,24 @@ public class Data {
     @SerializedName("local")
     @Expose
     private String local;
-    @SerializedName("created")
-    @Expose
-    private String created;
     @SerializedName("without_bank")
     @Expose
-    private String without_bank;
+    private String withoutBank;
     @SerializedName("school")
     @Expose
     private String school;
     @SerializedName("non_school")
     @Expose
-    private String non_school;
+    private String nonSchool;
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("govt")
+    @Expose
+    private String govt;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
     public String getId() {
         return id;
@@ -386,14 +392,6 @@ public class Data {
         this.experience = experience;
     }
 
-    public String getExperience1() {
-        return experience1;
-    }
-
-    public void setExperience1(String experience1) {
-        this.experience1 = experience1;
-    }
-
     public String getHomeUnits() {
         return homeUnits;
     }
@@ -440,6 +438,14 @@ public class Data {
 
     public void setWorkTypeId(String workTypeId) {
         this.workTypeId = workTypeId;
+    }
+
+    public String getOtherwork() {
+        return otherwork;
+    }
+
+    public void setOtherwork(String otherwork) {
+        this.otherwork = otherwork;
     }
 
     public String getAvailability() {
@@ -498,6 +504,14 @@ public class Data {
         this.sector = sector;
     }
 
+    public String getSector2() {
+        return sector2;
+    }
+
+    public void setSector2(String sector2) {
+        this.sector2 = sector2;
+    }
+
     public String getTools() {
         return tools;
     }
@@ -538,43 +552,51 @@ public class Data {
         this.local = local;
     }
 
-    public String getCreated() {
-        return created;
+    public String getWithoutBank() {
+        return withoutBank;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getNon_school() {
-        return non_school;
+    public void setWithoutBank(String withoutBank) {
+        this.withoutBank = withoutBank;
     }
 
     public String getSchool() {
         return school;
     }
 
-    public String getWithout_bank() {
-        return without_bank;
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getNonSchool() {
+        return nonSchool;
+    }
+
+    public void setNonSchool(String nonSchool) {
+        this.nonSchool = nonSchool;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setNon_school(String non_school) {
-        this.non_school = non_school;
+    public String getGovt() {
+        return govt;
     }
 
-    public void setSchool(String school) {
-        this.school = school;
+    public void setGovt(String govt) {
+        this.govt = govt;
     }
 
-    public void setWithout_bank(String without_bank) {
-        this.without_bank = without_bank;
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
     }
 }

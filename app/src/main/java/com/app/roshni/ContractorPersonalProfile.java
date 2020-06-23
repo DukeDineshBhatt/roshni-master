@@ -72,11 +72,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class ContractorPersonalProfile extends Fragment {
 
-    private Spinner gender, establishment, experience, availability, firm, proof, firmtype , sector , outsource;
+    private Spinner gender, establishment, availability, firm, proof, firmtype , outsource , govtinsurance;
 
-    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect;
+    private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect , govt = "";
 
-    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work , looms , phone;
+    private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about , work , looms , phone , sector , experience , otherwork , othergovt;
 
     TagsEditText location;
     TextView txtStatus;
@@ -84,13 +84,13 @@ public class ContractorPersonalProfile extends Fragment {
     private CircleImageView image;
 
     CheckBox check;
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1, gov, gov1;
 
 
     String user_id;
     private boolean che = false;
 
-    private LinearLayout permanent;
+    private LinearLayout permanent , home_layout;
 
     private ProgressBar progress;
     private CustomViewPager pager;
@@ -127,8 +127,14 @@ public class ContractorPersonalProfile extends Fragment {
         sec1 = new ArrayList<>();
         out = new ArrayList<>();
         out1 = new ArrayList<>();
+        gov = new ArrayList<>();
+        gov1 = new ArrayList<>();
 
         email = view.findViewById(R.id.email);
+        home_layout = view.findViewById(R.id.home_layout);
+        othergovt = view.findViewById(R.id.othergovt);
+        govtinsurance = view.findViewById(R.id.govtinsurance);
+        otherwork = view.findViewById(R.id.otherwork);
         non_school = view.findViewById(R.id.non_school);
         school = view.findViewById(R.id.school);
         without_bank = view.findViewById(R.id.without_bank);
@@ -169,85 +175,16 @@ public class ContractorPersonalProfile extends Fragment {
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
 
 
-        est.add("1");
-        est.add("2");
-        est.add("3");
-        est.add("4");
-        est.add("5");
-        est.add("6");
-        est.add("7");
-        est.add("8");
-        est.add("9");
-        est.add("10");
-        est.add("11");
-        est.add("12");
-        est.add("13");
-        est.add("14");
-        est.add("15");
-        est.add("16");
-        est.add("17");
-        est.add("18");
-        est.add("19");
-        est.add("20");
-        est.add("20+");
+        est.add("--- Select ---");
+        est.add("2020-2024");
+        est.add("2015-2019");
+        est.add("2010-2014");
+        est.add("2005-2009");
+        est.add("2000-2004");
+        est.add("1975-1999");
+        est.add("1950-1974");
+        est.add("before 1950");
 
-
-        /*est.add("1970");
-        est.add("1971");
-        est.add("1972");
-        est.add("1973");
-        est.add("1974");
-        est.add("1975");
-        est.add("1976");
-        est.add("1977");
-        est.add("1978");
-        est.add("1979");
-        est.add("1980");
-        est.add("1981");
-        est.add("1982");
-        est.add("1983");
-        est.add("1984");
-        est.add("1985");
-        est.add("1986");
-        est.add("1987");
-        est.add("1988");
-        est.add("1989");
-        est.add("1990");
-        est.add("1991");
-        est.add("1992");
-        est.add("1993");
-        est.add("1994");
-        est.add("1995");
-        est.add("1996");
-        est.add("1997");
-        est.add("1998");
-        est.add("1999");
-        est.add("2000");
-        est.add("2001");
-        est.add("2002");
-        est.add("2003");
-        est.add("2004");
-        est.add("2005");
-        est.add("2006");
-        est.add("2007");
-        est.add("2008");
-        est.add("2009");
-        est.add("2010");
-        est.add("2011");
-        est.add("2012");
-        est.add("2013");
-        est.add("2014");
-        est.add("2015");
-        est.add("2016");
-        est.add("2017");
-        est.add("2018");
-        est.add("2019");
-        est.add("2020");
-        est.add("2021");
-        est.add("2022");
-        est.add("2023");
-        est.add("2024");
-        est.add("2025");*/
 
         permanent = view.findViewById(R.id.permanent);
 
@@ -266,14 +203,14 @@ public class ContractorPersonalProfile extends Fragment {
 
 
         gender.setEnabled(false);
-        sector.setEnabled(false);
         establishment.setEnabled(false);
-        experience.setEnabled(false);
+
         availability.setEnabled(false);
         firm.setEnabled(false);
         proof.setEnabled(false);
         firmtype.setEnabled(false);
         outsource.setEnabled(false);
+        govtinsurance.setEnabled(false);
 
 
         establishment.setAdapter(adapter1);
@@ -299,6 +236,26 @@ public class ContractorPersonalProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     esta = est.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        outsource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String outs = out1.get(i);
+
+                if (outs.equals("2")) {
+                    home_layout.setVisibility(View.VISIBLE);
+                } else {
+                    home_layout.setVisibility(View.GONE);
+                }
 
             }
 
@@ -372,6 +329,7 @@ public class ContractorPersonalProfile extends Fragment {
                     check.setChecked(false);
                 }
 
+                sector.setText(item.getSector2());
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
                 ImageLoader loader = ImageLoader.getInstance();
@@ -411,54 +369,21 @@ public class ContractorPersonalProfile extends Fragment {
                 phone.setText(item.getPhone());
                 migrant.setText(item.getMigrant());
                 local.setText(item.getLocal());
-                non_school.setText(item.getNon_school());
+                non_school.setText(item.getNonSchool());
                 school.setText(item.getSchool());
-                without_bank.setText(item.getWithout_bank());
+                without_bank.setText(item.getWithoutBank());
                 email.setText(item.getEmail());
+                experience.setText(item.getExperience());
+                otherwork.setText(item.getOtherwork());
 
-                final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
-
-                call2.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                        if (response.body().getStatus().equals("1")) {
-
-                            sec.clear();
-                            sec1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                sec.add(response.body().getData().get(i).getTitle());
-                                sec1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                    R.layout.spinner_model, sec);
-
-                            sector.setAdapter(adapter);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < sec1.size(); i++) {
-                                if (item.getSector().equals(sec1.get(i))) {
-                                    cp2 = i;
-                                }
-                            }
-                            sector.setSelection(cp2);
-
-                        }
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
-
+                if (item.getOtherwork().length() > 0)
+                {
+                    otherwork.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    otherwork.setVisibility(View.GONE);
+                }
 
 
                 final Call<sectorBean> call3 = cr.getGender(SharePreferenceUtils.getInstance().getString("lang"));
@@ -539,54 +464,6 @@ public class ContractorPersonalProfile extends Fragment {
                                 }
                             }
                             proof.setSelection(cp2);
-
-                        }
-
-
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
-
-
-
-                final Call<sectorBean> call5 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
-
-                call5.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                        if (response.body().getStatus().equals("1")) {
-
-                            exp.clear();
-                            exp1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                exp.add(response.body().getData().get(i).getTitle());
-                                exp1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
-                                    R.layout.spinner_model, exp);
-
-
-                            experience.setAdapter(adapter2);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < exp1.size(); i++) {
-                                if (item.getExperience().equals(exp1.get(i))) {
-                                    cp2 = i;
-                                }
-                            }
-                            experience.setSelection(cp2);
 
                         }
 
@@ -791,10 +668,74 @@ public class ContractorPersonalProfile extends Fragment {
                 });
 
 
+                final Call<sectorBean> call81 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call81.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            gov.clear();
+                            gov1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                gov.add(response.body().getData().get(i).getTitle());
+                                gov1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, gov);
+
+
+                            govtinsurance.setAdapter(adapter);
+
+                            int sp = 0;
+                            for (int i = 0; i < gov1.size(); i++) {
+
+                                if (item.getGovt().equals(gov1.get(i))) {
+                                    sp = i;
+                                    othergovt.setText("");
+                                    othergovt.setVisibility(View.GONE);
+                                    break;
+                                } else {
+                                    othergovt.setVisibility(View.VISIBLE);
+                                    othergovt.setText(item.getGovt());
+                                    sp = gov.size() - 1;
+                                }
+
+                            }
+                            govtinsurance.setSelection(sp);
+
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+
                String ppp = item.getHomeLocation();
 
                 location.setTags(ppp.split(","));
 
+                int chp = 0;
+                for (int i = 0; i < est.size(); i++) {
+                    if (item.getEstablishmentYear().equals(est.get(i))) {
+                        chp = i;
+                    }
+                }
+                establishment.setSelection(chp);
 
                 progress.setVisibility(View.GONE);
 

@@ -707,6 +707,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:textAllCaps="true"
                 android:text="@string/certified_by_goodweave" />
 
             <RelativeLayout

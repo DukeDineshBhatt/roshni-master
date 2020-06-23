@@ -26,22 +26,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/your_sector" />
 
-            <RelativeLayout
-                android:id="@+id/view2"
+            <EditText
+                android:id="@+id/sector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/sector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
 
             <TextView
@@ -51,21 +47,32 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/your_skills" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/skills"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
-                <io.apptik.widget.multiselectspinner.MultiSelectSpinner
-                    android:id="@+id/skills"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
+            <EditText
+                android:id="@+id/otherwork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
 
-            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -318,6 +325,19 @@
                     android:layout_centerVertical="true" />
 
             </RelativeLayout>
+
+            <EditText
+                android:id="@+id/othergovt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

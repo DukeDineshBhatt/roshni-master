@@ -1,12 +1,16 @@
 package com.app.roshni;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,12 +18,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roshni.SkillsPOJO.Datum;
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
@@ -41,15 +50,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner sector, experience, employment, home, workers, location , bank , govtinsurance , availability;
+    Spinner experience, employment, home, workers, location , bank , govtinsurance , availability;
 
-    MultiSelectSpinner skills;
+    EditText sector, skills;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann , govt , avai;
+    String sect = "", skil = "", expe = "", empl = "", hhom = "", work = "", loom = "", loca = "" , bann = "" , govt = "" , avai = "";
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1;
+    List<String> exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1;
     List<String> sec1, ski1, loc1;
-
+    List<Datum> ski;
+    List<com.app.roshni.sectorPOJO.Data> sec;
     ProgressBar progress;
 
     EditText employer , looms;
@@ -59,8 +69,11 @@ public class professional extends Fragment {
     boolean loc_bool = false;
 
     LinearLayout yes;
+    boolean gov_bool = false;
 
     private CustomViewPager pager;
+
+    EditText otherwork, othergovt;
 
     void setData(CustomViewPager pager) {
         this.pager = pager;
@@ -92,6 +105,8 @@ public class professional extends Fragment {
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
 
+        othergovt = view.findViewById(R.id.othergovt);
+        otherwork = view.findViewById(R.id.otherwork);
         sector = view.findViewById(R.id.sector);
         availability = view.findViewById(R.id.availability);
         bank = view.findViewById(R.id.bank);
@@ -411,7 +426,11 @@ public class professional extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                avai = ava1.get(i);
+                if (i > 0)
+                {
+                    avai = ava1.get(i);
+                }
+
 
             }
 
@@ -441,6 +460,14 @@ public class professional extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 govt = gov1.get(i);
+
+                if (govt.equals("5")) {
+                    gov_bool = true;
+                    othergovt.setVisibility(View.VISIBLE);
+                } else {
+                    gov_bool = false;
+                    othergovt.setVisibility(View.GONE);
+                }
 
             }
 
@@ -476,16 +503,20 @@ public class professional extends Fragment {
         home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                hhom = hom1.get(i);
+                if (i > 0)
+                {
+                    hhom = hom1.get(i);
 
-                if (hhom.equals("1")) {
+                    if (hhom.equals("2")) {
 
-                    yes.setVisibility(View.VISIBLE);
+                        yes.setVisibility(View.VISIBLE);
 
-                } else {
+                    } else {
 
-                    yes.setVisibility(View.GONE);
+                        yes.setVisibility(View.GONE);
+                    }
                 }
+
 
             }
 
@@ -515,7 +546,7 @@ public class professional extends Fragment {
 
                 loca = loc1.get(i);
 
-                if (loca.equals("5")) {
+                if (loca.equals("6")) {
                     loc_bool = true;
                     editTxtLoc.setVisibility(View.VISIBLE);
                 } else {
@@ -532,138 +563,129 @@ public class professional extends Fragment {
         });
 
 
-        progress.setVisibility(View.VISIBLE);
-
-
-        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
-
-        call.enqueue(new Callback<sectorBean>() {
+        sector.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onClick(View v) {
 
-                if (response.body().getStatus().equals("1")) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
+
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+
+                final SectorAdapter adapter = new SectorAdapter(getActivity(), sec);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
+
+                bar.setVisibility(View.VISIBLE);
+
+                final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
 
 
-                    for (int i = 0; i < response.body().getData().size(); i++) {
+                            adapter.setData(response.body().getData());
 
-                        sec.add(response.body().getData().get(i).getTitle());
-                        sec1.add(response.body().getData().get(i).getId());
+                        }
+
+                        bar.setVisibility(View.GONE);
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, sec);
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
 
-                    sector.setAdapter(adapter);
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                }
+                        sec1 = adapter.getIds();
+                        dialog.dismiss();
 
-                progress.setVisibility(View.GONE);
+                        sector.setText(TextUtils.join(", ", adapter.getSecs()));
+                        Log.d("sectors", TextUtils.join(",", sec1));
 
-            }
+                    }
+                });
 
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
             }
         });
 
-        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
+        skills.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
+            public void onClick(View v) {
 
-                    sect = sec1.get(i);
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
 
-                    Call<skillsBean> call2 = cr.getSkills1(sect , SharePreferenceUtils.getInstance().getString("lang"));
-                    call2.enqueue(new Callback<skillsBean>() {
-                        @Override
-                        public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
 
+                final WorkAdapter adapter = new WorkAdapter(getActivity(), ski);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
 
-                            if (response.body().getStatus().equals("1")) {
+                final Call<skillsBean> call = cr.getSkills1(TextUtils.join(",", sec1), SharePreferenceUtils.getInstance().getString("lang"));
 
-                                ski.clear();
-                                ski1.clear();
+                bar.setVisibility(View.VISIBLE);
 
+                call.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
 
-                                for (int i = 0; i < response.body().getData().size(); i++) {
+                        if (response.body().getStatus().equals("1")) {
 
-                                    ski.add(response.body().getData().get(i).getTitle());
-                                    ski1.add(response.body().getData().get(i).getId());
-
-                                }
-
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                        android.R.layout.simple_list_item_multiple_choice, ski);
-
-
-
-                                skills.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
-                                    @Override
-                                    public void onItemsSelected(boolean[] selected) {
-
-                                        skil = "";
-                                        List<String> sklist = new ArrayList<>();
-
-                                        if (selected[0]) {
-
-                                            for (int j = 0; j < selected.length; j++) {
-                                                skills.selectItem(j, false);
-                                            }
-                                            skills.selectItem(0, true);
-                                            sklist.add(ski1.get(0));
-
-                                        } else {
-                                            for (int i = 0; i < selected.length; i++) {
-                                                if (selected[i]) {
-
-                                                    sklist.add(ski1.get(i));
-                                                }
-                                            }
-                                        }
-
-                                        skil = TextUtils.join(",", sklist);
-
-                                    }
-                                });
-
-                            }
-
-                            progress.setVisibility(View.GONE);
+                            adapter.setData(response.body().getData());
 
                         }
 
-                        @Override
-                        public void onFailure(Call<skillsBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                        }
-                    });
+                        bar.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        ski1 = adapter.getIds();
+                        dialog.dismiss();
+
+                        skills.setText(TextUtils.join(", ", adapter.getWorks()));
+                        Log.d("sectors", TextUtils.join(",", ski1));
 
 
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-/*
-        skills.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                skil = ski1.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
 
             }
         });
-*/
+
 
         Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
@@ -706,113 +728,128 @@ public class professional extends Fragment {
 
                 String emplo = employer.getText().toString();
                 loom = looms.getText().toString();
-
+                String ot = otherwork.getText().toString();
                 if (loc_bool) {
                     loca = editTxtLoc.getText().toString();
                 }
 
+                if (gov_bool) {
+                    govt = othergovt.getText().toString();
+                }
+
+                skil = TextUtils.join(",", ski1);
+                sect = TextUtils.join(",", sec1);
+
                 if (sect.length() > 0) {
+                    if (avai.length() > 0)
+                    {
+                        if (hhom.length() > 0) {
+
+                            progress.setVisibility(View.VISIBLE);
+
+                            Bean b = (Bean) getContext().getApplicationContext();
+
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(b.baseurl)
+                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+
+                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                            Call<verifyBean> call = cr.updateWorkerProfessional(
+                                    SharePreferenceUtils.getInstance().getString("user_id"),
+                                    sect,
+                                    skil,
+                                    ot,
+                                    expe,
+                                    avai,
+                                    empl,
+                                    emplo,
+                                    hhom,
+                                    work,
+                                    loom,
+                                    loca,
+                                    bann,
+                                    govt
+                            );
+
+                            call.enqueue(new Callback<verifyBean>() {
+                                @Override
+                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                    if (response.body().getStatus().equals("1")) {
+                                        Data item = response.body().getData();
+
+                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                        SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
+                                        SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
+                                        SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
+                                        SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
+                                        SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
+                                        SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
+                                        SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
+                                        SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
+                                        SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
+                                        SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+                                        SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
+                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                        SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
+                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                        SharePreferenceUtils.getInstance().saveString("home", item.getHome());
+                                        SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
+                                        SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
+                                        SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
+                                        SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
+                                        SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
+
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        getActivity().finishAffinity();
 
 
-                    if (hhom.length() > 0) {
+                                        Log.d("respo", response.body().getMessage());
 
-                        progress.setVisibility(View.VISIBLE);
-
-                        Bean b = (Bean) getContext().getApplicationContext();
-
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(b.baseurl)
-                                .addConverterFactory(ScalarsConverterFactory.create())
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-
-                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                        Call<verifyBean> call = cr.updateWorkerProfessional(
-                                SharePreferenceUtils.getInstance().getString("user_id"),
-                                sect,
-                                skil,
-                                expe,
-                                avai,
-                                empl,
-                                emplo,
-                                hhom,
-                                work,
-                                loom,
-                                loca,
-                                bann,
-                                govt
-                        );
-
-                        call.enqueue(new Callback<verifyBean>() {
-                            @Override
-                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                if (response.body().getStatus().equals("1")) {
-                                    Data item = response.body().getData();
-
-                                    SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                    SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                    SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                    SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                    SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                    SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                    SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                    SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                    SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                    SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                    SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                    SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                    SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                    SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                    SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                    SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
-                                    SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
-                                    SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
-                                    SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
-                                    SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
-                                    SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
-                                    SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
-                                    SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
-                                    SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
-                                    SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
-                                    SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
-                                    SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                    SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
-                                    SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                    SharePreferenceUtils.getInstance().saveString("home", item.getHome());
-                                    SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
-                                    SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
-                                    SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
-                                    SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
-                                    SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
-
-                                    Intent intent = new Intent(getContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    getActivity().finishAffinity();
+                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
 
 
-                                    Log.d("respo", response.body().getMessage());
+                                    progress.setVisibility(View.GONE);
 
-                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
+                                @Override
+                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                    progress.setVisibility(View.GONE);
+                                }
+                            });
 
-                                progress.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
+                        }
 
-                            }
-
-                            @Override
-                            public void onFailure(Call<verifyBean> call, Throwable t) {
-                                progress.setVisibility(View.GONE);
-                            }
-                        });
-
-                    } else {
-                        Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
                     }
+                    else
+                    {
+                        Toast.makeText(getContext(), "Invalid availability", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 } else {
                     Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
@@ -893,6 +930,236 @@ public class professional extends Fragment {
         location.setSelection(sp);
 
 
+    }
+
+
+
+    class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder> {
+
+        Context context;
+        List<com.app.roshni.sectorPOJO.Data> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> secs = new ArrayList<>();
+
+        public SectorAdapter(Context context, List<com.app.roshni.sectorPOJO.Data> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<com.app.roshni.sectorPOJO.Data> list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+            holder.setIsRecyclable(false);
+            final com.app.roshni.sectorPOJO.Data item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (sec1.contains(item.getId())) {
+                ids.add(item.getId());
+                secs.add(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                ids.remove(item.getId());
+                secs.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
+                        ids.add(item.getId());
+                        secs.add(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                    } else {
+                        ids.remove(item.getId());
+                        secs.remove(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getSecs() {
+            return secs;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
+    class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
+
+        Context context;
+        List<com.app.roshni.SkillsPOJO.Datum> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> works = new ArrayList<>();
+
+        public WorkAdapter(Context context, List<com.app.roshni.SkillsPOJO.Datum> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<com.app.roshni.SkillsPOJO.Datum> list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+            holder.setIsRecyclable(false);
+
+            final Datum item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (ski1.contains(item.getId())) {
+                if (!ids.contains(item.getId())) {
+                    ids.add(item.getId());
+                    works.add(item.getTitle());
+                }
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                ids.remove(item.getId());
+                works.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
+
+                        if (item.getId().equals("59")) {
+                            final Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.other_dialog);
+                            dialog.show();
+
+                            final EditText other = dialog.findViewById(R.id.other);
+                            Button sub = dialog.findViewById(R.id.submit);
+
+                            sub.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    String ot = other.getText().toString();
+
+                                    if (ot.length() > 0) {
+                                        dialog.dismiss();
+                                        otherwork.setText(ot);
+                                        otherwork.setVisibility(View.VISIBLE);
+                                        ids.add(item.getId());
+                                        works.add(item.getTitle());
+                                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                                    } else {
+                                        Toast.makeText(context, "Invalid work type", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
+                        } else {
+                            ids.add(item.getId());
+                            works.add(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                        }
+
+
+                    } else {
+
+                        if (item.getId().equals("59")) {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                            otherwork.setText("");
+                            otherwork.setVisibility(View.GONE);
+                        } else {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                        }
+
+
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getWorks() {
+            return works;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
     }
 
 

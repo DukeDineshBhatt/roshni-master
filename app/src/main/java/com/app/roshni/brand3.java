@@ -1144,7 +1144,7 @@ public class brand3 extends Fragment {
                     expiry.setText(item.getExpiry());
                     website.setText(item.getWebsite());
                     email.setText(item.getEmail());
-                    certification_number.setText(item.getCertification_number());
+                    certification_number.setText(item.getCertificationNumber());
 
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();

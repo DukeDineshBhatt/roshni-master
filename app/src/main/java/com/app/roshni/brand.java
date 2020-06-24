@@ -110,7 +110,7 @@ public class brand extends Fragment {
 
     private String manuf = "", certi = "", frmy = "", frmytyp = "", sect = "";
 
-    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details, businessname , sector;
+    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details, businessname, sector;
 
 
     NachoTextView products, countries;
@@ -996,8 +996,7 @@ public class brand extends Fragment {
 
 
                 if (n.length() > 0) {
-                    if (sect.length() > 0)
-                    {
+                    if (sect.length() > 0) {
                         if (p.length() > 0) {
 
                             if (cd.length() > 0) {
@@ -1010,165 +1009,161 @@ public class brand extends Fragment {
                                                         if (w.length() > 0) {
 
 
-                                                        /*Log.d("brandc1", String.valueOf(c1));
+                                                            Log.d("brandc1", String.valueOf(c1));
 
-                                                        Log.d("asdasdasd", products.toString());
-
-
-                                                        MultipartBody.Part body = null;
-
-                                                        try {
-
-                                                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                            body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
+                                                            Log.d("asdasdasd", products.toString());
 
 
-                                                        } catch (Exception e1) {
-                                                            e1.printStackTrace();
-                                                        }
+                                                            MultipartBody.Part body = null;
 
-                                                        progress.setVisibility(View.VISIBLE);
+                                                            try {
 
-                                                        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                        Retrofit retrofit = new Retrofit.Builder()
-                                                                .baseUrl(b.baseurl)
-                                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                                .addConverterFactory(GsonConverterFactory.create())
-                                                                .build();
-
-                                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                        Call<verifyBean> call = cr.updateBrand(
-                                                                SharePreferenceUtils.getInstance().getString("user_id"),
-                                                                n,
-                                                                frmy,
-                                                                frmytyp,
-                                                                r,
-                                                                lat,
-                                                                lng,
-                                                                sect,
-                                                                cde,
-                                                                p,
-                                                                cp,
-                                                                cs,
-                                                                cd,
-                                                                ca,
-                                                                cst,
-                                                                pp,
-                                                                ps,
-                                                                pd,
-                                                                pa,
-                                                                pst,
-                                                                manuf,
-                                                                f,
-                                                                pr,
-                                                                co,
-                                                                w,
-                                                                certi,
-                                                                e,
-                                                                we,
-                                                                em,
-                                                                same,
-                                                                body,
-                                                                String.valueOf(c1),
-                                                                String.valueOf(c2),
-                                                                String.valueOf(c3),
-                                                                String.valueOf(c4),
-                                                                String.valueOf(c5),
-                                                                bn,
-                                                                wtyp,
-                                                                mark,
-                                                                cn,
-                                                                outs
-                                                        );
-
-                                                        call.enqueue(new Callback<verifyBean>() {
-                                                            @Override
-                                                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                                assert response.body() != null;
-                                                                if (response.body().getStatus().equals("1")) {
-                                                                    Data item = response.body().getData();
+                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                                body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                                    SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                                    SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                                    SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                                    SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                                    SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                                    SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                                    SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                                    SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                                    SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                                    SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                                    SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                                    SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                                    SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                                    SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                                    SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                                    SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
-                                                                    SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
-                                                                    SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
-                                                                    SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
-                                                                    SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
-                                                                    SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
-                                                                    SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
-                                                                    SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
-                                                                    SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
-                                                                    SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
-                                                                    SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
-                                                                    SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                                    SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
-                                                                    SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                                    SharePreferenceUtils.getInstance().saveString("home", item.getHome());
-                                                                    SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
-                                                                    SharePreferenceUtils.getInstance().saveString("looms", item.getTools());
-                                                                    SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
+                                                            } catch (Exception e1) {
+                                                                e1.printStackTrace();
+                                                            }
 
-                                                                    SharePreferenceUtils.getInstance().saveString("logo", item.getLogo());
-                                                                    SharePreferenceUtils.getInstance().saveString("registration_number", item.getRegistrationNumber());
-                                                                    SharePreferenceUtils.getInstance().saveString("contact_person", item.getContactPerson());
-                                                                    SharePreferenceUtils.getInstance().saveString("manufacturing_units", item.getManufacturingUnits());
-                                                                    SharePreferenceUtils.getInstance().saveString("factory_outlet", item.getFactoryOutlet());
-                                                                    SharePreferenceUtils.getInstance().saveString("products", item.getProducts());
-                                                                    SharePreferenceUtils.getInstance().saveString("country", item.getCountry());
-                                                                    SharePreferenceUtils.getInstance().saveString("certification", item.getCertification());
-                                                                    SharePreferenceUtils.getInstance().saveString("expiry", item.getExpiry());
-                                                                    SharePreferenceUtils.getInstance().saveString("email", item.getEmail());
-                                                                    SharePreferenceUtils.getInstance().saveString("website", item.getWebsite());
+                                                            progress.setVisibility(View.VISIBLE);
+
+                                                            Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+
+                                                            Retrofit retrofit = new Retrofit.Builder()
+                                                                    .baseUrl(b.baseurl)
+                                                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                                    .build();
+
+                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                            Call<verifyBean> call = cr.updateBrand(
+                                                                    SharePreferenceUtils.getInstance().getString("user_id"),
+                                                                    n,
+                                                                    frmy,
+                                                                    frmytyp,
+                                                                    r,
+                                                                    lat,
+                                                                    lng,
+                                                                    sect,
+                                                                    cde,
+                                                                    p,
+                                                                    cp,
+                                                                    cs,
+                                                                    cd,
+                                                                    ca,
+                                                                    cst,
+                                                                    pp,
+                                                                    ps,
+                                                                    pd,
+                                                                    pa,
+                                                                    pst,
+                                                                    manuf,
+                                                                    f,
+                                                                    pr,
+                                                                    co,
+                                                                    w,
+                                                                    certi,
+                                                                    e,
+                                                                    we,
+                                                                    em,
+                                                                    same,
+                                                                    body,
+                                                                    String.valueOf(c1),
+                                                                    String.valueOf(c2),
+                                                                    String.valueOf(c3),
+                                                                    String.valueOf(c4),
+                                                                    String.valueOf(c5),
+                                                                    bn,
+                                                                    wtyp,
+                                                                    ot,
+                                                                    mark,
+                                                                    cn,
+                                                                    outs
+                                                            );
+
+                                                            call.enqueue(new Callback<verifyBean>() {
+                                                                @Override
+                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                                                    assert response.body() != null;
+                                                                    if (response.body().getStatus().equals("1")) {
+                                                                        Data item = response.body().getData();
 
 
-                                                                    Intent registrationComplete = new Intent("photo");
+                                                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                                                        SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
+                                                                        SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
+                                                                        SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
+                                                                        SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
+                                                                        SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
+                                                                        SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
+                                                                        SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
+                                                                        SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
+                                                                        SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
+                                                                        SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+                                                                        SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
+                                                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                                                        SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
+                                                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                                                        SharePreferenceUtils.getInstance().saveString("home", item.getHome());
+                                                                        SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
+                                                                        SharePreferenceUtils.getInstance().saveString("looms", item.getTools());
+                                                                        SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
 
-                                                                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+                                                                        SharePreferenceUtils.getInstance().saveString("logo", item.getLogo());
+                                                                        SharePreferenceUtils.getInstance().saveString("registration_number", item.getRegistrationNumber());
+                                                                        SharePreferenceUtils.getInstance().saveString("contact_person", item.getContactPerson());
+                                                                        SharePreferenceUtils.getInstance().saveString("manufacturing_units", item.getManufacturingUnits());
+                                                                        SharePreferenceUtils.getInstance().saveString("factory_outlet", item.getFactoryOutlet());
+                                                                        SharePreferenceUtils.getInstance().saveString("products", item.getProducts());
+                                                                        SharePreferenceUtils.getInstance().saveString("country", item.getCountry());
+                                                                        SharePreferenceUtils.getInstance().saveString("certification", item.getCertification());
+                                                                        SharePreferenceUtils.getInstance().saveString("expiry", item.getExpiry());
+                                                                        SharePreferenceUtils.getInstance().saveString("email", item.getEmail());
+                                                                        SharePreferenceUtils.getInstance().saveString("website", item.getWebsite());
 
-                                                                                                    *//*Intent intent = new Intent(getContext(), MainActivity2.class);
-                                                                                                    startActivity(intent);
-                                                                                                    getActivity().finishAffinity();*//*
+
+                                                                        Intent registrationComplete = new Intent("photo");
+
+                                                                        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+
+                                                                        pager.setCurrentItem(1);
 
 
-                                                                    pager.setCurrentItem(1);
+                                                                        Log.d("respo", response.body().getMessage());
+
+                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    } else {
+                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    }
 
 
-                                                                    Log.d("respo", response.body().getMessage());
+                                                                    progress.setVisibility(View.GONE);
 
-                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                } else {
-                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
                                                                 }
 
-
-                                                                progress.setVisibility(View.GONE);
-
-
-                                                            }
-
-                                                            @Override
-                                                            public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                progress.setVisibility(View.GONE);
-                                                            }
-                                                        });*/
+                                                                @Override
+                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                                    progress.setVisibility(View.GONE);
+                                                                }
+                                                            });
 
 
                                                         } else {
@@ -1219,14 +1214,11 @@ public class brand extends Fragment {
                             person.setError("");
                             person.requestFocus();
                         }
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
                         sector.requestFocus();
                         sector.setError("");
                     }
-
 
 
                 } else {

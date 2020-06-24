@@ -106,27 +106,36 @@ public class Data {
     @SerializedName("sector")
     @Expose
     private String sector;
-    @SerializedName("created")
+    @SerializedName("sector2")
     @Expose
-    private String created;
+    private String sector2;
     @SerializedName("same")
     @Expose
     private String same;
     @SerializedName("business_name")
     @Expose
-    private String business_name;
+    private String businessName;
     @SerializedName("processes")
     @Expose
     private String processes;
+    @SerializedName("processes_id")
+    @Expose
+    private String processesId;
+    @SerializedName("otherwork")
+    @Expose
+    private String otherwork;
     @SerializedName("market")
     @Expose
     private String market;
     @SerializedName("certification_number")
     @Expose
-    private String certification_number;
+    private String certificationNumber;
     @SerializedName("outsourcing")
     @Expose
     private String outsourcing;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
     public String getId() {
         return id;
@@ -400,12 +409,12 @@ public class Data {
         this.sector = sector;
     }
 
-    public String getCreated() {
-        return created;
+    public String getSector2() {
+        return sector2;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setSector2(String sector2) {
+        this.sector2 = sector2;
     }
 
     public String getSame() {
@@ -416,43 +425,68 @@ public class Data {
         this.same = same;
     }
 
-    public String getBusiness_name() {
-        return business_name;
+    public String getBusinessName() {
+        return businessName;
     }
 
-    public void setBusiness_name(String business_name) {
-        this.business_name = business_name;
-    }
-
-    public String getCertification_number() {
-        return certification_number;
-    }
-
-    public String getMarket() {
-        return market;
-    }
-
-    public String getOutsourcing() {
-        return outsourcing;
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 
     public String getProcesses() {
         return processes;
     }
 
-    public void setCertification_number(String certification_number) {
-        this.certification_number = certification_number;
+    public void setProcesses(String processes) {
+        this.processes = processes;
+    }
+
+    public String getProcessesId() {
+        return processesId;
+    }
+
+    public void setProcessesId(String processesId) {
+        this.processesId = processesId;
+    }
+
+    public String getOtherwork() {
+        return otherwork;
+    }
+
+    public void setOtherwork(String otherwork) {
+        this.otherwork = otherwork;
+    }
+
+    public String getMarket() {
+        return market;
     }
 
     public void setMarket(String market) {
         this.market = market;
     }
 
+    public String getCertificationNumber() {
+        return certificationNumber;
+    }
+
+    public void setCertificationNumber(String certificationNumber) {
+        this.certificationNumber = certificationNumber;
+    }
+
+    public String getOutsourcing() {
+        return outsourcing;
+    }
+
     public void setOutsourcing(String outsourcing) {
         this.outsourcing = outsourcing;
     }
 
-    public void setProcesses(String processes) {
-        this.processes = processes;
+    public String getCreated() {
+        return created;
     }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
 }

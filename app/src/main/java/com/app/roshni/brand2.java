@@ -96,11 +96,11 @@ import static android.app.Activity.RESULT_OK;
 public class brand2 extends Fragment {
 
     private static final String TAG = "brand";
-    private Spinner manufacturing, certification, firm, firmtype, sector;
+    private Spinner manufacturing, certification, firm, firmtype;
 
     private String manuf, certi, frmy, frmytyp, sect;
 
-    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details , phone , businessname;
+    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details, phone, businessname, sector , otherwork;
 
 
     NachoTextView products, countries;
@@ -111,7 +111,7 @@ public class brand2 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer , cer1, frm , frm1, frmtyp , frmtyp1, sec, sec1 , mar;
+    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1, mar;
 
     private CustomViewPager pager;
 
@@ -136,8 +136,8 @@ public class brand2 extends Fragment {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient mPlacesClient;
 
-    EditText processes , certification_number;
-    Spinner market , outsourcing;
+    EditText processes, certification_number;
+    Spinner market, outsourcing;
 
     @Nullable
     @Override
@@ -164,6 +164,16 @@ public class brand2 extends Fragment {
 
         try {
             if (mLocationPermissionGranted) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+
+                }
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -192,6 +202,7 @@ public class brand2 extends Fragment {
         }
 
         processes = view.findViewById(R.id.processes);
+        otherwork = view.findViewById(R.id.otherwork);
         market = view.findViewById(R.id.market);
         certification_number = view.findViewById(R.id.certification_number);
         outsourcing = view.findViewById(R.id.outsourcing);
@@ -247,7 +258,6 @@ public class brand2 extends Fragment {
         market.setEnabled(false);
         outsourcing.setEnabled(false);
 
-        sector.setEnabled(false);
         //person.setEnabled(false);
         //contact_details.setEnabled(false);
         //cstreet.setEnabled(false);
@@ -345,6 +355,7 @@ public class brand2 extends Fragment {
         cer.add(getString(R.string.no));
 */
 
+        man.add("--- Select ---");
         man.add("0");
         man.add("1");
         man.add("2");
@@ -359,8 +370,10 @@ public class brand2 extends Fragment {
         man.add("11");
         man.add("12");
 
+        mar.add("--- Select ---");
         mar.add("Domestic");
         mar.add("Export");
+        mar.add("Both");
 
         /*frm.add(getString(R.string.sole_properietor));
         frm.add(getString(R.string.partnership));
@@ -787,9 +800,10 @@ public class brand2 extends Fragment {
                     website.setText(item.getWebsite());
                     email.setText(item.getEmail());
                     phone.setText(item.getPhone());
-                    businessname.setText(item.getBusiness_name());
-                    certification_number.setText(item.getCertification_number());
+                    businessname.setText(item.getBusinessName());
+                    certification_number.setText(item.getCertificationNumber());
                     processes.setText(item.getProcesses());
+                    sector.setText(item.getSector2());
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();
 
@@ -802,6 +816,15 @@ public class brand2 extends Fragment {
                         check.setChecked(false);
                     }
 
+                    if (item.getOtherwork().length() > 0)
+                    {
+                        otherwork.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        otherwork.setVisibility(View.GONE);
+                    }
+
 
                     products.setText(Arrays.asList(ppp.split(",")));
                     countries.setText(Arrays.asList(ccc.split(",")));
@@ -810,48 +833,7 @@ public class brand2 extends Fragment {
                     ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getLogo() , image , options);
 
-                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
 
-                    call2.enqueue(new Callback<sectorBean>() {
-                        @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                            if (response.body().getStatus().equals("1")) {
-
-                                sec.clear();
-                                sec1.clear();
-
-                                for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                    sec.add(response.body().getData().get(i).getTitle());
-                                    sec1.add(response.body().getData().get(i).getId());
-
-                                }
-
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                        R.layout.spinner_model, sec);
-
-                                sector.setAdapter(adapter);
-
-                                int cp2 = 0;
-                                for (int i = 0; i < sec1.size(); i++) {
-                                    if (item.getSector().equals(sec1.get(i))) {
-                                        cp2 = i;
-                                    }
-                                }
-                                sector.setSelection(cp2);
-
-                            }
-
-                            progress.setVisibility(View.GONE);
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                        }
-                    });
 
 
                     final Call<sectorBean> call3 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));

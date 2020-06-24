@@ -243,7 +243,15 @@ public class WorkerJobDetails extends AppCompatActivity {
                     man_days.setText(item.getManDays());
                     piece_rate.setText(item.getPieceRate());
                     place.setText(item.getPlace1());
-                    location.setText(item.getLocation1());
+                    if (item.getLocation1() != null)
+                    {
+                        location.setText(item.getLocation1());
+                    }
+                    else
+                    {
+                        location.setText(item.getLocation());
+                    }
+
                     experience.setText(item.getExperience1());
                     role.setText(item.getRole());
                     gender.setText(item.getGender1());

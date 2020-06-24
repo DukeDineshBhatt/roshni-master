@@ -551,6 +551,12 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("workersjoint/api/getSectors3.php")
+    Call<sectorBean> getSectors3(
+            @Part("lang") String lang
+    );
+
+    @Multipart
     @POST("workersjoint/api/getContractorSector.php")
     Call<sectorBean> getContractorSector(
             @Part("lang") String lang,
@@ -703,6 +709,13 @@ public interface AllApiIneterface {
     @Multipart
     @POST("workersjoint/api/getSkills.php")
     Call<skillsBean> getSkills1(
+            @Part("sector_id") String sector_id,
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("workersjoint/api/getSkills2.php")
+    Call<skillsBean> getSkills2(
             @Part("sector_id") String sector_id,
             @Part("lang") String lang
     );

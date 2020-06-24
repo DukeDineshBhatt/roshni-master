@@ -51,7 +51,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
     Button submit;
     ProgressBar progress;
 
-    String skil, expe, loca, gend, educ, styp, sect, leve, natu , plac;
+    String skil = "", expe = "", loca = "", gend = "", educ = "", styp = "", sect = "", leve = "", natu = "" , plac = "";
 
     List<String> ski, exp , exp1, loc, gen , gen1, edu , edu1, rol, sty , sty1 , pla , pla1;
     List<String> ski1, loc1, rol1;
@@ -209,7 +209,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                styp = sty1.get(i);
+                if (i > 0) {
+                    styp = sty1.get(i);
+                }
 
             }
 
@@ -238,7 +240,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                skil = ski1.get(i);
+                if (i > 0) {
+                    skil = ski1.get(i);
+                }
 
             }
 
@@ -252,7 +256,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                expe = exp1.get(i);
+                if (i > 0) {
+                    expe = exp1.get(i);
+                }
 
             }
 
@@ -266,7 +272,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                leve = lev1.get(i);
+                if (i > 0) {
+                    leve = lev1.get(i);
+                }
 
             }
 
@@ -280,7 +288,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                plac =  pla1.get(i);
+                if (i > 0) {
+                    plac = pla1.get(i);
+                }
 
             }
 
@@ -295,21 +305,20 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                natu = nat1.get(i);
+                if (i > 0) {
+                    natu = nat1.get(i);
 
-                if (natu.equals("4"))
-                {
-                    man_days.setVisibility(View.VISIBLE);
-                    man_days_title.setVisibility(View.VISIBLE);
-                    piece_rate.setVisibility(View.VISIBLE);
-                    piece_rate_title.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    man_days.setVisibility(View.GONE);
-                    man_days_title.setVisibility(View.GONE);
-                    piece_rate.setVisibility(View.GONE);
-                    piece_rate_title.setVisibility(View.GONE);
+                    if (natu.equals("5")) {
+                        man_days.setVisibility(View.VISIBLE);
+                        man_days_title.setVisibility(View.VISIBLE);
+                        piece_rate.setVisibility(View.VISIBLE);
+                        piece_rate_title.setVisibility(View.VISIBLE);
+                    } else {
+                        man_days.setVisibility(View.GONE);
+                        man_days_title.setVisibility(View.GONE);
+                        piece_rate.setVisibility(View.GONE);
+                        piece_rate_title.setVisibility(View.GONE);
+                    }
                 }
 
             }
@@ -340,7 +349,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                 loca = loc1.get(i);
 
-                if (loca.equals("5"))
+                if (loca.equals("6"))
                 {
                     job_location.setVisibility(View.VISIBLE);
                 }
@@ -372,7 +381,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
 
 
-        Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
+        /*Call<sectorBean> call3 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override
@@ -405,7 +414,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             public void onFailure(Call<sectorBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
-        });
+        });*/
 
 
         all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -432,93 +441,118 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                 String h = hours.getText().toString();
                 String s = salary.getText().toString();
 
+                Log.d("skill", skil);
+
 
                 if (t.length() > 0) {
 
-                    if (p.length() > 0)
-                    {
+                    if (p.length() > 0) {
 
-                        if (styp.length() > 0) {
+                        if (sect.length() > 0) {
+                            if (skil.length() > 0) {
 
-                            if (loca.equals("5"))
-                            {
-                                loca = job_location.getText().toString();
-                            }
+                                if (natu.length() > 0) {
+                                    if (plac.length() > 0) {
+                                        if (expe.length() > 0) {
+                                            if (r.length() > 0) {
+                                                if (styp.length() > 0) {
 
-                            progress.setVisibility(View.VISIBLE);
+                                                    if (loca.equals("6")) {
+                                                        loca = job_location.getText().toString();
+                                                    }
 
-                            Bean b = (Bean) getApplicationContext();
+                                                    progress.setVisibility(View.VISIBLE);
 
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(b.baseurl)
-                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
+                                                    Bean b = (Bean) getApplicationContext();
 
-                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                            .baseUrl(b.baseurl)
+                                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
 
-                            Call<verifyBean> call1 = cr.UpdateWorkerJob(
-                                    jid,
-                                    t,
-                                    p,
-                                    sect,
-                                    leve,
-                                    skil,
-                                    natu,
-                                    m,
-                                    pi,
-                                    plac,
-                                    loca,
-                                    expe,
-                                    r,
-                                    gend,
-                                    educ,
-                                    h,
-                                    s,
-                                    styp,
-                                    String.valueOf(display_name.isChecked()),
-                                    String.valueOf(phone.isChecked()),
-                                    String.valueOf(contact_person.isChecked()),
-                                    String.valueOf(email.isChecked())
-                            );
+                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                            call1.enqueue(new Callback<verifyBean>() {
-                                @Override
-                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                    Call<verifyBean> call1 = cr.UpdateWorkerJob(
+                                                            jid,
+                                                            t,
+                                                            p,
+                                                            sect,
+                                                            leve,
+                                                            skil,
+                                                            natu,
+                                                            m,
+                                                            pi,
+                                                            plac,
+                                                            loca,
+                                                            expe,
+                                                            r,
+                                                            gend,
+                                                            educ,
+                                                            h,
+                                                            s,
+                                                            styp,
+                                                            String.valueOf(display_name.isChecked()),
+                                                            String.valueOf(phone.isChecked()),
+                                                            String.valueOf(contact_person.isChecked()),
+                                                            String.valueOf(email.isChecked())
+                                                    );
 
-                                    if (response.body().getStatus().equals("1"))
-                                    {
-                                        Toast.makeText(UpdateWorkerJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    call1.enqueue(new Callback<verifyBean>() {
+                                                        @Override
+                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
-                                        finish();
+                                                            if (response.body().getStatus().equals("1"))
+                                                            {
+                                                                Toast.makeText(UpdateWorkerJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
+                                                                finish();
+
+                                                            }
+
+
+                                                            progress.setVisibility(View.GONE);
+
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                            progress.setVisibility(View.GONE);
+                                                        }
+                                                    });
+
+                                                } else {
+                                                    Toast.makeText(UpdateWorkerJob.this, "Invalid salary type", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else {
+                                                Toast.makeText(UpdateWorkerJob.this, "Invalid job role", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            Toast.makeText(UpdateWorkerJob.this, "Invalid experience", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(UpdateWorkerJob.this, "Invalid place", Toast.LENGTH_SHORT).show();
                                     }
-
-
-                                    progress.setVisibility(View.GONE);
-
+                                } else {
+                                    Toast.makeText(UpdateWorkerJob.this, "Invalid job nature", Toast.LENGTH_SHORT).show();
                                 }
 
-                                @Override
-                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                    progress.setVisibility(View.GONE);
-                                }
-                            });
-
-
+                            } else {
+                                Toast.makeText(UpdateWorkerJob.this, "Invalid skill set", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(UpdateWorkerJob.this, "Invalid salary type", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateWorkerJob.this, "Invalid sector", Toast.LENGTH_SHORT).show();
                         }
 
-                    }
-                    else
-                    {
+
+                    } else {
                         Toast.makeText(UpdateWorkerJob.this, "Invalid no. of positions", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
                     Toast.makeText(UpdateWorkerJob.this, "Invalid job title", Toast.LENGTH_SHORT).show();
                 }
+
 
 
 
@@ -582,7 +616,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                     contact_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
                     email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
 
-                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
+                    final Call<sectorBean> call2 = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override
@@ -604,8 +638,8 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                                 sector.setAdapter(adapter);
 
                                 int cp2 = 0;
-                                for (int i = 0; i < sec.size(); i++) {
-                                    if (item.getSector().equals(sec.get(i))) {
+                                for (int i = 0; i < sec1.size(); i++) {
+                                    if (item.getSector().equals(sec1.get(i))) {
                                         cp2 = i;
                                     }
                                 }
@@ -632,7 +666,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                             progress.setVisibility(View.VISIBLE);
 
-                            Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
+                            Call<skillsBean> call2 = cr.getSkills2(sect, SharePreferenceUtils.getInstance().getString("lang"));
                             call2.enqueue(new Callback<skillsBean>() {
                                 @Override
                                 public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {

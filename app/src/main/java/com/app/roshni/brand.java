@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,16 +36,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roshni.SkillsPOJO.Datum;
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
@@ -100,11 +106,11 @@ import static android.app.Activity.RESULT_OK;
 public class brand extends Fragment {
 
     private static final String TAG = "brand";
-    private Spinner manufacturing, certification, firm, firmtype, sector;
+    private Spinner manufacturing, certification, firm, firmtype;
 
-    private String manuf, certi, frmy, frmytyp, sect;
+    private String manuf = "", certi = "", frmy = "", frmytyp = "", sect = "";
 
-    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details , businessname;
+    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details, businessname , sector;
 
 
     NachoTextView products, countries;
@@ -115,7 +121,10 @@ public class brand extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1, wty, wty1, mar;
+    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec1, wty1, mar;
+
+    List<com.app.roshni.sectorPOJO.Data> sec;
+    List<Datum> wty;
 
     private CustomViewPager pager;
 
@@ -150,12 +159,14 @@ public class brand extends Fragment {
         this.c5 = c5;
     }
 
-    String lat = "", lng = "" , wtyp, mark , outs;
+    String lat = "", lng = "", wtyp = "", mark = "", outs = "";
     String same = "0";
 
-    MultiSelectSpinner processes;
-    Spinner market , outsourcing;
+    EditText processes;
+    Spinner market, outsourcing;
     EditText certification_number;
+
+    EditText otherwork;
 
     @Nullable
     @Override
@@ -184,6 +195,15 @@ public class brand extends Fragment {
 
         try {
             if (mLocationPermissionGranted) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                }
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -213,6 +233,7 @@ public class brand extends Fragment {
             Log.e("Exception1: %s", e.getMessage());
         }
 
+        otherwork = view.findViewById(R.id.otherwork);
         name = view.findViewById(R.id.editText);
         processes = view.findViewById(R.id.processes);
         market = view.findViewById(R.id.market);
@@ -333,6 +354,7 @@ public class brand extends Fragment {
         //cer.add(getString(R.string.no));
 
 
+        man.add("--- Select ---");
         man.add("0");
         man.add("1");
         man.add("2");
@@ -348,8 +370,10 @@ public class brand extends Fragment {
         man.add("12");
 
 
+        mar.add("--- Select ---");
         mar.add("Domestic");
         mar.add("Export");
+        mar.add("Both");
 
        /* frm.add(getString(R.string.sole_properietor));
         frm.add(getString(R.string.partnership));
@@ -432,40 +456,128 @@ public class brand extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
-
-        call.enqueue(new Callback<sectorBean>() {
+        sector.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onClick(View v) {
 
-                if (response.body().getStatus().equals("1")) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
+
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+
+                final SectorAdapter adapter = new SectorAdapter(getActivity(), sec);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
+
+                bar.setVisibility(View.VISIBLE);
+
+                final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
 
 
-                    for (int i = 0; i < response.body().getData().size(); i++) {
+                            adapter.setData(response.body().getData());
 
-                        sec.add(response.body().getData().get(i).getTitle());
-                        sec1.add(response.body().getData().get(i).getId());
+                        }
+
+                        bar.setVisibility(View.GONE);
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, sec);
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
 
-                    sector.setAdapter(adapter);
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                }
+                        sec1 = adapter.getIds();
+                        dialog.dismiss();
 
-                progress.setVisibility(View.GONE);
+                        sector.setText(TextUtils.join(", ", adapter.getSecs()));
+                        Log.d("sectors", TextUtils.join(",", sec1));
 
-            }
+                    }
+                });
 
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
             }
         });
 
-        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        processes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
+
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+
+                final WorkAdapter adapter = new WorkAdapter(getActivity(), wty);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
+
+                final Call<skillsBean> call = cr.getSkills1(TextUtils.join(",", sec1), SharePreferenceUtils.getInstance().getString("lang"));
+
+                bar.setVisibility(View.VISIBLE);
+
+                call.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            adapter.setData(response.body().getData());
+
+                        }
+
+                        bar.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        wty1 = adapter.getIds();
+                        dialog.dismiss();
+
+                        processes.setText(TextUtils.join(", ", adapter.getWorks()));
+                        Log.d("sectors", TextUtils.join(",", wty1));
+
+
+                    }
+                });
+
+            }
+        });
+
+        /*sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -532,10 +644,10 @@ public class brand extends Fragment {
 
 
 
-                            /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            *//*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                                     R.layout.spinner_model, wty);
 
-                            work.setAdapter(adapter);*/
+                            work.setAdapter(adapter);*//*
 
                         }
 
@@ -556,7 +668,7 @@ public class brand extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
         progress.setVisibility(View.VISIBLE);
 
         Call<sectorBean> call1 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
@@ -605,7 +717,7 @@ public class brand extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 certi = cer1.get(i);
 
-                if (certi.equals("1")) {
+                if (certi.equals("2")) {
                     cert.setVisibility(View.VISIBLE);
                 } else {
                     cert.setVisibility(View.GONE);
@@ -855,6 +967,10 @@ public class brand extends Fragment {
                 String bn = businessname.getText().toString();
                 String cn = certification_number.getText().toString();
 
+                String ot = otherwork.getText().toString();
+
+                wtyp = TextUtils.join(",", wty1);
+                sect = TextUtils.join(",", sec1);
 
                 String pp;
                 String ps;
@@ -880,19 +996,21 @@ public class brand extends Fragment {
 
 
                 if (n.length() > 0) {
-                    if (p.length() > 0) {
+                    if (sect.length() > 0)
+                    {
+                        if (p.length() > 0) {
 
-                        if (cd.length() > 0) {
-                            if (cs.length() > 0) {
-                                if (cp.length() == 0 || cp.length() == 6) {
-                                    if (pd.length() > 0) {
-                                        if (ps.length() > 0) {
-                                            if (pp.length() == 0 || pp.length() == 6) {
-                                                if (pr.length() > 0) {
-                                                    if (w.length() > 0) {
+                            if (cd.length() > 0) {
+                                if (cs.length() > 0) {
+                                    if (cp.length() == 0 || cp.length() == 6) {
+                                        if (pd.length() > 0) {
+                                            if (ps.length() > 0) {
+                                                if (pp.length() == 0 || pp.length() == 6) {
+                                                    if (pr.length() > 0) {
+                                                        if (w.length() > 0) {
 
 
-                                                        Log.d("brandc1", String.valueOf(c1));
+                                                        /*Log.d("brandc1", String.valueOf(c1));
 
                                                         Log.d("asdasdasd", products.toString());
 
@@ -1025,9 +1143,9 @@ public class brand extends Fragment {
 
                                                                     LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
 
-                                                                                                    /*Intent intent = new Intent(getContext(), MainActivity2.class);
+                                                                                                    *//*Intent intent = new Intent(getContext(), MainActivity2.class);
                                                                                                     startActivity(intent);
-                                                                                                    getActivity().finishAffinity();*/
+                                                                                                    getActivity().finishAffinity();*//*
 
 
                                                                     pager.setCurrentItem(1);
@@ -1050,57 +1168,65 @@ public class brand extends Fragment {
                                                             public void onFailure(Call<verifyBean> call, Throwable t) {
                                                                 progress.setVisibility(View.GONE);
                                                             }
-                                                        });
+                                                        });*/
 
+
+                                                        } else {
+                                                            Toast.makeText(getActivity(), "Invalid workers", Toast.LENGTH_SHORT).show();
+                                                            workers.setError("");
+                                                            workers.requestFocus();
+                                                        }
 
                                                     } else {
-                                                        Toast.makeText(getActivity(), "Invalid workers", Toast.LENGTH_SHORT).show();
-                                                        workers.setError("");
-                                                        workers.requestFocus();
+                                                        Toast.makeText(getActivity(), "Invalid product types", Toast.LENGTH_SHORT).show();
                                                     }
 
                                                 } else {
-                                                    Toast.makeText(getActivity(), "Invalid product types", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
+                                                    ppin.setError("");
+                                                    ppin.requestFocus();
                                                 }
-
                                             } else {
-                                                Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
-                                                ppin.setError("");
-                                                ppin.requestFocus();
+                                                Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+                                                pstate.setError("");
+                                                pstate.requestFocus();
                                             }
                                         } else {
-                                            Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
-                                            pstate.setError("");
-                                            pstate.requestFocus();
+                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
+                                            pdistrict.setError("");
+                                            pdistrict.requestFocus();
                                         }
+
+
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
-                                        pdistrict.setError("");
-                                        pdistrict.requestFocus();
+                                        Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                        cpin.setError("");
+                                        cpin.requestFocus();
                                     }
-
-
                                 } else {
-                                    Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
-                                    cpin.setError("");
-                                    cpin.requestFocus();
+                                    Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                    cstate.setError("");
+                                    cstate.requestFocus();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
-                                cstate.setError("");
-                                cstate.requestFocus();
+                                Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                cdistrict.setError("");
+                                cdistrict.requestFocus();
                             }
-                        } else {
-                            Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
-                            cdistrict.setError("");
-                            cdistrict.requestFocus();
-                        }
 
-                    } else {
-                        Toast.makeText(getContext(), "Invalid contact person name", Toast.LENGTH_SHORT).show();
-                        person.setError("");
-                        person.requestFocus();
+                        } else {
+                            Toast.makeText(getContext(), "Invalid contact person name", Toast.LENGTH_SHORT).show();
+                            person.setError("");
+                            person.requestFocus();
+                        }
                     }
+                    else
+                    {
+                        Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
+                        sector.requestFocus();
+                        sector.setError("");
+                    }
+
 
 
                 } else {
@@ -1489,6 +1615,234 @@ public class brand extends Fragment {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true;
+            }
+        }
+    }
+
+    class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder> {
+
+        Context context;
+        List<com.app.roshni.sectorPOJO.Data> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> secs = new ArrayList<>();
+
+        public SectorAdapter(Context context, List<com.app.roshni.sectorPOJO.Data> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<com.app.roshni.sectorPOJO.Data> list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+            holder.setIsRecyclable(false);
+            final com.app.roshni.sectorPOJO.Data item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (sec1.contains(item.getId())) {
+                ids.add(item.getId());
+                secs.add(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                ids.remove(item.getId());
+                secs.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
+                        ids.add(item.getId());
+                        secs.add(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                    } else {
+                        ids.remove(item.getId());
+                        secs.remove(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getSecs() {
+            return secs;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
+    class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
+
+        Context context;
+        List<com.app.roshni.SkillsPOJO.Datum> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> works = new ArrayList<>();
+
+        public WorkAdapter(Context context, List<com.app.roshni.SkillsPOJO.Datum> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<com.app.roshni.SkillsPOJO.Datum> list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+            holder.setIsRecyclable(false);
+
+            final Datum item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (wty1.contains(item.getId())) {
+                if (!ids.contains(item.getId())) {
+                    ids.add(item.getId());
+                    works.add(item.getTitle());
+                }
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                ids.remove(item.getId());
+                works.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
+
+                        if (item.getId().equals("59")) {
+                            final Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.other_dialog);
+                            dialog.show();
+
+                            final EditText other = dialog.findViewById(R.id.other);
+                            Button sub = dialog.findViewById(R.id.submit);
+
+                            sub.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    String ot = other.getText().toString();
+
+                                    if (ot.length() > 0) {
+                                        dialog.dismiss();
+                                        otherwork.setText(ot);
+                                        otherwork.setVisibility(View.VISIBLE);
+                                        ids.add(item.getId());
+                                        works.add(item.getTitle());
+                                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                                    } else {
+                                        Toast.makeText(context, "Invalid work type", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
+                        } else {
+                            ids.add(item.getId());
+                            works.add(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                        }
+
+
+                    } else {
+
+                        if (item.getId().equals("59")) {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                            otherwork.setText("");
+                            otherwork.setVisibility(View.GONE);
+                        } else {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                        }
+
+
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getWorks() {
+            return works;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
             }
         }
     }

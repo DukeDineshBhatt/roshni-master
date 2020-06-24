@@ -35,7 +35,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ContractorApplicantDetails extends AppCompatActivity {
 
     ImageButton back;
-    TextView jobtitle , jobcategory , salary , posted;
+    TextView jobtitle , jobcategory , salary , posted , sector;
     CircleImageView image;
     TextView name , phone , total , experience , availability , dob , gender , current , permanent , home_based , home_location , male , female , type , employer , about , samples;
 
@@ -60,6 +60,7 @@ public class ContractorApplicantDetails extends AppCompatActivity {
         sts = getIntent().getStringExtra("sts");
 
         back = findViewById(R.id.imageButton3);
+        sector = findViewById(R.id.sector);
         jobtitle = findViewById(R.id.textView30);
         jobcategory = findViewById(R.id.textView31);
         salary = findViewById(R.id.textView32);
@@ -102,7 +103,7 @@ public class ContractorApplicantDetails extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ContractorApplicantDetails.this);
 
-                builder.setMessage("Contact Admin for this Feature")
+                builder.setMessage("Please contact the administrator")
                         .setTitle("View Contractor Phone");
 
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -200,6 +201,7 @@ public class ContractorApplicantDetails extends AppCompatActivity {
                 type.setText(item.getWorkType());
                 employer.setText(item.getEmployer());
                 about.setText(item.getAbout());
+                sector.setText(item.getSector2());
 
 
 

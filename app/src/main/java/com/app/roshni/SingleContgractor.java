@@ -35,7 +35,7 @@ public class SingleContgractor extends AppCompatActivity {
 
     Toolbar toolbar;
     CircleImageView image;
-    TextView name , phone , total , experience , availability , dob , gender , current , permanent , home_based , home_location , male , female , type , employer , about , samples;
+    TextView name , phone , total , experience , availability , dob , gender , current , permanent , home_based , home_location , male , female , type , employer , about , samples , sector;
     ProgressBar progress;
 
     String id;
@@ -50,6 +50,7 @@ public class SingleContgractor extends AppCompatActivity {
         id = getIntent().getStringExtra("jid");
 
         toolbar = findViewById(R.id.toolbar2);
+        sector = findViewById(R.id.sector);
         image = findViewById(R.id.image);
         progress = findViewById(R.id.progressBar5);
         name = findViewById(R.id.name);
@@ -92,7 +93,7 @@ public class SingleContgractor extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SingleContgractor.this);
 
-                builder.setMessage("Contact Admin for this Feature")
+                builder.setMessage("Please contact the administrator")
                         .setTitle("View Contractor Phone");
 
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -167,6 +168,7 @@ public class SingleContgractor extends AppCompatActivity {
                 type.setText(item.getWorkType());
                 employer.setText(item.getEmployer());
                 about.setText(item.getAbout());
+                sector.setText(item.getSector2());
 
 
 

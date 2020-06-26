@@ -804,6 +804,7 @@ public class brand2 extends Fragment {
                     certification_number.setText(item.getCertificationNumber());
                     processes.setText(item.getProcesses());
                     sector.setText(item.getSector2());
+                    otherwork.setText(item.getOtherwork());
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();
 

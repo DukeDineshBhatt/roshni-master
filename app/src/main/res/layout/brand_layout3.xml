@@ -204,21 +204,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/your_sector" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/sector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/sector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
 
             <TextView
@@ -254,7 +251,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:maxLength="10"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
@@ -636,22 +632,31 @@
                 android:textAllCaps="true"
                 android:text="@string/type_of_unit_processes" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/processes"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
-                <io.apptik.widget.multiselectspinner.MultiSelectSpinner
-                    android:id="@+id/processes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
-
+            <EditText
+                android:id="@+id/otherwork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

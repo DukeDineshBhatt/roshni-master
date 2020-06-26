@@ -30,6 +30,7 @@ import com.app.roshni.verifyPOJO.verifyBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
@@ -838,7 +839,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, hom);
 
 

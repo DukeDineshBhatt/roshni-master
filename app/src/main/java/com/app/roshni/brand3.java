@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +33,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -40,11 +42,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roshni.SkillsPOJO.Datum;
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
@@ -86,7 +93,9 @@ import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -100,11 +109,11 @@ import static android.app.Activity.RESULT_OK;
 public class brand3 extends Fragment {
 
     private static final String TAG = "brand";
-    private Spinner manufacturing, certification, firm, firmtype, sector;
+    private Spinner manufacturing, certification, firm, firmtype;
 
-    private String manuf, certi, frmy, frmytyp, sect;
+    private String manuf = "", certi = "", frmy = "", frmytyp = "", sect = "";
 
-    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details , businessname;
+    private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details, businessname, sector;
 
 
     NachoTextView products, countries;
@@ -117,7 +126,7 @@ public class brand3 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec, sec1, wty, wty1, mar;
+    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec1, wty1, mar;
 
     private CustomViewPager pager;
 
@@ -130,8 +139,8 @@ public class brand3 extends Fragment {
 
     private ProgressBar progress;
 
-    String lat1 = "" , lng1 = "";
-    String lat = "" , lng = "";
+    String lat1 = "", lng1 = "";
+    String lat = "", lng = "";
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
@@ -146,14 +155,19 @@ public class brand3 extends Fragment {
     void setData(CustomViewPager pager) {
         this.pager = pager;
     }
+
     String same = "0";
 
+    List<com.app.roshni.sectorPOJO.Data> sec;
+    List<Datum> wty;
 
-    String wtyp, mark , outs;
+    String wtyp = "", mark = "", outs = "";
 
-    MultiSelectSpinner processes;
-    Spinner market , outsourcing;
+    EditText processes;
+    Spinner market, outsourcing;
     EditText certification_number;
+
+    EditText otherwork;
 
     @Nullable
     @Override
@@ -182,6 +196,15 @@ public class brand3 extends Fragment {
 
         try {
             if (mLocationPermissionGranted) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                }
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -211,6 +234,7 @@ public class brand3 extends Fragment {
             Log.e("Exception1: %s", e.getMessage());
         }
 
+        otherwork = view.findViewById(R.id.otherwork);
         name = view.findViewById(R.id.editText);
         processes = view.findViewById(R.id.processes);
         market = view.findViewById(R.id.market);
@@ -328,7 +352,7 @@ public class brand3 extends Fragment {
         });
 
 
-
+        man.add("--- Select ---");
         man.add("0");
         man.add("1");
         man.add("2");
@@ -343,8 +367,10 @@ public class brand3 extends Fragment {
         man.add("11");
         man.add("12");
 
+        mar.add("--- Select ---");
         mar.add("Domestic");
         mar.add("Export");
+        mar.add("Both");
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, man);
@@ -411,7 +437,6 @@ public class brand3 extends Fragment {
                 .build();
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
 
 
         upload.setOnClickListener(new View.OnClickListener() {
@@ -497,6 +522,126 @@ public class brand3 extends Fragment {
             }
         });
 
+        sector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
+
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+
+                final SectorAdapter adapter = new SectorAdapter(getActivity(), sec);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
+
+                bar.setVisibility(View.VISIBLE);
+
+                final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+
+                            adapter.setData(response.body().getData());
+
+                        }
+
+                        bar.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        sec1 = adapter.getIds();
+                        dialog.dismiss();
+
+                        sector.setText(TextUtils.join(", ", adapter.getSecs()));
+                        Log.d("sectors", TextUtils.join(",", sec1));
+
+                    }
+                });
+
+            }
+        });
+
+
+        processes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.sector_dialog);
+                dialog.show();
+
+                RecyclerView sectorgrid = dialog.findViewById(R.id.grid);
+                Button ok = dialog.findViewById(R.id.button30);
+                final ProgressBar bar = dialog.findViewById(R.id.progressBar10);
+
+                final WorkAdapter adapter = new WorkAdapter(getActivity(), wty);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+                sectorgrid.setAdapter(adapter);
+                sectorgrid.setLayoutManager(manager);
+
+                final Call<skillsBean> call = cr.getSkills1(TextUtils.join(",", sec1), SharePreferenceUtils.getInstance().getString("lang"));
+
+                bar.setVisibility(View.VISIBLE);
+
+                call.enqueue(new Callback<skillsBean>() {
+                    @Override
+                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            adapter.setData(response.body().getData());
+
+                        }
+
+                        bar.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                        bar.setVisibility(View.GONE);
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        wty1 = adapter.getIds();
+                        dialog.dismiss();
+
+                        processes.setText(TextUtils.join(", ", adapter.getWorks()));
+                        Log.d("sectors", TextUtils.join(",", wty1));
+
+
+                    }
+                });
+
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -533,6 +678,10 @@ public class brand3 extends Fragment {
                 String bn = businessname.getText().toString();
                 String cn = certification_number.getText().toString();
 
+                String ot = otherwork.getText().toString();
+
+                wtyp = TextUtils.join(",", wty1);
+                sect = TextUtils.join(",", sec1);
 
                 String pp;
                 String ps;
@@ -558,221 +707,180 @@ public class brand3 extends Fragment {
 
 
                 if (n.length() > 0) {
-                    if (p.length() > 0) {
+                    if (sect.length() > 0) {
+                        if (p.length() > 0) {
 
-                                if (cd.length() > 0) {
-                                    if (cs.length() > 0) {
-                                        if (cp.length() == 0 || cp.length() == 6) {
-                                                    if (pd.length() > 0) {
-                                                        if (ps.length() > 0) {
-                                                            if (pp.length() == 0 || pp.length() == 6) {
-                                                                if (pr.length() > 0) {
-                                                                    if (w.length() > 0) {
-
-
-
-                                                                                        Log.d("asdasdasd", products.toString());
+                            if (cd.length() > 0) {
+                                if (cs.length() > 0) {
+                                    if (cp.length() == 0 || cp.length() == 6) {
+                                        if (pd.length() > 0) {
+                                            if (ps.length() > 0) {
+                                                if (pp.length() == 0 || pp.length() == 6) {
+                                                    if (pr.length() > 0) {
+                                                        if (w.length() > 0) {
 
 
-                                                                                        MultipartBody.Part body = null;
-
-                                                                                        try {
-
-                                                                                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                                                            body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
+                                                            Log.d("asdasdasd", ot);
 
 
-                                                                                        } catch (Exception e1) {
-                                                                                            e1.printStackTrace();
-                                                                                        }
+                                                            MultipartBody.Part body = null;
 
-                                                                                        progress.setVisibility(View.VISIBLE);
+                                                            try {
 
-                                                                                        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                                                        Retrofit retrofit = new Retrofit.Builder()
-                                                                                                .baseUrl(b.baseurl)
-                                                                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                                .addConverterFactory(GsonConverterFactory.create())
-                                                                                                .build();
-
-                                                                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                                        Call<verifyBean> call = cr.updateBrand2(
-                                                                                                SharePreferenceUtils.getInstance().getString("user"),
-                                                                                                n,
-                                                                                                frmy,
-                                                                                                frmytyp,
-                                                                                                r,
-                                                                                                lat1,
-                                                                                                lng1,
-                                                                                                sect,
-                                                                                                cde,
-                                                                                                p,
-                                                                                                cp,
-                                                                                                cs,
-                                                                                                cd,
-                                                                                                ca,
-                                                                                                cst,
-                                                                                                pp,
-                                                                                                ps,
-                                                                                                pd,
-                                                                                                pa,
-                                                                                                pst,
-                                                                                                manuf,
-                                                                                                f,
-                                                                                                pr,
-                                                                                                co,
-                                                                                                w,
-                                                                                                certi,
-                                                                                                e,
-                                                                                                we,
-                                                                                                em,
-                                                                                                same,
-                                                                                                bn,
-                                                                                                wtyp,
-                                                                                                mark,
-                                                                                                cn,
-                                                                                                outs,
-                                                                                                body
-                                                                                        );
-
-                                                                                        call.enqueue(new Callback<verifyBean>() {
-                                                                                            @Override
-                                                                                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                                                                assert response.body() != null;
-                                                                                                if (response.body().getStatus().equals("1")) {
-                                                                                                    Data item = response.body().getData();
+                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                                body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                                                                    /*SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("home", item.getHome());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("looms", item.getTools());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
+                                                            } catch (Exception e1) {
+                                                                e1.printStackTrace();
+                                                            }
 
-                                                                                                    SharePreferenceUtils.getInstance().saveString("logo", item.getLogo());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("registration_number", item.getRegistrationNumber());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("contact_person", item.getContactPerson());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("manufacturing_units", item.getManufacturingUnits());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("factory_outlet", item.getFactoryOutlet());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("products", item.getProducts());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("country", item.getCountry());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("certification", item.getCertification());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("expiry", item.getExpiry());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("email", item.getEmail());
-                                                                                                    SharePreferenceUtils.getInstance().saveString("website", item.getWebsite());
+                                                            progress.setVisibility(View.VISIBLE);
 
+                                                            Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
-                                                                                                    Intent registrationComplete = new Intent("photo");
+                                                            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+// set your desired log level
+                                                            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-                                                                                                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);*/
+                                                            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+// add your other interceptors …
 
-                                                                                                    /*Intent intent = new Intent(getContext(), MainActivity2.class);
-                                                                                                    startActivity(intent);
-                                                                                                    getActivity().finishAffinity();*/
+// add logging as last interceptor
+                                                            httpClient.addInterceptor(logging);
 
+                                                            Retrofit retrofit = new Retrofit.Builder()
+                                                                    .baseUrl(b.baseurl)
+                                                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                                    .client(httpClient.build())
+                                                                    .build();
 
-                                                                                                    pager.setCurrentItem(1);
+                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
+                                                            Call<verifyBean> call = cr.updateBrand2(
+                                                                    SharePreferenceUtils.getInstance().getString("user"),
+                                                                    n,
+                                                                    frmy,
+                                                                    frmytyp,
+                                                                    r,
+                                                                    lat1,
+                                                                    lng1,
+                                                                    sect,
+                                                                    cde,
+                                                                    p,
+                                                                    cp,
+                                                                    cs,
+                                                                    cd,
+                                                                    ca,
+                                                                    cst,
+                                                                    pp,
+                                                                    ps,
+                                                                    pd,
+                                                                    pa,
+                                                                    pst,
+                                                                    manuf,
+                                                                    f,
+                                                                    pr,
+                                                                    co,
+                                                                    w,
+                                                                    certi,
+                                                                    e,
+                                                                    we,
+                                                                    em,
+                                                                    same,
+                                                                    bn,
+                                                                    wtyp,
+                                                                    otherwork.getText().toString(),
+                                                                    mark,
+                                                                    cn,
+                                                                    outs,
+                                                                    body
+                                                            );
 
-                                                                                                    Log.d("respo", response.body().getMessage());
+                                                            call.enqueue(new Callback<verifyBean>() {
+                                                                @Override
+                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
 
-                                                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                } else {
-                                                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                }
+                                                                    assert response.body() != null;
+                                                                    if (response.body().getStatus().equals("1")) {
+                                                                        Data item = response.body().getData();
 
-
-                                                                                                progress.setVisibility(View.GONE);
-
-
-                                                                                            }
-
-                                                                                            @Override
-                                                                                            public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                                                progress.setVisibility(View.GONE);
-                                                                                            }
-                                                                                        });
-
+                                                                        pager.setCurrentItem(1);
 
 
+                                                                        Log.d("respo", response.body().getMessage());
+
+                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                     } else {
-                                                                        Toast.makeText(getActivity(), "Invalid workers", Toast.LENGTH_SHORT).show();
-                                                                        workers.setError("");
-                                                                        workers.requestFocus();
+                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                     }
 
-                                                                } else {
-                                                                    Toast.makeText(getActivity(), "Invalid product types", Toast.LENGTH_SHORT).show();
+
+                                                                    progress.setVisibility(View.GONE);
+
+
                                                                 }
 
-                                                            } else {
-                                                                Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
-                                                                ppin.setError("");
-                                                                ppin.requestFocus();
-                                                            }
+                                                                @Override
+                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                                    progress.setVisibility(View.GONE);
+                                                                }
+                                                            });
+
+
                                                         } else {
-                                                            Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
-                                                            pstate.setError("");
-                                                            pstate.requestFocus();
+                                                            Toast.makeText(getActivity(), "Invalid workers", Toast.LENGTH_SHORT).show();
+                                                            workers.setError("");
+                                                            workers.requestFocus();
                                                         }
+
                                                     } else {
-                                                        Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
-                                                        pdistrict.setError("");
-                                                        pdistrict.requestFocus();
+                                                        Toast.makeText(getActivity(), "Invalid product types", Toast.LENGTH_SHORT).show();
                                                     }
 
-
+                                                } else {
+                                                    Toast.makeText(getContext(), "Invalid permanent PIN Code", Toast.LENGTH_SHORT).show();
+                                                    ppin.setError("");
+                                                    ppin.requestFocus();
+                                                }
+                                            } else {
+                                                Toast.makeText(getContext(), "Invalid permanent state", Toast.LENGTH_SHORT).show();
+                                                pstate.setError("");
+                                                pstate.requestFocus();
+                                            }
                                         } else {
-                                            Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
-                                            cpin.setError("");
-                                            cpin.requestFocus();
+                                            Toast.makeText(getContext(), "Invalid permanent district", Toast.LENGTH_SHORT).show();
+                                            pdistrict.setError("");
+                                            pdistrict.requestFocus();
                                         }
+
+
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
-                                        cstate.setError("");
-                                        cstate.requestFocus();
+                                        Toast.makeText(getContext(), "Invalid current PIN Code", Toast.LENGTH_SHORT).show();
+                                        cpin.setError("");
+                                        cpin.requestFocus();
                                     }
                                 } else {
-                                    Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
-                                    cdistrict.setError("");
-                                    cdistrict.requestFocus();
+                                    Toast.makeText(getContext(), "Invalid current state", Toast.LENGTH_SHORT).show();
+                                    cstate.setError("");
+                                    cstate.requestFocus();
                                 }
+                            } else {
+                                Toast.makeText(getContext(), "Invalid current district", Toast.LENGTH_SHORT).show();
+                                cdistrict.setError("");
+                                cdistrict.requestFocus();
+                            }
 
+                        } else {
+                            Toast.makeText(getContext(), "Invalid contact person name", Toast.LENGTH_SHORT).show();
+                            person.setError("");
+                            person.requestFocus();
+                        }
                     } else {
-                        Toast.makeText(getContext(), "Invalid contact person name", Toast.LENGTH_SHORT).show();
-                        person.setError("");
-                        person.requestFocus();
+                        Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
+                        sector.requestFocus();
+                        sector.setError("");
                     }
 
 
@@ -790,7 +898,7 @@ public class brand3 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String uri = String.format(Locale.ENGLISH, "geo:"+lat +","+lng);
+                String uri = String.format(Locale.ENGLISH, "geo:" + lat + "," + lng);
                 Uri gmmIntentUri = Uri.parse(uri);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
@@ -798,8 +906,8 @@ public class brand3 extends Fragment {
                     startActivity(mapIntent);
                 }
 
-                Log.d("LAT",uri);
-                Log.d("LNG",lng);
+                Log.d("LAT", uri);
+                Log.d("LNG", lng);
 
             }
         });
@@ -1145,6 +1253,8 @@ public class brand3 extends Fragment {
                     website.setText(item.getWebsite());
                     email.setText(item.getEmail());
                     certification_number.setText(item.getCertificationNumber());
+                    otherwork.setText(item.getOtherwork());
+                    businessname.setText(item.getBusinessName());
 
                     String ppp = item.getProducts();
                     String ccc = item.getCountry();
@@ -1153,157 +1263,39 @@ public class brand3 extends Fragment {
                     products.setText(Arrays.asList(ppp.split(",")));
                     countries.setText(Arrays.asList(ccc.split(",")));
 
-                    DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
-                    ImageLoader loader = ImageLoader.getInstance();
-                    loader.displayImage(item.getLogo() , image , options);
+                    final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
+                    final ImageLoader loader = ImageLoader.getInstance();
+                    loader.displayImage(item.getLogo(), image, options);
 
-                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
-
-                    call2.enqueue(new Callback<sectorBean>() {
+                    image.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onClick(View v) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            Dialog dialog = new Dialog(getActivity() , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
 
-                                sec.clear();
-                                sec1.clear();
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getLogo() , img , options);
 
-                                for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                    sec.add(response.body().getData().get(i).getTitle());
-                                    sec1.add(response.body().getData().get(i).getId());
-
-                                }
-
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                        R.layout.spinner_model, sec);
-
-                                sector.setAdapter(adapter);
-
-                                int cp2 = 0;
-                                for (int i = 0; i < sec1.size(); i++) {
-                                    if (item.getSector().equals(sec1.get(i))) {
-                                        cp2 = i;
-                                    }
-                                }
-                                sector.setSelection(cp2);
-
-                            }
-
-                            progress.setVisibility(View.GONE);
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
                         }
                     });
 
 
-                    sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    sec1 = Arrays.asList(item.getSector().split(","));
+                    wty1 = Arrays.asList(item.getProcessesId().split(","));
 
-                            sect = sec1.get(i);
+                    sector.setText(item.getSector2());
+                    processes.setText(item.getProcesses());
 
-                            progress.setVisibility(View.VISIBLE);
-
-                            Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
-                            call2.enqueue(new Callback<skillsBean>() {
-                                @Override
-                                public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
-
-
-                                    if (response.body().getStatus().equals("1")) {
-
-                                        wty.clear();
-                                        wty1.clear();
-
-                                        for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                            wty.add(response.body().getData().get(i).getTitle());
-                                            wty1.add(response.body().getData().get(i).getId());
-
-                                        }
-
-
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                                android.R.layout.simple_list_item_multiple_choice, wty);
-
-                                        wtyp = item.getProcesses();
-
-                                        processes.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
-                                            @Override
-                                            public void onItemsSelected(boolean[] selected) {
-
-                                                wtyp = "";
-                                                List<String> sklist = new ArrayList<>();
-
-                                                if (selected[0]) {
-
-                                                    for (int j = 0; j < selected.length; j++) {
-                                                        processes.selectItem(j, false);
-                                                    }
-                                                    processes.selectItem(0, true);
-                                                    sklist.add(wty1.get(0));
-
-                                                } else {
-                                                    for (int i = 0; i < selected.length; i++) {
-                                                        if (selected[i]) {
-
-                                                            sklist.add(wty1.get(i));
-                                                        }
-                                                    }
-                                                }
-
-
-                                                wtyp = TextUtils.join(",", sklist);
-
-                                                Log.d("wtype", wtyp);
-
-                                            }
-                                        });
-
-                                        String[] dd = item.getProcesses().split(",");
-
-                                        int cp = 0;
-                                        for (int i = 0; i < wty1.size(); i++) {
-
-                                            for (int j = 0 ; j < dd.length ; j++)
-                                            {
-
-                                                if (dd[j].equals(wty1.get(i))) {
-                                                    cp = i;
-                                                    processes.selectItem(i , true);
-                                                }
-
-                                            }
-
-
-                                        }
-
-                                    }
-
-                                    progress.setVisibility(View.GONE);
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<skillsBean> call, Throwable t) {
-                                    progress.setVisibility(View.GONE);
-                                }
-                            });
-
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-
+                    if (item.getOtherwork().length() > 0) {
+                        otherwork.setVisibility(View.VISIBLE);
+                    } else {
+                        otherwork.setVisibility(View.GONE);
+                    }
 
                     final Call<sectorBean> call3 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
 
@@ -1337,7 +1329,6 @@ public class brand3 extends Fragment {
                                 certification.setSelection(cp2);
 
 
-
                                 ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                         R.layout.spinner_model, cer);
 
@@ -1352,7 +1343,6 @@ public class brand3 extends Fragment {
                                 outsourcing.setSelection(cp22);
 
 
-
                             }
 
                             certification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1360,7 +1350,7 @@ public class brand3 extends Fragment {
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                     certi = cer1.get(i);
 
-                                    if (certi.equals("1")) {
+                                    if (certi.equals("2")) {
                                         cert.setVisibility(View.VISIBLE);
                                     } else {
                                         cert.setVisibility(View.GONE);
@@ -1518,8 +1508,6 @@ public class brand3 extends Fragment {
                     });
 
 
-
-
                     int cp = 0;
                     for (int i = 0; i < man.size(); i++) {
                         if (item.getManufacturingUnits().equals(man.get(i))) {
@@ -1548,10 +1536,6 @@ public class brand3 extends Fragment {
                 progress.setVisibility(View.GONE);
             }
         });
-
-
-
-
 
 
     }
@@ -1585,5 +1569,235 @@ public class brand3 extends Fragment {
             }
         }
     }
+
+
+    class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder> {
+
+        Context context;
+        List<com.app.roshni.sectorPOJO.Data> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> secs = new ArrayList<>();
+
+        public SectorAdapter(Context context, List<com.app.roshni.sectorPOJO.Data> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<com.app.roshni.sectorPOJO.Data> list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+            holder.setIsRecyclable(false);
+            final com.app.roshni.sectorPOJO.Data item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (sec1.contains(item.getId())) {
+                ids.add(item.getId());
+                secs.add(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                ids.remove(item.getId());
+                secs.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
+                        ids.add(item.getId());
+                        secs.add(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                    } else {
+                        ids.remove(item.getId());
+                        secs.remove(item.getTitle());
+                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getSecs() {
+            return secs;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
+    class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
+
+        Context context;
+        List<com.app.roshni.SkillsPOJO.Datum> list = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> works = new ArrayList<>();
+
+        public WorkAdapter(Context context, List<com.app.roshni.SkillsPOJO.Datum> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        public void setData(List<com.app.roshni.SkillsPOJO.Datum> list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+            holder.setIsRecyclable(false);
+
+            final Datum item = list.get(position);
+
+            holder.title.setText(item.getTitle());
+
+            if (wty1.contains(item.getId())) {
+                if (!ids.contains(item.getId())) {
+                    ids.add(item.getId());
+                    works.add(item.getTitle());
+                }
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                ids.remove(item.getId());
+                works.remove(item.getTitle());
+                holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.card.getCardBackgroundColor() == ColorStateList.valueOf(context.getResources().getColor(R.color.white))) {
+
+                        if (item.getId().equals("59")) {
+                            final Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.other_dialog);
+                            dialog.show();
+
+                            final EditText other = dialog.findViewById(R.id.other);
+                            Button sub = dialog.findViewById(R.id.submit);
+
+                            sub.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    String ot = other.getText().toString();
+
+                                    if (ot.length() > 0) {
+                                        dialog.dismiss();
+                                        otherwork.setText(ot);
+                                        otherwork.setVisibility(View.VISIBLE);
+                                        ids.add(item.getId());
+                                        works.add(item.getTitle());
+                                        holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                                    } else {
+                                        Toast.makeText(context, "Invalid work type", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
+                        } else {
+                            ids.add(item.getId());
+                            works.add(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.red));
+                        }
+
+
+                    } else {
+
+                        if (item.getId().equals("59")) {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                            otherwork.setText("");
+                            otherwork.setVisibility(View.GONE);
+                        } else {
+                            ids.remove(item.getId());
+                            works.remove(item.getTitle());
+                            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.white));
+                        }
+
+
+                    }
+
+                }
+            });
+
+        }
+
+        public List<String> getWorks() {
+            return works;
+        }
+
+        public List<String> getIds() {
+            return ids;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            CardView card;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
 
 }

@@ -856,7 +856,7 @@ public interface AllApiIneterface {
             @Part("survey_id") String user_id,
             @Part("sector") String sector,
             @Part("skills") String skills,
-
+            @Part("otherwork") String otherwork,
             @Part("experience") String experience,
             @Part("availability") String availability,
             @Part("employment") String employment,
@@ -877,6 +877,7 @@ public interface AllApiIneterface {
             @Part("survey_id") String user_id,
             @Part("sector") String sector,
             @Part("skills") String skills,
+            @Part("otherwork") String otherwork,
             @Part("experience") String experience,
             @Part("availability") String availability,
             @Part("employment") String employment,

@@ -959,6 +959,7 @@ public interface AllApiIneterface {
             @Part("workers_female") String workers_female,
             @Part("experience") String experience,
             @Part("work_type") String work_type,
+            @Part("otherwork") String otherwork,
             @Part("availability") String availability,
             @Part("employer") String employer,
             @Part("about") String about,
@@ -972,6 +973,7 @@ public interface AllApiIneterface {
             @Part("school") String school,
             @Part("non_school") String non_school,
             @Part("email") String email,
+            @Part("govt") String govt,
             @Part MultipartBody.Part file1
     );
 

@@ -165,6 +165,8 @@ public class contractor2 extends Fragment {
 
     LinearLayout home_layout;
 
+    EditText phone;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -240,6 +242,11 @@ public class contractor2 extends Fragment {
         } catch (Exception e) {
             Log.e("Exception1: %s", e.getMessage());
         }
+
+        phone = view.findViewById(R.id.phone);
+
+        phone.setText(SharePreferenceUtils.getInstance().getString("phone"));
+
 
         email = view.findViewById(R.id.email);
         othergovt = view.findViewById(R.id.othergovt);

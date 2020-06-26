@@ -169,6 +169,8 @@ public class brand3 extends Fragment {
 
     EditText otherwork;
 
+    EditText phone;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -233,6 +235,10 @@ public class brand3 extends Fragment {
         } catch (Exception e) {
             Log.e("Exception1: %s", e.getMessage());
         }
+
+        phone = view.findViewById(R.id.phone);
+
+        phone.setText(SharePreferenceUtils.getInstance().getString("phone"));
 
         otherwork = view.findViewById(R.id.otherwork);
         name = view.findViewById(R.id.editText);

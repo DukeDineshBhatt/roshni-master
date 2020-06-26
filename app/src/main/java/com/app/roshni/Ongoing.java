@@ -159,6 +159,7 @@ public class Ongoing extends Fragment {
                         Intent intent = new Intent(context , Profile4.class);
                         SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         SharePreferenceUtils.getInstance().saveString("survey_id", item.getId());
+                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
                         startActivity(intent);
 
                     }else if (item.getType().equals("brand"))
@@ -166,6 +167,7 @@ public class Ongoing extends Fragment {
                         Intent intent = new Intent(context , Profile5.class);
                         SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         SharePreferenceUtils.getInstance().saveString("survey_id", item.getId());
+                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
                         startActivity(intent);
                     }
                     else
@@ -173,6 +175,7 @@ public class Ongoing extends Fragment {
                         Intent intent = new Intent(getContext() , Profile6.class);
                         SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         SharePreferenceUtils.getInstance().saveString("survey_id", item.getId());
+                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
                         startActivity(intent);
 
                     }

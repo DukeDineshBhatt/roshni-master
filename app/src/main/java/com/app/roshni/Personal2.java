@@ -157,6 +157,7 @@ public class Personal2 extends Fragment {
     List<String> cer, cer1, ski, ski1;
     String cert = "", skil = "";
 
+    EditText phone;
 
     @Nullable
     @Override
@@ -233,6 +234,10 @@ public class Personal2 extends Fragment {
         } catch (Exception e) {
             Log.e("Exception1: %s", e.getMessage());
         }
+
+        phone = view.findViewById(R.id.phone);
+
+        phone.setText(SharePreferenceUtils.getInstance().getString("phone"));
 
         certified = view.findViewById(R.id.certified);
         goingtoschool2 = view.findViewById(R.id.goingtoschool2);

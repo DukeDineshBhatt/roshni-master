@@ -206,8 +206,8 @@ public class WorkerProfessionalProfile extends Fragment {
                     txtStatus.setText(item.get(0).getRejectReason());
                     txtStatus.setVisibility(View.VISIBLE);
                 }
-                else if (item.get(0).getStatus().equals("submitted")) {
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                else if (item.get(0).getStatus().equals("verified")) {
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
                     txtStatus.setVisibility(View.VISIBLE);
                 }
                 else if (item.get(0).getStatus().equals("modifications")) {

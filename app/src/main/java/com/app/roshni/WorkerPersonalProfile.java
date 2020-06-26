@@ -301,8 +301,8 @@ public class WorkerPersonalProfile extends Fragment {
                 } else if (item.get(0).getStatus().equals("rejected")) {
                     txtStatus.setText(item.get(0).getRejectReason());
                     txtStatus.setVisibility(View.VISIBLE);
-                } else if (item.get(0).getStatus().equals("submitted")) {
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                } else if (item.get(0).getStatus().equals("verified")) {
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
                     txtStatus.setVisibility(View.VISIBLE);
                 } else if (item.get(0).getStatus().equals("modifications")) {
                     txtStatus.setText(item.get(0).getRejectReason());

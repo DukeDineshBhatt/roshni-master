@@ -104,8 +104,8 @@ public class BrandPictureProfile extends Fragment {
                     txtStatus.setText(item.getRejectReason());
                     txtStatus.setVisibility(View.VISIBLE);
                 }
-                else if (item.getStatus().equals("submitted")) {
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                else if (item.getStatus().equals("verified")) {
+                    txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
                     txtStatus.setVisibility(View.VISIBLE);
                 }
                 else if (item.getStatus().equals("modifications")) {

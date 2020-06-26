@@ -1,6 +1,7 @@
 package com.app.roshni;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -94,7 +95,7 @@ public class Samples2 extends Fragment {
         previous = view.findViewById(R.id.button16);
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getContext() , list);
+        adapter = new SampleAdapter(getActivity() , list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
@@ -381,8 +382,8 @@ public class Samples2 extends Fragment {
 
             final Datum item = list.get(position);
 
-            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
-            ImageLoader loader = ImageLoader.getInstance();
+            final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
+            final ImageLoader loader = ImageLoader.getInstance();
             loader.displayImage(item.getFile() , holder.image , options);
 
             holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -426,6 +427,26 @@ public class Samples2 extends Fragment {
 
                 }
             });
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Dialog dialog = new Dialog(context , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    //      WindowManager.LayoutParams.MATCH_PARENT);
+                    dialog.setContentView(R.layout.zoom_dialog);
+                    dialog.setCancelable(true);
+                    dialog.show();
+
+                    ImageView img = dialog.findViewById(R.id.image);
+                    loader.displayImage(item.getFile() , img , options);
+
+                }
+            });
+
+
 
         }
 

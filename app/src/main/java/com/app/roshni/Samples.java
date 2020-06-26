@@ -94,7 +94,7 @@ public class Samples extends Fragment {
         nodata = view.findViewById(R.id.imageView5);
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getContext() , list);
+        adapter = new SampleAdapter(getActivity() , list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);

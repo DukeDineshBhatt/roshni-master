@@ -576,21 +576,18 @@
                 android:layout_marginTop="16dp"
                 android:text="SECTOR *" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/sector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/sector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
 
 
@@ -815,21 +812,18 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/experience1" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:maxLength="2"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
-
-                <Spinner
-                    android:id="@+id/experience"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
 
             <TextView
@@ -839,22 +833,31 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/types_of_work1" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/work"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
+                android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
+                android:padding="10dp" />
 
-                <io.apptik.widget.multiselectspinner.MultiSelectSpinner
-                    android:id="@+id/work"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-            </RelativeLayout>
-
+            <EditText
+                android:id="@+id/otherwork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
+                android:padding="10dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -940,53 +943,60 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/no_of_home_based_units" />
-
-            <EditText
-                android:id="@+id/home_based"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:hint="@string/tap_to_enter"
-                android:inputType="number"
-                android:digits="0123456789"
-                android:padding="10dp" />
+                android:id="@+id/home_layout"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/no_of_home_based_units" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/location_of_home_based_units" />
+                <EditText
+                    android:id="@+id/home_based"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/white_back_round"
+                    android:hint="@string/tap_to_enter"
+                    android:inputType="number"
+                    android:digits="0123456789"
+                    android:padding="10dp" />
 
-            <mabbas007.tagsedittext.TagsEditText
-                android:id="@+id/location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
-                android:gravity="center_vertical"
-                android:hint="@string/hit_enter_to_add_products"
-                android:inputType="textPostalAddress"
-                android:padding="10dp"
-                app:allowSpaceInTag="true"
-                app:tagsBackground="@drawable/blue_back_round"
-                app:tagsPaddingBottom="5dp"
-                app:tagsPaddingLeft="20dp"
-                app:tagsPaddingRight="20dp"
-                app:tagsPaddingTop="5dp"
-                app:tagsTextColor="#ffffff"
-                app:tagsTextSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/location_of_home_based_units" />
+
+                <mabbas007.tagsedittext.TagsEditText
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/white_back_round"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hit_enter_to_add_location"
+                    android:inputType="textPostalAddress"
+                    android:padding="10dp"
+                    app:allowSpaceInTag="true"
+                    app:tagsBackground="@drawable/blue_back_round"
+                    app:tagsPaddingBottom="5dp"
+                    app:tagsPaddingLeft="20dp"
+                    app:tagsPaddingRight="20dp"
+                    app:tagsPaddingTop="5dp"
+                    app:tagsTextColor="#ffffff"
+                    app:tagsTextSize="12sp" />
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1005,6 +1015,44 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textEmailAddress"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:text="@string/are_you_covered_under_any_of_the_govt_health_insurance_scheme" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/govtinsurance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/othergovt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_enter"
+                android:inputType="text"
                 android:padding="10dp" />
 
             <Button

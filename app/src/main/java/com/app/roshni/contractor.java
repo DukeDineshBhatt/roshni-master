@@ -708,165 +708,6 @@ public class contractor extends Fragment {
         });
 
 
-
-
-/*
-        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
-
-        call.enqueue(new Callback<sectorBean>() {
-            @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                if (response.body().getStatus().equals("1")) {
-
-
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                        sec.add(response.body().getData().get(i).getTitle());
-                        sec1.add(response.body().getData().get(i).getId());
-
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, sec);
-
-                    sector.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
-                        @Override
-                        public void onItemsSelected(boolean[] selected) {
-
-                            sect = "";
-                            List<String> sklist = new ArrayList<>();
-
-                            if (selected[0]) {
-
-                                for (int j = 0; j < selected.length; j++) {
-                                    sector.selectItem(j, false);
-                                }
-                                sector.selectItem(0, true);
-                                sklist.add(sec1.get(0));
-
-                            } else {
-                                for (int i = 0; i < selected.length; i++) {
-                                    if (selected[i]) {
-
-                                        sklist.add(sec1.get(i));
-                                    }
-                                }
-                            }
-
-
-                            sect = TextUtils.join(",", sklist);
-
-                            Log.d("wtype", sect);
-
-                        }
-                    });
-
-                }
-
-                progress.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
-            }
-        });
-
-        sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                sect = sec1.get(i);
-
-                Call<skillsBean> call2 = cr.getSkills1(
-                        sect,
-                        SharePreferenceUtils.getInstance().getString("lang")
-                );
-                call2.enqueue(new Callback<skillsBean>() {
-                    @Override
-                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
-
-
-                        if (response.body().getStatus().equals("1")) {
-
-                            wty.clear();
-                            wty1.clear();
-
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                wty.add(response.body().getData().get(i).getTitle());
-                                wty1.add(response.body().getData().get(i).getId());
-
-                            }
-
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                    android.R.layout.simple_list_item_multiple_choice, wty);
-
-
-                            work.setListAdapter(adapter).setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
-                                @Override
-                                public void onItemsSelected(boolean[] selected) {
-
-                                    wtyp = "";
-                                    List<String> sklist = new ArrayList<>();
-
-                                    if (selected[0]) {
-
-                                        for (int j = 0; j < selected.length; j++) {
-                                            work.selectItem(j, false);
-                                        }
-                                        work.selectItem(0, true);
-                                        sklist.add(wty1.get(0));
-
-                                    } else {
-                                        for (int i = 0; i < selected.length; i++) {
-                                            if (selected[i]) {
-
-                                                sklist.add(wty1.get(i));
-                                            }
-                                        }
-                                    }
-
-
-                                    wtyp = TextUtils.join(",", sklist);
-
-                                    Log.d("wtype", wtyp);
-
-                                }
-                            });
-
-
-
-                            *//*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                                    R.layout.spinner_model, wty);
-
-                            work.setAdapter(adapter);*//*
-
-                        }
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<skillsBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
-
         progress.setVisibility(View.VISIBLE);
 
         Call<sectorBean> call1 = cr.getGender(SharePreferenceUtils.getInstance().getString("lang"));
@@ -972,54 +813,6 @@ public class contractor extends Fragment {
             }
         });
 
-        /*progress.setVisibility(View.VISIBLE);
-
-        Call<sectorBean> call3 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
-
-        call3.enqueue(new Callback<sectorBean>() {
-            @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
-
-                if (response.body().getStatus().equals("1")) {
-
-
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-
-                        exp.add(response.body().getData().get(i).getTitle());
-                        exp1.add(response.body().getData().get(i).getId());
-
-                    }
-
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
-                            R.layout.spinner_model, exp);
-
-
-                    experience.setAdapter(adapter2);
-                }
-
-                progress.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
-            }
-        });
-
-        experience.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                expe = exp1.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
 
         progress.setVisibility(View.VISIBLE);
 
@@ -1422,155 +1215,155 @@ public class contractor extends Fragment {
                                                                     if (wtyp.length() > 0) {
 
                                                                         if (avai.length() > 0) {
-Log.d("contractorc1", String.valueOf(c1));
+                                                                            Log.d("contractorc1", String.valueOf(c1));
 
-submit.setFocusable(false);
-submit.setClickable(false);
+                                                                            submit.setFocusable(false);
+                                                                            submit.setClickable(false);
 
-                                                                    MultipartBody.Part body = null;
+                                                                            MultipartBody.Part body = null;
 
-                                                                    try {
+                                                                            try {
 
-                                                                        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                                                        body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
-
-
-                                                                    } catch (Exception e1) {
-                                                                        e1.printStackTrace();
-                                                                    }
-
-                                                                    progress.setVisibility(View.VISIBLE);
-
-                                                                    Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-                                                                    Retrofit retrofit = new Retrofit.Builder()
-                                                                            .baseUrl(b1.baseurl)
-                                                                            .addConverterFactory(ScalarsConverterFactory.create())
-                                                                            .addConverterFactory(GsonConverterFactory.create())
-                                                                            .build();
-
-                                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                    Call<verifyBean> call = cr.update_contractor(
-                                                                            SharePreferenceUtils.getInstance().getString("user_id"),
-                                                                            n,
-                                                                            prf,
-                                                                            p,
-                                                                            frmy,
-                                                                            frmytyp,
-                                                                            r,
-                                                                            lat,
-                                                                            lng,
-                                                                            d,
-                                                                            gend,
-                                                                            b,
-                                                                            esta,
-                                                                            cp,
-                                                                            cs,
-                                                                            cd,
-                                                                            ca,
-                                                                            cst,
-                                                                            pp,
-                                                                            ps,
-                                                                            pd,
-                                                                            pa,
-                                                                            pst,
-                                                                            h,
-                                                                            l,
-                                                                            m,
-                                                                            f,
-                                                                            expe,
-                                                                            wtyp,
-                                                                            ot,
-                                                                            avai,
-                                                                            e,
-                                                                            ab,
-                                                                            sect,
-                                                                            loo,
-                                                                            same,
-                                                                            body,
-                                                                            String.valueOf(c1),
-                                                                            String.valueOf(c2),
-                                                                            String.valueOf(c3),
-                                                                            String.valueOf(c4),
-                                                                            String.valueOf(c5),
-                                                                            outs,
-                                                                            mig,
-                                                                            loca,
-                                                                            with,
-                                                                            sch,
-                                                                            nons,
-                                                                            ema,
-                                                                            govt
-                                                                    );
-
-                                                                    call.enqueue(new Callback<verifyBean>() {
-                                                                        @Override
-                                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                                                            assert response.body() != null;
-                                                                            if (response.body().getStatus().equals("1")) {
-                                                                                com.app.roshni.verifyPOJO.Data item = response.body().getData();
-
-                                                                                submit.setFocusable(true);
-                                                                                submit.setClickable(true);
-
-                                                                                SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                                                                SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                                                                SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                                                                SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                                                                SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                                                                SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
-                                                                                SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
-                                                                                SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                                                                SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                                                                SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                                                                SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                                                                SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                                                                SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                                                                SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                                                                SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                                                                SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                                                                SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                                                                SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
-                                                                                SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
-                                                                                SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
-                                                                                SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
-                                                                                SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
-                                                                                SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
-                                                                                SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                                                                SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                                                                SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
-                                                                                SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+                                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                                                                body = MultipartBody.Part.createFormData("photo", f1.getName(), reqFile1);
 
 
-                                                                                Intent registrationComplete = new Intent("photo");
-
-                                                                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
-
-                                                                                pager.setCurrentItem(1);
-
-                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                            } else {
-
-                                                                                submit.setFocusable(true);
-                                                                                submit.setClickable(true);
-
-                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                            } catch (Exception e1) {
+                                                                                e1.printStackTrace();
                                                                             }
 
+                                                                            progress.setVisibility(View.VISIBLE);
 
-                                                                            progress.setVisibility(View.GONE);
+                                                                            Bean b1 = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
-                                                                        }
+                                                                            Retrofit retrofit = new Retrofit.Builder()
+                                                                                    .baseUrl(b1.baseurl)
+                                                                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                                                    .build();
 
-                                                                        @Override
-                                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
-                                                                            progress.setVisibility(View.GONE);
-                                                                            submit.setFocusable(true);
-                                                                            submit.setClickable(true);
-                                                                        }
-                                                                    });
+                                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                                            Call<verifyBean> call = cr.update_contractor(
+                                                                                    SharePreferenceUtils.getInstance().getString("user_id"),
+                                                                                    n,
+                                                                                    prf,
+                                                                                    p,
+                                                                                    frmy,
+                                                                                    frmytyp,
+                                                                                    r,
+                                                                                    lat,
+                                                                                    lng,
+                                                                                    d,
+                                                                                    gend,
+                                                                                    b,
+                                                                                    esta,
+                                                                                    cp,
+                                                                                    cs,
+                                                                                    cd,
+                                                                                    ca,
+                                                                                    cst,
+                                                                                    pp,
+                                                                                    ps,
+                                                                                    pd,
+                                                                                    pa,
+                                                                                    pst,
+                                                                                    h,
+                                                                                    l,
+                                                                                    m,
+                                                                                    f,
+                                                                                    expe,
+                                                                                    wtyp,
+                                                                                    ot,
+                                                                                    avai,
+                                                                                    e,
+                                                                                    ab,
+                                                                                    sect,
+                                                                                    loo,
+                                                                                    same,
+                                                                                    body,
+                                                                                    String.valueOf(c1),
+                                                                                    String.valueOf(c2),
+                                                                                    String.valueOf(c3),
+                                                                                    String.valueOf(c4),
+                                                                                    String.valueOf(c5),
+                                                                                    outs,
+                                                                                    mig,
+                                                                                    loca,
+                                                                                    with,
+                                                                                    sch,
+                                                                                    nons,
+                                                                                    ema,
+                                                                                    govt
+                                                                            );
+
+                                                                            call.enqueue(new Callback<verifyBean>() {
+                                                                                @Override
+                                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                                                                    assert response.body() != null;
+                                                                                    if (response.body().getStatus().equals("1")) {
+                                                                                        com.app.roshni.verifyPOJO.Data item = response.body().getData();
+
+                                                                                        submit.setFocusable(true);
+                                                                                        submit.setClickable(true);
+
+                                                                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                                                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                                                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                                                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                                                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                                                                        SharePreferenceUtils.getInstance().saveString("business_name", item.getBusiness_name());
+                                                                                        SharePreferenceUtils.getInstance().saveString("establishment_year", item.getEstablishment_year());
+                                                                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                                                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                                                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                                                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                                                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                                                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                                                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                                                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                                                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                                                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                                                                        SharePreferenceUtils.getInstance().saveString("home_units", item.getHome_units());
+                                                                                        SharePreferenceUtils.getInstance().saveString("home_location", item.getHome_location());
+                                                                                        SharePreferenceUtils.getInstance().saveString("workers_male", item.getWorkers_male());
+                                                                                        SharePreferenceUtils.getInstance().saveString("workers_female", item.getWorkers_female());
+                                                                                        SharePreferenceUtils.getInstance().saveString("work_type", item.getWork_type());
+                                                                                        SharePreferenceUtils.getInstance().saveString("availability", item.getAvailability());
+                                                                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                                                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                                                                        SharePreferenceUtils.getInstance().saveString("about", item.getAbout());
+                                                                                        SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+
+
+                                                                                        Intent registrationComplete = new Intent("photo");
+
+                                                                                        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(registrationComplete);
+
+                                                                                        pager.setCurrentItem(1);
+
+                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                    } else {
+
+                                                                                        submit.setFocusable(true);
+                                                                                        submit.setClickable(true);
+
+                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                    }
+
+
+                                                                                    progress.setVisibility(View.GONE);
+
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                                                    progress.setVisibility(View.GONE);
+                                                                                    submit.setFocusable(true);
+                                                                                    submit.setClickable(true);
+                                                                                }
+                                                                            });
                                                                         } else {
                                                                             Toast.makeText(getContext(), "Please select availability", Toast.LENGTH_SHORT).show();
                                                                             availability.requestFocus();

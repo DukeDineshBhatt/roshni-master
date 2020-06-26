@@ -60,21 +60,21 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class PostJobContractor extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button submit , upload;
+    Button submit;
     ProgressBar progress;
-    Spinner type , experience , days  ,sector , place;
+    Spinner type, experience, days, sector, place;
     EditText rate;
 
-    ImageView image;
+    ImageView image1, image2, image3, image4, image5;
 
-    List<String> typ, typ1 , exp , exp1 , day , pla , pla1;
+    List<String> typ, typ1, exp, exp1, day, pla, pla1;
 
-    String ty , ex , da , sect , plac;
+    String ty = "", ex = "", da = "", sect = "", plac = "";
     List<String> sec, sec1;
-    private Uri uri;
-    private File f1;
+    private Uri uri1, uri2, uri3, uri4, uri5;
+    private File f1, f2, f3, f4, f5;
 
-    CheckBox display_name , phone , contact_person , email , all;
+    CheckBox display_name, phone, contact_person, email, all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,11 @@ public class PostJobContractor extends AppCompatActivity {
         experience = findViewById(R.id.experience);
         days = findViewById(R.id.days);
         rate = findViewById(R.id.rate);
-        image = findViewById(R.id.image);
-        upload = findViewById(R.id.upload);
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
+        image4 = findViewById(R.id.image4);
+        image5 = findViewById(R.id.image5);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -128,8 +131,6 @@ public class PostJobContractor extends AppCompatActivity {
         exp.add("more than 10 years");*/
 
 
-
-
         all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -143,10 +144,8 @@ public class PostJobContractor extends AppCompatActivity {
         });
 
 
-
-
-        for (int i = 1 ; i <=500 ; i++)
-        {
+        day.add("--- Select ---");
+        for (int i = 1; i <= 500; i++) {
             day.add(String.valueOf(i));
         }
 
@@ -172,7 +171,10 @@ public class PostJobContractor extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                ty = typ1.get(i);
+                if (i > 0) {
+                    ty = typ1.get(i);
+                }
+
 
             }
 
@@ -183,13 +185,13 @@ public class PostJobContractor extends AppCompatActivity {
         });
 
 
-
-
         days.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                if (i > 0) {
                     da = day.get(i);
+                }
 
 
             }
@@ -235,12 +237,11 @@ public class PostJobContractor extends AppCompatActivity {
         });
 
 
-
         place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                plac =  pla1.get(i);
+                plac = pla1.get(i);
 
             }
 
@@ -290,7 +291,10 @@ public class PostJobContractor extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                ex = exp1.get(i);
+                if (i > 0) {
+                    ex = exp1.get(i);
+                }
+
 
             }
 
@@ -306,105 +310,148 @@ public class PostJobContractor extends AppCompatActivity {
             public void onClick(View view) {
 
 
-
                 String r = rate.getText().toString();
 
-                if (ty.length() > 0)
-                {
-                    if (ex.length() > 0)
-                    {
-                        if (da.length() > 0)
-                        {
+                if (sect.length() > 0) {
+                    if (ty.length() > 0) {
+                        if (ex.length() > 0) {
+                            if (da.length() > 0) {
 
-                            MultipartBody.Part body = null;
+                                MultipartBody.Part body1 = null;
 
-                            try {
+                                try {
 
-                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                body = MultipartBody.Part.createFormData("sample", f1.getName(), reqFile1);
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                    body1 = MultipartBody.Part.createFormData("sample1", f1.getName(), reqFile1);
 
 
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+
+                                MultipartBody.Part body2 = null;
+
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                    body2 = MultipartBody.Part.createFormData("sample2", f2.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                MultipartBody.Part body3 = null;
+
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f3);
+                                    body3 = MultipartBody.Part.createFormData("sample3", f3.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                MultipartBody.Part body4 = null;
+
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f4);
+                                    body4 = MultipartBody.Part.createFormData("sample4", f4.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                MultipartBody.Part body5 = null;
+
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f5);
+                                    body5 = MultipartBody.Part.createFormData("sample5", f5.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                progress.setVisibility(View.VISIBLE);
+
+                                Bean b = (Bean) getApplicationContext();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                Call<verifyBean> call = cr.post_job_contractor(
+                                        SharePreferenceUtils.getInstance().getString("user_id"),
+                                        sect,
+                                        ty,
+                                        ex,
+                                        da,
+                                        r,
+                                        plac,
+                                        String.valueOf(display_name.isChecked()),
+                                        String.valueOf(phone.isChecked()),
+                                        String.valueOf(contact_person.isChecked()),
+                                        String.valueOf(email.isChecked()),
+                                        body1,
+                                        body2,
+                                        body3,
+                                        body4,
+                                        body5
+                                );
+
+                                call.enqueue(new Callback<verifyBean>() {
+                                    @Override
+                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                        if (response.body().getStatus().equals("1")) {
+                                            Toast.makeText(PostJobContractor.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                            finish();
+
+                                        } else {
+                                            Toast.makeText(PostJobContractor.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+
+                                        progress.setVisibility(View.GONE);
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
+                                    }
+                                });
+
+
+                            } else {
+                                Toast.makeText(PostJobContractor.this, "Invalid days", Toast.LENGTH_SHORT).show();
                             }
-
-                            progress.setVisibility(View.VISIBLE);
-
-                            Bean b = (Bean) getApplicationContext();
-
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(b.baseurl)
-                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-
-                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                            Call<verifyBean> call = cr.post_job_contractor(
-                                    SharePreferenceUtils.getInstance().getString("user_id"),
-                                    sect,
-                                    ty,
-                                    ex,
-                                    da,
-                                    r,
-                                    plac,
-                                    String.valueOf(display_name.isChecked()),
-                                    String.valueOf(phone.isChecked()),
-                                    String.valueOf(contact_person.isChecked()),
-                                    String.valueOf(email.isChecked()),
-                                    body
-                            );
-
-                            call.enqueue(new Callback<verifyBean>() {
-                                @Override
-                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                    if (response.body().getStatus().equals("1"))
-                                    {
-                                        Toast.makeText(PostJobContractor.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                        finish();
-
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(PostJobContractor.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
-
-                                    progress.setVisibility(View.GONE);
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                    progress.setVisibility(View.GONE);
-                                }
-                            });
-
-
+                        } else {
+                            Toast.makeText(PostJobContractor.this, "Invalid experience", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                        {
-                            Toast.makeText(PostJobContractor.this, "Invalid days", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        Toast.makeText(PostJobContractor.this, "Invalid job type", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(PostJobContractor.this, "Invalid experience", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else
-                {
-                    Toast.makeText(PostJobContractor.this, "Invalid job type", Toast.LENGTH_SHORT).show();
-                }
+                } else
+                    Toast.makeText(PostJobContractor.this, "Invalid sector", Toast.LENGTH_SHORT).show();
 
 
             }
         });
 
 
-        upload.setOnClickListener(new View.OnClickListener() {
+        image1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -436,10 +483,10 @@ public class PostJobContractor extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri = FileProvider.getUriForFile(Objects.requireNonNull(PostJobContractor.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(PostJobContractor.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
                             getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivityForResult(getpic, 1);
                         } else if (items[item].equals("Choose from Gallery")) {
@@ -455,12 +502,218 @@ public class PostJobContractor extends AppCompatActivity {
             }
         });
 
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PostJobContractor.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(Objects.requireNonNull(PostJobContractor.this), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        image3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PostJobContractor.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f3 = new File(file);
+                            try {
+                                f3.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri3 = FileProvider.getUriForFile(Objects.requireNonNull(PostJobContractor.this), BuildConfig.APPLICATION_ID + ".provider", f3);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri3);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 5);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 6);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        image4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PostJobContractor.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f4 = new File(file);
+                            try {
+                                f4.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri4 = FileProvider.getUriForFile(Objects.requireNonNull(PostJobContractor.this), BuildConfig.APPLICATION_ID + ".provider", f4);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri4);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 7);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 8);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        image5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PostJobContractor.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f5 = new File(file);
+                            try {
+                                f5.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri5 = FileProvider.getUriForFile(Objects.requireNonNull(PostJobContractor.this), BuildConfig.APPLICATION_ID + ".provider", f5);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri5);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 9);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 10);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
 
 
         progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
+        final Call<sectorBean> call = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
@@ -497,44 +750,46 @@ public class PostJobContractor extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                sect = sec1.get(i);
+                if (i > 0) {
+                    sect = sec1.get(i);
 
-                progress.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.VISIBLE);
 
-                Call<skillsBean> call2 = cr.getRoles(sect , SharePreferenceUtils.getInstance().getString("lang"));
-                call2.enqueue(new Callback<skillsBean>() {
-                    @Override
-                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                    Call<skillsBean> call2 = cr.getRoles(sect, SharePreferenceUtils.getInstance().getString("lang"));
+                    call2.enqueue(new Callback<skillsBean>() {
+                        @Override
+                        public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
 
 
-                        if (response.body().getStatus().equals("1")) {
+                            if (response.body().getStatus().equals("1")) {
 
-                            typ.clear();
-                            typ1.clear();
+                                typ.clear();
+                                typ1.clear();
 
-                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                                typ.add(response.body().getData().get(i).getTitle());
-                                typ1.add(response.body().getData().get(i).getId());
+                                    typ.add(response.body().getData().get(i).getTitle());
+                                    typ1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJobContractor.this,
+                                        R.layout.spinner_model, typ);
+
+                                type.setAdapter(adapter);
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJobContractor.this,
-                                    R.layout.spinner_model, typ);
-
-                            type.setAdapter(adapter);
+                            progress.setVisibility(View.GONE);
 
                         }
 
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<skillsBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<skillsBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+                }
 
 
             }
@@ -553,11 +808,11 @@ public class PostJobContractor extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
-            uri = data.getData();
+            uri1 = data.getData();
 
-            Log.d("uri", String.valueOf(uri));
+            Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(PostJobContractor.this, uri);
+            String ypath = getPath(PostJobContractor.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -566,16 +821,114 @@ public class PostJobContractor extends AppCompatActivity {
 
             ImageLoader loader = ImageLoader.getInstance();
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri));
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri1));
 
             Log.d("bitmap", String.valueOf(bmp));
 
-            image.setImageBitmap(bmp);
+            image1.setImageBitmap(bmp);
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
-            image.setImageURI(uri);
+            image1.setImageURI(uri1);
         }
 
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+
+            Log.d("uri", String.valueOf(uri2));
+
+            String ypath = getPath(PostJobContractor.this, uri2);
+            assert ypath != null;
+            f2 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri2));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image2.setImageBitmap(bmp);
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+            image2.setImageURI(uri2);
+        }
+
+
+        if (requestCode == 6 && resultCode == RESULT_OK && null != data) {
+            uri3 = data.getData();
+
+            Log.d("uri", String.valueOf(uri3));
+
+            String ypath = getPath(PostJobContractor.this, uri3);
+            assert ypath != null;
+            f3 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri3));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image3.setImageBitmap(bmp);
+
+        } else if (requestCode == 5 && resultCode == RESULT_OK) {
+            image3.setImageURI(uri3);
+        }
+
+
+        if (requestCode == 8 && resultCode == RESULT_OK && null != data) {
+            uri4 = data.getData();
+
+            Log.d("uri", String.valueOf(uri4));
+
+            String ypath = getPath(PostJobContractor.this, uri4);
+            assert ypath != null;
+            f4 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri4));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image4.setImageBitmap(bmp);
+
+        } else if (requestCode == 7 && resultCode == RESULT_OK) {
+            image4.setImageURI(uri4);
+        }
+
+
+        if (requestCode == 10 && resultCode == RESULT_OK && null != data) {
+            uri5 = data.getData();
+
+            Log.d("uri", String.valueOf(uri5));
+
+            String ypath = getPath(PostJobContractor.this, uri5);
+            assert ypath != null;
+            f5 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri5));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image5.setImageBitmap(bmp);
+
+        } else if (requestCode == 9 && resultCode == RESULT_OK) {
+            image5.setImageURI(uri5);
+        }
 
     }
 
@@ -692,6 +1045,7 @@ public class PostJobContractor extends AppCompatActivity {
         }
         return null;
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {

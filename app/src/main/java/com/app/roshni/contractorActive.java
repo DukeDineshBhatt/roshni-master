@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,8 +46,10 @@ public class contractorActive extends Fragment {
     List<Datum> list;
     ProgressBar progress;
     ImageView nodata;
-    TextView date;
+    RadioGroup date;
     String dd;
+
+    String sort = "DESC";
 
     @Nullable
     @Override
@@ -65,103 +68,25 @@ public class contractorActive extends Fragment {
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
-        date.setOnClickListener(new View.OnClickListener() {
+
+        date.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.date_dialog);
-                dialog.show();
-
-
-                final DatePicker picker = dialog.findViewById(R.id.date);
-                Button ok = dialog.findViewById(R.id.ok);
-
-                long now = System.currentTimeMillis() - 1000;
-                picker.setMaxDate(now);
-
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        int year = picker.getYear();
-                        int month = picker.getMonth();
-                        int day = picker.getDayOfMonth();
-
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(year, month, day);
-
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        String strDate = format.format(calendar.getTime());
-
-                        dialog.dismiss();
-
-                        date.setText("Date - " + strDate + " (click to change)");
-
-                        dd = strDate;
-
-                        progress.setVisibility(View.VISIBLE);
-
-                        Bean b = (Bean) getContext().getApplicationContext();
-
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(b.baseurl)
-                                .addConverterFactory(ScalarsConverterFactory.create())
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-
-                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-
-                        Call<allWorkContrJobBean> call = cr.getAllContractorJobs(SharePreferenceUtils.getInstance().getString("user_id") , "Active" , dd);
-
-                        call.enqueue(new Callback<allWorkContrJobBean>() {
-                            @Override
-                            public void onResponse(Call<allWorkContrJobBean> call, Response<allWorkContrJobBean> response) {
-
-                                if (response.body().getData().size() > 0)
-                                {
-                                    nodata.setVisibility(View.GONE);
-                                }
-                                else
-                                {
-                                    nodata.setVisibility(View.VISIBLE);
-                                }
-
-
-                                adapter.setData(response.body().getData());
-
-                                progress.setVisibility(View.GONE);
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<allWorkContrJobBean> call, Throwable t) {
-                                progress.setVisibility(View.GONE);
-                            }
-                        });
-
-
-                    }
-                });
-
+                if (checkedId == R.id.newest)
+                {
+                    sort = "DESC";
+                    onResume();
+                }
+                else
+                {
+                    sort = "ASC";
+                    onResume();
+                }
 
             }
         });
 
-
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = df.format(c);
-
-        Log.d("dddd", formattedDate);
-
-        date.setText("Date - " + formattedDate + " (click to change)");
-
-        dd = formattedDate;
 
         return view;
     }
@@ -185,7 +110,7 @@ public class contractorActive extends Fragment {
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
 
-        Call<allWorkContrJobBean> call = cr.getAllContractorJobs(SharePreferenceUtils.getInstance().getString("user_id") , "Active" , dd);
+        Call<allWorkContrJobBean> call = cr.getAllContractorJobs(SharePreferenceUtils.getInstance().getString("user_id") , "Active" , sort);
 
         call.enqueue(new Callback<allWorkContrJobBean>() {
             @Override

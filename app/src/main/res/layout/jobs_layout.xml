@@ -7,22 +7,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <RadioGroup
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/backround_color"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="#000000"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Newest"
+            android:checked="true"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/newest"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oldest"
+            android:layout_marginStart="16dp"
+            android:id="@+id/oldest"
+            />
+
+
+    </RadioGroup>
 
 
     <androidx.recyclerview.widget.RecyclerView

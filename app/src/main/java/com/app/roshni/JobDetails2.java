@@ -44,7 +44,7 @@ public class JobDetails2 extends AppCompatActivity {
     ProgressBar progress;
     CircleImageView image;
     String jid;
-    ImageView sample;
+    ImageView sample1 , sample2 , sample3 , sample4 , sample5;
     View header;
 
     @Override
@@ -68,7 +68,12 @@ public class JobDetails2 extends AppCompatActivity {
         progress = findViewById(R.id.progressBar4);
         header = findViewById(R.id.constraintLayout);
         commp = findViewById(R.id.company);
-        sample = findViewById(R.id.sample);
+        sample1 = findViewById(R.id.image1);
+        sample2 = findViewById(R.id.image2);
+        sample3 = findViewById(R.id.image3);
+        sample4 = findViewById(R.id.image4);
+        sample5 = findViewById(R.id.image5);
+
         sector = findViewById(R.id.sector);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -298,7 +303,12 @@ public class JobDetails2 extends AppCompatActivity {
                     final ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getLogo() , image , options);
 
-                    loader.displayImage(item.getSample1() , sample , options);
+
+                    loader.displayImage(item.getSample1() , sample1 , options);
+                    loader.displayImage(item.getSample2() , sample2 , options);
+                    loader.displayImage(item.getSample3() , sample3 , options);
+                    loader.displayImage(item.getSample4() , sample4 , options);
+                    loader.displayImage(item.getSample5() , sample5 , options);
 
                     title.setText("Job ID: CJ-" + item.getTitle());
                     company.setText(item.getBrandName());
@@ -331,8 +341,56 @@ public class JobDetails2 extends AppCompatActivity {
                         company.setVisibility(View.GONE);
                     }
 
+                    if (item.getImage1().length() > 0)
+                    {
+                        sample1.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        sample1.setVisibility(View.GONE);
+                    }
 
-                    sample.setOnClickListener(new View.OnClickListener() {
+
+                    if (item.getImage2().length() > 0)
+                    {
+                        sample2.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        sample2.setVisibility(View.GONE);
+                    }
+
+
+                    if (item.getImage3().length() > 0)
+                    {
+                        sample3.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        sample3.setVisibility(View.GONE);
+                    }
+
+
+                    if (item.getImage4().length() > 0)
+                    {
+                        sample4.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        sample4.setVisibility(View.GONE);
+                    }
+
+
+                    if (item.getImage5().length() > 0)
+                    {
+                        sample5.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        sample5.setVisibility(View.GONE);
+                    }
+
+                    sample1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -349,6 +407,77 @@ public class JobDetails2 extends AppCompatActivity {
                         }
                     });
 
+
+                    sample2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Dialog dialog = new Dialog(JobDetails2.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getSample2() , img , options);
+
+                        }
+                    });
+
+
+                    sample3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Dialog dialog = new Dialog(JobDetails2.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getSample3() , img , options);
+
+                        }
+                    });
+
+
+                    sample4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Dialog dialog = new Dialog(JobDetails2.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getSample4() , img , options);
+
+                        }
+                    });
+
+
+                    sample5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Dialog dialog = new Dialog(JobDetails2.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                            //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                            //      WindowManager.LayoutParams.MATCH_PARENT);
+                            dialog.setContentView(R.layout.zoom_dialog);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            ImageView img = dialog.findViewById(R.id.image);
+                            loader.displayImage(item.getSample5() , img , options);
+
+                        }
+                    });
                 }
 
 

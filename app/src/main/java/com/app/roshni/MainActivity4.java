@@ -23,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.io.IOException;
 
 public class MainActivity4 extends AppCompatActivity {
 
@@ -102,6 +105,17 @@ public class MainActivity4 extends AppCompatActivity {
                     public void onClick(View v) {
 
                         dialog.dismiss();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
 
                         SharePreferenceUtils.getInstance().deletePref();
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.Html;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -36,11 +37,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
+        int c = SharePreferenceUtils.getInstance().getInteger("count");
+
+        c++;
+
+        SharePreferenceUtils.getInstance().saveInt("count" , c);
+
         Log.d("asdasd" , remoteMessage.getData().toString());
-
-        Intent registrationComplete = new Intent("count");
-
-        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
 
 
         JSONObject object = null;
@@ -51,6 +54,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        Intent registrationComplete = new Intent("count");
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
+
         super.onMessageReceived(remoteMessage);
     }
 
@@ -76,7 +84,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setContentText(message);
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(Html.fromHtml(message)))
+                .setContentText(Html.fromHtml(message));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mChannel = new NotificationChannel(idChannel, Bean.getContext().getString(R.string.app_name), importance);

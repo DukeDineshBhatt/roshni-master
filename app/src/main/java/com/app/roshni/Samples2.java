@@ -63,7 +63,7 @@ public class Samples2 extends Fragment {
 
     RecyclerView grid;
     StaggeredGridLayoutManager manager;
-    Button approve,reject , previous;
+    Button approve, reject, previous;
     ProgressBar progress;
     List<Datum> list;
     SampleAdapter adapter;
@@ -81,7 +81,7 @@ public class Samples2 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.samples_layout2 , container , false);
+        View view = inflater.inflate(R.layout.samples_layout2, container, false);
 
         list = new ArrayList<>();
 
@@ -94,13 +94,13 @@ public class Samples2 extends Fragment {
         reject = view.findViewById(R.id.button29);
         previous = view.findViewById(R.id.button16);
 
-        manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getActivity() , list);
+        manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        adapter = new SampleAdapter(getActivity(), list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
 
-        Log.d("DDD",SharePreferenceUtils.getInstance().getString("survey_id"));
+        Log.d("DDD", SharePreferenceUtils.getInstance().getString("survey_id"));
 
         /*finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,41 +177,66 @@ public class Samples2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                progress.setVisibility(View.VISIBLE);
 
-                Bean b = (Bean) getActivity().getApplicationContext();
+                new androidx.appcompat.app.AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.confirm))
+                        .setMessage(getString(R.string.accept_text))
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                dialog.dismiss();
 
-                Call<contractorBean> call = cr.submit_contactor(SharePreferenceUtils.getInstance().getString("survey_id") , SharePreferenceUtils.getInstance().getString("id"));
+                                progress.setVisibility(View.VISIBLE);
 
-                call.enqueue(new Callback<contractorBean>() {
-                    @Override
-                    public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+                                Bean b = (Bean) getActivity().getApplicationContext();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                Call<contractorBean> call = cr.submit_contactor(SharePreferenceUtils.getInstance().getString("survey_id"), SharePreferenceUtils.getInstance().getString("id"));
+
+                                call.enqueue(new Callback<contractorBean>() {
+                                    @Override
+                                    public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
 
 
-                        Intent intent = new Intent(getContext(), MainActivity4.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                                        Intent intent = new Intent(getContext(), MainActivity4.class);
+                                        startActivity(intent);
+                                        getActivity().finish();
 
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                        progress.setVisibility(View.GONE);
+                                        progress.setVisibility(View.GONE);
 
-                    }
+                                    }
 
-                    @Override
-                    public void onFailure(Call<contractorBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                        Log.d("SSS","SSS");
-                    }
-                });
+                                    @Override
+                                    public void onFailure(Call<contractorBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
+                                        Log.d("SSS", "SSS");
+                                    }
+                                });
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
 
 
             }
@@ -250,7 +275,7 @@ public class Samples2 extends Fragment {
 
                             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                            Call<contractorBean> call = cr.reject_contactor(SharePreferenceUtils.getInstance().getString("survey_id"),value , SharePreferenceUtils.getInstance().getString("id"));
+                            Call<contractorBean> call = cr.reject_contactor(SharePreferenceUtils.getInstance().getString("survey_id"), value, SharePreferenceUtils.getInstance().getString("id"));
 
                             call.enqueue(new Callback<contractorBean>() {
                                 @Override
@@ -270,7 +295,7 @@ public class Samples2 extends Fragment {
                                 @Override
                                 public void onFailure(Call<contractorBean> call, Throwable t) {
                                     progress.setVisibility(View.GONE);
-                                    Log.d("SSS","SSS");
+                                    Log.d("SSS", "SSS");
                                 }
                             });
 
@@ -286,7 +311,7 @@ public class Samples2 extends Fragment {
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled.
-                        Log.d("CANCEL","cancel");
+                        Log.d("CANCEL", "cancel");
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -297,7 +322,6 @@ public class Samples2 extends Fragment {
 
             }
         });
-
 
 
         return view;
@@ -327,12 +351,9 @@ public class Samples2 extends Fragment {
             @Override
             public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
 
-                if (response.body().getData().size() > 0)
-                {
+                if (response.body().getData().size() > 0) {
                     nodata.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     nodata.setVisibility(View.VISIBLE);
                 }
 
@@ -351,20 +372,17 @@ public class Samples2 extends Fragment {
 
     }
 
-    class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
-    {
+    class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder> {
         Context context;
         List<Datum> list = new ArrayList<>();
 
 
-        SampleAdapter(Context context, List<Datum> list)
-        {
+        SampleAdapter(Context context, List<Datum> list) {
             this.context = context;
             this.list = list;
         }
 
-        public void setData(List<Datum> list)
-        {
+        public void setData(List<Datum> list) {
             this.list = list;
             notifyDataSetChanged();
         }
@@ -372,8 +390,8 @@ public class Samples2 extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sample_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sample_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -384,7 +402,7 @@ public class Samples2 extends Fragment {
 
             final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
             final ImageLoader loader = ImageLoader.getInstance();
-            loader.displayImage(item.getFile() , holder.image , options);
+            loader.displayImage(item.getFile(), holder.image, options);
 
             holder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -433,7 +451,7 @@ public class Samples2 extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    Dialog dialog = new Dialog(context , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                     //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                     //      WindowManager.LayoutParams.MATCH_PARENT);
                     dialog.setContentView(R.layout.zoom_dialog);
@@ -441,11 +459,10 @@ public class Samples2 extends Fragment {
                     dialog.show();
 
                     ImageView img = dialog.findViewById(R.id.image);
-                    loader.displayImage(item.getFile() , img , options);
+                    loader.displayImage(item.getFile(), img, options);
 
                 }
             });
-
 
 
         }
@@ -455,8 +472,7 @@ public class Samples2 extends Fragment {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView image;
             ImageButton delete;

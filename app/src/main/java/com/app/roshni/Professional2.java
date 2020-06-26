@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.roshni.SkillsPOJO.Datum;
 import com.app.roshni.SkillsPOJO.skillsBean;
+import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
@@ -459,9 +460,9 @@ public class Professional2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String emplo = employer.getText().toString();
+                final String emplo = employer.getText().toString();
                 loom = looms.getText().toString();
-                String ot = otherwork.getText().toString();
+                final String ot = otherwork.getText().toString();
                 if (loc_bool) {
                     loca = editTxtLoc.getText().toString();
                 }
@@ -480,103 +481,132 @@ public class Professional2 extends Fragment {
                     {
                         if (hhom.length() > 0) {
 
-                            progress.setVisibility(View.VISIBLE);
-
-                            Bean b = (Bean) getContext().getApplicationContext();
-
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(b.baseurl)
-                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-
-                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                            Log.d("asdsad", SharePreferenceUtils.getInstance().getString("user_id"));
-
-                            Call<verifyBean> call = cr.updateWorkerProfessional2(
-                                    SharePreferenceUtils.getInstance().getString("survey_id"),
-                                    sect,
-                                    skil,
-                                    ot,
-                                    expe,
-                                    avai,
-                                    empl,
-                                    emplo,
-                                    hhom,
-                                    work,
-                                    loom,
-                                    loca,
-                                    bann,
-                                    SharePreferenceUtils.getInstance().getString("id"),
-                                    govt
-                            );
-
-                            call.enqueue(new Callback<verifyBean>() {
-                                @Override
-                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-
-                                    if (response.body().getStatus().equals("1")) {
-                                        Data item = response.body().getData();
-
-                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
-                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
-                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
-                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
-                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
-                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
-                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
-                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
-                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
-                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
-                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
-                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
-                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
-                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
-                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
-                                        SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
-                                        SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
-                                        SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
-                                        SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
-                                        SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
-                                        SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
-                                        SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
-                                        SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
-                                        SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
-                                        SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
-                                        SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
-                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
-                                        SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
-                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
-                                        SharePreferenceUtils.getInstance().saveString("home", item.getHome());
-                                        SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
-                                        SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
-                                        SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
-                                        SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
-                                        SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
-
-                                        Intent intent = new Intent(getContext(), MainActivity4.class);
-                                        startActivity(intent);
-                                        getActivity().finishAffinity();
 
 
-                                        Log.d("respo", response.body().getMessage());
+                            new androidx.appcompat.app.AlertDialog.Builder(getActivity())
+                                    .setTitle(getString(R.string.confirm))
+                                    .setMessage(getString(R.string.accept_text))
 
-                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            dialog.dismiss();
+
+                                            progress.setVisibility(View.VISIBLE);
+
+                                            Bean b = (Bean) getContext().getApplicationContext();
+
+                                            Retrofit retrofit = new Retrofit.Builder()
+                                                    .baseUrl(b.baseurl)
+                                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                    .build();
+
+                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                            Log.d("asdsad", SharePreferenceUtils.getInstance().getString("user_id"));
+
+                                            Call<verifyBean> call = cr.updateWorkerProfessional2(
+                                                    SharePreferenceUtils.getInstance().getString("survey_id"),
+                                                    sect,
+                                                    skil,
+                                                    ot,
+                                                    expe,
+                                                    avai,
+                                                    empl,
+                                                    emplo,
+                                                    hhom,
+                                                    work,
+                                                    loom,
+                                                    loca,
+                                                    bann,
+                                                    SharePreferenceUtils.getInstance().getString("id"),
+                                                    govt
+                                            );
+
+                                            call.enqueue(new Callback<verifyBean>() {
+                                                @Override
+                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                                    if (response.body().getStatus().equals("1")) {
+                                                        Data item = response.body().getData();
+
+                                                        SharePreferenceUtils.getInstance().saveString("name", item.getName());
+                                                        SharePreferenceUtils.getInstance().saveString("photo", item.getPhoto());
+                                                        SharePreferenceUtils.getInstance().saveString("dob", item.getDob());
+                                                        SharePreferenceUtils.getInstance().saveString("gender", item.getGender());
+                                                        SharePreferenceUtils.getInstance().saveString("phone", item.getPhone());
+                                                        SharePreferenceUtils.getInstance().saveString("cpin", item.getCpin());
+                                                        SharePreferenceUtils.getInstance().saveString("cstate", item.getCstate());
+                                                        SharePreferenceUtils.getInstance().saveString("cdistrict", item.getCdistrict());
+                                                        SharePreferenceUtils.getInstance().saveString("carea", item.getCarea());
+                                                        SharePreferenceUtils.getInstance().saveString("cstreet", item.getCstreet());
+                                                        SharePreferenceUtils.getInstance().saveString("ppin", item.getPpin());
+                                                        SharePreferenceUtils.getInstance().saveString("pstate", item.getPstate());
+                                                        SharePreferenceUtils.getInstance().saveString("pdistrict", item.getPdistrict());
+                                                        SharePreferenceUtils.getInstance().saveString("parea", item.getParea());
+                                                        SharePreferenceUtils.getInstance().saveString("pstreet", item.getPstreet());
+                                                        SharePreferenceUtils.getInstance().saveString("category", item.getCategory());
+                                                        SharePreferenceUtils.getInstance().saveString("religion", item.getReligion());
+                                                        SharePreferenceUtils.getInstance().saveString("educational", item.getEducational());
+                                                        SharePreferenceUtils.getInstance().saveString("marital", item.getMarital());
+                                                        SharePreferenceUtils.getInstance().saveString("children", item.getChildren());
+                                                        SharePreferenceUtils.getInstance().saveString("belowsix", item.getBelowsix());
+                                                        SharePreferenceUtils.getInstance().saveString("sixtofourteen", item.getSixtofourteen());
+                                                        SharePreferenceUtils.getInstance().saveString("fifteentoeighteen", item.getFifteentoeighteen());
+                                                        SharePreferenceUtils.getInstance().saveString("goingtoschool", item.getGoingtoschool());
+                                                        SharePreferenceUtils.getInstance().saveString("sector", item.getSector());
+                                                        SharePreferenceUtils.getInstance().saveString("skills", item.getSkills());
+                                                        SharePreferenceUtils.getInstance().saveString("experience", item.getExperience());
+                                                        SharePreferenceUtils.getInstance().saveString("employment", item.getEmployment());
+                                                        SharePreferenceUtils.getInstance().saveString("employer", item.getEmployer());
+                                                        SharePreferenceUtils.getInstance().saveString("home", item.getHome());
+                                                        SharePreferenceUtils.getInstance().saveString("workers", item.getWorkers());
+                                                        SharePreferenceUtils.getInstance().saveString("tools", item.getTools());
+                                                        SharePreferenceUtils.getInstance().saveString("location", item.getLocation());
+                                                        SharePreferenceUtils.getInstance().saveString("idproof", item.getId_proof());
+                                                        SharePreferenceUtils.getInstance().saveString("idproofnumber", item.getId_number());
+
+                                                        Intent intent = new Intent(getContext(), MainActivity4.class);
+                                                        startActivity(intent);
+                                                        getActivity().finishAffinity();
 
 
-                                    progress.setVisibility(View.GONE);
+                                                        Log.d("respo", response.body().getMessage());
 
-                                }
+                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
 
-                                @Override
-                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                    progress.setVisibility(View.GONE);
-                                }
-                            });
+
+                                                    progress.setVisibility(View.GONE);
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                    progress.setVisibility(View.GONE);
+                                                }
+                                            });
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            dialog.dismiss();
+
+                                        }
+                                    })
+                                    .show();
+
+
+
 
                         } else {
                             Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();

@@ -176,41 +176,71 @@ public class Pictures3 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                progress.setVisibility(View.VISIBLE);
-
-                Bean b = (Bean) getActivity().getApplicationContext();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                Call<contractorBean> call = cr.submit_brand(SharePreferenceUtils.getInstance().getString("survey_id") , SharePreferenceUtils.getInstance().getString("id"));
-
-                call.enqueue(new Callback<contractorBean>() {
-                    @Override
-                    public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
 
 
-                        Intent intent = new Intent(getContext(), MainActivity4.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                new androidx.appcompat.app.AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.confirm))
+                        .setMessage(getString(R.string.accept_text))
 
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        progress.setVisibility(View.GONE);
+                                dialog.dismiss();
 
-                    }
+                                progress.setVisibility(View.VISIBLE);
 
-                    @Override
-                    public void onFailure(Call<contractorBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                        Log.d("SSS","SSS");
-                    }
-                });
+                                Bean b = (Bean) getActivity().getApplicationContext();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                Call<contractorBean> call = cr.submit_brand(SharePreferenceUtils.getInstance().getString("survey_id") , SharePreferenceUtils.getInstance().getString("id"));
+
+                                call.enqueue(new Callback<contractorBean>() {
+                                    @Override
+                                    public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+
+
+                                        Intent intent = new Intent(getContext(), MainActivity4.class);
+                                        startActivity(intent);
+                                        getActivity().finish();
+
+                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        progress.setVisibility(View.GONE);
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<contractorBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
+                                        Log.d("SSS","SSS");
+                                    }
+                                });
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+
+
+
+
 
 
             }

@@ -298,4 +298,5 @@
     <string name="enter_data">Enter Data</string>
     <string name="sort_by">sort by</string>
     <string name="phone_number">Phone Number</string>
+    <string name="accept_text">Are you sure to accept ?</string>
 </resources>

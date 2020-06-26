@@ -298,7 +298,7 @@ public class JobDetails2 extends AppCompatActivity {
                     final ImageLoader loader = ImageLoader.getInstance();
                     loader.displayImage(item.getLogo() , image , options);
 
-                    loader.displayImage(item.getSample() , sample , options);
+                    loader.displayImage(item.getSample1() , sample , options);
 
                     title.setText("Job ID: CJ-" + item.getTitle());
                     company.setText(item.getBrandName());
@@ -344,7 +344,7 @@ public class JobDetails2 extends AppCompatActivity {
                             dialog.show();
 
                             ImageView img = dialog.findViewById(R.id.image);
-                            loader.displayImage(item.getSample() , img , options);
+                            loader.displayImage(item.getSample1() , img , options);
 
                         }
                     });

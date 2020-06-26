@@ -64,9 +64,21 @@ public class Data {
     @SerializedName("rate")
     @Expose
     private String rate;
-    @SerializedName("sample")
+    @SerializedName("sample1")
     @Expose
-    private String sample;
+    private String sample1;
+    @SerializedName("sample2")
+    @Expose
+    private String sample2;
+    @SerializedName("sample3")
+    @Expose
+    private String sample3;
+    @SerializedName("sample4")
+    @Expose
+    private String sample4;
+    @SerializedName("sample5")
+    @Expose
+    private String sample5;
     @SerializedName("created")
     @Expose
     private String created;
@@ -133,6 +145,21 @@ public class Data {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("image1")
+    @Expose
+    private String image1;
+    @SerializedName("image2")
+    @Expose
+    private String image2;
+    @SerializedName("image3")
+    @Expose
+    private String image3;
+    @SerializedName("image4")
+    @Expose
+    private String image4;
+    @SerializedName("image5")
+    @Expose
+    private String image5;
 
     public String getId() {
         return id;
@@ -292,14 +319,6 @@ public class Data {
 
     public void setRate(String rate) {
         this.rate = rate;
-    }
-
-    public String getSample() {
-        return sample;
-    }
-
-    public void setSample(String sample) {
-        this.sample = sample;
     }
 
     public String getCreated() {
@@ -476,5 +495,85 @@ public class Data {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSample1() {
+        return sample1;
+    }
+
+    public String getSample2() {
+        return sample2;
+    }
+
+    public String getSample3() {
+        return sample3;
+    }
+
+    public String getSample4() {
+        return sample4;
+    }
+
+    public String getSample5() {
+        return sample5;
+    }
+
+    public void setSample1(String sample1) {
+        this.sample1 = sample1;
+    }
+
+    public void setSample2(String sample2) {
+        this.sample2 = sample2;
+    }
+
+    public void setSample3(String sample3) {
+        this.sample3 = sample3;
+    }
+
+    public void setSample4(String sample4) {
+        this.sample4 = sample4;
+    }
+
+    public void setSample5(String sample5) {
+        this.sample5 = sample5;
+    }
+
+    public String getImage1() {
+        return image1;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public String getImage4() {
+        return image4;
+    }
+
+    public String getImage5() {
+        return image5;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
+    public void setImage4(String image4) {
+        this.image4 = image4;
+    }
+
+    public void setImage5(String image5) {
+        this.image5 = image5;
     }
 }

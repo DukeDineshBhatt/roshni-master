@@ -376,7 +376,11 @@ public interface AllApiIneterface {
             @Part("display_phone") String display_phone,
             @Part("display_person") String display_person,
             @Part("display_email") String display_email,
-            @Part MultipartBody.Part file1
+            @Part MultipartBody.Part file1,
+            @Part MultipartBody.Part file2,
+            @Part MultipartBody.Part file3,
+            @Part MultipartBody.Part file4,
+            @Part MultipartBody.Part file5
     );
 
     @Multipart

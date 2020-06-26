@@ -444,7 +444,10 @@ public class PostJobContractor extends AppCompatActivity {
                         Toast.makeText(PostJobContractor.this, "Invalid job type", Toast.LENGTH_SHORT).show();
                     }
                 } else
+                {
                     Toast.makeText(PostJobContractor.this, "Invalid sector", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }

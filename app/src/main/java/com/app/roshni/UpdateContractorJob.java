@@ -63,19 +63,19 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class UpdateContractorJob extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button submit , upload;
+    Button submit;
     ProgressBar progress;
     Spinner type , experience , days, sector , place;
     EditText rate;
 
-    ImageView image;
+    ImageView image1, image2, image3, image4, image5;
 
     List<String> typ, typ1 , exp , exp1 , day , pla , pla1;
 
-    String ty , ex , da , sect , plac;
+    String ty = "" , ex = "" , da = "" , sect = "" , plac = "";
     List<String> sec, sec1;
-    private Uri uri;
-    private File f1;
+    private Uri uri1, uri2, uri3, uri4, uri5;
+    private File f1, f2, f3, f4, f5;
 
     String jid;
 
@@ -112,8 +112,11 @@ public class UpdateContractorJob extends AppCompatActivity {
         experience = findViewById(R.id.experience);
         days = findViewById(R.id.days);
         rate = findViewById(R.id.rate);
-        image = findViewById(R.id.image);
-        upload = findViewById(R.id.upload);
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
+        image4 = findViewById(R.id.image4);
+        image5 = findViewById(R.id.image5);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -145,7 +148,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
 
 
-
+        day.add("--- Select ---");
         for (int i = 1 ; i <=500 ; i++)
         {
             day.add(String.valueOf(i));
@@ -163,7 +166,9 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                if (i > 0) {
                     ty = typ1.get(i);
+                }
 
             }
 
@@ -177,7 +182,9 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                if (i > 0) {
                     ex = exp1.get(i);
+                }
 
             }
 
@@ -205,7 +212,9 @@ public class UpdateContractorJob extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                if (i > 0) {
                     da = day.get(i);
+                }
 
             }
 
@@ -224,98 +233,151 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                 String r = rate.getText().toString();
 
-                if (ty.length() > 0)
-                {
-                    if (ex.length() > 0)
-                    {
-                        if (da.length() > 0)
-                        {
 
-                            MultipartBody.Part body = null;
+                if (sect.length() > 0) {
+                    if (ty.length() > 0) {
+                        if (ex.length() > 0) {
+                            if (da.length() > 0) {
 
-                            try {
+                                MultipartBody.Part body1 = null;
 
-                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                body = MultipartBody.Part.createFormData("sample", f1.getName(), reqFile1);
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                    body1 = MultipartBody.Part.createFormData("sample1", f1.getName(), reqFile1);
 
 
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                            }
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
 
-                            progress.setVisibility(View.VISIBLE);
 
-                            Bean b = (Bean) getApplicationContext();
+                                MultipartBody.Part body2 = null;
 
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(b.baseurl)
-                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
+                                try {
 
-                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                    body2 = MultipartBody.Part.createFormData("sample2", f2.getName(), reqFile1);
 
-                            Call<verifyBean> call = cr.UpdateContractorJob(
-                                    jid,
-                                    sect,
-                                    ty,
-                                    ex,
-                                    da,
-                                    r,
-                                    plac,
-                                    String.valueOf(display_name.isChecked()),
-                                    String.valueOf(phone.isChecked()),
-                                    String.valueOf(contact_person.isChecked()),
-                                    String.valueOf(email.isChecked()),
-                                    body
-                            );
 
-                            call.enqueue(new Callback<verifyBean>() {
-                                @Override
-                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
 
-                                    if (response.body().getStatus().equals("1"))
-                                    {
-                                        Toast.makeText(UpdateContractorJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                MultipartBody.Part body3 = null;
 
-                                        finish();
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f3);
+                                    body3 = MultipartBody.Part.createFormData("sample3", f3.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                MultipartBody.Part body4 = null;
+
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f4);
+                                    body4 = MultipartBody.Part.createFormData("sample4", f4.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                MultipartBody.Part body5 = null;
+
+                                try {
+
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f5);
+                                    body5 = MultipartBody.Part.createFormData("sample5", f5.getName(), reqFile1);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                progress.setVisibility(View.VISIBLE);
+
+                                Bean b = (Bean) getApplicationContext();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                Call<verifyBean> call = cr.UpdateContractorJob(
+                                        jid,
+                                        sect,
+                                        ty,
+                                        ex,
+                                        da,
+                                        r,
+                                        plac,
+                                        String.valueOf(display_name.isChecked()),
+                                        String.valueOf(phone.isChecked()),
+                                        String.valueOf(contact_person.isChecked()),
+                                        String.valueOf(email.isChecked()),
+                                        body1,
+                                        body2,
+                                        body3,
+                                        body4,
+                                        body5
+                                );
+
+                                call.enqueue(new Callback<verifyBean>() {
+                                    @Override
+                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+
+                                        if (response.body().getStatus().equals("1"))
+                                        {
+                                            Toast.makeText(UpdateContractorJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                            finish();
+
+                                        }
+
+
+                                        progress.setVisibility(View.GONE);
 
                                     }
 
-
-                                    progress.setVisibility(View.GONE);
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<verifyBean> call, Throwable t) {
-                                    progress.setVisibility(View.GONE);
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
+                                    }
+                                });
 
 
+                            } else {
+                                Toast.makeText(UpdateContractorJob.this, "Invalid days", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(UpdateContractorJob.this, "Invalid experience", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                        {
-                            Toast.makeText(UpdateContractorJob.this, "Invalid days", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        Toast.makeText(UpdateContractorJob.this, "Invalid job type", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(UpdateContractorJob.this, "Invalid experience", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else
+                } else
                 {
-                    Toast.makeText(UpdateContractorJob.this, "Invalid job type", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateContractorJob.this, "Invalid sector", Toast.LENGTH_SHORT).show();
                 }
+
+
+
 
 
             }
         });
 
 
-        upload.setOnClickListener(new View.OnClickListener() {
+        image1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -347,15 +409,222 @@ public class UpdateContractorJob extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri = FileProvider.getUriForFile(Objects.requireNonNull(UpdateContractorJob.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(UpdateContractorJob.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
                             getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivityForResult(getpic, 1);
                         } else if (items[item].equals("Choose from Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 2);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UpdateContractorJob.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(Objects.requireNonNull(UpdateContractorJob.this), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        image3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UpdateContractorJob.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f3 = new File(file);
+                            try {
+                                f3.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri3 = FileProvider.getUriForFile(Objects.requireNonNull(UpdateContractorJob.this), BuildConfig.APPLICATION_ID + ".provider", f3);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri3);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 5);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 6);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        image4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UpdateContractorJob.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f4 = new File(file);
+                            try {
+                                f4.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri4 = FileProvider.getUriForFile(Objects.requireNonNull(UpdateContractorJob.this), BuildConfig.APPLICATION_ID + ".provider", f4);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri4);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 7);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 8);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        image5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UpdateContractorJob.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f5 = new File(file);
+                            try {
+                                f5.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri5 = FileProvider.getUriForFile(Objects.requireNonNull(UpdateContractorJob.this), BuildConfig.APPLICATION_ID + ".provider", f5);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri5);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 9);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 10);
                         } else if (items[item].equals("Cancel")) {
                             dialog.dismiss();
                         }
@@ -375,11 +644,11 @@ public class UpdateContractorJob extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
-            uri = data.getData();
+            uri1 = data.getData();
 
-            Log.d("uri", String.valueOf(uri));
+            Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(UpdateContractorJob.this, uri);
+            String ypath = getPath(UpdateContractorJob.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -388,14 +657,113 @@ public class UpdateContractorJob extends AppCompatActivity {
 
             ImageLoader loader = ImageLoader.getInstance();
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri));
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri1));
 
             Log.d("bitmap", String.valueOf(bmp));
 
-            image.setImageBitmap(bmp);
+            image1.setImageBitmap(bmp);
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
-            image.setImageURI(uri);
+            image1.setImageURI(uri1);
+        }
+
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+
+            Log.d("uri", String.valueOf(uri2));
+
+            String ypath = getPath(UpdateContractorJob.this, uri2);
+            assert ypath != null;
+            f2 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri2));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image2.setImageBitmap(bmp);
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+            image2.setImageURI(uri2);
+        }
+
+
+        if (requestCode == 6 && resultCode == RESULT_OK && null != data) {
+            uri3 = data.getData();
+
+            Log.d("uri", String.valueOf(uri3));
+
+            String ypath = getPath(UpdateContractorJob.this, uri3);
+            assert ypath != null;
+            f3 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri3));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image3.setImageBitmap(bmp);
+
+        } else if (requestCode == 5 && resultCode == RESULT_OK) {
+            image3.setImageURI(uri3);
+        }
+
+
+        if (requestCode == 8 && resultCode == RESULT_OK && null != data) {
+            uri4 = data.getData();
+
+            Log.d("uri", String.valueOf(uri4));
+
+            String ypath = getPath(UpdateContractorJob.this, uri4);
+            assert ypath != null;
+            f4 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri4));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image4.setImageBitmap(bmp);
+
+        } else if (requestCode == 7 && resultCode == RESULT_OK) {
+            image4.setImageURI(uri4);
+        }
+
+
+        if (requestCode == 10 && resultCode == RESULT_OK && null != data) {
+            uri5 = data.getData();
+
+            Log.d("uri", String.valueOf(uri5));
+
+            String ypath = getPath(UpdateContractorJob.this, uri5);
+            assert ypath != null;
+            f5 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri5));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image5.setImageBitmap(bmp);
+
+        } else if (requestCode == 9 && resultCode == RESULT_OK) {
+            image5.setImageURI(uri5);
         }
 
 
@@ -543,7 +911,11 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                     DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
                     ImageLoader loader = ImageLoader.getInstance();
-                    loader.displayImage(item.getSample() , image , options);
+                    loader.displayImage(item.getSample1() , image1 , options);
+                    loader.displayImage(item.getSample2() , image2 , options);
+                    loader.displayImage(item.getSample3() , image3 , options);
+                    loader.displayImage(item.getSample4() , image4 , options);
+                    loader.displayImage(item.getSample5() , image5 , options);
 
                     rate.setText(item.getRate());
 
@@ -552,7 +924,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                     contact_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
                     email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
 
-                    final Call<sectorBean> call2 = cr.getSectors2(SharePreferenceUtils.getInstance().getString("lang"));
+                    final Call<sectorBean> call2 = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override
@@ -574,8 +946,8 @@ public class UpdateContractorJob extends AppCompatActivity {
                                 sector.setAdapter(adapter);
 
                                 int cp2 = 0;
-                                for (int i = 0; i < sec.size(); i++) {
-                                    if (item.getSector().equals(sec.get(i))) {
+                                for (int i = 0; i < sec1.size(); i++) {
+                                    if (item.getSector().equals(sec1.get(i))) {
                                         cp2 = i;
                                     }
                                 }
@@ -602,7 +974,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                             progress.setVisibility(View.VISIBLE);
 
-                            Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
+                            Call<skillsBean> call2 = cr.getRoles(sect, SharePreferenceUtils.getInstance().getString("lang"));
                             call2.enqueue(new Callback<skillsBean>() {
                                 @Override
                                 public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {

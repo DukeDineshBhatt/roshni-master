@@ -38,6 +38,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.contractorPOJO.Data;
@@ -103,6 +104,8 @@ public class ContractorPersonalProfile extends Fragment {
 
     EditText email ,non_school , school , without_bank;
 
+    SwipeRefreshLayout swipe;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -130,6 +133,7 @@ public class ContractorPersonalProfile extends Fragment {
         gov = new ArrayList<>();
         gov1 = new ArrayList<>();
 
+        swipe = view.findViewById(R.id.swipe);
         email = view.findViewById(R.id.email);
         home_layout = view.findViewById(R.id.home_layout);
         othergovt = view.findViewById(R.id.othergovt);
@@ -215,6 +219,16 @@ public class ContractorPersonalProfile extends Fragment {
 
         establishment.setAdapter(adapter1);
 
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setPrevious();
+
+                swipe.setRefreshing(false);
+
+            }
+        });
 
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

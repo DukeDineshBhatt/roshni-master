@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.app.roshni.brandDetailsPOJO.Data;
 import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
@@ -139,6 +140,8 @@ public class brand2 extends Fragment {
     EditText processes, certification_number;
     Spinner market, outsourcing;
 
+    SwipeRefreshLayout swipe;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -201,6 +204,7 @@ public class brand2 extends Fragment {
             Log.e("Exception1: %s", e.getMessage());
         }
 
+        swipe = view.findViewById(R.id.swipe);
         processes = view.findViewById(R.id.processes);
         otherwork = view.findViewById(R.id.otherwork);
         market = view.findViewById(R.id.market);
@@ -354,6 +358,16 @@ public class brand2 extends Fragment {
         /*cer.add(getString(R.string.yes1));
         cer.add(getString(R.string.no));
 */
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setPrevious();
+
+                swipe.setRefreshing(false);
+
+            }
+        });
 
         man.add("--- Select ---");
         man.add("0");

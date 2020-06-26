@@ -29,7 +29,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
 import com.app.roshni.contractorPOJO.Data;
 import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.samplePOJO.Datum;
@@ -68,6 +70,8 @@ public class ContractorSampleProfile extends Fragment {
         this.pager = pager;
     }
 
+    SwipeRefreshLayout swipe;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class ContractorSampleProfile extends Fragment {
 
         list = new ArrayList<>();
 
+        swipe = view.findViewById(R.id.swipe);
         grid = view.findViewById(R.id.grid);
         upload = view.findViewById(R.id.button16);
         finish = view.findViewById(R.id.button15);
@@ -89,6 +94,68 @@ public class ContractorSampleProfile extends Fragment {
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onResume();
+
+                Bean b = (Bean) getContext().getApplicationContext();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+
+                Call<contractorBean> call = cr.getContractorById(user_id, SharePreferenceUtils.getInstance().getString("lang"));
+
+
+                call.enqueue(new Callback<contractorBean>() {
+                    @Override
+                    public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+
+                        Data item = response.body().getData();
+
+
+                        if (item.getStatus().equals("pending")) {
+
+                            txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                            txtStatus.setVisibility(View.VISIBLE);
+                        } else if (item.getStatus().equals("rejected")) {
+                            txtStatus.setText(item.getRejectReason());
+                            txtStatus.setVisibility(View.VISIBLE);
+                        }
+                        else if (item.getStatus().equals("verified")) {
+                            txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
+                            txtStatus.setVisibility(View.VISIBLE);
+                        }
+                        else if (item.getStatus().equals("modifications")) {
+                            txtStatus.setText(item.getRejectReason());
+                            txtStatus.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            txtStatus.setVisibility(View.GONE);
+                        }
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<contractorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                swipe.setRefreshing(false);
+
+            }
+        });
 
         Bean b = (Bean) getContext().getApplicationContext();
 

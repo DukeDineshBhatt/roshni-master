@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.app.roshni.brandDetailsPOJO.Data;
 import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
@@ -53,6 +54,8 @@ public class BrandPictureProfile extends Fragment {
         this.pager = pager;
     }
 
+    SwipeRefreshLayout swipe;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class BrandPictureProfile extends Fragment {
 
         list = new ArrayList<>();
 
+        swipe = view.findViewById(R.id.swipe);
         grid = view.findViewById(R.id.grid);
         upload = view.findViewById(R.id.button16);
         finish = view.findViewById(R.id.button15);
@@ -74,6 +78,68 @@ public class BrandPictureProfile extends Fragment {
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onResume();
+
+                Bean b = (Bean) getContext().getApplicationContext();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+
+                Call<brandDetailsBean> call = cr.getBrandById(user_id);
+
+
+                call.enqueue(new Callback<brandDetailsBean>() {
+                    @Override
+                    public void onResponse(Call<brandDetailsBean> call, Response<brandDetailsBean> response) {
+
+                        Data item = response.body().getData();
+
+
+                        if (item.getStatus().equals("pending")) {
+
+                            txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                            txtStatus.setVisibility(View.VISIBLE);
+                        } else if (item.getStatus().equals("rejected")) {
+                            txtStatus.setText(item.getRejectReason());
+                            txtStatus.setVisibility(View.VISIBLE);
+                        }
+                        else if (item.getStatus().equals("verified")) {
+                            txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
+                            txtStatus.setVisibility(View.VISIBLE);
+                        }
+                        else if (item.getStatus().equals("modifications")) {
+                            txtStatus.setText(item.getRejectReason());
+                            txtStatus.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            txtStatus.setVisibility(View.GONE);
+                        }
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<brandDetailsBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                swipe.setRefreshing(false);
+
+            }
+        });
 
         Bean b = (Bean) getContext().getApplicationContext();
 

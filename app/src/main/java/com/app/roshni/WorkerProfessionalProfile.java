@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
@@ -56,6 +57,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
     LinearLayout yes;
 
+    SwipeRefreshLayout swipe;
 
     @Nullable
     @Override
@@ -83,6 +85,7 @@ public class WorkerProfessionalProfile extends Fragment {
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
 
+        swipe = view.findViewById(R.id.swipe);
         sector = view.findViewById(R.id.sector);
         otherwork = view.findViewById(R.id.otherwork);
         othergovt = view.findViewById(R.id.othergovt);
@@ -140,6 +143,16 @@ public class WorkerProfessionalProfile extends Fragment {
         wor.add("18");
         wor.add("19");
         wor.add("20");
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setPrevious();
+
+                swipe.setRefreshing(false);
+
+            }
+        });
 
 
 

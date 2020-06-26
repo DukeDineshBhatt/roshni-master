@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -72,6 +73,8 @@ public class WorkerPersonalProfile extends Fragment {
         this.pager = pager;
     }
 
+    SwipeRefreshLayout swipe;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class WorkerPersonalProfile extends Fragment {
         ski = new ArrayList<>();
         ski1 = new ArrayList<>();
 
+        swipe = view.findViewById(R.id.swipe);
         certified = view.findViewById(R.id.certified);
         goingtoschool2 = view.findViewById(R.id.goingtoschool2);
         skill_level = view.findViewById(R.id.skill_level);
@@ -148,6 +152,17 @@ public class WorkerPersonalProfile extends Fragment {
         proof = view.findViewById(R.id.proof);
 
         user_id = SharePreferenceUtils.getInstance().getString("user_id");
+
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setPrevious();
+
+                swipe.setRefreshing(false);
+
+            }
+        });
 
 
         /*gen.add("Male");

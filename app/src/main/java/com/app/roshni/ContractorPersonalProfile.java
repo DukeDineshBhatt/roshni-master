@@ -590,7 +590,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, frmtyp);
 
 

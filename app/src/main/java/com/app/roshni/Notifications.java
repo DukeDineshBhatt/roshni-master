@@ -46,6 +46,7 @@ public class Notifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
+        SharePreferenceUtils.getInstance().saveInt("count" , 0);
 
         list = new ArrayList<>();
         toolbar = findViewById(R.id.toolbar3);

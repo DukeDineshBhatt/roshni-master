@@ -67,6 +67,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
+        <TextView
+            android:id="@+id/textView69"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+            app:layout_constraintStart_toStartOf="@+id/imageButton2" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include

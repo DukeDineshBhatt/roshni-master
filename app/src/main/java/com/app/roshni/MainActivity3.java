@@ -62,11 +62,14 @@ public class MainActivity3 extends AppCompatActivity {
 
     TextView faqs , contact , unsubscribe;
 
+    TextView count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
+        count = findViewById(R.id.textView69);
         drawer = findViewById(R.id.drawer);
         toggle = findViewById(R.id.imageButton);
         notification = findViewById(R.id.imageButton2);
@@ -111,6 +114,20 @@ public class MainActivity3 extends AppCompatActivity {
 
             }
         });*/
+
+        singleReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                if (Objects.requireNonNull(intent.getAction()).equals("count")) {
+                    count.setText(String.valueOf(SharePreferenceUtils.getInstance().getInteger("count")));
+                }
+
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(singleReceiver,
+                new IntentFilter("count"));
 
         faqs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -534,6 +551,8 @@ public class MainActivity3 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        count.setText(String.valueOf(SharePreferenceUtils.getInstance().getInteger("count")));
 
         edit.setText(SharePreferenceUtils.getInstance().getString("name"));
 

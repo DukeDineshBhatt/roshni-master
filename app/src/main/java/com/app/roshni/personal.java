@@ -1182,30 +1182,6 @@ public class personal extends Fragment {
                         })
                         .display();
 
-                /*final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dob_popup);
-                dialog.setCancelable(true);
-                dialog.show();
-
-                Button submit = dialog.findViewById(R.id.button11);
-                final DatePicker dp = dialog.findViewById(R.id.view14);
-
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String dd = dp.getDayOfMonth() + "-" + (dp.getMonth() + 1) + "-" + dp.getYear();
-
-                        Log.d("dddd", dd);
-
-                        dob.setText(dd);
-
-                        dialog.dismiss();
-
-                    }
-                });
-*/
             }
         });
 

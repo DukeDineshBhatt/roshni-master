@@ -208,7 +208,9 @@ public interface AllApiIneterface {
             @Part("otherwork") String otherwork,
             @Part("market") String market,
             @Part("certification_number") String certification_number,
-            @Part("outsourcing") String outsourcing
+            @Part("outsourcing") String outsourcing,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain
     );
 
     @Multipart

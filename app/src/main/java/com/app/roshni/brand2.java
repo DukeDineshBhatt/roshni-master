@@ -919,7 +919,7 @@ public class brand2 extends Fragment {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             certi = cer1.get(i);
 
-                            if (certi.equals("1")) {
+                            if (certi.equals("2")) {
                                 cert.setVisibility(View.VISIBLE);
                             } else {
                                 cert.setVisibility(View.GONE);

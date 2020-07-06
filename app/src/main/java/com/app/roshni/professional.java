@@ -50,13 +50,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class professional extends Fragment {
 
-    Spinner experience, employment, home, workers, location , bank , govtinsurance , availability;
+    Spinner experience, employment, home, workers, location , bank , govtinsurance , availability , child_labour , supply_chain;
 
     EditText sector, skills;
 
-    String sect = "", skil = "", expe = "", empl = "", hhom = "", work = "", loom = "", loca = "" , bann = "" , govt = "" , avai = "";
+    String sect = "", skil = "", expe = "", empl = "", hhom = "", work = "", loom = "", loca = "" , bann = "" , govt = "" , avai = "" , chla = "", supl = "";
 
-    List<String> exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1;
+    List<String> exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1 , chi , chi1;
     List<String> sec1, ski1, loc1;
     List<Datum> ski;
     List<com.app.roshni.sectorPOJO.Data> sec;
@@ -104,7 +104,12 @@ public class professional extends Fragment {
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
+        chi = new ArrayList<>();
+        chi1 = new ArrayList<>();
 
+
+        child_labour = view.findViewById(R.id.child_labour);
+        supply_chain = view.findViewById(R.id.supply_chain);
         othergovt = view.findViewById(R.id.othergovt);
         otherwork = view.findViewById(R.id.otherwork);
         sector = view.findViewById(R.id.sector);
@@ -563,6 +568,7 @@ public class professional extends Fragment {
         });
 
 
+
         sector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -721,6 +727,70 @@ public class professional extends Fragment {
             }
         });
 
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call8 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call8.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        chi.add(response.body().getData().get(i).getTitle());
+                        chi1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, chi);
+
+
+                    child_labour.setAdapter(adapter7);
+                    supply_chain.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        child_labour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                chla = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        supply_chain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                supl = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -771,7 +841,9 @@ public class professional extends Fragment {
                                     loom,
                                     loca,
                                     bann,
-                                    govt
+                                    govt,
+                                    chla,
+                                    supl
                             );
 
                             call.enqueue(new Callback<verifyBean>() {

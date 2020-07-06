@@ -483,7 +483,9 @@ public interface AllApiIneterface {
             @Part("tools") String tools,
             @Part("location") String location,
             @Part("bank") String bank,
-            @Part("govt") String govt
+            @Part("govt") String govt,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain
     );
 
     @Multipart

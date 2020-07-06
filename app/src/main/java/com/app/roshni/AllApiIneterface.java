@@ -305,7 +305,9 @@ public interface AllApiIneterface {
             @Part("school") String school,
             @Part("non_school") String non_school,
             @Part("email") String email,
-            @Part("govt") String govt
+            @Part("govt") String govt,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain
     );
 
 
@@ -582,6 +584,12 @@ public interface AllApiIneterface {
     @Multipart
     @POST("workersjoint/api/getCerts.php")
     Call<sectorBean> getCerts(
+            @Part("lang") String lang
+    );
+
+    @Multipart
+    @POST("workersjoint/api/getChild.php")
+    Call<sectorBean> getChild(
             @Part("lang") String lang
     );
 

@@ -73,7 +73,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ContractorPersonalProfile extends Fragment {
 
-    private Spinner gender, establishment, availability, firm, proof, firmtype , outsource , govtinsurance;
+    private Spinner gender, establishment, availability, firm, proof, firmtype , outsource , govtinsurance , child_labour , supply_chain;
 
     private String gend, esta, expe, wtyp, avai, frmy, prf, frmytyp , sect , govt = "";
 
@@ -85,7 +85,7 @@ public class ContractorPersonalProfile extends Fragment {
     private CircleImageView image;
 
     CheckBox check;
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1, gov, gov1;
+    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1, gov, gov1 , chi , chi1;
 
 
     String user_id;
@@ -132,7 +132,11 @@ public class ContractorPersonalProfile extends Fragment {
         out1 = new ArrayList<>();
         gov = new ArrayList<>();
         gov1 = new ArrayList<>();
+        chi = new ArrayList<>();
+        chi1 = new ArrayList<>();
 
+        child_labour = view.findViewById(R.id.child_labour);
+        supply_chain = view.findViewById(R.id.supply_chain);
         swipe = view.findViewById(R.id.swipe);
         email = view.findViewById(R.id.email);
         home_layout = view.findViewById(R.id.home_layout);
@@ -215,6 +219,8 @@ public class ContractorPersonalProfile extends Fragment {
         firmtype.setEnabled(false);
         outsource.setEnabled(false);
         govtinsurance.setEnabled(false);
+        child_labour.setEnabled(false);
+        supply_chain.setEnabled(false);
 
 
         establishment.setAdapter(adapter1);
@@ -723,6 +729,61 @@ public class ContractorPersonalProfile extends Fragment {
                             }
                             govtinsurance.setSelection(sp);
 
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call82 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call82.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            chi.clear();
+                            chi1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                chi.add(response.body().getData().get(i).getTitle());
+                                chi1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, chi);
+
+
+                            supply_chain.setAdapter(adapter);
+                            child_labour.setAdapter(adapter);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < chi1.size(); i++) {
+                                if (item.getChild_labour().equals(chi1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            child_labour.setSelection(cp2);
+
+                            int cp21 = 0;
+                            for (int i = 0; i < chi1.size(); i++) {
+                                if (item.getSupply_chain().equals(chi1.get(i))) {
+                                    cp21 = i;
+                                }
+                            }
+                            supply_chain.setSelection(cp21);
 
                         }
 

@@ -167,6 +167,13 @@ public class Data
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("child_labour")
+    @Expose
+    private String child_labour;
+    @SerializedName("supply_chain")
+    @Expose
+    private String supply_chain;
+
 
     public String getId() {
         return id;
@@ -598,5 +605,21 @@ public class Data
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getChild_labour() {
+        return child_labour;
+    }
+
+    public String getSupply_chain() {
+        return supply_chain;
+    }
+
+    public void setChild_labour(String child_labour) {
+        this.child_labour = child_labour;
+    }
+
+    public void setSupply_chain(String supply_chain) {
+        this.supply_chain = supply_chain;
     }
 }

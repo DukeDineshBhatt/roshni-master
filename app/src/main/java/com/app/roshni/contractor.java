@@ -110,11 +110,11 @@ import static android.app.Activity.RESULT_OK;
 public class contractor extends Fragment {
 
     private static final String TAG = "conracao";
-    private Spinner gender, establishment, availability, firm, proof, firmtype, outsource, govtinsurance;
+    private Spinner gender, establishment, availability, firm, proof, firmtype, outsource, govtinsurance , child_labour , supply_chain;
 
     EditText sector, work, experience;
 
-    private String gend = "", esta = "", expe = "", wtyp = "", avai = "", frmy = "", prf = "", frmytyp = "", sect = "", outs = "", govt = "";
+    private String gend = "", esta = "", expe = "", wtyp = "", avai = "", frmy = "", prf = "", frmytyp = "", sect = "", outs = "", govt = "", chla = "", supl = "";
 
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms, migrant, local;
 
@@ -126,7 +126,7 @@ public class contractor extends Fragment {
 
     private Button upload, submit, previous;
 
-    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1, gov, gov1;
+    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1, gov, gov1 , chi , chi1;
 
     List<Data> sec;
     List<Datum> wty;
@@ -203,6 +203,8 @@ public class contractor extends Fragment {
         out1 = new ArrayList<>();
         gov = new ArrayList<>();
         gov1 = new ArrayList<>();
+        chi = new ArrayList<>();
+        chi1 = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -253,6 +255,8 @@ public class contractor extends Fragment {
         }
 
 
+        child_labour = view.findViewById(R.id.child_labour);
+        supply_chain = view.findViewById(R.id.supply_chain);
         email = view.findViewById(R.id.email);
         othergovt = view.findViewById(R.id.othergovt);
         otherwork = view.findViewById(R.id.otherwork);
@@ -1023,6 +1027,71 @@ public class contractor extends Fragment {
             }
         });
 
+        progress.setVisibility(View.VISIBLE);
+
+        Call<sectorBean> call8 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
+
+        call8.enqueue(new Callback<sectorBean>() {
+            @Override
+            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+
+                        chi.add(response.body().getData().get(i).getTitle());
+                        chi1.add(response.body().getData().get(i).getId());
+
+                    }
+
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            R.layout.spinner_model, chi);
+
+
+                    child_labour.setAdapter(adapter7);
+                    supply_chain.setAdapter(adapter7);
+
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<sectorBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+        child_labour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                chla = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        supply_chain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                supl = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         /*work.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1294,7 +1363,9 @@ public class contractor extends Fragment {
                                                                                     sch,
                                                                                     nons,
                                                                                     ema,
-                                                                                    govt
+                                                                                    govt,
+                                                                                    chla,
+                                                                                    supl
                                                                             );
 
                                                                             call.enqueue(new Callback<verifyBean>() {

@@ -880,7 +880,9 @@ public interface AllApiIneterface {
             @Part("reason") String reason,
             @Part("bank") String bank,
             @Part("id") String id,
-            @Part("govt") String govt
+            @Part("govt") String govt,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain
     );
 
     @Multipart
@@ -900,7 +902,9 @@ public interface AllApiIneterface {
             @Part("location") String location,
             @Part("bank") String bank,
             @Part("id") String id,
-            @Part("govt") String govt
+            @Part("govt") String govt,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain
     );
 
     @Multipart

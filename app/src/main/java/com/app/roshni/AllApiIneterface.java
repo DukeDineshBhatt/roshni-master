@@ -993,6 +993,8 @@ public interface AllApiIneterface {
             @Part("non_school") String non_school,
             @Part("email") String email,
             @Part("govt") String govt,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain,
             @Part MultipartBody.Part file1
     );
 

@@ -108,11 +108,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class contractor2 extends Fragment {
 
-    private Spinner gender, establishment, availability, firm, proof, firmtype, outsource , govtinsurance;
+    private Spinner gender, establishment, availability, firm, proof, firmtype, outsource , govtinsurance , child_labour , supply_chain;
 
     EditText sector, work, experience;
 
-    private String gend = "", sect = "", esta = "", expe = "", wtyp = "", avai = "", frmy = "", prf = "", frmytyp = "", outs = "" , govt = "";
+    private String gend = "", sect = "", esta = "", expe = "", wtyp = "", avai = "", frmy = "", prf = "", frmytyp = "", outs = "" , govt = "", chla = "", supl = "";
 
     private EditText name, editTxtProof, reg_no, dob, business, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, home_based, employer, male, female, about, looms, migrant, local;
 
@@ -126,7 +126,7 @@ public class contractor2 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1, gov, gov1;
+    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1, gov, gov1, chi , chi1;
     List<com.app.roshni.sectorPOJO.Data> sec;
     List<Datum> wty;
 
@@ -193,6 +193,8 @@ public class contractor2 extends Fragment {
         out1 = new ArrayList<>();
         gov = new ArrayList<>();
         gov1 = new ArrayList<>();
+        chi = new ArrayList<>();
+        chi1 = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -248,6 +250,8 @@ public class contractor2 extends Fragment {
         phone.setText(SharePreferenceUtils.getInstance().getString("phone"));
 
 
+        child_labour = view.findViewById(R.id.child_labour);
+        supply_chain = view.findViewById(R.id.supply_chain);
         email = view.findViewById(R.id.email);
         othergovt = view.findViewById(R.id.othergovt);
         otherwork = view.findViewById(R.id.otherwork);
@@ -648,6 +652,34 @@ public class contractor2 extends Fragment {
             }
         });
 
+        child_labour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                chla = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        supply_chain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                supl = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         getDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -832,6 +864,8 @@ public class contractor2 extends Fragment {
                                                                                     nons,
                                                                                     ema,
                                                                                     govt,
+                                                                                    chla,
+                                                                                    supl,
                                                                                     body
                                                                             );
 
@@ -1813,7 +1847,60 @@ public class contractor2 extends Fragment {
                     }
                 });
 
+                final Call<sectorBean> call82 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
 
+                call82.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            chi.clear();
+                            chi1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                chi.add(response.body().getData().get(i).getTitle());
+                                chi1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    R.layout.spinner_model, chi);
+
+
+                            supply_chain.setAdapter(adapter);
+                            child_labour.setAdapter(adapter);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < chi1.size(); i++) {
+                                if (item.getChild_labour().equals(chi1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            child_labour.setSelection(cp2);
+
+                            int cp21 = 0;
+                            for (int i = 0; i < chi1.size(); i++) {
+                                if (item.getSupply_chain().equals(chi1.get(i))) {
+                                    cp21 = i;
+                                }
+                            }
+                            supply_chain.setSelection(cp21);
+
+                        }
+
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
                 String ppp = item.getHomeLocation();
 

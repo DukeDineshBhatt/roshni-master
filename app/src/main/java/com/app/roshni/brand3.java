@@ -109,9 +109,9 @@ import static android.app.Activity.RESULT_OK;
 public class brand3 extends Fragment {
 
     private static final String TAG = "brand";
-    private Spinner manufacturing, certification, firm, firmtype;
+    private Spinner manufacturing, certification, firm, firmtype , child_labour , supply_chain;
 
-    private String manuf = "", certi = "", frmy = "", frmytyp = "", sect = "";
+    private String manuf = "", certi = "", frmy = "", frmytyp = "", sect = "" , chla = "", supl = "";
 
     private EditText name, regi, person, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, factory, workers, expiry, website, email, contact_details, businessname, sector;
 
@@ -126,7 +126,7 @@ public class brand3 extends Fragment {
 
     private Button upload, submit;
 
-    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec1, wty1, mar;
+    private List<String> man, cer, cer1, frm, frm1, frmtyp, frmtyp1, sec1, wty1, mar , chi , chi1;
 
     private CustomViewPager pager;
 
@@ -188,6 +188,8 @@ public class brand3 extends Fragment {
         wty = new ArrayList<>();
         wty1 = new ArrayList<>();
         mar = new ArrayList<>();
+        chi = new ArrayList<>();
+        chi1 = new ArrayList<>();
 
         Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(getContext());
@@ -240,6 +242,8 @@ public class brand3 extends Fragment {
 
         phone.setText(SharePreferenceUtils.getInstance().getString("phone"));
 
+        child_labour = view.findViewById(R.id.child_labour);
+        supply_chain = view.findViewById(R.id.supply_chain);
         otherwork = view.findViewById(R.id.otherwork);
         name = view.findViewById(R.id.editText);
         processes = view.findViewById(R.id.processes);
@@ -416,6 +420,33 @@ public class brand3 extends Fragment {
             }
         });
 
+        child_labour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                chla = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        supply_chain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                supl = chi1.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -801,6 +832,8 @@ public class brand3 extends Fragment {
                                                                     mark,
                                                                     cn,
                                                                     outs,
+                                                                    chla,
+                                                                    supl,
                                                                     body
                                                             );
 
@@ -1502,6 +1535,61 @@ public class brand3 extends Fragment {
 
 
                             }
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+                    final Call<sectorBean> call82 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call82.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+
+                            if (response.body().getStatus().equals("1")) {
+
+                                chi.clear();
+                                chi1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    chi.add(response.body().getData().get(i).getTitle());
+                                    chi1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                        R.layout.spinner_model, chi);
+
+
+                                supply_chain.setAdapter(adapter);
+                                child_labour.setAdapter(adapter);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < chi1.size(); i++) {
+                                    if (item.getChild_labour().equals(chi1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                child_labour.setSelection(cp2);
+
+                                int cp21 = 0;
+                                for (int i = 0; i < chi1.size(); i++) {
+                                    if (item.getSupply_chain().equals(chi1.get(i))) {
+                                        cp21 = i;
+                                    }
+                                }
+                                supply_chain.setSelection(cp21);
+
+                            }
+
+
 
                             progress.setVisibility(View.GONE);
 

@@ -135,7 +135,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity3.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.faqs1));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/faq.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/admin/fq.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -235,9 +235,8 @@ public class MainActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity3.this , Web.class);
-                intent.putExtra("title" , getString(R.string.faqs));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/faq.php");
+                Intent intent = new Intent(MainActivity3.this, Knowledge.class);
+                intent.putExtra("title", "contractor");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

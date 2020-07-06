@@ -156,7 +156,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity2.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.faqs1));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/faq.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/admin/fq.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

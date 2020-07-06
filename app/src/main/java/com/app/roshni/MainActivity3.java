@@ -148,7 +148,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity3.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.contact_us));
-                intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/contact.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/contact.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -224,7 +224,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity3.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.about_us));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/about.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/about.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -250,7 +250,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity3.this , Web.class);
                 intent.putExtra("title" , getString(R.string.policies));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/policies.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/policies.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -263,7 +263,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity3.this , Web.class);
                 intent.putExtra("title" , getString(R.string.terms_amp_conditions));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/terms.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/terms.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -277,7 +277,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity3.this , Support.class);
                 intent.putExtra("title" , getString(R.string.support_help));
-                intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
+                intent.putExtra("url" , "https://mrtecks.com/workersjoint/support.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -463,7 +463,6 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });
 
-        faq.setVisibility(View.GONE);
 
         bottom.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override

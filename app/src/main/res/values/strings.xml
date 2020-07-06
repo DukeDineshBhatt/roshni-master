@@ -301,4 +301,5 @@
     <string name="accept_text">Are you sure to accept ?</string>
     <string name="is_the_production_child_labour_free">Is the production Child Labour Free?</string>
     <string name="is_the_unit_or_worker_part_of_roshni_supply_chain">Is the unit or worker part of Roshni Supply Chain?</string>
+    <string name="go_back_text">Are you sure you want to go back ?</string>
 </resources>

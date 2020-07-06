@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Web.class);
                 intent.putExtra("title", getString(R.string.about_us));
-                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/about.php");
+                intent.putExtra("url", "https://mrtecks.com/workersjoint/about.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Web.class);
                 intent.putExtra("title", getString(R.string.contact_us));
-                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/contact.php");
+                intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Web.class);
                 intent.putExtra("title", getString(R.string.policies));
-                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/policies.php");
+                intent.putExtra("url", "https://mrtecks.com/workersjoint/policies.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Web.class);
                 intent.putExtra("title", getString(R.string.terms_amp_conditions));
-                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/terms.php");
+                intent.putExtra("url", "https://mrtecks.com/workersjoint/terms.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Support.class);
                 intent.putExtra("title", getString(R.string.support_help));
-                intent.putExtra("url", "https://mrtecks.com/goodbusinessapp/support.php");
+                intent.putExtra("url", "https://mrtecks.com/workersjoint/support.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

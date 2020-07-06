@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -817,21 +818,42 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri1);
             assert ypath != null;
-            f1 = new File(ypath);
 
-            Log.d("path", ypath);
+            File file = null;
+            file = new File(ypath);
 
+            try {
+                f1 = new Compressor(PostJobContractor.this).compressToFile(file);
 
-            ImageLoader loader = ImageLoader.getInstance();
+                uri1 = Uri.fromFile(f1);
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri1));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            Log.d("bitmap", String.valueOf(bmp));
+            Log.d("path1", ypath);
 
-            image1.setImageBitmap(bmp);
+            image1.setImageURI(uri1);
+
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri1));
+
+            try {
+
+                File file = new Compressor(PostJobContractor.this).compressToFile(f1);
+
+                f1 = file;
+
+                uri1 = Uri.fromFile(f1);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image1.setImageURI(uri1);
+
         }
 
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
@@ -841,20 +863,37 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri2);
             assert ypath != null;
-            f2 = new File(ypath);
+            File file = null;
+            file = new File(ypath);
 
-            Log.d("path", ypath);
+            try {
+                f2 = new Compressor(PostJobContractor.this).compressToFile(file);
 
+                uri2 = Uri.fromFile(f2);
 
-            ImageLoader loader = ImageLoader.getInstance();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri2));
+            Log.d("path1", ypath);
 
-            Log.d("bitmap", String.valueOf(bmp));
-
-            image2.setImageBitmap(bmp);
+            image2.setImageURI(uri2);
 
         } else if (requestCode == 3 && resultCode == RESULT_OK) {
+            Log.d("uri1", String.valueOf(uri2));
+
+            try {
+
+                File file = new Compressor(PostJobContractor.this).compressToFile(f2);
+
+                f2 = file;
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image2.setImageURI(uri2);
         }
 
@@ -866,21 +905,41 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri3);
             assert ypath != null;
-            f3 = new File(ypath);
-
-            Log.d("path", ypath);
 
 
-            ImageLoader loader = ImageLoader.getInstance();
+            File file = null;
+            file = new File(ypath);
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri3));
+            try {
+                f3 = new Compressor(PostJobContractor.this).compressToFile(file);
 
-            Log.d("bitmap", String.valueOf(bmp));
+                uri3 = Uri.fromFile(f3);
 
-            image3.setImageBitmap(bmp);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("path1", ypath);
+
+            image3.setImageURI(uri3);
+
 
         } else if (requestCode == 5 && resultCode == RESULT_OK) {
+
+            try {
+
+                File file = new Compressor(PostJobContractor.this).compressToFile(f3);
+
+                f3 = file;
+
+                uri3 = Uri.fromFile(f3);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image3.setImageURI(uri3);
+
         }
 
 
@@ -891,20 +950,37 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri4);
             assert ypath != null;
-            f4 = new File(ypath);
 
-            Log.d("path", ypath);
+            File file = null;
+            file = new File(ypath);
 
+            try {
+                f4 = new Compressor(PostJobContractor.this).compressToFile(file);
 
-            ImageLoader loader = ImageLoader.getInstance();
+                uri4 = Uri.fromFile(f4);
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri4));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            Log.d("bitmap", String.valueOf(bmp));
+            Log.d("path1", ypath);
 
-            image4.setImageBitmap(bmp);
+            image4.setImageURI(uri4);
+
 
         } else if (requestCode == 7 && resultCode == RESULT_OK) {
+            try {
+
+                File file = new Compressor(PostJobContractor.this).compressToFile(f4);
+
+                f4 = file;
+
+                uri4 = Uri.fromFile(f4);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image4.setImageURI(uri4);
         }
 
@@ -916,20 +992,35 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri5);
             assert ypath != null;
-            f5 = new File(ypath);
+            File file = null;
+            file = new File(ypath);
 
-            Log.d("path", ypath);
+            try {
+                f5 = new Compressor(PostJobContractor.this).compressToFile(file);
 
+                uri5 = Uri.fromFile(f5);
 
-            ImageLoader loader = ImageLoader.getInstance();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            Bitmap bmp = loader.loadImageSync(String.valueOf(uri5));
+            Log.d("path1", ypath);
 
-            Log.d("bitmap", String.valueOf(bmp));
-
-            image5.setImageBitmap(bmp);
+            image5.setImageURI(uri5);
 
         } else if (requestCode == 9 && resultCode == RESULT_OK) {
+            try {
+
+                File file = new Compressor(PostJobContractor.this).compressToFile(f5);
+
+                f5 = file;
+
+                uri5 = Uri.fromFile(f5);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
             image5.setImageURI(uri5);
         }
 

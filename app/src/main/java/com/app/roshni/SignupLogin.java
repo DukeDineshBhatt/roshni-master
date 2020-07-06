@@ -295,9 +295,9 @@ public class SignupLogin extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
                                         // User clicked OK button
 
-                                        Intent intent = new Intent(SignupLogin.this , Support.class);
-                                        intent.putExtra("title" , getString(R.string.support_help));
-                                        intent.putExtra("url" , "https://mrtecks.com/roshni/support.php");
+                                        Intent intent = new Intent(SignupLogin.this, Web.class);
+                                        intent.putExtra("title", getString(R.string.contact_us));
+                                        intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
                                         startActivity(intent);
 
                                     }

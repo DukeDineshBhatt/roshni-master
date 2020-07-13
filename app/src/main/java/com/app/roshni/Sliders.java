@@ -10,10 +10,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.ViewPropertyAnimator;
 import android.view.inputmethod.InputMethodManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Locale;
+import java.util.Objects;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -76,6 +78,7 @@ public class Sliders extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int i) {
 
@@ -106,7 +109,7 @@ public class Sliders extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

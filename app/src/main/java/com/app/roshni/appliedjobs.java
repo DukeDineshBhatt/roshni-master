@@ -24,11 +24,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.roshni.workerJobListPOJO.Datum;
 import com.app.roshni.workerJobListPOJO.workerJobListBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +76,7 @@ public class appliedjobs extends Fragment {
             public void onClick(View v) {
 
 
-                final Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.date_dialog);
@@ -108,7 +111,7 @@ public class appliedjobs extends Fragment {
 
                         progress.setVisibility(View.VISIBLE);
 
-                        Bean b = (Bean) getContext().getApplicationContext();
+                        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
                         Retrofit retrofit = new Retrofit.Builder()
                                 .baseUrl(b.baseurl)
@@ -123,9 +126,9 @@ public class appliedjobs extends Fragment {
 
                         call.enqueue(new Callback<workerJobListBean>() {
                             @Override
-                            public void onResponse(Call<workerJobListBean> call, Response<workerJobListBean> response) {
+                            public void onResponse(@NotNull Call<workerJobListBean> call, @NotNull Response<workerJobListBean> response) {
 
-                                if (response.body().getData().size() > 0)
+                                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                                 {
                                     nodata.setVisibility(View.GONE);
                                 }
@@ -141,7 +144,7 @@ public class appliedjobs extends Fragment {
                             }
 
                             @Override
-                            public void onFailure(Call<workerJobListBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<workerJobListBean> call, @NotNull Throwable t) {
                                 progress.setVisibility(View.GONE);
                             }
                         });
@@ -176,7 +179,7 @@ public class appliedjobs extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -191,9 +194,9 @@ public class appliedjobs extends Fragment {
 
         call.enqueue(new Callback<workerJobListBean>() {
             @Override
-            public void onResponse(Call<workerJobListBean> call, Response<workerJobListBean> response) {
+            public void onResponse(@NotNull Call<workerJobListBean> call, @NotNull Response<workerJobListBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -209,7 +212,7 @@ public class appliedjobs extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<workerJobListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<workerJobListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -218,8 +221,8 @@ public class appliedjobs extends Fragment {
     }
 
     class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -236,7 +239,7 @@ public class appliedjobs extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.job_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.job_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -271,7 +274,10 @@ public class appliedjobs extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title , company , address , salary;
+            final TextView title;
+            final TextView company;
+            final TextView address;
+            final TextView salary;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

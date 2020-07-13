@@ -35,6 +35,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -103,7 +105,7 @@ public class Pictures extends Fragment {
 
                 Intent intent = new Intent(getContext(), MainActivity2.class);
                 startActivity(intent);
-                getActivity().finishAffinity();
+                Objects.requireNonNull(getActivity()).finishAffinity();
 
             }
         });
@@ -178,7 +180,7 @@ public class Pictures extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getActivity().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -192,9 +194,9 @@ public class Pictures extends Fragment {
 
         call.enqueue(new Callback<sampleBean>() {
             @Override
-            public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
+            public void onResponse(@NotNull Call<sampleBean> call, @NotNull Response<sampleBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -211,7 +213,7 @@ public class Pictures extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sampleBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sampleBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -223,8 +225,8 @@ public class Pictures extends Fragment {
 
     class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
     {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
 
         SampleAdapter(Context context, List<Datum> list)
@@ -243,7 +245,7 @@ public class Pictures extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sample_list_model , parent , false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sample_list_model , parent , false);
             return new ViewHolder(view);
         }
 
@@ -281,9 +283,9 @@ public class Pictures extends Fragment {
 
                     call.enqueue(new Callback<sampleBean>() {
                         @Override
-                        public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
+                        public void onResponse(@NotNull Call<sampleBean> call, @NotNull Response<sampleBean> response) {
 
-                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                             progress.setVisibility(View.GONE);
 
@@ -292,7 +294,7 @@ public class Pictures extends Fragment {
                         }
 
                         @Override
-                        public void onFailure(Call<sampleBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sampleBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -329,8 +331,8 @@ public class Pictures extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder
         {
 
-            ImageView image;
-            ImageButton delete;
+            final ImageView image;
+            final ImageButton delete;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -355,11 +357,11 @@ public class Pictures extends Fragment {
             assert ypath != null;
 
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
-                f1 = new Compressor(getContext()).compressToFile(file);
+                f1 = new Compressor(Objects.requireNonNull(getContext())).compressToFile(file);
 
                 uri = Uri.fromFile(f1);
 
@@ -400,9 +402,9 @@ public class Pictures extends Fragment {
 
             call.enqueue(new Callback<sampleBean>() {
                 @Override
-                public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
+                public void onResponse(@NotNull Call<sampleBean> call, @NotNull Response<sampleBean> response) {
 
-                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                     progress.setVisibility(View.GONE);
 
@@ -410,7 +412,7 @@ public class Pictures extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<sampleBean> call, Throwable t) {
+                public void onFailure(@NotNull Call<sampleBean> call, @NotNull Throwable t) {
                     progress.setVisibility(View.GONE);
                 }
             });
@@ -422,9 +424,7 @@ public class Pictures extends Fragment {
 
             try {
 
-                File file = new Compressor(getContext()).compressToFile(f1);
-
-                f1 = file;
+                f1 = new Compressor(getContext()).compressToFile(f1);
 
                 uri = Uri.fromFile(f1);
 
@@ -463,9 +463,9 @@ public class Pictures extends Fragment {
 
             call.enqueue(new Callback<sampleBean>() {
                 @Override
-                public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
+                public void onResponse(@NotNull Call<sampleBean> call, @NotNull Response<sampleBean> response) {
 
-                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                     progress.setVisibility(View.GONE);
                     onResume();
@@ -473,7 +473,7 @@ public class Pictures extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<sampleBean> call, Throwable t) {
+                public void onFailure(@NotNull Call<sampleBean> call, @NotNull Throwable t) {
                     progress.setVisibility(View.GONE);
                 }
             });
@@ -504,7 +504,7 @@ public class Pictures extends Fragment {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }

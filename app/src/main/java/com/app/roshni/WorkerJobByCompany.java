@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,8 +21,11 @@ import android.widget.TextView;
 import com.app.roshni.allWorkContrJobListPOJO.Datum;
 import com.app.roshni.allWorkContrJobListPOJO.allWorkContrJobBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +63,7 @@ public class WorkerJobByCompany extends AppCompatActivity {
         nodata = findViewById(R.id.imageView5);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +76,7 @@ public class WorkerJobByCompany extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(getString(R.string.comp_jobs));
 
-        adapter = new JobsAdapter(this , list);
+        adapter = new JobsAdapter(this, list);
         manager = new GridLayoutManager(this, 1);
 
         grid.setAdapter(adapter);
@@ -104,9 +106,9 @@ public class WorkerJobByCompany extends AppCompatActivity {
 
         call.enqueue(new Callback<allWorkContrJobBean>() {
             @Override
-            public void onResponse(Call<allWorkContrJobBean> call, Response<allWorkContrJobBean> response) {
+            public void onResponse(@NotNull Call<allWorkContrJobBean> call, @NotNull Response<allWorkContrJobBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -123,7 +125,7 @@ public class WorkerJobByCompany extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<allWorkContrJobBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<allWorkContrJobBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -131,9 +133,9 @@ public class WorkerJobByCompany extends AppCompatActivity {
 
     }
 
-    class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+    static class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -150,7 +152,7 @@ public class WorkerJobByCompany extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.worker_active_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.worker_active_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -202,7 +204,13 @@ public class WorkerJobByCompany extends AppCompatActivity {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title , category , salary , posted , applied , applicants , details;
+            final TextView title;
+            final TextView category;
+            final TextView salary;
+            final TextView posted;
+            final TextView applied;
+            final TextView applicants;
+            final TextView details;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -221,7 +229,7 @@ public class WorkerJobByCompany extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

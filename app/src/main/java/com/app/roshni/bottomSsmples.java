@@ -2,13 +2,8 @@ package com.app.roshni;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -31,10 +24,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,7 +65,7 @@ public class bottomSsmples extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.samples_layout , container , false);
 
-        jid = getArguments().getString("jid");
+        jid = Objects.requireNonNull(getArguments()).getString("jid");
 
         list = new ArrayList<>();
 
@@ -86,7 +79,7 @@ public class bottomSsmples extends BottomSheetDialogFragment {
         add.setVisibility(View.GONE);
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getActivity() , list);
+        adapter = new SampleAdapter(getActivity(), list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
@@ -107,7 +100,7 @@ public class bottomSsmples extends BottomSheetDialogFragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getActivity().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -121,9 +114,9 @@ public class bottomSsmples extends BottomSheetDialogFragment {
 
         call.enqueue(new Callback<sampleBean>() {
             @Override
-            public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
+            public void onResponse(@NotNull Call<sampleBean> call, @NotNull Response<sampleBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -140,7 +133,7 @@ public class bottomSsmples extends BottomSheetDialogFragment {
             }
 
             @Override
-            public void onFailure(Call<sampleBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sampleBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -150,10 +143,10 @@ public class bottomSsmples extends BottomSheetDialogFragment {
 
     }
 
-    class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
+    static class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
     {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
 
         SampleAdapter(Context context, List<Datum> list)
@@ -172,7 +165,7 @@ public class bottomSsmples extends BottomSheetDialogFragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sample_list_model , parent , false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sample_list_model , parent , false);
             return new ViewHolder(view);
         }
 
@@ -215,8 +208,8 @@ public class bottomSsmples extends BottomSheetDialogFragment {
         class ViewHolder extends RecyclerView.ViewHolder
         {
 
-            ImageView image;
-            ImageButton delete;
+            final ImageView image;
+            final ImageButton delete;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

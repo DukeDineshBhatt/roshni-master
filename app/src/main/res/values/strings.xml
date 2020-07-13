@@ -51,16 +51,11 @@
     <string name="education">Education</string>
     <string name="salary_type">Salary Type</string>
     <string name="apply_now">APPLY NOW</string>
-    <string name="preferred_skill_set">Preferred Skill set</string>
     <string name="gender_preference">Gender Preference</string>
     <string name="working_hours">Working Hours</string>
     <string name="salary_package">Salary Package</string>
     <string name="company_details">Company Details</string>
-    <string name="total_days_for_completion">Total Days for Completion</string>
     <string name="job_title">JOB TITLE <font color="red">*</font></string>
-    <string name="skills1">SKILLS <font color="red">*</font></string>
-    <string name="preferred_skills_if_any">PREFERRED SKILLS (IF ANY)</string>
-    <string name="location1">LOCATION <font color="red">*</font></string>
     <string name="experience1">EXPERIENCE <font color="red">*</font></string>
     <string name="job_role1">JOB ROLE <font color="red">*</font></string>
     <string name="gender_preference1">GENDER PREFERENCE</string>
@@ -70,7 +65,6 @@
     <string name="salary_type1">SALARY TYPE <font color="red">*</font></string>
     <string name="submit">NEXT</string>
     <string name="job_type1">JOB TYPE <font color="red">*</font></string>
-    <string name="no_of_days_for_completion">NO. OF DAYS FOR COMPLETION <font color="red">*</font></string>
 
     <string name="upload_take_photo">upload/ take photo</string>
 
@@ -133,7 +127,6 @@
     <string name="previous_employer_or_brands">PREVIOUS EMPLOYER OR BRANDS</string>
     <string name="ok">OK</string>
     <string name="select">SELECT</string>
-    <string name="account_settings">Account Settings</string>
     <string name="about_us">About Us</string>
     <string name="faqs">Knowledge Center</string>
     <string name="policies">Policies</string>
@@ -152,8 +145,8 @@
     <string name="your_marital_status">YOUR MARITAL STATUS <font color="red">*</font></string>
     <string name="number_of_children">NUMBER OF CHILDREN <font color="red">*</font></string>
     <string name="number_of_children_below_6_yrs">NUMBER OF CHILDREN BELOW 6 YRS. <font color="red">*</font></string>
-    <string name="number_of_children_b_w_6_14_yrs">NUMBER OF CHILDREN B/W 6-14 YRS. <font color="red">*</font></string>
-    <string name="number_of_children_b_w_15_18_yrs">NUMBER OF CHILDREN B/W 15-18 YRS. <font color="red">*</font></string>
+    <string name="number_of_children_b_w_6_14_yrs">NUMBER OF CHILDREN B/W 6–14 YRS. <font color="red">*</font></string>
+    <string name="number_of_children_b_w_15_18_yrs">NUMBER OF CHILDREN B/W 15–18 YRS. <font color="red">*</font></string>
     <string name="number_of_children_going_to_school">NUMBER OF CHILDREN GOING TO SCHOOL <font color="red">*</font></string>
     <string name="your_sector">YOUR SECTOR <font color="red">*</font></string>
     <string name="your_skills">YOUR SKILLS</string>
@@ -213,7 +206,6 @@
     <string name="enter_religion">enter religion</string>
     <string name="i_agree_to_all_terms_amp_conditions_and_data_privacy"><![CDATA[I agree to all terms & conditions and data privacy.]]></string>
     <string name="i_agree_that_goodweave_have_no_responsibility_or_commitment_to_provide_business_or_any_financial_obligation_related_to_it">I agree that Goodweave India have no responsibility or commitment to provide business or any financial obligation related to it.</string>
-    <string name="i_agree_to_the_protocol_of_unannounced_inspections_which_has_been_shared_to_me_before_registering_on_the_app_i_will_allow_goodweave_personnel_for_unannounced_inspections_of_my_facility_anytime_and_give_complete_access_to_the_facility_i_also_agree_that_goodweave_has_complete_right_to_remove_my_facility_from_its_database_if_any_child_labor_is_identified_during_any_inspection" translatable="false">I agree to the protocol of unannounced inspections, which has been shared to me before registering on the app. I will allow Goodweave India personnel for unannounced inspections of my facility anytime and give complete access to the facility. I also agree that Goodweave India has complete right to remove my facility from its database if any child labor is identified during any Inspection.</string>
     <string name="i_agree_not_to_use_any_conditions_which_lead_my_workers_to_work_in_forced_amp_bonded_conditions"><![CDATA[I agree, not to use any conditions which lead my workers to work in forced & bonded conditions.]]></string>
     <string name="i_will_not_employ_any_child_below_the_age_of_18_years_in_my_unit_in_any_process">I will not employ any child below the age of 18 years, in my unit in any process.</string>
     <string name="company_contact_details">COMPANY CONTACT DETAILS</string>
@@ -256,24 +248,11 @@
     <string name="click_to_change"> (click to change)</string>
     <string name="date">Date - </string>
     <string name="yes1">Yes</string>
-    <string name="sole_properietor">Sole-properietor</string>
-    <string name="partnership">Partnership</string>
-    <string name="pvt_ltd">Pvt.Ltd. Company</string>
-    <string name="ltd_company">Ltd. Company</string>
-    <string name="llc">LLC</string>
-    <string name="llp">LLP</string>
-    <string name="cooperative">Co-operative</string>
-    <string name="trust">Trust</string>
-    <string name="none">None</string>
-    <string name="ssi">SSI</string>
-    <string name="msme">MSME</string>
-    <string name="cottage_industry">Cottage Industry</string>
     <string name="certificate_number">CERTIFICATE NUMBER</string>
     <string name="skill_level2">SKILL LEVEL</string>
     <string name="annual_income">ANNUAL INCOME</string>
     <string name="other_sources_of_income">OTHER SOURCES OF INCOME</string>
     <string name="are_you_covered_under_any_of_the_govt_health_insurance_scheme">Are you covered under any Government social security schemes?</string>
-    <string name="enter_religion3">ENTER RELIGION</string>
     <string name="do_you_outsource_jobs_to_other_workers">Do you outsource jobs to other workers</string>
     <string name="migrant_workers">Migrant Workers</string>
     <string name="local_workers">Local Workers</string>
@@ -289,11 +268,9 @@
     <string name="type_of_market">Type of Market</string>
     <string name="type_of_unit_processes">Type of Unit/ Processes</string>
     <string name="certified_verified_number">Certified/Verified number</string>
-    <string name="children_going_to_school_between_6_14_yrs">Children going to school between 6-14 yrs.</string>
-    <string name="children_going_to_school_between_15_18_yrs">Children going to school between 15-18 yrs.</string>
+    <string name="children_going_to_school_between_6_14_yrs">Children going to school between 6–14 yrs.</string>
+    <string name="children_going_to_school_between_15_18_yrs">Children going to school between 15–18 yrs.</string>
     <string name="by_date">By Date</string>
-    <string name="start_date">Start date</string>
-    <string name="end_date">End date</string>
     <string name="tap_to_select">tap to select</string>
     <string name="enter_data">Enter Data</string>
     <string name="sort_by">sort by</string>

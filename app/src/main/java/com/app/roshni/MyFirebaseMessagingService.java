@@ -17,13 +17,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
-    public void onNewToken(String s) {
+    public void onNewToken(@NotNull String s) {
 
         SharePreferenceUtils.getInstance().saveString("token" , s);
 
@@ -46,7 +47,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d("asdasd" , remoteMessage.getData().toString());
 
 
-        JSONObject object = null;
+        JSONObject object;
         object = new JSONObject(remoteMessage.getData());
 
         try {
@@ -74,10 +75,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager mNotificationManager = (NotificationManager) Bean.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationChannel mChannel = null;
+        NotificationChannel mChannel;
         // The id of the channel.
 
-        int importance = NotificationManager.IMPORTANCE_HIGH;
+        int importance = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            importance = NotificationManager.IMPORTANCE_HIGH;
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(Bean.getContext(), idChannel);
         builder.setContentTitle(Bean.getContext().getString(R.string.app_name))

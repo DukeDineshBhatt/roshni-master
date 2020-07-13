@@ -24,6 +24,10 @@ import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,10 +110,10 @@ public class ContractorJobDetails extends AppCompatActivity {
 
                     call.enqueue(new Callback<verifyBean>() {
                         @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
 
-                            Toast.makeText(ContractorJobDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ContractorJobDetails.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                             progress.setVisibility(View.GONE);
 
@@ -117,7 +121,7 @@ public class ContractorJobDetails extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -142,10 +146,10 @@ public class ContractorJobDetails extends AppCompatActivity {
 
                     call.enqueue(new Callback<verifyBean>() {
                         @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
 
-                            Toast.makeText(ContractorJobDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ContractorJobDetails.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                             progress.setVisibility(View.GONE);
 
@@ -154,7 +158,7 @@ public class ContractorJobDetails extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -200,10 +204,10 @@ public class ContractorJobDetails extends AppCompatActivity {
 
         call.enqueue(new Callback<contractorJobDetailsBean>() {
             @Override
-            public void onResponse(Call<contractorJobDetailsBean> call, Response<contractorJobDetailsBean> response) {
+            public void onResponse(@NotNull Call<contractorJobDetailsBean> call, @NotNull Response<contractorJobDetailsBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     final Data item = response.body().getData();
 
@@ -388,7 +392,7 @@ public class ContractorJobDetails extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<contractorJobDetailsBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorJobDetailsBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -400,7 +404,7 @@ public class ContractorJobDetails extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

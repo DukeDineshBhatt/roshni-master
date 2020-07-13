@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.mukesh.OtpView;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,8 +59,8 @@ public class CreatePIN extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                String p = pin.getText().toString();
-                String c = cpin.getText().toString();
+                String p = Objects.requireNonNull(pin.getText()).toString();
+                String c = Objects.requireNonNull(cpin.getText()).toString();
 
                 if (p.length() == 4) {
 
@@ -80,10 +83,10 @@ public class CreatePIN extends AppCompatActivity {
                         Call<verifyBean> call = cr.createPIN(SharePreferenceUtils.getInstance().getString("user_id"), p);
                         call.enqueue(new Callback<verifyBean>() {
                             @Override
-                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                            public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
 
-                                if (response.body().getStatus().equals("1")) {
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                                     Data item = response.body().getData();
@@ -233,7 +236,7 @@ public class CreatePIN extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<verifyBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                 progress.setVisibility(View.GONE);
                             }
                         });
@@ -262,7 +265,7 @@ public class CreatePIN extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

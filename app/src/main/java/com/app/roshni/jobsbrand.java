@@ -15,6 +15,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class jobsbrand extends Fragment {
 
     TabLayout tabs;
@@ -41,8 +45,8 @@ public class jobsbrand extends Fragment {
         pager.setPagingEnabled(true);
 
 
-        tabs.getTabAt(0).setText(getString(R.string.workers));
-        tabs.getTabAt(1).setText(getString(R.string.contractors));
+        Objects.requireNonNull(tabs.getTabAt(0)).setText(getString(R.string.workers));
+        Objects.requireNonNull(tabs.getTabAt(1)).setText(getString(R.string.contractors));
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +62,7 @@ public class jobsbrand extends Fragment {
         return view;
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter
+    static class PagerAdapter extends FragmentStatePagerAdapter
     {
 
 
@@ -66,6 +70,7 @@ public class jobsbrand extends Fragment {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0)

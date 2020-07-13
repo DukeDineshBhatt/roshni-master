@@ -19,6 +19,10 @@ import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -133,9 +137,9 @@ public class WorkerApplicantDetails extends AppCompatActivity {
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
-            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
+            public void onResponse(@NotNull Call<WorkerByIdListBean> call, @NotNull Response<WorkerByIdListBean> response) {
 
-                WorkerByIdData item = response.body().getData().get(0);
+                WorkerByIdData item = Objects.requireNonNull(response.body()).getData().get(0);
 
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
@@ -166,7 +170,7 @@ public class WorkerApplicantDetails extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<WorkerByIdListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -202,10 +206,10 @@ public class WorkerApplicantDetails extends AppCompatActivity {
 
                                 call.enqueue(new Callback<verifyBean>() {
                                     @Override
-                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                    public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
 
-                                        Toast.makeText(WorkerApplicantDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(WorkerApplicantDetails.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                                         progress.setVisibility(View.GONE);
 
@@ -213,7 +217,7 @@ public class WorkerApplicantDetails extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                    public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                         progress.setVisibility(View.GONE);
                                     }
                                 });
@@ -267,10 +271,10 @@ public class WorkerApplicantDetails extends AppCompatActivity {
 
                                 call.enqueue(new Callback<verifyBean>() {
                                     @Override
-                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                    public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
 
-                                        Toast.makeText(WorkerApplicantDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(WorkerApplicantDetails.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                                         progress.setVisibility(View.GONE);
 
@@ -278,7 +282,7 @@ public class WorkerApplicantDetails extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                    public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                         progress.setVisibility(View.GONE);
                                     }
                                 });
@@ -307,7 +311,7 @@ public class WorkerApplicantDetails extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

@@ -25,7 +25,10 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainActivity4 extends AppCompatActivity {
 
@@ -52,7 +55,7 @@ public class MainActivity4 extends AppCompatActivity {
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("SURVEY OFFICER");
@@ -73,8 +76,8 @@ public class MainActivity4 extends AppCompatActivity {
 
         pager.setPagingEnabled(true);
 
-        tabs.getTabAt(0).setText("Ongoing");
-        tabs.getTabAt(1).setText("Completed");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("Ongoing");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("Completed");
 
 
 
@@ -172,6 +175,7 @@ public class MainActivity4 extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
@@ -193,7 +197,7 @@ public class MainActivity4 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

@@ -20,8 +20,11 @@ import android.widget.TextView;
 import com.app.roshni.notificationBean.Datum;
 import com.app.roshni.notificationBean.notificationBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +60,7 @@ public class Notifications extends AppCompatActivity {
         nodata = findViewById(R.id.imageView5);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +105,9 @@ public class Notifications extends AppCompatActivity {
 
             call.enqueue(new Callback<notificationBean>() {
                 @Override
-                public void onResponse(Call<notificationBean> call, Response<notificationBean> response) {
+                public void onResponse(@NotNull Call<notificationBean> call, @NotNull Response<notificationBean> response) {
 
-                    if (response.body().getData().size() > 0)
+                    if (Objects.requireNonNull(response.body()).getData().size() > 0)
                     {
                         nodata.setVisibility(View.GONE);
                     }
@@ -121,7 +124,7 @@ public class Notifications extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<notificationBean> call, Throwable t) {
+                public void onFailure(@NotNull Call<notificationBean> call, @NotNull Throwable t) {
                     progress.setVisibility(View.GONE);
                 }
             });
@@ -132,9 +135,9 @@ public class Notifications extends AppCompatActivity {
 
             call.enqueue(new Callback<notificationBean>() {
                 @Override
-                public void onResponse(Call<notificationBean> call, Response<notificationBean> response) {
+                public void onResponse(@NotNull Call<notificationBean> call, @NotNull Response<notificationBean> response) {
 
-                    if (response.body().getData().size() > 0)
+                    if (Objects.requireNonNull(response.body()).getData().size() > 0)
                     {
                         nodata.setVisibility(View.GONE);
                     }
@@ -151,7 +154,7 @@ public class Notifications extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<notificationBean> call, Throwable t) {
+                public void onFailure(@NotNull Call<notificationBean> call, @NotNull Throwable t) {
                     progress.setVisibility(View.GONE);
                 }
             });
@@ -162,9 +165,9 @@ public class Notifications extends AppCompatActivity {
 
             call.enqueue(new Callback<notificationBean>() {
                 @Override
-                public void onResponse(Call<notificationBean> call, Response<notificationBean> response) {
+                public void onResponse(@NotNull Call<notificationBean> call, @NotNull Response<notificationBean> response) {
 
-                    if (response.body().getData().size() > 0)
+                    if (Objects.requireNonNull(response.body()).getData().size() > 0)
                     {
                         nodata.setVisibility(View.GONE);
                     }
@@ -181,7 +184,7 @@ public class Notifications extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<notificationBean> call, Throwable t) {
+                public void onFailure(@NotNull Call<notificationBean> call, @NotNull Throwable t) {
                     progress.setVisibility(View.GONE);
                 }
             });
@@ -194,8 +197,8 @@ public class Notifications extends AppCompatActivity {
     }
 
     class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -212,7 +215,7 @@ public class Notifications extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.notification_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.notification_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -243,6 +246,12 @@ public class Notifications extends AppCompatActivity {
                         startActivity(intent);
                         finishAffinity();
                     }
+                    else if (SharePreferenceUtils.getInstance().getString("type").equals("contractor"))
+                    {
+                        Intent intent = new Intent(context , MainActivity3.class);
+                        startActivity(intent);
+                        finishAffinity();
+                    }
 
 
 
@@ -258,7 +267,8 @@ public class Notifications extends AppCompatActivity {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView text , date;
+            final TextView text;
+            final TextView date;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

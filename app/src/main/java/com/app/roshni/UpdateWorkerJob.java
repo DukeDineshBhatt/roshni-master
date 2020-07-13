@@ -29,6 +29,8 @@ import com.app.roshni.workerJobListPOJO.workerJobDetailBean;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -123,7 +125,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -500,9 +502,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                                                     call1.enqueue(new Callback<verifyBean>() {
                                                         @Override
-                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                                            if (response.body().getStatus().equals("1"))
+                                                            if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                                             {
                                                                 Toast.makeText(UpdateWorkerJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -516,7 +518,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                                                         }
 
                                                         @Override
-                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                                             progress.setVisibility(View.GONE);
                                                         }
                                                     });
@@ -596,10 +598,10 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
         call.enqueue(new Callback<workerJobDetailBean>() {
             @Override
-            public void onResponse(Call<workerJobDetailBean> call, Response<workerJobDetailBean> response) {
+            public void onResponse(@NotNull Call<workerJobDetailBean> call, @NotNull Response<workerJobDetailBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     final Datum item = response.body().getData();
 
@@ -616,13 +618,13 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                     contact_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
                     email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
 
-                    final Call<sectorBean> call2 = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
+                    final Call<sectorBean> call2 = cr.getBrandSector(SharePreferenceUtils.getInstance().getString("lang") , SharePreferenceUtils.getInstance().getString("user_id"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
@@ -632,7 +634,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateWorkerJob.this,
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateWorkerJob.this,
                                         R.layout.spinner_model, sec);
 
                                 sector.setAdapter(adapter);
@@ -652,7 +654,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -669,10 +671,10 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                             Call<skillsBean> call2 = cr.getSkills2(sect, SharePreferenceUtils.getInstance().getString("lang"));
                             call2.enqueue(new Callback<skillsBean>() {
                                 @Override
-                                public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                                public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
 
-                                    if (response.body().getStatus().equals("1")) {
+                                    if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                         ski.clear();
                                         ski1.clear();
@@ -684,7 +686,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                                         }
 
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateWorkerJob.this,
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateWorkerJob.this,
                                                 R.layout.spinner_model, ski);
 
                                         skills.setAdapter(adapter);
@@ -704,7 +706,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                                 }
 
                                 @Override
-                                public void onFailure(Call<skillsBean> call, Throwable t) {
+                                public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                                     progress.setVisibility(View.GONE);
                                 }
                             });
@@ -723,9 +725,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call4.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 gen.clear();
                                 gen1.clear();
@@ -760,7 +762,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -770,9 +772,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call5.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 exp.clear();
                                 exp1.clear();
@@ -807,7 +809,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -817,9 +819,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call6.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 edu.clear();
                                 edu1.clear();
@@ -854,7 +856,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -863,9 +865,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call7.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 sty.clear();
                                 sty1.clear();
@@ -900,7 +902,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -910,9 +912,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call8.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 lev.clear();
                                 lev1.clear();
@@ -947,7 +949,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -956,9 +958,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call9.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 nat.clear();
                                 nat1.clear();
@@ -993,7 +995,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -1002,9 +1004,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call10.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 pla.clear();
                                 pla1.clear();
@@ -1039,7 +1041,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -1049,9 +1051,9 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                     call11.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 loc.clear();
                                 loc1.clear();
@@ -1063,7 +1065,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateWorkerJob.this,
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateWorkerJob.this,
                                         R.layout.spinner_model, loc);
 
 
@@ -1096,7 +1098,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -1113,7 +1115,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
             }
 
             @Override
-            public void onFailure(Call<workerJobDetailBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<workerJobDetailBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -1123,7 +1125,7 @@ public class UpdateWorkerJob extends AppCompatActivity implements TimePickerDial
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

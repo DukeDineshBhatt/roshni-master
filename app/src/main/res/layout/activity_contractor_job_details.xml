@@ -26,7 +26,8 @@
             android:background="@drawable/ic_arrow_back_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
 
         <TextView
@@ -86,7 +87,6 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
@@ -315,7 +315,6 @@
                     android:textColor="#000000" />
 
                 <ImageView
-                    android:id="@+id/sample"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -324,7 +323,7 @@
                     android:scaleType="fitXY"
                     android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    />
+                    android:contentDescription="TODO" />
 
             </LinearLayout>
 
@@ -343,7 +342,8 @@
                     android:adjustViewBounds="true"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:src="@drawable/nologo" />
+                    android:src="@drawable/nologo"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/image2"
@@ -353,7 +353,8 @@
                     android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     android:layout_margin="1dp"
-                    android:src="@drawable/nologo" />
+                    android:src="@drawable/nologo"
+                    android:contentDescription="TODO" />
 
 
                 <ImageView
@@ -364,7 +365,8 @@
                     android:adjustViewBounds="true"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:src="@drawable/nologo" />
+                    android:src="@drawable/nologo"
+                    android:contentDescription="TODO" />
 
 
                 <ImageView
@@ -375,7 +377,8 @@
                     android:adjustViewBounds="true"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:src="@drawable/nologo" />
+                    android:src="@drawable/nologo"
+                    android:contentDescription="TODO" />
 
 
                 <ImageView
@@ -386,7 +389,8 @@
                     android:adjustViewBounds="true"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
-                    android:src="@drawable/nologo" />
+                    android:src="@drawable/nologo"
+                    android:contentDescription="TODO" />
 
 
             </LinearLayout>
@@ -453,7 +457,7 @@
             <TextView
                 android:id="@+id/company"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="@string/company_details"

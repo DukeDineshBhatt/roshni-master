@@ -24,6 +24,8 @@ import com.app.roshni.sectorPOJO.sectorBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -57,13 +59,9 @@ public class ContractorPersonalProfile2 extends Fragment {
     String user_id;
     private boolean che = false;
 
-    private LinearLayout permanent;
-
     private ProgressBar progress;
-    private CustomViewPager pager;
 
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
 
@@ -203,7 +201,7 @@ public class ContractorPersonalProfile2 extends Fragment {
         frmtyp.add("MSME");
         frmtyp.add("Cottage Industry");
 
-        permanent = view.findViewById(R.id.permanent);
+        LinearLayout permanent = view.findViewById(R.id.permanent);
 
         image = view.findViewById(R.id.imageView3);
 
@@ -219,16 +217,16 @@ public class ContractorPersonalProfile2 extends Fragment {
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, est);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, exp);
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, wty);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, ava);
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, frm);
 
         ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
@@ -371,7 +369,7 @@ public class ContractorPersonalProfile2 extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -388,9 +386,9 @@ public class ContractorPersonalProfile2 extends Fragment {
 
         call.enqueue(new Callback<contractorBean>() {
             @Override
-            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                final Data item = response.body().getData();
+                final Data item = Objects.requireNonNull(response.body()).getData();
 
 
 
@@ -483,9 +481,9 @@ public class ContractorPersonalProfile2 extends Fragment {
 
                 call2.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             sec.clear();
                             sec1.clear();
@@ -497,7 +495,7 @@ public class ContractorPersonalProfile2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, sec);
 
                             sector.setAdapter(adapter);
@@ -517,7 +515,7 @@ public class ContractorPersonalProfile2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -534,10 +532,10 @@ public class ContractorPersonalProfile2 extends Fragment {
                         Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
                         call2.enqueue(new Callback<skillsBean>() {
                             @Override
-                            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                            public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
 
-                                if (response.body().getStatus().equals("1")) {
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                     wty.clear();
                                     wty1.clear();
@@ -558,7 +556,7 @@ public class ContractorPersonalProfile2 extends Fragment {
                             }
 
                             @Override
-                            public void onFailure(Call<skillsBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                                 progress.setVisibility(View.GONE);
                             }
                         });
@@ -594,7 +592,7 @@ public class ContractorPersonalProfile2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<contractorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

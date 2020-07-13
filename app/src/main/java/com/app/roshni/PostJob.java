@@ -27,6 +27,8 @@ import com.app.roshni.verifyPOJO.verifyBean;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -120,7 +122,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,13 +213,13 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
         progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
+        final Call<sectorBean> call = cr.getBrandSector(SharePreferenceUtils.getInstance().getString("lang") , SharePreferenceUtils.getInstance().getString("user_id"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -227,7 +229,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJob.this,
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(PostJob.this,
                             R.layout.spinner_model, sec);
 
                     sector.setAdapter(adapter);
@@ -240,7 +242,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -257,10 +259,10 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
                     Call<skillsBean> call2 = cr.getSkills2(sect, SharePreferenceUtils.getInstance().getString("lang"));
                     call2.enqueue(new Callback<skillsBean>() {
                         @Override
-                        public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                        public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 ski.clear();
                                 ski1.clear();
@@ -272,7 +274,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJob.this,
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(PostJob.this,
                                         R.layout.spinner_model, ski);
 
                                 skills.setAdapter(adapter);
@@ -284,7 +286,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
                         }
 
                         @Override
-                        public void onFailure(Call<skillsBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -322,9 +324,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call31.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -345,7 +347,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -370,9 +372,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call32.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -393,7 +395,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -422,9 +424,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call33.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -445,7 +447,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -485,9 +487,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call34.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -508,7 +510,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -556,9 +558,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call35.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -579,7 +581,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -609,9 +611,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call36.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -632,7 +634,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -656,9 +658,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call37.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -679,7 +681,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -708,10 +710,10 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -721,7 +723,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJob.this,
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(PostJob.this,
                             R.layout.spinner_model, loc);
 
                     location.setAdapter(adapter);
@@ -734,7 +736,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -811,9 +813,9 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
 
                                                     call1.enqueue(new Callback<verifyBean>() {
                                                         @Override
-                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                                            if (response.body().getStatus().equals("1")) {
+                                                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
                                                                 Toast.makeText(PostJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                                                                 finish();
@@ -828,7 +830,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
                                                         }
 
                                                         @Override
-                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                                             progress.setVisibility(View.GONE);
                                                         }
                                                     });
@@ -889,7 +891,7 @@ public class PostJob extends AppCompatActivity implements TimePickerDialog.OnTim
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

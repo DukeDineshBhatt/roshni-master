@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5f5f5"
@@ -52,10 +50,10 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
-                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -103,7 +101,6 @@
 
 
             <TextView
-                android:id="@+id/txtViewFirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -127,7 +124,6 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/txtViewfrmtyp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -153,7 +149,6 @@
 
 
             <TextView
-                android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -170,7 +165,8 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textCapCharacters"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
 
             <TextView
@@ -214,7 +210,8 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -234,10 +231,10 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
-                android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -246,7 +243,6 @@
                 android:textColor="#000000" />
 
             <TextView
-                android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -263,10 +259,10 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
-                android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -283,10 +279,10 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
-                android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -305,10 +301,10 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
-                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -327,10 +323,10 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
             <TextView
-                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -347,7 +343,8 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
 
 
@@ -357,7 +354,6 @@
 
 
             <TextView
-                android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -382,7 +378,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -399,7 +394,8 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPostalAddress"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:autofillHints="" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -419,11 +415,11 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:autofillHints="" />
 
 
                 <TextView
-                    android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -442,12 +438,12 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:autofillHints="" />
 
 
 
                 <TextView
-                    android:id="@+id/textView21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -466,11 +462,11 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:autofillHints="" />
 
 
                 <TextView
-                    android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -487,7 +483,8 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="number"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:autofillHints="" />
 
 
 
@@ -538,7 +535,8 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="text"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
 
             <TextView
@@ -608,7 +606,8 @@
                 android:digits="0123456789"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
 
             <TextView
@@ -659,7 +658,8 @@
                     android:focusable="false"
                     android:hint="@string/tap_to_enter"
                     android:inputType="text"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:autofillHints="" />
 
             </LinearLayout>
 
@@ -681,7 +681,8 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textWebEmailAddress"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
 
             <TextView
@@ -702,7 +703,8 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textEmailAddress"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:autofillHints="" />
 
 
             <Button

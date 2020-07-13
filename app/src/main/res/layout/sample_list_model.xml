@@ -14,7 +14,7 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:id="@+id/image"
-        />
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -23,6 +23,6 @@
         android:layout_margin="5dp"
         android:id="@+id/delete"
         android:background="@drawable/ic_error"
-        />
+        android:contentDescription="TODO" />
 
 </androidx.cardview.widget.CardView>

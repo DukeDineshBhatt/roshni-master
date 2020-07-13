@@ -15,6 +15,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class CompletedContractorProfile extends AppCompatActivity {
 
     TabLayout tabs;
@@ -31,7 +35,7 @@ public class CompletedContractorProfile extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +58,8 @@ public class CompletedContractorProfile extends AppCompatActivity {
         pager.setPagingEnabled(true);
 
 
-        tabs.getTabAt(0).setText("CONTRACTOR");
-        tabs.getTabAt(1).setText("SAMPLES");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("CONTRACTOR");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("SAMPLES");
 
     }
     class PagerAdapter extends FragmentStatePagerAdapter {
@@ -64,6 +68,7 @@ public class CompletedContractorProfile extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
@@ -86,7 +91,7 @@ public class CompletedContractorProfile extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

@@ -3,7 +3,6 @@ package com.app.roshni;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,9 +11,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.getTncPOJO.Data;
 import com.app.roshni.getTncPOJO.getTncBean;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,15 +73,15 @@ public class TermsAndConditions3 extends AppCompatActivity {
 
                     call.enqueue(new Callback<getTncBean>() {
                         @Override
-                        public void onResponse(Call<getTncBean> call, Response<getTncBean> response) {
+                        public void onResponse(@NotNull Call<getTncBean> call, @NotNull Response<getTncBean> response) {
 
-                            Toast.makeText(TermsAndConditions3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TermsAndConditions3.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
 
                             finish();
                         }
 
                         @Override
-                        public void onFailure(Call<getTncBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<getTncBean> call, @NotNull Throwable t) {
 
                         }
                     });
@@ -119,9 +121,9 @@ public class TermsAndConditions3 extends AppCompatActivity {
 
         call.enqueue(new Callback<getTncBean>() {
             @Override
-            public void onResponse(Call<getTncBean> call, Response<getTncBean> response) {
+            public void onResponse(@NotNull Call<getTncBean> call, @NotNull Response<getTncBean> response) {
 
-                Data item = response.body().getData();
+                Data item = Objects.requireNonNull(response.body()).getData();
 
 
                 try {
@@ -146,7 +148,7 @@ public class TermsAndConditions3 extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<getTncBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<getTncBean> call, @NotNull Throwable t) {
 
             }
         });
@@ -157,7 +159,7 @@ public class TermsAndConditions3 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

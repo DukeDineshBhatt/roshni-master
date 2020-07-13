@@ -1,75 +1,44 @@
 package com.app.roshni;
 
-import android.app.Dialog;
-import android.content.ContentUris;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.contractorPOJO.Data;
 import com.app.roshni.contractorPOJO.contractorBean;
 import com.app.roshni.sectorPOJO.sectorBean;
-import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import mabbas007.tagsedittext.TagsEditText;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ContractorPersonalProfile extends Fragment {
 
@@ -85,7 +54,23 @@ public class ContractorPersonalProfile extends Fragment {
     private CircleImageView image;
 
     CheckBox check;
-    private List<String> gen, gen1, est, exp, exp1, wty, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec, sec1 , out , out1, gov, gov1 , chi , chi1;
+    private List<String> gen;
+    private List<String> gen1;
+    private List<String> est;
+    private List<String> ava;
+    private List<String> ava1;
+    private List<String> frm;
+    private List<String> frm1;
+    private List<String> frmtyp;
+    private List<String> frmtyp1;
+    private List<String> prof;
+    private List<String> prof1;
+    private List<String> out;
+    private List<String> out1;
+    private List<String> gov;
+    private List<String> gov1;
+    private List<String> chi;
+    private List<String> chi1;
 
 
     String user_id;
@@ -94,12 +79,10 @@ public class ContractorPersonalProfile extends Fragment {
     private LinearLayout permanent , home_layout;
 
     private ProgressBar progress;
-    private CustomViewPager pager;
 
     EditText migrant , local;
 
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
     EditText email ,non_school , school , without_bank;
@@ -114,10 +97,10 @@ public class ContractorPersonalProfile extends Fragment {
         gen = new ArrayList<>();
         gen1 = new ArrayList<>();
         est = new ArrayList<>();
-        exp = new ArrayList<>();
-        exp1 = new ArrayList<>();
-        wty = new ArrayList<>();
-        wty1 = new ArrayList<>();
+        List<String> exp = new ArrayList<>();
+        List<String> exp1 = new ArrayList<>();
+        List<String> wty = new ArrayList<>();
+        List<String> wty1 = new ArrayList<>();
         ava = new ArrayList<>();
         ava1 = new ArrayList<>();
         frm = new ArrayList<>();
@@ -126,8 +109,8 @@ public class ContractorPersonalProfile extends Fragment {
         prof1 = new ArrayList<>();
         frmtyp = new ArrayList<>();
         frmtyp1 = new ArrayList<>();
-        sec = new ArrayList<>();
-        sec1 = new ArrayList<>();
+        List<String> sec = new ArrayList<>();
+        List<String> sec1 = new ArrayList<>();
         out = new ArrayList<>();
         out1 = new ArrayList<>();
         gov = new ArrayList<>();
@@ -205,7 +188,7 @@ public class ContractorPersonalProfile extends Fragment {
         availability = view.findViewById(R.id.availability);
 
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_model, est);
 
 
@@ -297,7 +280,7 @@ public class ContractorPersonalProfile extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -314,29 +297,32 @@ public class ContractorPersonalProfile extends Fragment {
 
         call.enqueue(new Callback<contractorBean>() {
             @Override
-            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                final Data item = response.body().getData();
+                final Data item = Objects.requireNonNull(response.body()).getData();
 
 
-                if (item.getStatus().equals("pending")) {
+                switch (item.getStatus()) {
+                    case "pending":
 
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
-                    txtStatus.setVisibility(View.VISIBLE);
-                } else if (item.getStatus().equals("rejected")) {
-                    txtStatus.setText(item.getRejectReason());
-                    txtStatus.setVisibility(View.VISIBLE);
-                }
-                else if (item.getStatus().equals("verified")) {
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
-                    txtStatus.setVisibility(View.VISIBLE);
-                }
-                else if (item.getStatus().equals("modifications")) {
-                    txtStatus.setText(item.getRejectReason());
-                    txtStatus.setVisibility(View.VISIBLE);
-                }
-                else {
-                    txtStatus.setVisibility(View.GONE);
+                        txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    case "rejected":
+                        txtStatus.setText(item.getRejectReason());
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    case "verified":
+                        txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    case "modifications":
+                        txtStatus.setText(item.getRejectReason());
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        txtStatus.setVisibility(View.GONE);
+                        break;
                 }
 
 
@@ -410,9 +396,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call3.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             gen.clear();
                             gen1.clear();
@@ -447,7 +433,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -457,9 +443,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call4.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             prof.clear();
                             prof1.clear();
@@ -471,7 +457,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, prof);
 
 
@@ -494,7 +480,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -503,9 +489,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call6.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             ava.clear();
                             ava1.clear();
@@ -517,7 +503,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, ava);
 
 
@@ -540,7 +526,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -549,9 +535,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call7.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             frm.clear();
                             frm1.clear();
@@ -563,7 +549,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, frm);
 
 
@@ -587,7 +573,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -596,9 +582,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call8.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             frmtyp.clear();
                             frmtyp1.clear();
@@ -610,7 +596,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, frmtyp);
 
 
@@ -634,7 +620,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -644,9 +630,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call9.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             out.clear();
                             out1.clear();
@@ -658,7 +644,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, out);
 
 
@@ -682,7 +668,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -692,9 +678,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call81.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             gov.clear();
                             gov1.clear();
@@ -706,7 +692,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, gov);
 
 
@@ -739,7 +725,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -748,9 +734,9 @@ public class ContractorPersonalProfile extends Fragment {
 
                 call82.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             chi.clear();
                             chi1.clear();
@@ -762,7 +748,7 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, chi);
 
 
@@ -794,7 +780,7 @@ public class ContractorPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -817,7 +803,7 @@ public class ContractorPersonalProfile extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<contractorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

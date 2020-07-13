@@ -1,7 +1,6 @@
 package com.app.roshni;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.roshni.contWorkerPOJO.Datum;
 import com.app.roshni.contWorkerPOJO.contWorkerBeam;
-import com.app.roshni.workerListPOJO.workerListBean;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +51,7 @@ public class workers3 extends Fragment {
         progress = view.findViewById(R.id.progressBar3);
         nodata = view.findViewById(R.id.imageView5);
 
-        adapter = new JobsAdapter(getContext() , list);
+        adapter = new JobsAdapter(getContext(), list);
         manager = new GridLayoutManager(getContext(), 1);
 
         grid.setAdapter(adapter);
@@ -66,7 +67,7 @@ public class workers3 extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -81,9 +82,9 @@ public class workers3 extends Fragment {
 
         call.enqueue(new Callback<contWorkerBeam>() {
             @Override
-            public void onResponse(Call<contWorkerBeam> call, Response<contWorkerBeam> response) {
+            public void onResponse(@NotNull Call<contWorkerBeam> call, @NotNull Response<contWorkerBeam> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -100,7 +101,7 @@ public class workers3 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<contWorkerBeam> call, Throwable t) {
+            public void onFailure(@NotNull Call<contWorkerBeam> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -108,9 +109,9 @@ public class workers3 extends Fragment {
 
     }
 
-    class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+    static class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -127,7 +128,7 @@ public class workers3 extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.worker_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.worker_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -165,7 +166,12 @@ public class workers3 extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView name , address, skill , exp , emp , reg;
+            final TextView name;
+            final TextView address;
+            final TextView skill;
+            final TextView exp;
+            final TextView emp;
+            final TextView reg;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

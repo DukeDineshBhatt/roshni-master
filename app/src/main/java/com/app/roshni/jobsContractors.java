@@ -1,6 +1,5 @@
 package com.app.roshni;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class jobsContractors extends Fragment {
 
@@ -41,15 +43,15 @@ public class jobsContractors extends Fragment {
         pager.setPagingEnabled(true);
 
 
-        tabs.getTabAt(0).setText(getString(R.string.act));
-        tabs.getTabAt(1).setText(getString(R.string.inact));
+        Objects.requireNonNull(tabs.getTabAt(0)).setText(getString(R.string.act));
+        Objects.requireNonNull(tabs.getTabAt(1)).setText(getString(R.string.inact));
 
 
 
         return view;
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter
+    static class PagerAdapter extends FragmentStatePagerAdapter
     {
 
 
@@ -57,6 +59,7 @@ public class jobsContractors extends Fragment {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0)

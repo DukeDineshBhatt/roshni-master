@@ -44,7 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/nodatafound" />
+        app:srcCompat="@drawable/nodatafound"
+        android:contentDescription="TODO" />
 
     <ProgressBar
         android:id="@+id/progressBar3"

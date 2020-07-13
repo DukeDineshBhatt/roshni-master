@@ -15,6 +15,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class CompletedProfile extends AppCompatActivity {
 
     TabLayout tabs;
@@ -31,7 +35,7 @@ public class CompletedProfile extends AppCompatActivity {
         pager = findViewById(R.id.pager);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +56,8 @@ public class CompletedProfile extends AppCompatActivity {
         tabs.setupWithViewPager(pager);
 
 
-        tabs.getTabAt(0).setText("PERSONAL");
-        tabs.getTabAt(1).setText("PROFESSIONAL");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("PERSONAL");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("PROFESSIONAL");
 
     }
 
@@ -63,6 +67,7 @@ public class CompletedProfile extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
@@ -85,7 +90,7 @@ public class CompletedProfile extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

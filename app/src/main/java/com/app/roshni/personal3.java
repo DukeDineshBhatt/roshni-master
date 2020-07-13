@@ -60,6 +60,8 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -92,18 +94,25 @@ import static android.app.Activity.RESULT_OK;
 public class personal3 extends Fragment {
 
     private static final String TAG = "personal";
-    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, proof , age;
+    private Spinner gender;
+    private Spinner category;
+    private Spinner religion;
+    private Spinner educational;
+    private Spinner marital;
+    private Spinner children;
+    private Spinner below6;
+    private Spinner sixto14;
+    private Spinner fifteento18;
+    private Spinner goingtoschool;
+    private Spinner proof;
 
     private String gend, cate, reli, educ, mari, chil, belo, sixt, fift, goin, prf;
 
     private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu;
 
-    private CheckBox check;
     private CircleImageView image;
 
-    private Button upload, submit;
-
-    private List<String> gen, cat, rel, edu, mar, chi, prof , agg;
+    private List<String> gen, cat, rel, edu, mar, chi, prof, agg;
 
     private Uri uri;
     private File f1;
@@ -127,19 +136,18 @@ public class personal3 extends Fragment {
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
 
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlacesClient mPlacesClient;
-    boolean c1, c2 ,c3 , c4 ,c5;
-    void setData(CustomViewPager pager , boolean c1 , boolean c2 , boolean c3 , boolean c4 , boolean c5) {
+    boolean c1, c2, c3, c4, c5;
+
+    void setData(CustomViewPager pager) {
         this.pager = pager;
-        this.c1 = c1;
-        this.c2 = c2;
-        this.c3 = c3;
-        this.c4 = c4;
-        this.c5 = c5;
+        this.c1 = true;
+        this.c2 = true;
+        this.c3 = true;
+        this.c4 = true;
+        this.c5 = true;
     }
 
-    String lat = "" , lng = "";
+    String lat = "", lng = "";
 
     String ag;
 
@@ -161,15 +169,24 @@ public class personal3 extends Fragment {
         prof = new ArrayList<>();
         agg = new ArrayList<>();
 
-        Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
-        mPlacesClient = Places.createClient(getContext());
+        Places.initialize(Objects.requireNonNull(getContext()).getApplicationContext(), getString(R.string.google_maps_key));
+        PlacesClient mPlacesClient = Places.createClient(getContext());
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
 
         getLocationPermission();
 
         try {
             if (mLocationPermissionGranted) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                }
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -180,10 +197,10 @@ public class personal3 extends Fragment {
                             mLastKnownLocation = location;
 
                             lat = String.valueOf(mLastKnownLocation.getLatitude());
-                                    lng = String.valueOf(mLastKnownLocation.getLongitude());
+                            lng = String.valueOf(mLastKnownLocation.getLongitude());
 
 
-                                    Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
+                            Log.d("location", String.valueOf(mLastKnownLocation.getLatitude()));
                         }
 
 
@@ -199,11 +216,11 @@ public class personal3 extends Fragment {
 
             }
         } catch (Exception e) {
-            Log.e("Exception1: %s", e.getMessage());
+            Log.e("Exception1: %s", Objects.requireNonNull(e.getMessage()));
         }
 
         name = view.findViewById(R.id.editText);
-        age = view.findViewById(R.id.age);
+        Spinner age = view.findViewById(R.id.age);
         dob = view.findViewById(R.id.editText2);
         cpin = view.findViewById(R.id.editText3);
         cstate = view.findViewById(R.id.editText4);
@@ -224,12 +241,12 @@ public class personal3 extends Fragment {
         permanent = view.findViewById(R.id.permanent);
         child = view.findViewById(R.id.child);
 
-        check = view.findViewById(R.id.check);
+        CheckBox check = view.findViewById(R.id.check);
 
         image = view.findViewById(R.id.imageView3);
 
-        upload = view.findViewById(R.id.button7);
-        submit = view.findViewById(R.id.submit);
+        Button upload = view.findViewById(R.id.button7);
+        Button submit = view.findViewById(R.id.submit);
 
 
         gender = view.findViewById(R.id.gender);
@@ -362,7 +379,7 @@ public class personal3 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(getActivity());
+                        .build(Objects.requireNonNull(getActivity()));
                 startActivityForResult(intent, 12);
 
             }
@@ -392,7 +409,7 @@ public class personal3 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(getActivity());
+                        .build(Objects.requireNonNull(getActivity()));
                 startActivityForResult(intent, 14);
 
             }
@@ -838,7 +855,7 @@ public class personal3 extends Fragment {
 
                                                                     call.enqueue(new Callback<verifyBean>() {
                                                                         @Override
-                                                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
                                                                             assert response.body() != null;
                                                                             if (response.body().getStatus().equals("1")) {
@@ -890,10 +907,8 @@ public class personal3 extends Fragment {
 
                                                                                 Log.d("respo", response.body().getMessage());
 
-                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                            } else {
-                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                             }
+                                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 
                                                                             progress.setVisibility(View.GONE);
@@ -902,7 +917,7 @@ public class personal3 extends Fragment {
                                                                         }
 
                                                                         @Override
-                                                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                                                             progress.setVisibility(View.GONE);
                                                                         }
                                                                     });
@@ -997,11 +1012,11 @@ public class personal3 extends Fragment {
             assert ypath != null;
 
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
-                f1 = new Compressor(getContext()).compressToFile(file);
+                f1 = new Compressor(Objects.requireNonNull(getContext())).compressToFile(file);
 
                 uri = Uri.fromFile(f1);
 
@@ -1033,9 +1048,7 @@ public class personal3 extends Fragment {
 
             try {
 
-                File file = new Compressor(getContext()).compressToFile(f1);
-
-                f1 = file;
+                f1 = new Compressor(getContext()).compressToFile(f1);
 
                 uri = Uri.fromFile(f1);
 
@@ -1053,7 +1066,7 @@ public class personal3 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
@@ -1067,10 +1080,9 @@ public class personal3 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 12) {
@@ -1079,7 +1091,7 @@ public class personal3 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
                     String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
@@ -1095,10 +1107,9 @@ public class personal3 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 13) {
@@ -1108,7 +1119,7 @@ public class personal3 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
@@ -1122,10 +1133,9 @@ public class personal3 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 14) {
@@ -1135,7 +1145,7 @@ public class personal3 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
@@ -1148,10 +1158,9 @@ public class personal3 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
     }
@@ -1194,7 +1203,7 @@ public class personal3 extends Fragment {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }
@@ -1393,12 +1402,12 @@ public class personal3 extends Fragment {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()).getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(getActivity(),
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }

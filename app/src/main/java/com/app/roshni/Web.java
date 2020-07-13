@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 
+import java.util.Objects;
+
 public class Web extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -27,7 +29,7 @@ public class Web extends AppCompatActivity {
         webView = findViewById(R.id.web);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

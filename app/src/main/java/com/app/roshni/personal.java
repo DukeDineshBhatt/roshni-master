@@ -1,7 +1,6 @@
 package com.app.roshni;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,22 +17,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -57,8 +50,6 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -71,7 +62,8 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.decode.ImageDecoder;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -105,16 +97,24 @@ import static android.app.Activity.RESULT_OK;
 public class personal extends Fragment {
 
     private static final String TAG = "personal";
-    private Spinner gender, category, religion, educational, marital, children, below6, sixto14, fifteento18, goingtoschool, goingtoschool2, proof, age, annual;
+    private Spinner gender;
+    private Spinner category;
+    private Spinner religion;
+    private Spinner educational;
+    private Spinner marital;
+    private Spinner children;
+    private Spinner below6;
+    private Spinner sixto14;
+    private Spinner fifteento18;
+    private Spinner goingtoschool;
+    private Spinner proof;
+    private Spinner age;
 
     private String gend = "", cate = "", reli = "", educ = "", mari = "", chil = "", belo = "", sixt = "", fift = "", goin = "", goin2 = "", prf = "", anua = "";
 
     private EditText name, dob, cpin, cstate, cdistrict, carea, cstreet, ppin, pstate, pdistrict, parea, pstreet, editTxtProof, editTxtRelg, editTxtedu;
 
-    private CheckBox check;
     private CircleImageView image;
-
-    private Button upload, submit;
 
     private List<String> gen, gen1, cat, cat1, rel, rel1, edu, edu1, mar, mar1, chi, prof, prof1, agg, anu;
 
@@ -140,8 +140,6 @@ public class personal extends Fragment {
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
 
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlacesClient mPlacesClient;
     boolean c1, c2, c3, c4, c5;
 
     void setData(CustomViewPager pager, boolean c1, boolean c2, boolean c3, boolean c4, boolean c5) {
@@ -196,25 +194,24 @@ public class personal extends Fragment {
         ski = new ArrayList<>();
         ski1 = new ArrayList<>();
 
-        Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
-        mPlacesClient = Places.createClient(getContext());
+        Places.initialize(Objects.requireNonNull(getContext()).getApplicationContext(), getString(R.string.google_maps_key));
+        PlacesClient mPlacesClient = Places.createClient(getContext());
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
 
         getLocationPermission();
 
         try {
             if (mLocationPermissionGranted) {
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-
-                }
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+                }// TODO: Consider calling
+//    ActivityCompat#requestPermissions
+// here to request the missing permissions, and then overriding
+//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                          int[] grantResults)
+// to handle the case where the user grants the permission. See the documentation
+// for ActivityCompat#requestPermissions for more details.
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -244,18 +241,18 @@ public class personal extends Fragment {
 
             }
         } catch (Exception e) {
-            Log.e("Exception1: %s", e.getMessage());
+            Log.e("Exception1: %s", Objects.requireNonNull(e.getMessage()));
         }
 
 
         certified = view.findViewById(R.id.certified);
-        goingtoschool2 = view.findViewById(R.id.goingtoschool2);
+        Spinner goingtoschool2 = view.findViewById(R.id.goingtoschool2);
         previous = view.findViewById(R.id.previous);
         skill_level = view.findViewById(R.id.skill_level);
         certificate_number_title = view.findViewById(R.id.certificate_number_title);
         skill_level_title = view.findViewById(R.id.skill_level_title);
         certificate_number = view.findViewById(R.id.certificate_number);
-        annual = view.findViewById(R.id.annual);
+        Spinner annual = view.findViewById(R.id.annual);
         other_sources = view.findViewById(R.id.other_sources);
 
         name = view.findViewById(R.id.editText);
@@ -280,12 +277,12 @@ public class personal extends Fragment {
         permanent = view.findViewById(R.id.permanent);
         child = view.findViewById(R.id.child);
 
-        check = view.findViewById(R.id.check);
+        CheckBox check = view.findViewById(R.id.check);
 
         image = view.findViewById(R.id.imageView3);
 
-        upload = view.findViewById(R.id.button7);
-        submit = view.findViewById(R.id.submit);
+        Button upload = view.findViewById(R.id.button7);
+        Button submit = view.findViewById(R.id.submit);
 
 
         gender = view.findViewById(R.id.gender);
@@ -312,7 +309,7 @@ public class personal extends Fragment {
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(getActivity())
+                new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                         .setTitle(getString(R.string.confirm))
                         .setMessage(getString(R.string.go_back_text))
 
@@ -441,9 +438,9 @@ public class personal extends Fragment {
 
         call1.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -466,7 +463,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -478,9 +475,9 @@ public class personal extends Fragment {
 
         call21.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -490,7 +487,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, cer);
 
 
@@ -503,7 +500,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -541,9 +538,9 @@ public class personal extends Fragment {
 
         call22.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -553,7 +550,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, ski);
 
 
@@ -566,7 +563,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -601,9 +598,9 @@ public class personal extends Fragment {
 
         call2.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -613,7 +610,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, cat);
 
 
@@ -626,7 +623,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -637,9 +634,9 @@ public class personal extends Fragment {
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -649,7 +646,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, rel);
 
 
@@ -662,7 +659,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -673,9 +670,9 @@ public class personal extends Fragment {
 
         call4.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -685,7 +682,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, edu);
 
 
@@ -698,7 +695,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -709,9 +706,9 @@ public class personal extends Fragment {
 
         call5.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -721,7 +718,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, mar);
 
 
@@ -734,7 +731,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -745,9 +742,9 @@ public class personal extends Fragment {
 
         call6.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -757,7 +754,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, prof);
 
 
@@ -770,7 +767,7 @@ public class personal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -799,7 +796,7 @@ public class personal extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(getActivity());
+                        .build(Objects.requireNonNull(getActivity()));
                 startActivityForResult(intent, 12);
 
             }
@@ -829,7 +826,7 @@ public class personal extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(getActivity());
+                        .build(Objects.requireNonNull(getActivity()));
                 startActivityForResult(intent, 14);
 
             }
@@ -1323,7 +1320,7 @@ public class personal extends Fragment {
 
                                                                                                         call.enqueue(new Callback<verifyBean>() {
                                                                                                             @Override
-                                                                                                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                                                                            public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
                                                                                                                 assert response.body() != null;
                                                                                                                 if (response.body().getStatus().equals("1")) {
@@ -1375,10 +1372,8 @@ public class personal extends Fragment {
 
                                                                                                                     Log.d("respo", response.body().getMessage());
 
-                                                                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                                                } else {
-                                                                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                                                                 }
+                                                                                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 
                                                                                                                 progress.setVisibility(View.GONE);
@@ -1387,7 +1382,7 @@ public class personal extends Fragment {
                                                                                                             }
 
                                                                                                             @Override
-                                                                                                            public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                                                                            public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                                                                                                 progress.setVisibility(View.GONE);
                                                                                                             }
                                                                                                         });
@@ -1504,11 +1499,11 @@ public class personal extends Fragment {
             assert ypath != null;
 
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
-                f1 = new Compressor(getContext()).compressToFile(file);
+                f1 = new Compressor(Objects.requireNonNull(getContext())).compressToFile(file);
 
                 uri = Uri.fromFile(f1);
 
@@ -1540,9 +1535,7 @@ public class personal extends Fragment {
 
             try {
 
-                File file = new Compressor(getContext()).compressToFile(f1);
-
-                f1 = file;
+                f1 = new Compressor(getContext()).compressToFile(f1);
 
                 uri = Uri.fromFile(f1);
 
@@ -1560,7 +1553,7 @@ public class personal extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
@@ -1574,10 +1567,9 @@ public class personal extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 12) {
@@ -1586,7 +1578,7 @@ public class personal extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
                     String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
@@ -1602,10 +1594,9 @@ public class personal extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 13) {
@@ -1615,7 +1606,7 @@ public class personal extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
@@ -1629,10 +1620,9 @@ public class personal extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 14) {
@@ -1642,7 +1632,7 @@ public class personal extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
@@ -1655,10 +1645,9 @@ public class personal extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
     }
@@ -1701,7 +1690,7 @@ public class personal extends Fragment {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }
@@ -1900,12 +1889,12 @@ public class personal extends Fragment {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()).getApplicationContext(),
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(getActivity(),
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -1934,7 +1923,7 @@ public class personal extends Fragment {
             Date date1 = sdf.parse(dobString);
             Calendar now = Calendar.getInstance();
             Calendar dob = Calendar.getInstance();
-            dob.setTime(date1);
+            dob.setTime(Objects.requireNonNull(date1));
             if (dob.after(now)) {
                 Toast.makeText(getContext(), "Can't be born in the future", Toast.LENGTH_SHORT).show();
             }

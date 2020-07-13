@@ -13,6 +13,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class profile3 extends Fragment {
     TabLayout tabs;
     CustomViewPager pager;
@@ -36,19 +40,20 @@ public class profile3 extends Fragment {
         pager.setPagingEnabled(true);
 
 
-        tabs.getTabAt(0).setText("CONTRACTOR");
-        tabs.getTabAt(1).setText("SAMPLES");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("CONTRACTOR");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("SAMPLES");
 
         return view;
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter {
+    static class PagerAdapter extends FragmentStatePagerAdapter {
 
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
 

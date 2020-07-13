@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +19,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class REgister extends AppCompatActivity {
 
@@ -43,7 +46,7 @@ public class REgister extends AppCompatActivity {
         pager = findViewById(R.id.pager);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +76,8 @@ public class REgister extends AppCompatActivity {
             tabStrip.getChildAt(i).setClickable(false);
         }
 
-        tabs.getTabAt(0).setText("PERSONAL");
-        tabs.getTabAt(1).setText("PROFESSIONAL");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("PERSONAL");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("PROFESSIONAL");
 
         Log.d("regosterc1", String.valueOf(c1));
 
@@ -87,6 +90,7 @@ public class REgister extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
@@ -116,7 +120,7 @@ public class REgister extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

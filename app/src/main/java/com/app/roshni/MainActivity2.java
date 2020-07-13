@@ -1,6 +1,5 @@
 package com.app.roshni;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -19,7 +18,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -34,10 +32,11 @@ import android.widget.Toast;
 import com.app.roshni.contractorPOJO.contractorBean;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -351,9 +350,9 @@ public class MainActivity2 extends AppCompatActivity {
 
                         call.enqueue(new Callback<contractorBean>() {
                             @Override
-                            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+                            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                                if (response.body().getStatus().equals("1"))
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                 {
                                     Toast.makeText(MainActivity2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -385,7 +384,7 @@ public class MainActivity2 extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<contractorBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
                                 bar.setVisibility(View.GONE);
                             }
                         });
@@ -599,7 +598,7 @@ public class MainActivity2 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

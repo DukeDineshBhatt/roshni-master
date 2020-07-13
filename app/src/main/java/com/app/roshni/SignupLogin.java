@@ -2,7 +2,6 @@ package com.app.roshni;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -25,7 +24,10 @@ import android.widget.Toast;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.rilixtech.CountryCodePicker;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -261,62 +263,63 @@ public class SignupLogin extends AppCompatActivity {
                     Call<verifyBean> call = cr.login(pho , SharePreferenceUtils.getInstance().getString("token"));
                     call.enqueue(new Callback<verifyBean>() {
                         @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                            if (response.body().getStatus().equals("1"))
-                            {
+                            switch (response.body().getStatus()) {
+                                case "1": {
 
-                                Intent intent = new Intent(SignupLogin.this , OTP.class);
-                                intent.putExtra("phone" , pho);
-                                startActivity(intent);
-                                Toast.makeText(SignupLogin.this, R.string.please_verify_otp, Toast.LENGTH_SHORT).show();
-                                //finish();
+                                    Intent intent = new Intent(SignupLogin.this, OTP.class);
+                                    intent.putExtra("phone", pho);
+                                    startActivity(intent);
+                                    Toast.makeText(SignupLogin.this, R.string.please_verify_otp, Toast.LENGTH_SHORT).show();
+                                    //finish();
 
-                            } else if(response.body().getStatus().equals("2"))
-                            {
-                                SharePreferenceUtils.getInstance().saveString("user_id", response.body().getMessage());
-                                Toast.makeText(SignupLogin.this, R.string.please_enter_pin_to_continue, Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                                case "2": {
+                                    SharePreferenceUtils.getInstance().saveString("user_id", response.body().getMessage());
+                                    Toast.makeText(SignupLogin.this, R.string.please_enter_pin_to_continue, Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(SignupLogin.this, EnterPIN.class);
-                                startActivity(intent);
-                                //finishAffinity();
-                            }
-                            else if (response.body().getStatus().equals("3"))
-                            {
+                                    Intent intent = new Intent(SignupLogin.this, EnterPIN.class);
+                                    startActivity(intent);
+                                    //finishAffinity();
+                                    break;
+                                }
+                                case "3":
 
-                                Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupLogin.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(SignupLogin.this);
 
-                                builder.setMessage("You have unsubscribed from this app, Please contact the administrator for subscribing again")
-                                        .setTitle("Activate Profile");
+                                    builder.setMessage("You have unsubscribed from this app, Please contact the administrator for subscribing again")
+                                            .setTitle("Activate Profile");
 
-                                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // User clicked OK button
+                                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // User clicked OK button
 
-                                        Intent intent = new Intent(SignupLogin.this, Web.class);
-                                        intent.putExtra("title", getString(R.string.contact_us));
-                                        intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
-                                        startActivity(intent);
+                                            Intent intent = new Intent(SignupLogin.this, Web.class);
+                                            intent.putExtra("title", getString(R.string.contact_us));
+                                            intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
+                                            startActivity(intent);
 
-                                    }
-                                });
-                                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // User cancelled the dialog
+                                        }
+                                    });
+                                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // User cancelled the dialog
 
-                                        dialog.dismiss();
+                                            dialog.dismiss();
 
-                                    }
-                                });
-                                AlertDialog dialog = builder.create();
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
 
-                                dialog.show();
-                            }
-                            else
-                            {
-                                Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    dialog.show();
+                                    break;
+                                default:
+                                    Toast.makeText(SignupLogin.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    break;
                             }
 
                             progress.setVisibility(View.GONE);
@@ -324,7 +327,7 @@ public class SignupLogin extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -372,9 +375,9 @@ public class SignupLogin extends AppCompatActivity {
                     Call<verifyBean> call = cr.login(pho , SharePreferenceUtils.getInstance().getString("token"));
                     call.enqueue(new Callback<verifyBean>() {
                         @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                            if (response.body().getStatus().equals("1") || response.body().getStatus().equals("2"))
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1") || response.body().getStatus().equals("2"))
                             {
 
                                 Intent intent = new Intent(SignupLogin.this , OTP3.class);
@@ -394,7 +397,7 @@ public class SignupLogin extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -432,7 +435,7 @@ public class SignupLogin extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

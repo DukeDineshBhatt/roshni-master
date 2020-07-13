@@ -19,7 +19,8 @@
         android:src="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="@+id/textView41"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView41" />
+        app:layout_constraintTop_toTopOf="@+id/textView41"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/textView41"

@@ -5,10 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.lifecycle.Lifecycle;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -30,8 +28,11 @@ import com.app.roshni.knowledgeDetailsPOJO.knowledgeDetailsBean;
 import com.app.roshni.knowledgeListPOJO.Data;
 import com.app.roshni.knowledgeListPOJO.knowledgeListBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +66,7 @@ public class Knowledge extends AppCompatActivity {
         count = findViewById(R.id.textView49);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,15 +95,15 @@ public class Knowledge extends AppCompatActivity {
 
         call.enqueue(new Callback<knowledgeListBean>() {
             @Override
-            public void onResponse(Call<knowledgeListBean> call, Response<knowledgeListBean> response) {
+            public void onResponse(@NotNull Call<knowledgeListBean> call, @NotNull Response<knowledgeListBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     previous.setVisibility(View.INVISIBLE);
 
                     count.setText("1 / " + response.body().getData().size());
 
-                    PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager() , response.body().getData());
+                    PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), response.body().getData());
                     pager.setAdapter(adapter);
 
                     previous.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +136,7 @@ public class Knowledge extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<knowledgeListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<knowledgeListBean> call, @NotNull Throwable t) {
 progress.setVisibility(View.GONE);
             }
         });
@@ -150,7 +151,7 @@ progress.setVisibility(View.GONE);
             @Override
             public void onPageSelected(int position) {
 
-                count.setText((position + 1) + " / " + pager.getAdapter().getCount());
+                count.setText((position + 1) + " / " + Objects.requireNonNull(pager.getAdapter()).getCount());
 
                 if (position == 0)
                 {
@@ -188,9 +189,9 @@ progress.setVisibility(View.GONE);
 
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter
+    static class PagerAdapter extends FragmentStatePagerAdapter
     {
-        List<Data> list = new ArrayList<>();
+        List<Data> list;
 
         public PagerAdapter(@NonNull FragmentManager fm , List<Data> list) {
             super(fm);
@@ -225,13 +226,13 @@ progress.setVisibility(View.GONE);
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.page_layout , container , false);
 
-            id = getArguments().getString("id");
+            id = Objects.requireNonNull(getArguments()).getString("id");
 
             web = view.findViewById(R.id.web);
 
             progress.setVisibility(View.VISIBLE);
 
-            Bean b = (Bean) getActivity().getApplicationContext();
+            Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(b.baseurl)
@@ -245,16 +246,16 @@ progress.setVisibility(View.GONE);
 
             call.enqueue(new Callback<knowledgeDetailsBean>() {
                 @Override
-                public void onResponse(Call<knowledgeDetailsBean> call, Response<knowledgeDetailsBean> response) {
+                public void onResponse(@NotNull Call<knowledgeDetailsBean> call, @NotNull Response<knowledgeDetailsBean> response) {
 
                     //Log.d("content" , response.body().getData().getContent());
-                    web.loadData(response.body().getData().getContent() , "text/html", "UTF-8");
+                    web.loadData(Objects.requireNonNull(response.body()).getData().getContent() , "text/html", "UTF-8");
 
                     progress.setVisibility(View.GONE);
                 }
 
                 @Override
-                public void onFailure(Call<knowledgeDetailsBean> call, Throwable t) {
+                public void onFailure(@NotNull Call<knowledgeDetailsBean> call, @NotNull Throwable t) {
                     progress.setVisibility(View.GONE);
                 }
             });
@@ -268,7 +269,7 @@ progress.setVisibility(View.GONE);
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

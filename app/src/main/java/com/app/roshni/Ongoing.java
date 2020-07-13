@@ -16,8 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +31,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Ongoing extends Fragment {
 
-    private CustomViewPager pager;
     String id;
     OngoingAdapter adapter;
     GridLayoutManager manager;
@@ -41,7 +43,6 @@ public class Ongoing extends Fragment {
 
 
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
     @Nullable
@@ -76,7 +77,7 @@ public class Ongoing extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -90,9 +91,9 @@ public class Ongoing extends Fragment {
 
         call.enqueue(new Callback<OngoingListBean>() {
             @Override
-            public void onResponse(Call<OngoingListBean> call, Response<OngoingListBean> response) {
+            public void onResponse(@NotNull Call<OngoingListBean> call, @NotNull Response<OngoingListBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -109,7 +110,7 @@ public class Ongoing extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<OngoingListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<OngoingListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -117,8 +118,8 @@ public class Ongoing extends Fragment {
     }
 
     class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         OngoingAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -135,7 +136,7 @@ public class Ongoing extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.ongoing_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.ongoing_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -192,7 +193,11 @@ public class Ongoing extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView phone,date,type,status,address;
+            final TextView phone;
+            final TextView date;
+            final TextView type;
+            final TextView status;
+            final TextView address;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

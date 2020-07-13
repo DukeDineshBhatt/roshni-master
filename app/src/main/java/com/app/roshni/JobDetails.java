@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +22,10 @@ import com.app.roshni.workerJobListPOJO.Datum;
 import com.app.roshni.workerJobListPOJO.workerJobDetailBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -124,9 +127,9 @@ public class JobDetails extends AppCompatActivity {
 
                                     call.enqueue(new Callback<verifyBean>() {
                                         @Override
-                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                            if (response.body().getStatus().equals("1"))
+                                            if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                             {
                                                 final Dialog dialog = new Dialog(JobDetails.this);
                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -155,7 +158,7 @@ public class JobDetails extends AppCompatActivity {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                             progress.setVisibility(View.GONE);
                                         }
                                     });
@@ -206,9 +209,9 @@ public class JobDetails extends AppCompatActivity {
 
                                     call.enqueue(new Callback<verifyBean>() {
                                         @Override
-                                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                            if (response.body().getStatus().equals("1"))
+                                            if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                             {
                                                 Toast.makeText(JobDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                 finish();
@@ -226,7 +229,7 @@ public class JobDetails extends AppCompatActivity {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                             progress.setVisibility(View.GONE);
                                         }
                                     });
@@ -301,10 +304,10 @@ public class JobDetails extends AppCompatActivity {
 
         call.enqueue(new Callback<workerJobDetailBean>() {
             @Override
-            public void onResponse(Call<workerJobDetailBean> call, Response<workerJobDetailBean> response) {
+            public void onResponse(@NotNull Call<workerJobDetailBean> call, @NotNull Response<workerJobDetailBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     Datum item = response.body().getData();
 
@@ -367,7 +370,7 @@ public class JobDetails extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<workerJobDetailBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<workerJobDetailBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -378,7 +381,7 @@ public class JobDetails extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

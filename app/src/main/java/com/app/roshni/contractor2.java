@@ -73,6 +73,8 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -90,8 +92,6 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
-import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
-import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import mabbas007.tagsedittext.TagsEditText;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -124,9 +124,25 @@ public class contractor2 extends Fragment {
     CheckBox check;
     TextView getDirection;
 
-    private Button upload, submit;
-
-    private List<String> gen, gen1, est, exp, exp1, wty1, ava, ava1, frm, frm1, frmtyp, frmtyp1, prof, prof1, sec1, out, out1, gov, gov1, chi , chi1;
+    private List<String> gen;
+    private List<String> gen1;
+    private List<String> est;
+    private List<String> wty1;
+    private List<String> ava;
+    private List<String> ava1;
+    private List<String> frm;
+    private List<String> frm1;
+    private List<String> frmtyp;
+    private List<String> frmtyp1;
+    private List<String> prof;
+    private List<String> prof1;
+    private List<String> sec1;
+    private List<String> out;
+    private List<String> out1;
+    private List<String> gov;
+    private List<String> gov1;
+    private List<String> chi;
+    private List<String> chi1;
     List<com.app.roshni.sectorPOJO.Data> sec;
     List<Datum> wty;
 
@@ -139,8 +155,6 @@ public class contractor2 extends Fragment {
     private LinearLayout permanent;
     private boolean mLocationPermissionGranted;
 
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlacesClient mPlacesClient;
     private Location mLastKnownLocation;
 
     private ProgressBar progress;
@@ -175,8 +189,8 @@ public class contractor2 extends Fragment {
         gen = new ArrayList<>();
         gen1 = new ArrayList<>();
         est = new ArrayList<>();
-        exp = new ArrayList<>();
-        exp1 = new ArrayList<>();
+        List<String> exp = new ArrayList<>();
+        List<String> exp1 = new ArrayList<>();
         wty = new ArrayList<>();
         wty1 = new ArrayList<>();
         ava = new ArrayList<>();
@@ -196,24 +210,24 @@ public class contractor2 extends Fragment {
         chi = new ArrayList<>();
         chi1 = new ArrayList<>();
 
-        Places.initialize(getContext().getApplicationContext(), getString(R.string.google_maps_key));
-        mPlacesClient = Places.createClient(getContext());
+        Places.initialize(Objects.requireNonNull(getContext()).getApplicationContext(), getString(R.string.google_maps_key));
+        PlacesClient mPlacesClient = Places.createClient(getContext());
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
 
         getLocationPermission();
 
         try {
             if (mLocationPermissionGranted) {
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                }
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+                }// TODO: Consider calling
+//    ActivityCompat#requestPermissions
+// here to request the missing permissions, and then overriding
+//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                          int[] grantResults)
+// to handle the case where the user grants the permission. See the documentation
+// for ActivityCompat#requestPermissions for more details.
                 Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -242,7 +256,7 @@ public class contractor2 extends Fragment {
 
             }
         } catch (Exception e) {
-            Log.e("Exception1: %s", e.getMessage());
+            Log.e("Exception1: %s", Objects.requireNonNull(e.getMessage()));
         }
 
         phone = view.findViewById(R.id.phone);
@@ -316,8 +330,8 @@ public class contractor2 extends Fragment {
 
         image = view.findViewById(R.id.imageView3);
 
-        upload = view.findViewById(R.id.button7);
-        submit = view.findViewById(R.id.submit);
+        Button upload = view.findViewById(R.id.button7);
+        Button submit = view.findViewById(R.id.submit);
 
         gender = view.findViewById(R.id.gender);
         establishment = view.findViewById(R.id.establishment);
@@ -357,7 +371,7 @@ public class contractor2 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(getActivity());
+                        .build(Objects.requireNonNull(getActivity()));
                 startActivityForResult(intent, 12);
 
             }
@@ -387,7 +401,7 @@ public class contractor2 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(getActivity());
+                        .build(Objects.requireNonNull(getActivity()));
                 startActivityForResult(intent, 14);
 
             }
@@ -407,7 +421,7 @@ public class contractor2 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.sector_dialog);
@@ -428,9 +442,9 @@ public class contractor2 extends Fragment {
 
                 call.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                             adapter.setData(response.body().getData());
@@ -442,7 +456,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         bar.setVisibility(View.GONE);
                     }
                 });
@@ -470,7 +484,7 @@ public class contractor2 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.sector_dialog);
@@ -491,9 +505,9 @@ public class contractor2 extends Fragment {
 
                 call.enqueue(new Callback<skillsBean>() {
                     @Override
-                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                    public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             adapter.setData(response.body().getData());
 
@@ -504,7 +518,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                         bar.setVisibility(View.GONE);
                     }
                 });
@@ -684,11 +698,11 @@ public class contractor2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String uri = String.format(Locale.ENGLISH, "geo:"+lat +","+lng);
+                String uri = "geo:"+lat +","+lng;
                 Uri gmmIntentUri = Uri.parse(uri);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                if (mapIntent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
                     startActivity(mapIntent);
                 }
 
@@ -871,7 +885,7 @@ public class contractor2 extends Fragment {
 
                                                                             call.enqueue(new Callback<verifyBean>() {
                                                                                 @Override
-                                                                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                                                                public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
                                                                                     assert response.body() != null;
                                                                                     if (response.body().getStatus().equals("1")) {
@@ -885,10 +899,8 @@ public class contractor2 extends Fragment {
                                                                                         pager.setCurrentItem(1);
 
 
-                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                                    } else {
-                                                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                                                     }
+                                                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 
                                                                                     progress.setVisibility(View.GONE);
@@ -896,7 +908,7 @@ public class contractor2 extends Fragment {
                                                                                 }
 
                                                                                 @Override
-                                                                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                                                                public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                                                                     progress.setVisibility(View.GONE);
                                                                                 }
                                                                             });
@@ -1023,12 +1035,12 @@ public class contractor2 extends Fragment {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()).getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(getActivity(),
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -1048,11 +1060,11 @@ public class contractor2 extends Fragment {
             assert ypath != null;
 
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
-                f1 = new Compressor(getContext()).compressToFile(file);
+                f1 = new Compressor(Objects.requireNonNull(getContext())).compressToFile(file);
 
                 uri = Uri.fromFile(f1);
 
@@ -1069,9 +1081,7 @@ public class contractor2 extends Fragment {
 
             try {
 
-                File file = new Compressor(getContext()).compressToFile(f1);
-
-                f1 = file;
+                f1 = new Compressor(getContext()).compressToFile(f1);
 
                 uri = Uri.fromFile(f1);
 
@@ -1088,7 +1098,7 @@ public class contractor2 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
@@ -1102,10 +1112,9 @@ public class contractor2 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 12) {
@@ -1114,7 +1123,7 @@ public class contractor2 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     Log.d("addresss", String.valueOf(addresses.get(0)));
                     String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
@@ -1130,10 +1139,9 @@ public class contractor2 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 13) {
@@ -1143,7 +1151,7 @@ public class contractor2 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
@@ -1157,10 +1165,9 @@ public class contractor2 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
         if (requestCode == 14) {
@@ -1170,7 +1177,7 @@ public class contractor2 extends Fragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
+                    List<Address> addresses = geocoder.getFromLocation(Objects.requireNonNull(place.getLatLng()).latitude, place.getLatLng().longitude, 1);
                     String cii = place.getName();
                     String stat = addresses.get(0).getAdminArea();
                     pdistrict.setText(cii);
@@ -1183,10 +1190,9 @@ public class contractor2 extends Fragment {
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+                Log.i(TAG, Objects.requireNonNull(status.getStatusMessage()));
+            }  // The user canceled the operation.
+
         }
 
     }
@@ -1230,7 +1236,7 @@ public class contractor2 extends Fragment {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }
@@ -1309,7 +1315,7 @@ public class contractor2 extends Fragment {
 
     private void setPrevious() {
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -1325,9 +1331,9 @@ public class contractor2 extends Fragment {
 
         call.enqueue(new Callback<contractorBean>() {
             @Override
-            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                final com.app.roshni.contractorPOJO.Data item = response.body().getData();
+                final com.app.roshni.contractorPOJO.Data item = Objects.requireNonNull(response.body()).getData();
 
                 final DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
                 final ImageLoader loader = ImageLoader.getInstance();
@@ -1337,7 +1343,7 @@ public class contractor2 extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Dialog dialog = new Dialog(getActivity() , android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                        Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                         //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                         //      WindowManager.LayoutParams.MATCH_PARENT);
                         dialog.setContentView(R.layout.zoom_dialog);
@@ -1410,9 +1416,9 @@ public class contractor2 extends Fragment {
 
                 call81.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             gov.clear();
                             gov1.clear();
@@ -1424,7 +1430,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, gov);
 
 
@@ -1457,7 +1463,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1469,9 +1475,9 @@ public class contractor2 extends Fragment {
 
                 call3.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             gen.clear();
                             gen1.clear();
@@ -1506,7 +1512,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1533,9 +1539,9 @@ public class contractor2 extends Fragment {
 
                 call4.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             prof.clear();
                             prof1.clear();
@@ -1547,7 +1553,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, prof);
 
 
@@ -1570,7 +1576,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1597,9 +1603,9 @@ public class contractor2 extends Fragment {
 
                 call6.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             ava.clear();
                             ava1.clear();
@@ -1611,7 +1617,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, ava);
 
 
@@ -1634,7 +1640,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1661,9 +1667,9 @@ public class contractor2 extends Fragment {
 
                 call7.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             frm.clear();
                             frm1.clear();
@@ -1675,7 +1681,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, frm);
 
 
@@ -1699,7 +1705,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1723,9 +1729,9 @@ public class contractor2 extends Fragment {
 
                 call8.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             frmtyp.clear();
                             frmtyp1.clear();
@@ -1737,7 +1743,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, frmtyp);
 
 
@@ -1761,7 +1767,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1784,9 +1790,9 @@ public class contractor2 extends Fragment {
 
                 call9.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             out.clear();
                             out1.clear();
@@ -1798,7 +1804,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, out);
 
 
@@ -1822,7 +1828,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1851,9 +1857,9 @@ public class contractor2 extends Fragment {
 
                 call82.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             chi.clear();
                             chi1.clear();
@@ -1865,7 +1871,7 @@ public class contractor2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, chi);
 
 
@@ -1897,7 +1903,7 @@ public class contractor2 extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -1920,7 +1926,7 @@ public class contractor2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<contractorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -1964,10 +1970,10 @@ public class contractor2 extends Fragment {
 
     class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder> {
 
-        Context context;
-        List<com.app.roshni.sectorPOJO.Data> list = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
-        List<String> secs = new ArrayList<>();
+        final Context context;
+        List<com.app.roshni.sectorPOJO.Data> list;
+        final List<String> ids = new ArrayList<>();
+        final List<String> secs = new ArrayList<>();
 
         public SectorAdapter(Context context, List<com.app.roshni.sectorPOJO.Data> list) {
             this.context = context;
@@ -1983,7 +1989,7 @@ public class contractor2 extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sector_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -2038,8 +2044,8 @@ public class contractor2 extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title;
-            CardView card;
+            final TextView title;
+            final CardView card;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -2053,10 +2059,10 @@ public class contractor2 extends Fragment {
 
     class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
-        Context context;
-        List<com.app.roshni.SkillsPOJO.Datum> list = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
-        List<String> works = new ArrayList<>();
+        final Context context;
+        List<com.app.roshni.SkillsPOJO.Datum> list;
+        final List<String> ids = new ArrayList<>();
+        final List<String> works = new ArrayList<>();
 
         public WorkAdapter(Context context, List<com.app.roshni.SkillsPOJO.Datum> list) {
             this.context = context;
@@ -2072,7 +2078,7 @@ public class contractor2 extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sector_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -2177,8 +2183,8 @@ public class contractor2 extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title;
-            CardView card;
+            final TextView title;
+            final CardView card;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

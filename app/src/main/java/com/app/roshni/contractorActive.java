@@ -1,16 +1,11 @@
 package com.app.roshni;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -25,11 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.roshni.allWorkContrJobListPOJO.Datum;
 import com.app.roshni.allWorkContrJobListPOJO.allWorkContrJobBean;
 
-import java.text.SimpleDateFormat;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,13 +71,12 @@ public class contractorActive extends Fragment {
                 if (checkedId == R.id.newest)
                 {
                     sort = "DESC";
-                    onResume();
                 }
                 else
                 {
                     sort = "ASC";
-                    onResume();
                 }
+                onResume();
 
             }
         });
@@ -99,7 +93,7 @@ public class contractorActive extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -114,9 +108,9 @@ public class contractorActive extends Fragment {
 
         call.enqueue(new Callback<allWorkContrJobBean>() {
             @Override
-            public void onResponse(Call<allWorkContrJobBean> call, Response<allWorkContrJobBean> response) {
+            public void onResponse(@NotNull Call<allWorkContrJobBean> call, @NotNull Response<allWorkContrJobBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -133,7 +127,7 @@ public class contractorActive extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<allWorkContrJobBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<allWorkContrJobBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -142,8 +136,8 @@ public class contractorActive extends Fragment {
     }
 
     class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -160,7 +154,7 @@ public class contractorActive extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.worker_active_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.worker_active_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -215,7 +209,13 @@ public class contractorActive extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title , category , salary , posted , applied , applicants , details;
+            final TextView title;
+            final TextView category;
+            final TextView salary;
+            final TextView posted;
+            final TextView applied;
+            final TextView applicants;
+            final TextView details;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

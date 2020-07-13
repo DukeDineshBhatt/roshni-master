@@ -6,13 +6,11 @@
         android:title="@string/workers" />
 
     <item
-        android:id="@+id/contractors"
         android:icon="@drawable/ic_carpenter"
         android:title="@string/contractors" />
 
 
     <item
-        android:id="@+id/jobs"
         android:icon="@drawable/ic_old_fashion_briefcase"
         android:title="@string/jobs" />
 

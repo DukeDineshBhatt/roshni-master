@@ -19,6 +19,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class ChooseType extends AppCompatActivity {
 
     Button brand , contractor , worker , officer;
@@ -40,7 +44,7 @@ public class ChooseType extends AppCompatActivity {
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NotNull View textView) {
                 Intent intent = new Intent(ChooseType.this , Web.class);
                 intent.putExtra("title" , getString(R.string.policies));
                 intent.putExtra("url" , "https://mrtecks.com/goodbusinessapp/policies.php");
@@ -150,7 +154,7 @@ public class ChooseType extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

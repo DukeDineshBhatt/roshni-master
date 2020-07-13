@@ -23,6 +23,10 @@ import com.app.roshni.contractorPOJO.contractorBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,7 +76,7 @@ public class SingleContgractor extends AppCompatActivity {
         samples = findViewById(R.id.samples);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,9 +144,9 @@ public class SingleContgractor extends AppCompatActivity {
 
         call.enqueue(new Callback<contractorBean>() {
             @Override
-            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                Data item = response.body().getData();
+                Data item = Objects.requireNonNull(response.body()).getData();
 
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
@@ -154,7 +158,7 @@ public class SingleContgractor extends AppCompatActivity {
 
                 name.setText(item.getName());
                 //phone.setText("+" + item.getPhone());
-                total.setText(String.valueOf(Integer.parseInt(item.getWorkersMale()) + Integer.parseInt(item.getWorkersFemale())) + " workers");
+                total.setText((Integer.parseInt(item.getWorkersMale()) + Integer.parseInt(item.getWorkersFemale())) + " workers");
                 experience.setText(item.getExperience());
                 availability.setText(item.getAvailability1());
                 dob.setText(item.getDob());
@@ -177,7 +181,7 @@ public class SingleContgractor extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<contractorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -222,7 +226,7 @@ public class SingleContgractor extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

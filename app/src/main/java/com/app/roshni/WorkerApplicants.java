@@ -22,8 +22,11 @@ import android.widget.TextView;
 import com.app.roshni.workerListPOJO.Datum;
 import com.app.roshni.workerListPOJO.workerListBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +67,7 @@ public class WorkerApplicants extends AppCompatActivity {
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,9 +110,9 @@ public class WorkerApplicants extends AppCompatActivity {
 
         call.enqueue(new Callback<workerListBean>() {
             @Override
-            public void onResponse(Call<workerListBean> call, Response<workerListBean> response) {
+            public void onResponse(@NotNull Call<workerListBean> call, @NotNull Response<workerListBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -126,7 +129,7 @@ public class WorkerApplicants extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<workerListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<workerListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -135,8 +138,8 @@ public class WorkerApplicants extends AppCompatActivity {
     }
 
     class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -153,7 +156,7 @@ public class WorkerApplicants extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.worker_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.worker_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -199,7 +202,12 @@ public class WorkerApplicants extends AppCompatActivity {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView name , address, skill , exp , emp , reg;
+            final TextView name;
+            final TextView address;
+            final TextView skill;
+            final TextView exp;
+            final TextView emp;
+            final TextView reg;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -217,7 +225,7 @@ public class WorkerApplicants extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

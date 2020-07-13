@@ -17,8 +17,11 @@ import android.widget.Toast;
 
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
-import com.google.gson.internal.LinkedTreeMap;
 import com.mukesh.OtpView;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +55,7 @@ public class OTP3 extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                String ot = otp.getText().toString();
+                String ot = Objects.requireNonNull(otp.getText()).toString();
 
                 Log.d("otp", ot);
 
@@ -74,10 +77,10 @@ public class OTP3 extends AppCompatActivity {
                     Call<verifyBean> call = cr.verify(phone, ot);
                     call.enqueue(new Callback<verifyBean>() {
                         @Override
-                        public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                        public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                                 Data item = response.body().getData();
@@ -105,7 +108,7 @@ public class OTP3 extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<verifyBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -144,8 +147,8 @@ public class OTP3 extends AppCompatActivity {
 
                 call.enqueue(new Callback<verifyBean>() {
                     @Override
-                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
-                        Toast toast = Toast.makeText(OTP3.this, response.body().getMessage(), Toast.LENGTH_SHORT);
+                    public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
+                        Toast toast = Toast.makeText(OTP3.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_VERTICAL , 0 , 0);
                         toast.show();
 
@@ -154,7 +157,7 @@ public class OTP3 extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -169,7 +172,7 @@ public class OTP3 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

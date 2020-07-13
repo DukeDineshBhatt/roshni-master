@@ -588,6 +588,13 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("workersjoint/api/getBrandSector.php")
+    Call<sectorBean> getBrandSector(
+            @Part("lang") String lang,
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
     @POST("workersjoint/api/getCerts.php")
     Call<sectorBean> getCerts(
             @Part("lang") String lang

@@ -22,7 +22,8 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/white_back_round"
         android:hint="@string/tap_to_enter"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/submit"

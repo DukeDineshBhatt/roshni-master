@@ -18,16 +18,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -120,13 +122,13 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
                 location.removeAllViews();
 
                 String[] ski1 = loca1.split(",");
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -166,7 +168,7 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -216,13 +218,13 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
 
         call2.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
                 sector.removeAllViews();
 
                 String[] ski1 = sect1.split(",");
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
 
@@ -266,7 +268,7 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -320,7 +322,7 @@ public class FilterContractorJob extends AppCompatActivity implements DatePicker
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

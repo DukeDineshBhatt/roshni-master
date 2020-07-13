@@ -16,6 +16,10 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class Profile4 extends AppCompatActivity {
 
     TabLayout tabs;
@@ -32,7 +36,7 @@ public class Profile4 extends AppCompatActivity {
         pager = findViewById(R.id.pager);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +63,15 @@ public class Profile4 extends AppCompatActivity {
             tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
+                    v.performClick();
                     return true;
                 }
             });
         }
 
 
-        tabs.getTabAt(0).setText("PERSONAL");
-        tabs.getTabAt(1).setText("PROFESSIONAL");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("PERSONAL");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("PROFESSIONAL");
 
     }
 
@@ -76,6 +81,7 @@ public class Profile4 extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
@@ -100,7 +106,7 @@ public class Profile4 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

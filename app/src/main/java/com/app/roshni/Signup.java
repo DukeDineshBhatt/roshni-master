@@ -18,6 +18,10 @@ import android.widget.Toast;
 import com.app.roshni.verifyPOJO.verifyBean;
 import com.rilixtech.CountryCodePicker;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,32 +93,30 @@ public class Signup extends AppCompatActivity {
                         Call<verifyBean> call = cr.worker_signup(pho , type , SharePreferenceUtils.getInstance().getString("token"));
                         call.enqueue(new Callback<verifyBean>() {
                             @Override
-                            public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                            public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                if (response.body().getStatus().equals("1"))
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                 {
                                     Intent intent = new Intent(Signup.this , OTP2.class);
                                     intent.putExtra("phone" , pho);
                                     startActivity(intent);
                                     Toast.makeText(Signup.this, "Please verify OTP", Toast.LENGTH_SHORT).show();
-                                    signup.setClickable(true);
-                                    signup.setFocusable(true);
                                     //finishAffinity();
 
                                 }
                                 else
                                 {
                                     Toast.makeText(Signup.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    signup.setClickable(true);
-                                    signup.setFocusable(true);
                                 }
+                                signup.setClickable(true);
+                                signup.setFocusable(true);
 
                                 progress.setVisibility(View.GONE);
 
                             }
 
                             @Override
-                            public void onFailure(Call<verifyBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                 progress.setVisibility(View.GONE);
                                 signup.setClickable(true);
                                 signup.setFocusable(true);
@@ -168,7 +170,7 @@ public class Signup extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

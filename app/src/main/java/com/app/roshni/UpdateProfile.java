@@ -12,9 +12,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class UpdateProfile extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class UpdateProfile extends AppCompatActivity {
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +60,8 @@ public class UpdateProfile extends AppCompatActivity {
 
         pager.setPagingEnabled(true);
 
-        tabs.getTabAt(0).setText("PERSONAL");
-        tabs.getTabAt(1).setText("PROFESSIONAL");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("PERSONAL");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("PROFESSIONAL");
 
     }
 
@@ -71,12 +74,13 @@ public class UpdateProfile extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0)
             {
                 personal3 frag = new personal3();
-                frag.setData(pager , true  , true  , true  , true  , true );
+                frag.setData(pager);
                 return frag;
             }
             else
@@ -95,7 +99,7 @@ public class UpdateProfile extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

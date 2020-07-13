@@ -20,6 +20,10 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class Register2 extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabs;
@@ -44,7 +48,7 @@ public class Register2 extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +74,8 @@ public class Register2 extends AppCompatActivity {
             tabStrip.getChildAt(i).setClickable(false);
         }
 
-        tabs.getTabAt(0).setText("COMPANY");
-        tabs.getTabAt(1).setText("PICTURES");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("COMPANY");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("PICTURES");
 
         Log.d("regosterc1" , String.valueOf(c1));
 
@@ -87,6 +91,7 @@ public class Register2 extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
 
@@ -117,7 +122,7 @@ public class Register2 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

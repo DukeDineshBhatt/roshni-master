@@ -41,6 +41,8 @@ import com.app.roshni.verifyPOJO.verifyBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -119,7 +121,7 @@ public class UpdateContractorJob extends AppCompatActivity {
         image5 = findViewById(R.id.image5);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,9 +335,9 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                                 call.enqueue(new Callback<verifyBean>() {
                                     @Override
-                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                    public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                        if (response.body().getStatus().equals("1"))
+                                        if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                         {
                                             Toast.makeText(UpdateContractorJob.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -349,7 +351,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                    public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                         progress.setVisibility(View.GONE);
                                     }
                                 });
@@ -807,7 +809,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }
@@ -902,10 +904,10 @@ public class UpdateContractorJob extends AppCompatActivity {
 
         call.enqueue(new Callback<contractorJobDetailsBean>() {
             @Override
-            public void onResponse(Call<contractorJobDetailsBean> call, Response<contractorJobDetailsBean> response) {
+            public void onResponse(@NotNull Call<contractorJobDetailsBean> call, @NotNull Response<contractorJobDetailsBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     final Data item = response.body().getData();
 
@@ -928,9 +930,9 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
@@ -940,7 +942,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateContractorJob.this,
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateContractorJob.this,
                                         R.layout.spinner_model, sec);
 
                                 sector.setAdapter(adapter);
@@ -960,7 +962,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -977,10 +979,10 @@ public class UpdateContractorJob extends AppCompatActivity {
                             Call<skillsBean> call2 = cr.getRoles(sect, SharePreferenceUtils.getInstance().getString("lang"));
                             call2.enqueue(new Callback<skillsBean>() {
                                 @Override
-                                public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                                public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
 
-                                    if (response.body().getStatus().equals("1")) {
+                                    if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                         typ.clear();
                                         typ1.clear();
@@ -992,7 +994,7 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                                         }
 
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateContractorJob.this,
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateContractorJob.this,
                                                 R.layout.spinner_model, typ);
 
                                         type.setAdapter(adapter);
@@ -1012,7 +1014,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onFailure(Call<skillsBean> call, Throwable t) {
+                                public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                                     progress.setVisibility(View.GONE);
                                 }
                             });
@@ -1030,9 +1032,9 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                     call5.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 exp.clear();
                                 exp1.clear();
@@ -1067,7 +1069,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -1076,9 +1078,9 @@ public class UpdateContractorJob extends AppCompatActivity {
 
                     call10.enqueue(new Callback<sectorBean>() {
                         @Override
-                        public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 pla.clear();
                                 pla1.clear();
@@ -1113,7 +1115,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<sectorBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -1143,7 +1145,7 @@ public class UpdateContractorJob extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<contractorJobDetailsBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorJobDetailsBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -1153,7 +1155,7 @@ public class UpdateContractorJob extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

@@ -20,8 +20,11 @@ import androidx.fragment.app.Fragment;
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -120,16 +123,16 @@ public class CompletedProfessional extends Fragment {
         wor.add("19");
         wor.add("20");
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_model, exp);
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, emp);
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, hom);
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, wor);
 
         sector.setEnabled(false);
@@ -156,7 +159,7 @@ public class CompletedProfessional extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -176,7 +179,7 @@ public class CompletedProfessional extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -189,9 +192,9 @@ public class CompletedProfessional extends Fragment {
         Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id , SharePreferenceUtils.getInstance().getString("lang"));
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
-            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
+            public void onResponse(@NotNull Call<WorkerByIdListBean> call, @NotNull Response<WorkerByIdListBean> response) {
 
-                final List<WorkerByIdData> item = response.body().getData();
+                final List<WorkerByIdData> item = Objects.requireNonNull(response.body()).getData();
 
 
                 employer.setText(item.get(0).getEmployer());
@@ -202,9 +205,9 @@ public class CompletedProfessional extends Fragment {
 
                 call2.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             sec.clear();
                             sec1.clear();
@@ -216,7 +219,7 @@ public class CompletedProfessional extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, sec);
 
                             sector.setAdapter(adapter);
@@ -236,7 +239,7 @@ public class CompletedProfessional extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -253,10 +256,10 @@ public class CompletedProfessional extends Fragment {
                         Call<skillsBean> call2 = cr.getSkills1(sect, SharePreferenceUtils.getInstance().getString("lang"));
                         call2.enqueue(new Callback<skillsBean>() {
                             @Override
-                            public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                            public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
 
-                                if (response.body().getStatus().equals("1")) {
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                     ski.clear();
                                     ski1.clear();
@@ -268,7 +271,7 @@ public class CompletedProfessional extends Fragment {
 
                                     }
 
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                             R.layout.spinner_model, ski);
 
                                     skills.setAdapter(adapter);
@@ -288,7 +291,7 @@ public class CompletedProfessional extends Fragment {
                             }
 
                             @Override
-                            public void onFailure(Call<skillsBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                                 progress.setVisibility(View.GONE);
                             }
                         });
@@ -337,7 +340,6 @@ public class CompletedProfessional extends Fragment {
                 int bp = 0;
                 for (int i = 0; i < wor.size(); i++) {
                     if (item.get(0).getTools().equals(wor.get(i))) {
-                        bp = i;
                     }
                 }
 
@@ -348,9 +350,9 @@ public class CompletedProfessional extends Fragment {
 
                 call3.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                             for (int i = 0; i < response.body().getData().size(); i++) {
@@ -360,7 +362,7 @@ public class CompletedProfessional extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                                     R.layout.spinner_model, loc);
 
                             location.setAdapter(adapter);
@@ -391,7 +393,7 @@ public class CompletedProfessional extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -402,7 +404,7 @@ public class CompletedProfessional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<WorkerByIdListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

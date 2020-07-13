@@ -14,11 +14,13 @@ import androidx.annotation.Nullable;
 
 import com.app.roshni.contractorJobDetailsPOJO.Data;
 import com.app.roshni.contractorJobDetailsPOJO.contractorJobDetailsBean;
-import com.app.roshni.workerJobListPOJO.Datum;
-import com.app.roshni.workerJobListPOJO.workerJobDetailBean;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -52,7 +54,7 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.bottom_layout , container , false);
 
 
-        jid = getArguments().getString("jid");
+        jid = Objects.requireNonNull(getArguments()).getString("jid");
 
         person_layout = view.findViewById(R.id.person_layout);
         phone_layout = view.findViewById(R.id.phone_layout);
@@ -103,7 +105,7 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getActivity().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -117,10 +119,10 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
 
         call.enqueue(new Callback<contractorJobDetailsBean>() {
             @Override
-            public void onResponse(Call<contractorJobDetailsBean> call, Response<contractorJobDetailsBean> response) {
+            public void onResponse(@NotNull Call<contractorJobDetailsBean> call, @NotNull Response<contractorJobDetailsBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     Data item = response.body().getData();
 
@@ -207,7 +209,7 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
             }
 
             @Override
-            public void onFailure(Call<contractorJobDetailsBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorJobDetailsBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

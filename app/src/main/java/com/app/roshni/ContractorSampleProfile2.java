@@ -22,8 +22,11 @@ import com.app.roshni.samplePOJO.sampleBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,11 +47,9 @@ public class ContractorSampleProfile2 extends Fragment {
     ImageView nodata;
     TextView txtStatus;
 
-    private CustomViewPager pager;
     String user_id;
 
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
     @Nullable
@@ -67,12 +68,12 @@ public class ContractorSampleProfile2 extends Fragment {
         user_id = SharePreferenceUtils.getInstance().getString("user");
 
         manager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
-        adapter = new SampleAdapter(getContext() , list);
+        adapter = new SampleAdapter(getContext(), list);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -89,9 +90,9 @@ public class ContractorSampleProfile2 extends Fragment {
         call.enqueue(new Callback<contractorBean>() {
 
             @Override
-            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                Data item = response.body().getData();
+                Data item = Objects.requireNonNull(response.body()).getData();
 
 
                 progress.setVisibility(View.GONE);
@@ -99,7 +100,7 @@ public class ContractorSampleProfile2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<contractorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -115,7 +116,7 @@ public class ContractorSampleProfile2 extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getActivity().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -129,9 +130,9 @@ public class ContractorSampleProfile2 extends Fragment {
 
         call.enqueue(new Callback<sampleBean>() {
             @Override
-            public void onResponse(Call<sampleBean> call, Response<sampleBean> response) {
+            public void onResponse(@NotNull Call<sampleBean> call, @NotNull Response<sampleBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -148,7 +149,7 @@ public class ContractorSampleProfile2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sampleBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sampleBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -158,10 +159,10 @@ public class ContractorSampleProfile2 extends Fragment {
 
     }
 
-    class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
+    static class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.ViewHolder>
     {
-        Context context;
-        List<com.app.roshni.samplePOJO.Datum> list = new ArrayList<>();
+        final Context context;
+        List<com.app.roshni.samplePOJO.Datum> list;
 
 
         SampleAdapter(Context context, List<com.app.roshni.samplePOJO.Datum> list)
@@ -180,7 +181,7 @@ public class ContractorSampleProfile2 extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sample_list_model2 , parent , false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sample_list_model2 , parent , false);
             return new ViewHolder(view);
         }
 
@@ -205,7 +206,7 @@ public class ContractorSampleProfile2 extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder
         {
 
-            ImageView image;
+            final ImageView image;
 
 
             public ViewHolder(@NonNull View itemView) {

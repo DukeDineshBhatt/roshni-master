@@ -14,7 +14,7 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:id="@+id/image"
-        />
+        android:contentDescription="TODO" />
 
 
 </androidx.cardview.widget.CardView>

@@ -36,7 +36,8 @@ import android.widget.Toast;
 import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.verifyBean;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -113,7 +114,7 @@ public class PostJobContractor extends AppCompatActivity {
         image5 = findViewById(R.id.image5);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,9 +210,9 @@ public class PostJobContractor extends AppCompatActivity {
 
         call34.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -232,7 +233,7 @@ public class PostJobContractor extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -259,9 +260,9 @@ public class PostJobContractor extends AppCompatActivity {
 
         call35.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -282,7 +283,7 @@ public class PostJobContractor extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -412,9 +413,9 @@ public class PostJobContractor extends AppCompatActivity {
 
                                 call.enqueue(new Callback<verifyBean>() {
                                     @Override
-                                    public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                    public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                        if (response.body().getStatus().equals("1")) {
+                                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
                                             Toast.makeText(PostJobContractor.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                                             finish();
@@ -429,7 +430,7 @@ public class PostJobContractor extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<verifyBean> call, Throwable t) {
+                                    public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                         progress.setVisibility(View.GONE);
                                     }
                                 });
@@ -721,9 +722,9 @@ public class PostJobContractor extends AppCompatActivity {
 
         call.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -733,7 +734,7 @@ public class PostJobContractor extends AppCompatActivity {
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJobContractor.this,
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(PostJobContractor.this,
                             R.layout.spinner_model, sec);
 
                     sector.setAdapter(adapter);
@@ -745,7 +746,7 @@ public class PostJobContractor extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -762,10 +763,10 @@ public class PostJobContractor extends AppCompatActivity {
                     Call<skillsBean> call2 = cr.getRoles(sect, SharePreferenceUtils.getInstance().getString("lang"));
                     call2.enqueue(new Callback<skillsBean>() {
                         @Override
-                        public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                        public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
 
-                            if (response.body().getStatus().equals("1")) {
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                 typ.clear();
                                 typ1.clear();
@@ -777,7 +778,7 @@ public class PostJobContractor extends AppCompatActivity {
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostJobContractor.this,
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(PostJobContractor.this,
                                         R.layout.spinner_model, typ);
 
                                 type.setAdapter(adapter);
@@ -789,7 +790,7 @@ public class PostJobContractor extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<skillsBean> call, Throwable t) {
+                        public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                             progress.setVisibility(View.GONE);
                         }
                     });
@@ -819,7 +820,7 @@ public class PostJobContractor extends AppCompatActivity {
             String ypath = getPath(PostJobContractor.this, uri1);
             assert ypath != null;
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
@@ -842,9 +843,7 @@ public class PostJobContractor extends AppCompatActivity {
 
             try {
 
-                File file = new Compressor(PostJobContractor.this).compressToFile(f1);
-
-                f1 = file;
+                f1 = new Compressor(this).compressToFile(f1);
 
                 uri1 = Uri.fromFile(f1);
 
@@ -863,7 +862,7 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri2);
             assert ypath != null;
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
@@ -884,9 +883,7 @@ public class PostJobContractor extends AppCompatActivity {
 
             try {
 
-                File file = new Compressor(PostJobContractor.this).compressToFile(f2);
-
-                f2 = file;
+                f2 = new Compressor(this).compressToFile(f2);
 
                 uri2 = Uri.fromFile(f2);
 
@@ -907,7 +904,7 @@ public class PostJobContractor extends AppCompatActivity {
             assert ypath != null;
 
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
@@ -928,9 +925,7 @@ public class PostJobContractor extends AppCompatActivity {
 
             try {
 
-                File file = new Compressor(PostJobContractor.this).compressToFile(f3);
-
-                f3 = file;
+                f3 = new Compressor(this).compressToFile(f3);
 
                 uri3 = Uri.fromFile(f3);
 
@@ -951,7 +946,7 @@ public class PostJobContractor extends AppCompatActivity {
             String ypath = getPath(PostJobContractor.this, uri4);
             assert ypath != null;
 
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
@@ -971,9 +966,7 @@ public class PostJobContractor extends AppCompatActivity {
         } else if (requestCode == 7 && resultCode == RESULT_OK) {
             try {
 
-                File file = new Compressor(PostJobContractor.this).compressToFile(f4);
-
-                f4 = file;
+                f4 = new Compressor(this).compressToFile(f4);
 
                 uri4 = Uri.fromFile(f4);
 
@@ -992,7 +985,7 @@ public class PostJobContractor extends AppCompatActivity {
 
             String ypath = getPath(PostJobContractor.this, uri5);
             assert ypath != null;
-            File file = null;
+            File file;
             file = new File(ypath);
 
             try {
@@ -1011,9 +1004,7 @@ public class PostJobContractor extends AppCompatActivity {
         } else if (requestCode == 9 && resultCode == RESULT_OK) {
             try {
 
-                File file = new Compressor(PostJobContractor.this).compressToFile(f5);
-
-                f5 = file;
+                f5 = new Compressor(this).compressToFile(f5);
 
                 uri5 = Uri.fromFile(f5);
 
@@ -1064,7 +1055,7 @@ public class PostJobContractor extends AppCompatActivity {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }
@@ -1144,7 +1135,7 @@ public class PostJobContractor extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

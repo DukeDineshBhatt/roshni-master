@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 public class Three extends Fragment {
 
     Button next;
@@ -29,7 +31,7 @@ public class Three extends Fragment {
 
                 Intent i = new Intent(getContext() , ChooseType.class);
                 startActivity(i);
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
 
             }
         });

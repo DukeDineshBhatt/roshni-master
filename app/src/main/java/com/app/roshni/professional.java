@@ -33,14 +33,13 @@ import com.app.roshni.SkillsPOJO.skillsBean;
 import com.app.roshni.sectorPOJO.sectorBean;
 import com.app.roshni.verifyPOJO.Data;
 import com.app.roshni.verifyPOJO.verifyBean;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
-import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -170,7 +169,7 @@ public class professional extends Fragment {
         wor.add("19");
         wor.add("20");
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -183,7 +182,7 @@ public class professional extends Fragment {
 
 
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(getContext(),
                 R.layout.spinner_model, wor);
 
 
@@ -200,9 +199,9 @@ public class professional extends Fragment {
 
         call31.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -212,7 +211,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, exp);
 
 
@@ -224,7 +223,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -236,9 +235,9 @@ public class professional extends Fragment {
 
         call131.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -248,7 +247,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, ava);
 
 
@@ -260,7 +259,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -272,9 +271,9 @@ public class professional extends Fragment {
 
         call32.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -284,7 +283,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, emp);
 
 
@@ -296,7 +295,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -307,9 +306,9 @@ public class professional extends Fragment {
 
         call33.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -319,7 +318,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, ban);
 
 
@@ -332,7 +331,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -345,9 +344,9 @@ public class professional extends Fragment {
 
         call331.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -358,7 +357,7 @@ public class professional extends Fragment {
                     }
 
 
-                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, gov);
 
 
@@ -371,7 +370,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -384,9 +383,9 @@ public class professional extends Fragment {
 
         call34.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -396,7 +395,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, hom);
 
 
@@ -408,7 +407,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -573,7 +572,7 @@ public class professional extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.sector_dialog);
@@ -594,9 +593,9 @@ public class professional extends Fragment {
 
                 call.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                             adapter.setData(response.body().getData());
@@ -608,7 +607,7 @@ public class professional extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         bar.setVisibility(View.GONE);
                     }
                 });
@@ -636,7 +635,7 @@ public class professional extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.sector_dialog);
@@ -657,9 +656,9 @@ public class professional extends Fragment {
 
                 call.enqueue(new Callback<skillsBean>() {
                     @Override
-                    public void onResponse(Call<skillsBean> call, Response<skillsBean> response) {
+                    public void onResponse(@NotNull Call<skillsBean> call, @NotNull Response<skillsBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             adapter.setData(response.body().getData());
 
@@ -670,7 +669,7 @@ public class professional extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<skillsBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<skillsBean> call, @NotNull Throwable t) {
                         bar.setVisibility(View.GONE);
                     }
                 });
@@ -697,9 +696,9 @@ public class professional extends Fragment {
 
         call3.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -709,7 +708,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, loc);
 
                     location.setAdapter(adapter);
@@ -722,7 +721,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -733,9 +732,9 @@ public class professional extends Fragment {
 
         call8.enqueue(new Callback<sectorBean>() {
             @Override
-            public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+            public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
 
                     for (int i = 0; i < response.body().getData().size(); i++) {
@@ -745,7 +744,7 @@ public class professional extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                             R.layout.spinner_model, chi);
 
 
@@ -759,7 +758,7 @@ public class professional extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<sectorBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -817,7 +816,7 @@ public class professional extends Fragment {
 
                             progress.setVisibility(View.VISIBLE);
 
-                            Bean b = (Bean) getContext().getApplicationContext();
+                            Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
                             Retrofit retrofit = new Retrofit.Builder()
                                     .baseUrl(b.baseurl)
@@ -848,9 +847,9 @@ public class professional extends Fragment {
 
                             call.enqueue(new Callback<verifyBean>() {
                                 @Override
-                                public void onResponse(Call<verifyBean> call, Response<verifyBean> response) {
+                                public void onResponse(@NotNull Call<verifyBean> call, @NotNull Response<verifyBean> response) {
 
-                                    if (response.body().getStatus().equals("1")) {
+                                    if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
                                         Data item = response.body().getData();
 
                                         SharePreferenceUtils.getInstance().saveString("name", item.getName());
@@ -891,15 +890,13 @@ public class professional extends Fragment {
 
                                         Intent intent = new Intent(getContext(), MainActivity.class);
                                         startActivity(intent);
-                                        getActivity().finishAffinity();
+                                        Objects.requireNonNull(getActivity()).finishAffinity();
 
 
                                         Log.d("respo", response.body().getMessage());
 
-                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
+                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 
                                     progress.setVisibility(View.GONE);
@@ -907,7 +904,7 @@ public class professional extends Fragment {
                                 }
 
                                 @Override
-                                public void onFailure(Call<verifyBean> call, Throwable t) {
+                                public void onFailure(@NotNull Call<verifyBean> call, @NotNull Throwable t) {
                                     progress.setVisibility(View.GONE);
                                 }
                             });
@@ -1008,10 +1005,10 @@ public class professional extends Fragment {
 
     class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder> {
 
-        Context context;
-        List<com.app.roshni.sectorPOJO.Data> list = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
-        List<String> secs = new ArrayList<>();
+        final Context context;
+        List<com.app.roshni.sectorPOJO.Data> list;
+        final List<String> ids = new ArrayList<>();
+        final List<String> secs = new ArrayList<>();
 
         public SectorAdapter(Context context, List<com.app.roshni.sectorPOJO.Data> list) {
             this.context = context;
@@ -1027,7 +1024,7 @@ public class professional extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sector_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -1082,8 +1079,8 @@ public class professional extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title;
-            CardView card;
+            final TextView title;
+            final CardView card;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -1097,10 +1094,10 @@ public class professional extends Fragment {
 
     class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
-        Context context;
-        List<com.app.roshni.SkillsPOJO.Datum> list = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
-        List<String> works = new ArrayList<>();
+        final Context context;
+        List<com.app.roshni.SkillsPOJO.Datum> list;
+        final List<String> ids = new ArrayList<>();
+        final List<String> works = new ArrayList<>();
 
         public WorkAdapter(Context context, List<com.app.roshni.SkillsPOJO.Datum> list) {
             this.context = context;
@@ -1116,7 +1113,7 @@ public class professional extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sector_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.sector_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -1221,8 +1218,8 @@ public class professional extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView title;
-            CardView card;
+            final TextView title;
+            final CardView card;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

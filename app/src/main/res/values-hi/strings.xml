@@ -51,16 +51,11 @@
     <string name="education">शिक्षा</string>
     <string name="salary_type">वेतन प्रकार</string>
     <string name="apply_now">अभी आवेदन करें</string>
-    <string name="preferred_skill_set">पसंदीदा कौशल सेट</string>
     <string name="gender_preference">"लिंग प्राथमिकता "</string>
     <string name="working_hours">"काम के घंटे "</string>
     <string name="salary_package">"वेतन पैकेज "</string>
     <string name="company_details">संस्थान के विवरण</string>
-    <string name="total_days_for_completion">"ऑर्डर के पूरा होने के लिए #दिन "</string>
     <string name="job_title">जॉब का नाम/ काम का नाम  <font color="red">*</font></string>
-    <string name="skills1">कौशल  <font color="red">*</font></string>
-    <string name="preferred_skills_if_any">पसंदीदा कौशल सेट (यदि कोई हो)</string>
-    <string name="location1">स्थान <font color="red">*</font></string>
     <string name="experience1">अनुभव <font color="red">*</font></string>
     <string name="job_role1">कार्य की भूमिका <font color="red">*</font></string>
     <string name="gender_preference1">"लिंग प्राथमिकता "</string>
@@ -70,7 +65,6 @@
     <string name="salary_type1">वेतन प्रकार <font color="red">*</font></string>
     <string name="submit">प्रस्तुत</string>
     <string name="job_type1">कार्य का प्रकार <font color="red">*</font></string>
-    <string name="no_of_days_for_completion">ऑर्डर के पूरा होने के लिए #दिन  <font color="red">*</font></string>
 
     <string name="upload_take_photo">"अपलोड करें/ तस्वीर लें "</string>
 
@@ -133,7 +127,6 @@
     <string name="previous_employer_or_brands">"पिछला नियोक्ता या ब्रांड "</string>
     <string name="ok">ठीक</string>
     <string name="select">चुनते हैं</string>
-    <string name="account_settings">अकाउंट सेटिंग</string>
     <string name="about_us">हमारे बारे में</string>
     <string name="faqs">ज्ञान केंद्र</string>
     <string name="policies">नीतियाँ</string>
@@ -152,8 +145,8 @@
     <string name="your_marital_status">तुम्हारी वैवाहिक स्थिति <font color="red">*</font></string>
     <string name="number_of_children">बच्चों की संख्या  <font color="red">*</font></string>
     <string name="number_of_children_below_6_yrs">6 साल से कम उम्र के बच्चों की संख्या  <font color="red">*</font></string>
-    <string name="number_of_children_b_w_6_14_yrs">6-14 साल के आयु समूह के बच्चों की संख्या  <font color="red">*</font></string>
-    <string name="number_of_children_b_w_15_18_yrs">15-18 साल के आयु समूह के बच्चों की संख्या  <font color="red">*</font></string>
+    <string name="number_of_children_b_w_6_14_yrs">6–14 साल के आयु समूह के बच्चों की संख्या  <font color="red">*</font></string>
+    <string name="number_of_children_b_w_15_18_yrs">15–18 साल के आयु समूह के बच्चों की संख्या  <font color="red">*</font></string>
     <string name="number_of_children_going_to_school">स्कूल जाने वाले बच्चों की संख्या <font color="red">*</font></string>
     <string name="your_sector">आपका क्षेत्र <font color="red">*</font></string>
     <string name="your_skills">आपके कौशल</string>
@@ -253,17 +246,5 @@
     <string name="click_to_change">(बदलने के लिए क्लिक करें)</string>
     <string name="date">तारीख -</string>
     <string name="yes1">हाँ</string>
-    <string name="sole_properietor">एकल व्यवसाय</string>
-    <string name="partnership">साझेदारी</string>
-    <string name="pvt_ltd">प्राइवेट लि कंपनी</string>
-    <string name="ltd_company">लिमिटेड कंपनी</string>
-    <string name="llc">एल एल सी</string>
-    <string name="llp">एल एल पी</string>
-    <string name="cooperative">कॉपरेटिव</string>
-    <string name="trust">ट्रस्ट</string>
-    <string name="none">इनमे से कोई नहीं</string>
-    <string name="ssi">लघु उद्योग</string>
-    <string name="msme">मध्यम, लघु एवं सूक्ष्म उद्योग</string>
-    <string name="cottage_industry">कुटीर उद्योग</string>
 
 </resources>

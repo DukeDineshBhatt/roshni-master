@@ -18,6 +18,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +55,7 @@ public class bottomBrand extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.bottom_layout , container , false);
 
 
-        jid = getArguments().getString("jid");
+        jid = Objects.requireNonNull(getArguments()).getString("jid");
 
         progress = view.findViewById(R.id.progressBar4);
         person_layout = view.findViewById(R.id.person_layout);
@@ -103,7 +107,7 @@ public class bottomBrand extends BottomSheetDialogFragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getActivity().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -117,10 +121,10 @@ public class bottomBrand extends BottomSheetDialogFragment {
 
         call.enqueue(new Callback<workerJobDetailBean>() {
             @Override
-            public void onResponse(Call<workerJobDetailBean> call, Response<workerJobDetailBean> response) {
+            public void onResponse(@NotNull Call<workerJobDetailBean> call, @NotNull Response<workerJobDetailBean> response) {
 
 
-                if (response.body().getStatus().equals("1")) {
+                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                     Datum item = response.body().getData();
 
@@ -208,7 +212,7 @@ public class bottomBrand extends BottomSheetDialogFragment {
             }
 
             @Override
-            public void onFailure(Call<workerJobDetailBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<workerJobDetailBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

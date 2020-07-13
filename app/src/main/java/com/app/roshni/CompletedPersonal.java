@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,16 +61,13 @@ public class CompletedPersonal extends Fragment {
 
     private List<String> gen, cat, rel, edu, mar, chi, prof;
 
-    private LinearLayout permanent, child;
+    private LinearLayout child;
 
     private Button upload, submit;
 
     private ProgressBar progress;
 
-    private CustomViewPager pager;
-
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
     @Nullable
@@ -104,7 +103,7 @@ public class CompletedPersonal extends Fragment {
         progress = view.findViewById(R.id.progress);
 
 
-        permanent = view.findViewById(R.id.permanent);
+        LinearLayout permanent = view.findViewById(R.id.permanent);
         child = view.findViewById(R.id.child);
 
 
@@ -479,7 +478,7 @@ public class CompletedPersonal extends Fragment {
 
     void setPrevious() {
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -493,9 +492,9 @@ public class CompletedPersonal extends Fragment {
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
-            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
+            public void onResponse(@NotNull Call<WorkerByIdListBean> call, @NotNull Response<WorkerByIdListBean> response) {
 
-                List<WorkerByIdData> item = response.body().getData();
+                List<WorkerByIdData> item = Objects.requireNonNull(response.body()).getData();
 
                 name.setText(item.get(0).getName());
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).build();
@@ -632,7 +631,7 @@ public class CompletedPersonal extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<WorkerByIdListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

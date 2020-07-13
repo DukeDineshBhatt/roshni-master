@@ -2,10 +2,8 @@ package com.app.roshni;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +12,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class profile extends Fragment {
     TabLayout tabs;
@@ -37,8 +39,8 @@ public class profile extends Fragment {
         pager.setPagingEnabled(true);
 
 
-        tabs.getTabAt(0).setText("PERSONAL");
-        tabs.getTabAt(1).setText("PROFESSIONAL");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("PERSONAL");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("PROFESSIONAL");
 
         return view;
     }
@@ -52,6 +54,7 @@ public class profile extends Fragment {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0)

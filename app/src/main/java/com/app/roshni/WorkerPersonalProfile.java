@@ -1,13 +1,11 @@
 package com.app.roshni;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -26,12 +24,12 @@ import com.app.roshni.sectorPOJO.sectorBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,8 +56,6 @@ public class WorkerPersonalProfile extends Fragment {
 
     CheckBox check;
 
-    private CustomViewPager pager;
-
     String user_id;
 
     Spinner certified , skill_level;
@@ -70,7 +66,6 @@ public class WorkerPersonalProfile extends Fragment {
     String cert , skil;
 
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
     SwipeRefreshLayout swipe;
@@ -225,11 +220,11 @@ public class WorkerPersonalProfile extends Fragment {
 
 
 
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                 R.layout.spinner_model, chi);
 
 
-        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> adapter7 = new ArrayAdapter<>(getActivity(),
                 R.layout.spinner_model, agg);
 
         proof.setEnabled(false);
@@ -291,7 +286,7 @@ public class WorkerPersonalProfile extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -305,25 +300,31 @@ public class WorkerPersonalProfile extends Fragment {
 
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
-            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
+            public void onResponse(@NotNull Call<WorkerByIdListBean> call, @NotNull Response<WorkerByIdListBean> response) {
 
-                final List<WorkerByIdData> item = response.body().getData();
+                final List<WorkerByIdData> item = Objects.requireNonNull(response.body()).getData();
 
-                if (item.get(0).getStatus().equals("pending")) {
+                switch (item.get(0).getStatus()) {
+                    case "pending":
 
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
-                    txtStatus.setVisibility(View.VISIBLE);
-                } else if (item.get(0).getStatus().equals("rejected")) {
-                    txtStatus.setText(item.get(0).getRejectReason());
-                    txtStatus.setVisibility(View.VISIBLE);
-                } else if (item.get(0).getStatus().equals("verified")) {
-                    txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
-                    txtStatus.setVisibility(View.VISIBLE);
-                } else if (item.get(0).getStatus().equals("modifications")) {
-                    txtStatus.setText(item.get(0).getRejectReason());
-                    txtStatus.setVisibility(View.VISIBLE);
-                } else {
-                    txtStatus.setVisibility(View.GONE);
+                        txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    case "rejected":
+                        txtStatus.setText(item.get(0).getRejectReason());
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    case "verified":
+                        txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    case "modifications":
+                        txtStatus.setText(item.get(0).getRejectReason());
+                        txtStatus.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        txtStatus.setVisibility(View.GONE);
+                        break;
                 }
 
                 name.setText(item.get(0).getName());
@@ -362,9 +363,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call3.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             gen.clear();
                             gen1.clear();
@@ -376,7 +377,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, gen);
 
 
@@ -399,7 +400,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -408,9 +409,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call4.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             cat.clear();
                             cat1.clear();
@@ -422,7 +423,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, cat);
 
 
@@ -445,7 +446,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -454,9 +455,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call5.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             rel.clear();
                             rel1.clear();
@@ -468,7 +469,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, rel);
 
 
@@ -507,7 +508,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -516,9 +517,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call6.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             edu.clear();
                             edu1.clear();
@@ -530,7 +531,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, edu);
 
 
@@ -562,7 +563,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -571,9 +572,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call7.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             mar.clear();
                             mar1.clear();
@@ -585,7 +586,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, mar);
 
 
@@ -668,7 +669,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -677,9 +678,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call8.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             prof.clear();
                             prof1.clear();
@@ -691,7 +692,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, prof);
 
 
@@ -714,7 +715,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -723,9 +724,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call9.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             cer.clear();
                             cer1.clear();
@@ -737,7 +738,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, cer);
 
 
@@ -790,7 +791,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -799,9 +800,9 @@ public class WorkerPersonalProfile extends Fragment {
 
                 call10.enqueue(new Callback<sectorBean>() {
                     @Override
-                    public void onResponse(Call<sectorBean> call, Response<sectorBean> response) {
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                        if (response.body().getStatus().equals("1")) {
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                             ski.clear();
                             ski1.clear();
@@ -813,7 +814,7 @@ public class WorkerPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(getContext(),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
                                     R.layout.spinner_model, ski);
 
 
@@ -836,7 +837,7 @@ public class WorkerPersonalProfile extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<sectorBean> call, Throwable t) {
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
                         progress.setVisibility(View.GONE);
                     }
                 });
@@ -864,7 +865,7 @@ public class WorkerPersonalProfile extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<WorkerByIdListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });

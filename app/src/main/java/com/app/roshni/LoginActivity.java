@@ -16,6 +16,10 @@ import android.widget.Toast;
 import com.app.roshni.verify2POJO.Data;
 import com.app.roshni.verify2POJO.verifyBean2;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                         Call<verifyBean2> call = cr.login2(Susername, Spassword);
                         call.enqueue(new Callback<verifyBean2>() {
                             @Override
-                            public void onResponse(Call<verifyBean2> call, Response<verifyBean2> response) {
+                            public void onResponse(@NotNull Call<verifyBean2> call, @NotNull Response<verifyBean2> response) {
 
-                                if (response.body().getStatus().equals("1")) {
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
                                     Data item = response.body().getData();
 
@@ -94,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<verifyBean2> call, Throwable t) {
+                            public void onFailure(@NotNull Call<verifyBean2> call, @NotNull Throwable t) {
                                 progressBar.setVisibility(View.GONE);
                             }
                         });
@@ -126,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

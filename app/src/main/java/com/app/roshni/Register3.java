@@ -19,6 +19,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class Register3 extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -44,7 +48,7 @@ public class Register3 extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +75,8 @@ public class Register3 extends AppCompatActivity {
         }
 
 
-        tabs.getTabAt(0).setText("CONTRACTOR");
-        tabs.getTabAt(1).setText("SAMPLES");
+        Objects.requireNonNull(tabs.getTabAt(0)).setText("CONTRACTOR");
+        Objects.requireNonNull(tabs.getTabAt(1)).setText("SAMPLES");
 
     }
 
@@ -83,6 +87,7 @@ public class Register3 extends AppCompatActivity {
             super(fm);
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
@@ -112,7 +117,7 @@ public class Register3 extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

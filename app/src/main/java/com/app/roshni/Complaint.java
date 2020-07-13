@@ -16,6 +16,10 @@ import android.widget.Toast;
 
 import com.app.roshni.contractorPOJO.contractorBean;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +45,7 @@ public class Complaint extends AppCompatActivity {
         progress = findViewById(R.id.progressBar8);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +89,9 @@ public class Complaint extends AppCompatActivity {
 
                         call.enqueue(new Callback<contractorBean>() {
                             @Override
-                            public void onResponse(Call<contractorBean> call, Response<contractorBean> response) {
+                            public void onResponse(@NotNull Call<contractorBean> call, @NotNull Response<contractorBean> response) {
 
-                                if (response.body().getStatus().equals("1"))
+                                if (Objects.requireNonNull(response.body()).getStatus().equals("1"))
                                 {
                                     Toast.makeText(Complaint.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -106,7 +110,7 @@ public class Complaint extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<contractorBean> call, Throwable t) {
+                            public void onFailure(@NotNull Call<contractorBean> call, @NotNull Throwable t) {
 
                             }
                         });
@@ -131,7 +135,7 @@ public class Complaint extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

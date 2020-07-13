@@ -48,7 +48,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/ic_previous" />
+        android:background="@drawable/ic_previous"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/imageButton6"
@@ -58,7 +59,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/ic_next" />
+        android:background="@drawable/ic_next"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/textView49"

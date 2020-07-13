@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.roshni.workerListPOJO.Datum;
 import com.app.roshni.workerListPOJO.workerListBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,7 +69,7 @@ public class contractors extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -82,9 +85,9 @@ public class contractors extends Fragment {
 
         call.enqueue(new Callback<workerListBean>() {
             @Override
-            public void onResponse(Call<workerListBean> call, Response<workerListBean> response) {
+            public void onResponse(@NotNull Call<workerListBean> call, @NotNull Response<workerListBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -102,7 +105,7 @@ public class contractors extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<workerListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<workerListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
                 t.printStackTrace();
             }
@@ -112,8 +115,8 @@ public class contractors extends Fragment {
     }
 
     class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         JobsAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -130,7 +133,7 @@ public class contractors extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.worker_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.worker_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -168,7 +171,12 @@ public class contractors extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView name , address, skill , exp , emp , reg;
+            final TextView name;
+            final TextView address;
+            final TextView skill;
+            final TextView exp;
+            final TextView emp;
+            final TextView reg;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

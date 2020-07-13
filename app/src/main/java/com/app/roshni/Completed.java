@@ -16,8 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +31,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Completed extends Fragment {
 
-    private CustomViewPager pager;
     String id;
     CompletedAdapter adapter;
     GridLayoutManager manager;
@@ -41,7 +43,6 @@ public class Completed extends Fragment {
 
 
     void setData(CustomViewPager pager) {
-        this.pager = pager;
     }
 
 
@@ -78,7 +79,7 @@ public class Completed extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getContext().getApplicationContext();
+        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -92,9 +93,9 @@ public class Completed extends Fragment {
 
         call.enqueue(new Callback<CompletedListBean>() {
             @Override
-            public void onResponse(Call<CompletedListBean> call, Response<CompletedListBean> response) {
+            public void onResponse(@NotNull Call<CompletedListBean> call, @NotNull Response<CompletedListBean> response) {
 
-                if (response.body().getData().size() > 0)
+                if (Objects.requireNonNull(response.body()).getData().size() > 0)
                 {
                     nodata.setVisibility(View.GONE);
                 }
@@ -111,7 +112,7 @@ public class Completed extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<CompletedListBean> call, Throwable t) {
+            public void onFailure(@NotNull Call<CompletedListBean> call, @NotNull Throwable t) {
                 progress.setVisibility(View.GONE);
             }
         });
@@ -119,8 +120,8 @@ public class Completed extends Fragment {
     }
 
     class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.ViewHolder> {
-        Context context;
-        List<Datum> list = new ArrayList<>();
+        final Context context;
+        List<Datum> list;
 
         CompletedAdapter(Context context, List<Datum> list) {
             this.context = context;
@@ -137,7 +138,7 @@ public class Completed extends Fragment {
         @Override
         public CompletedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.ongoing_list_model, parent, false);
+            View view = Objects.requireNonNull(inflater).inflate(R.layout.ongoing_list_model, parent, false);
             return new CompletedAdapter.ViewHolder(view);
         }
 
@@ -195,7 +196,11 @@ public class Completed extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView phone,date,type,status,address;
+            final TextView phone;
+            final TextView date;
+            final TextView type;
+            final TextView status;
+            final TextView address;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

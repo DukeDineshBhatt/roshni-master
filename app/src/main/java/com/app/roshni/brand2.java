@@ -863,32 +863,39 @@ public class brand2 extends Fragment {
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                        R.layout.spinner_model, cer);
+                                try {
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                            R.layout.spinner_model, cer);
 
-                                certification.setAdapter(adapter);
+                                    certification.setAdapter(adapter);
 
-                                int cp2 = 0;
-                                for (int i = 0; i < cer1.size(); i++) {
-                                    if (item.getCertification().equals(cer1.get(i))) {
-                                        cp2 = i;
+                                    int cp2 = 0;
+                                    for (int i = 0; i < cer1.size(); i++) {
+                                        if (item.getCertification().equals(cer1.get(i))) {
+                                            cp2 = i;
+                                        }
                                     }
-                                }
-                                certification.setSelection(cp2);
+                                    certification.setSelection(cp2);
 
 
-                                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                        R.layout.spinner_model, cer);
+                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                            R.layout.spinner_model, cer);
 
-                                outsourcing.setAdapter(adapter2);
+                                    outsourcing.setAdapter(adapter2);
 
-                                int cp21 = 0;
-                                for (int i = 0; i < cer1.size(); i++) {
-                                    if (item.getOutsourcing().equals(cer1.get(i))) {
-                                        cp21 = i;
+                                    int cp21 = 0;
+                                    for (int i = 0; i < cer1.size(); i++) {
+                                        if (item.getOutsourcing().equals(cer1.get(i))) {
+                                            cp21 = i;
+                                        }
                                     }
+                                    outsourcing.setSelection(cp21);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
                                 }
-                                outsourcing.setSelection(cp21);
+
+
 
 
                             }
@@ -943,18 +950,25 @@ public class brand2 extends Fragment {
 
                                 }
 
-                                ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                        R.layout.spinner_model, frm);
+                                try {
+                                    ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                            R.layout.spinner_model, frm);
 
-                                firm.setAdapter(adapter5);
+                                    firm.setAdapter(adapter5);
 
-                                int cp2 = 0;
-                                for (int i = 0; i < frm1.size(); i++) {
-                                    if (item.getFirmType().equals(frm1.get(i))) {
-                                        cp2 = i;
+                                    int cp2 = 0;
+                                    for (int i = 0; i < frm1.size(); i++) {
+                                        if (item.getFirmType().equals(frm1.get(i))) {
+                                            cp2 = i;
+                                        }
                                     }
+                                    firm.setSelection(cp2);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
                                 }
-                                firm.setSelection(cp2);
+
+
 
                             }
 
@@ -986,18 +1000,25 @@ public class brand2 extends Fragment {
 
                                 }
 
-                                ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                        R.layout.spinner_model, frmtyp);
+                                try {
+                                    ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                            R.layout.spinner_model, frmtyp);
 
-                                firmtype.setAdapter(adapter7);
+                                    firmtype.setAdapter(adapter7);
 
-                                int cp2 = 0;
-                                for (int i = 0; i < frmtyp1.size(); i++) {
-                                    if (item.getFirmRegistrationType().equals(frmtyp1.get(i))) {
-                                        cp2 = i;
+                                    int cp2 = 0;
+                                    for (int i = 0; i < frmtyp1.size(); i++) {
+                                        if (item.getFirmRegistrationType().equals(frmtyp1.get(i))) {
+                                            cp2 = i;
+                                        }
                                     }
+                                    firmtype.setSelection(cp2);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
                                 }
-                                firmtype.setSelection(cp2);
+
+
 
                             }
 
@@ -1030,28 +1051,35 @@ public class brand2 extends Fragment {
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                        R.layout.spinner_model, chi);
+                                try {
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                            R.layout.spinner_model, chi);
 
 
-                                supply_chain.setAdapter(adapter);
-                                child_labour.setAdapter(adapter);
+                                    supply_chain.setAdapter(adapter);
+                                    child_labour.setAdapter(adapter);
 
-                                int cp2 = 0;
-                                for (int i = 0; i < chi1.size(); i++) {
-                                    if (item.getChild_labour().equals(chi1.get(i))) {
-                                        cp2 = i;
+                                    int cp2 = 0;
+                                    for (int i = 0; i < chi1.size(); i++) {
+                                        if (item.getChild_labour().equals(chi1.get(i))) {
+                                            cp2 = i;
+                                        }
                                     }
-                                }
-                                child_labour.setSelection(cp2);
+                                    child_labour.setSelection(cp2);
 
-                                int cp21 = 0;
-                                for (int i = 0; i < chi1.size(); i++) {
-                                    if (item.getSupply_chain().equals(chi1.get(i))) {
-                                        cp21 = i;
+                                    int cp21 = 0;
+                                    for (int i = 0; i < chi1.size(); i++) {
+                                        if (item.getSupply_chain().equals(chi1.get(i))) {
+                                            cp21 = i;
+                                        }
                                     }
+                                    supply_chain.setSelection(cp21);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
                                 }
-                                supply_chain.setSelection(cp21);
+
+
 
                             }
 

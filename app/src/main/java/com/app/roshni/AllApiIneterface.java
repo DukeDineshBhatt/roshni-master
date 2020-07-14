@@ -916,6 +916,30 @@ public interface AllApiIneterface {
             @Part("supply_chain") String supply_chain
     );
 
+
+    @Multipart
+    @POST("workersjoint/api/update_worker_professional4.php")
+    Call<verifyBean> updateWorkerProfessional4(
+            @Part("user_id") String user_id,
+            @Part("sector") String sector,
+            @Part("skills") String skills,
+            @Part("otherwork") String otherwork,
+            @Part("experience") String experience,
+            @Part("availability") String availability,
+            @Part("employment") String employment,
+            @Part("employer") String employer,
+            @Part("home") String home,
+            @Part("workers") String workers,
+            @Part("tools") String tools,
+            @Part("location") String location,
+            @Part("bank") String bank,
+            @Part("id") String id,
+            @Part("govt") String govt,
+            @Part("child_labour") String child_labour,
+            @Part("supply_chain") String supply_chain
+    );
+
+
     @Multipart
     @POST("workersjoint/api/getCompletedSurveys.php")
     Call<CompletedListBean> getCompletedSurvey(

@@ -1,11 +1,13 @@
 package com.app.roshni;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -65,6 +67,8 @@ public class WorkerPersonalProfile extends Fragment {
     List<String> cer , cer1 , ski , ski1;
     String cert , skil;
 
+    Button submit;
+
     void setData(CustomViewPager pager) {
     }
 
@@ -96,6 +100,7 @@ public class WorkerPersonalProfile extends Fragment {
         ski1 = new ArrayList<>();
 
         swipe = view.findViewById(R.id.swipe);
+        submit = view.findViewById(R.id.submit);
         certified = view.findViewById(R.id.certified);
         goingtoschool2 = view.findViewById(R.id.goingtoschool2);
         skill_level = view.findViewById(R.id.skill_level);
@@ -167,6 +172,8 @@ public class WorkerPersonalProfile extends Fragment {
         {
             agg.add("" + i);
         }
+
+
 
         /*cat.add("SC");
         cat.add("ST");
@@ -249,6 +256,15 @@ public class WorkerPersonalProfile extends Fragment {
 
 
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity() , UpdateWorkerPersonal.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 
@@ -276,9 +292,17 @@ public class WorkerPersonalProfile extends Fragment {
 
 
 
-        setPrevious();
+
 
         return view;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setPrevious();
 
     }
 

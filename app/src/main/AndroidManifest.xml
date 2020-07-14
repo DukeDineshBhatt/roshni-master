@@ -22,7 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".UpdateContractor"></activity>
+        <activity android:name=".UpdateWorkerProfessional"></activity>
+        <activity android:name=".UpdateWorkerPersonal" />
+        <activity android:name=".UpdateContractor" />
         <activity android:name=".UpdateBrand" />
         <activity
             android:name=".TermsAndConditions3"

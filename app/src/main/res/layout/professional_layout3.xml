@@ -5,12 +5,6 @@
     android:background="#f5f5f5"
     android:orientation="vertical">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/swipe"
-        >
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,21 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/colorAccent"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:textColor="#000"
-                android:layout_gravity="center"
-                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,8 +50,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round"
                 android:focusable="false"
+                android:longClickable="false"
+                android:background="@drawable/white_back_round"
+                android:hint="@string/tap_to_select"
                 android:padding="10dp"
                 android:autofillHints="" />
 
@@ -83,15 +64,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:visibility="gone"
-                android:focusable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="text"
                 android:padding="10dp"
                 android:autofillHints="" />
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,7 +155,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
-                android:focusable="false"
+                android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:autofillHints="" />
@@ -249,7 +227,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:focusable="false"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
@@ -321,7 +298,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/white_back_round">
 
                 <Spinner
@@ -332,7 +308,6 @@
 
             </RelativeLayout>
 
-
             <EditText
                 android:id="@+id/editTxtLoc"
                 android:layout_width="match_parent"
@@ -340,12 +315,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
                 android:background="@drawable/white_back_round"
-                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
-                android:visibility="gone"
                 android:autofillHints="" />
 
             <TextView
@@ -353,7 +327,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/bank_account" />
+                android:text="@string/do_you_have_bank_account" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -400,9 +374,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
-                android:focusable="false"
-                android:longClickable="false"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
@@ -411,29 +382,38 @@
                 android:padding="10dp"
                 android:autofillHints="" />
 
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/blue_back_round"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingStart="20dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="8dp"
-                android:text="@string/update"
-                android:textColor="#ffffff" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
 
 
+                <Button
+                    android:id="@+id/approve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/blue_stock_round"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/next"
+                    android:textColor="#ffffff" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progress"

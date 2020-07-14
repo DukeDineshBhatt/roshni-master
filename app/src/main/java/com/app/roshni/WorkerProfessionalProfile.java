@@ -1,10 +1,12 @@
 package com.app.roshni;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -50,6 +52,8 @@ public class WorkerProfessionalProfile extends Fragment {
 
     LinearLayout yes;
 
+    Button submit;
+
     SwipeRefreshLayout swipe;
 
     @Nullable
@@ -81,6 +85,7 @@ public class WorkerProfessionalProfile extends Fragment {
         chi = new ArrayList<>();
         chi1 = new ArrayList<>();
 
+        submit = view.findViewById(R.id.submit);
         child_labour = view.findViewById(R.id.child_labour);
         supply_chain = view.findViewById(R.id.supply_chain);
         swipe = view.findViewById(R.id.swipe);
@@ -172,6 +177,13 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity() , UpdateWorkerProfessional.class);
+                startActivity(intent);
+            }
+        });
 
         workers.setAdapter(adapter5);
 

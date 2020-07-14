@@ -170,6 +170,7 @@ public class contractorActive extends Fragment {
             holder.posted.setText("Posted on: " + item.getCreated());
 
             holder.applied.setText(item.getApplied() + " Applied");
+            holder.rejected.setText(item.getRejected() + " Rejected");
 
 
             holder.details.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +217,7 @@ public class contractorActive extends Fragment {
             final TextView applied;
             final TextView applicants;
             final TextView details;
+            final TextView rejected;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -226,6 +228,7 @@ public class contractorActive extends Fragment {
                 applied = itemView.findViewById(R.id.textView29);
                 applicants = itemView.findViewById(R.id.textView38);
                 details = itemView.findViewById(R.id.textView39);
+                rejected = itemView.findViewById(R.id.textView9);
 
             }
         }

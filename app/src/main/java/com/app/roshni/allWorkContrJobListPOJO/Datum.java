@@ -67,6 +67,9 @@ public class Datum {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("rejected")
+    @Expose
+    private String rejected;
 
     public String getId() {
         return id;
@@ -234,5 +237,13 @@ public class Datum {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getRejected() {
+        return rejected;
+    }
+
+    public void setRejected(String rejected) {
+        this.rejected = rejected;
     }
 }

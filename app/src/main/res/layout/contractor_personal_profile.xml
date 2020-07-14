@@ -1141,6 +1141,23 @@
                 android:padding="10dp"
                 android:autofillHints="" />
 
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/blue_back_round"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="20dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="8dp"
+                android:text="@string/update"
+                android:textColor="#ffffff" />
+
 
         </LinearLayout>
 

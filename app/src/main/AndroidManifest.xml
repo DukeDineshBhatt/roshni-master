@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".UpdateBrand"></activity>
+        <activity android:name=".UpdateContractor"></activity>
+        <activity android:name=".UpdateBrand" />
         <activity
             android:name=".TermsAndConditions3"
             android:screenOrientation="portrait" />
@@ -148,7 +149,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Register3"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".JobDetails"
             android:screenOrientation="portrait" />

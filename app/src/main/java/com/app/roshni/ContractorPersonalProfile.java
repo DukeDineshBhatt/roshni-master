@@ -1,11 +1,13 @@
 package com.app.roshni;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -89,6 +91,8 @@ public class ContractorPersonalProfile extends Fragment {
 
     SwipeRefreshLayout swipe;
 
+    Button submit;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -119,6 +123,7 @@ public class ContractorPersonalProfile extends Fragment {
         chi1 = new ArrayList<>();
 
         child_labour = view.findViewById(R.id.child_labour);
+        submit = view.findViewById(R.id.submit);
         supply_chain = view.findViewById(R.id.supply_chain);
         swipe = view.findViewById(R.id.swipe);
         email = view.findViewById(R.id.email);
@@ -234,6 +239,16 @@ public class ContractorPersonalProfile extends Fragment {
         });
 
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity() , UpdateContractor.class);
+                startActivity(intent);
+
+            }
+        });
+
 
         establishment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -270,11 +285,18 @@ public class ContractorPersonalProfile extends Fragment {
 
 
 
-        setPrevious();
+
 
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setPrevious();
+
+    }
 
     private void setPrevious() {
 

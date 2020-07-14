@@ -936,8 +936,9 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="8dp"
-                android:text="@string/submit"
+                android:text="@string/update"
                 android:textColor="#ffffff" />
+
 
 
         </LinearLayout>

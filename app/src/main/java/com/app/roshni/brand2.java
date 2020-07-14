@@ -248,7 +248,16 @@ public class brand2 extends Fragment {
         certification = view.findViewById(R.id.certification);
 
         upload.setVisibility(View.GONE);
-        submit.setVisibility(View.GONE);
+        //submit.setVisibility(View.GONE);
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity() , UpdateBrand.class);
+                startActivity(intent);
+            }
+        });
 
 
         firm.setEnabled(false);
@@ -484,12 +493,16 @@ public class brand2 extends Fragment {
 
 
 
-
-        setPrevious();
-
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setPrevious();
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

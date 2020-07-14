@@ -14,48 +14,66 @@
     <application
         android:name=".Bean"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="q"
-        android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".TermsAndConditions3"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Feedback"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Complaint"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Support"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CreatePIN2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OTP3"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CompletedContractorProfile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CompletedBrandProfile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CompletedProfile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TermsAndConditions2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Profile6"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Profile5"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Profile4"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity4"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ChooseType"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Knowledge"
-            android:screenOrientation="portrait"/>
+        tools:targetApi="q">
+        <activity android:name=".UpdateBrand"></activity>
+        <activity
+            android:name=".TermsAndConditions3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Feedback"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Complaint"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Support"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreatePIN2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OTP3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CompletedContractorProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CompletedBrandProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CompletedProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TermsAndConditions2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile6"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile5"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile4"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity4"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChooseType"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Knowledge"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TermsAndConditions"
             android:screenOrientation="portrait" />
@@ -130,10 +148,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Register3"
-            android:screenOrientation="portrait" >
-
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".JobDetails"
             android:screenOrientation="portrait" />
@@ -178,7 +193,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
@@ -187,7 +201,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo" />
@@ -215,7 +228,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <service android:name=".MyFirebaseMessagingService"
+        <service
+            android:name=".MyFirebaseMessagingService"
             android:permission="TODO">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -29,6 +29,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.roshni.brandDetailsPOJO.Data;
+import com.app.roshni.brandDetailsPOJO.brandDetailsBean;
 import com.app.roshni.contractorPOJO.contractorBean;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
@@ -39,6 +41,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -584,6 +587,69 @@ public class MainActivity2 extends AppCompatActivity {
 
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(SharePreferenceUtils.getInstance().getString("logo") , image , options);
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        final Call<brandDetailsBean> call = cr.getBrandById(SharePreferenceUtils.getInstance().getString("user_id"));
+
+        call.enqueue(new Callback<brandDetailsBean>() {
+            @Override
+            public void onResponse(Call<brandDetailsBean> call, Response<brandDetailsBean> response) {
+                final Data item = response.body().getData();
+                if (item.getStatus().equals("rejected"))
+                {
+
+                    Toast.makeText(MainActivity2.this, "Your profile has been rejected. kindly contact admin", Toast.LENGTH_SHORT).show();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this);
+
+                    builder.setMessage("Your profile has been rejected")
+                            .setTitle("Profile rejected");
+
+                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+
+                            SharePreferenceUtils.getInstance().deletePref();
+
+                            Intent intent = new Intent(MainActivity2.this, Web.class);
+                            intent.putExtra("title", getString(R.string.contact_us));
+                            intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
+                            startActivity(intent);
+                            finishAffinity();
+
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            SharePreferenceUtils.getInstance().deletePref();
+                            dialog.dismiss();
+                            finishAffinity();
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+
+                    dialog.show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<brandDetailsBean> call, Throwable t) {
+
+            }
+        });
 
     }
 

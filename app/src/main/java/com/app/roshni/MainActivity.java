@@ -40,6 +40,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -548,6 +549,74 @@ public class MainActivity extends AppCompatActivity {
 
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(SharePreferenceUtils.getInstance().getString("photo"), image, options);
+
+
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(SharePreferenceUtils.getInstance().getString("user_id") , SharePreferenceUtils.getInstance().getString("lang"));
+
+        call.enqueue(new Callback<WorkerByIdListBean>() {
+            @Override
+            public void onResponse(Call<WorkerByIdListBean> call, Response<WorkerByIdListBean> response) {
+                final List<WorkerByIdData> item = Objects.requireNonNull(response.body()).getData();
+                if (item.get(0).getStatus().equals("rejected"))
+                {
+
+                    Toast.makeText(MainActivity.this, "Your profile has been rejected. kindly contact admin", Toast.LENGTH_SHORT).show();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                    builder.setMessage("Your profile has been rejected")
+                            .setTitle("Profile rejected");
+
+                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+
+                            SharePreferenceUtils.getInstance().deletePref();
+
+                            Intent intent = new Intent(MainActivity.this, Web.class);
+                            intent.putExtra("title", getString(R.string.contact_us));
+                            intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
+                            startActivity(intent);
+                            finishAffinity();
+
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            SharePreferenceUtils.getInstance().deletePref();
+                            dialog.dismiss();
+                            finishAffinity();
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+
+                    dialog.show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<WorkerByIdListBean> call, Throwable t) {
+
+            }
+        });
+
+
+
 
     }
 

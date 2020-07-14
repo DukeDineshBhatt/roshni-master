@@ -410,19 +410,26 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, gen);
+                            try {
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, gen);
 
 
-                            gender.setAdapter(adapter);
+                                gender.setAdapter(adapter);
 
-                            int cp2 = 0;
-                            for (int i = 0; i < gen1.size(); i++) {
-                                if (item.getGender().equals(gen1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < gen1.size(); i++) {
+                                    if (item.getGender().equals(gen1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
+                                gender.setSelection(cp2);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            gender.setSelection(cp2);
+
+
 
                         }
 
@@ -457,19 +464,26 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, prof);
+                            try {
+                                ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, prof);
 
 
-                            proof.setAdapter(adapter6);
+                                proof.setAdapter(adapter6);
 
-                            int cp2 = 0;
-                            for (int i = 0; i < prof1.size(); i++) {
-                                if (item.getIdProof().equals(prof1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < prof1.size(); i++) {
+                                    if (item.getIdProof().equals(prof1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
+                                proof.setSelection(cp2);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            proof.setSelection(cp2);
+
+
 
                         }
 
@@ -503,19 +517,26 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, ava);
+                            try {
+                                ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, ava);
 
 
-                            availability.setAdapter(adapter4);
+                                availability.setAdapter(adapter4);
 
-                            int cp2 = 0;
-                            for (int i = 0; i < ava1.size(); i++) {
-                                if (item.getAvailability().equals(ava1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < ava1.size(); i++) {
+                                    if (item.getAvailability().equals(ava1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
+                                availability.setSelection(cp2);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            availability.setSelection(cp2);
+
+
 
                         }
 
@@ -549,20 +570,27 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, frm);
+                            try {
+                                ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, frm);
 
 
-                            firm.setAdapter(adapter5);
+                                firm.setAdapter(adapter5);
 
 
-                            int cp2 = 0;
-                            for (int i = 0; i < frm1.size(); i++) {
-                                if (item.getFirmType().equals(frm1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < frm1.size(); i++) {
+                                    if (item.getFirmType().equals(frm1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
+                                firm.setSelection(cp2);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            firm.setSelection(cp2);
+
+
 
                         }
 
@@ -596,20 +624,27 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, frmtyp);
+                            try {
+                                ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, frmtyp);
 
 
-                            firmtype.setAdapter(adapter7);
+                                firmtype.setAdapter(adapter7);
 
 
-                            int cp2 = 0;
-                            for (int i = 0; i < frmtyp1.size(); i++) {
-                                if (item.getFirmRegistrationType().equals(frmtyp1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < frmtyp1.size(); i++) {
+                                    if (item.getFirmRegistrationType().equals(frmtyp1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
+                                firmtype.setSelection(cp2);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            firmtype.setSelection(cp2);
+
+
 
                         }
 
@@ -644,20 +679,27 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, out);
+                            try {
+                                ArrayAdapter<String> adapter7 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, out);
 
 
-                            outsource.setAdapter(adapter7);
+                                outsource.setAdapter(adapter7);
 
 
-                            int cp2 = 0;
-                            for (int i = 0; i < out1.size(); i++) {
-                                if (item.getOutsource().equals(out1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < out1.size(); i++) {
+                                    if (item.getOutsource().equals(out1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
+                                outsource.setSelection(cp2);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            outsource.setSelection(cp2);
+
+
 
                         }
 
@@ -692,28 +734,35 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, gov);
+                            try {
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, gov);
 
 
-                            govtinsurance.setAdapter(adapter);
+                                govtinsurance.setAdapter(adapter);
 
-                            int sp = 0;
-                            for (int i = 0; i < gov1.size(); i++) {
+                                int sp = 0;
+                                for (int i = 0; i < gov1.size(); i++) {
 
-                                if (item.getGovt().equals(gov1.get(i))) {
-                                    sp = i;
-                                    othergovt.setText("");
-                                    othergovt.setVisibility(View.GONE);
-                                    break;
-                                } else {
-                                    othergovt.setVisibility(View.VISIBLE);
-                                    othergovt.setText(item.getGovt());
-                                    sp = gov.size() - 1;
+                                    if (item.getGovt().equals(gov1.get(i))) {
+                                        sp = i;
+                                        othergovt.setText("");
+                                        othergovt.setVisibility(View.GONE);
+                                        break;
+                                    } else {
+                                        othergovt.setVisibility(View.VISIBLE);
+                                        othergovt.setText(item.getGovt());
+                                        sp = gov.size() - 1;
+                                    }
+
                                 }
-
+                                govtinsurance.setSelection(sp);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            govtinsurance.setSelection(sp);
+
+
 
 
                         }
@@ -748,28 +797,35 @@ public class ContractorPersonalProfile extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                                    R.layout.spinner_model, chi);
+                            try {
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                        R.layout.spinner_model, chi);
 
 
-                            supply_chain.setAdapter(adapter);
-                            child_labour.setAdapter(adapter);
+                                supply_chain.setAdapter(adapter);
+                                child_labour.setAdapter(adapter);
 
-                            int cp2 = 0;
-                            for (int i = 0; i < chi1.size(); i++) {
-                                if (item.getChild_labour().equals(chi1.get(i))) {
-                                    cp2 = i;
+                                int cp2 = 0;
+                                for (int i = 0; i < chi1.size(); i++) {
+                                    if (item.getChild_labour().equals(chi1.get(i))) {
+                                        cp2 = i;
+                                    }
                                 }
-                            }
-                            child_labour.setSelection(cp2);
+                                child_labour.setSelection(cp2);
 
-                            int cp21 = 0;
-                            for (int i = 0; i < chi1.size(); i++) {
-                                if (item.getSupply_chain().equals(chi1.get(i))) {
-                                    cp21 = i;
+                                int cp21 = 0;
+                                for (int i = 0; i < chi1.size(); i++) {
+                                    if (item.getSupply_chain().equals(chi1.get(i))) {
+                                        cp21 = i;
+                                    }
                                 }
+                                supply_chain.setSelection(cp21);
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
-                            supply_chain.setSelection(cp21);
+
+
 
                         }
 

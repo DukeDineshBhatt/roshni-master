@@ -926,7 +926,7 @@ public class UpdateContractorJob extends AppCompatActivity {
                     contact_person.setChecked(Boolean.parseBoolean(item.getDisplayPerson()));
                     email.setChecked(Boolean.parseBoolean(item.getDisplayEmail()));
 
-                    final Call<sectorBean> call2 = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
+                    final Call<sectorBean> call2 = cr.getBrandSector(SharePreferenceUtils.getInstance().getString("lang") , SharePreferenceUtils.getInstance().getString("user_id"));
 
                     call2.enqueue(new Callback<sectorBean>() {
                         @Override

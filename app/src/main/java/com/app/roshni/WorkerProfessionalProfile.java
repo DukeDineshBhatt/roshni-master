@@ -209,448 +209,506 @@ public class WorkerProfessionalProfile extends Fragment {
             @Override
             public void onResponse(@NotNull Call<WorkerByIdListBean> call, @NotNull Response<WorkerByIdListBean> response) {
 
-                final List<WorkerByIdData> item = Objects.requireNonNull(response.body()).getData();
 
-                switch (item.get(0).getStatus()) {
-                    case "pending":
+                try {
+                    final List<WorkerByIdData> item = Objects.requireNonNull(response.body()).getData();
 
-                        txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
-                        txtStatus.setVisibility(View.VISIBLE);
-                        break;
-                    case "rejected":
-                        txtStatus.setText(item.get(0).getRejectReason());
-                        txtStatus.setVisibility(View.VISIBLE);
-                        break;
-                    case "verified":
-                        txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
-                        txtStatus.setVisibility(View.VISIBLE);
-                        break;
-                    case "modifications":
-                        txtStatus.setText(item.get(0).getRejectReason());
-                        txtStatus.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        txtStatus.setVisibility(View.GONE);
-                        break;
-                }
+                    switch (item.get(0).getStatus()) {
+                        case "pending":
 
-
-                employer.setText(item.get(0).getEmployer());
-                skills.setText(item.get(0).getSkills());
-                sector.setText(item.get(0).getSector());
-                looms.setText(item.get(0).getTools());
-                otherwork.setText(item.get(0).getOtherwork());
-
-                if (item.get(0).getOtherwork().length() > 0)
-                {
-                    otherwork.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    otherwork.setVisibility(View.GONE);
-                }
+                            txtStatus.setText("YOUR PROFILE IS PENDING FOR VERIFICATION");
+                            txtStatus.setVisibility(View.VISIBLE);
+                            break;
+                        case "rejected":
+                            txtStatus.setText(item.get(0).getRejectReason());
+                            txtStatus.setVisibility(View.VISIBLE);
+                            break;
+                        case "verified":
+                            txtStatus.setText("YOUR PROFILE IS PENDING FOR APPROVAL");
+                            txtStatus.setVisibility(View.VISIBLE);
+                            break;
+                        case "modifications":
+                            txtStatus.setText(item.get(0).getRejectReason());
+                            txtStatus.setVisibility(View.VISIBLE);
+                            break;
+                        default:
+                            txtStatus.setVisibility(View.GONE);
+                            break;
+                    }
 
 
-                final Call<sectorBean> call4 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
+                    employer.setText(item.get(0).getEmployer());
+                    skills.setText(item.get(0).getSkills());
+                    sector.setText(item.get(0).getSector());
+                    looms.setText(item.get(0).getTools());
+                    otherwork.setText(item.get(0).getOtherwork());
 
-                call4.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
-
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            exp.clear();
-                            exp1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                exp.add(response.body().getData().get(i).getTitle());
-                                exp1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, exp);
+                    if (item.get(0).getOtherwork().length() > 0)
+                    {
+                        otherwork.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        otherwork.setVisibility(View.GONE);
+                    }
 
 
-                            experience.setAdapter(adapter2);
+                    final Call<sectorBean> call4 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
 
-                            int cp2 = 0;
-                            for (int i = 0; i < exp1.size(); i++) {
-                                if (item.get(0).getExperience().equals(exp1.get(i))) {
-                                    cp2 = i;
+                    call4.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
+
+                                exp.clear();
+                                exp1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    exp.add(response.body().getData().get(i).getTitle());
+                                    exp1.add(response.body().getData().get(i).getId());
+
                                 }
+
+                                try {
+                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, exp);
+
+
+                                    experience.setAdapter(adapter2);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < exp1.size(); i++) {
+                                        if (item.get(0).getExperience().equals(exp1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    experience.setSelection(cp2);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+
                             }
-                            experience.setSelection(cp2);
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
+                    final Call<sectorBean> call5 = cr.getEmployment(SharePreferenceUtils.getInstance().getString("lang"));
 
-                        progress.setVisibility(View.GONE);
+                    call5.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    }
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                emp.clear();
+                                emp1.clear();
 
-                final Call<sectorBean> call5 = cr.getEmployment(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call5.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    emp.add(response.body().getData().get(i).getTitle());
+                                    emp1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            emp.clear();
-                            emp1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                emp.add(response.body().getData().get(i).getTitle());
-                                emp1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, emp);
-
-
-                            employment.setAdapter(adapter3);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < emp1.size(); i++) {
-                                if (item.get(0).getEmployment().equals(emp1.get(i))) {
-                                    cp2 = i;
                                 }
+
+                                try {
+
+                                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, emp);
+
+
+                                    employment.setAdapter(adapter3);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < emp1.size(); i++) {
+                                        if (item.get(0).getEmployment().equals(emp1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    employment.setSelection(cp2);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
                             }
-                            employment.setSelection(cp2);
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
+                    final Call<sectorBean> call6 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
 
-                        progress.setVisibility(View.GONE);
+                    call6.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    }
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                hom.clear();
+                                hom1.clear();
 
-                final Call<sectorBean> call6 = cr.getCerts(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call6.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    hom.add(response.body().getData().get(i).getTitle());
+                                    hom1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            hom.clear();
-                            hom1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                hom.add(response.body().getData().get(i).getTitle());
-                                hom1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, hom);
-
-
-                            home.setAdapter(adapter4);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < hom1.size(); i++) {
-                                if (item.get(0).getHome().equals(hom1.get(i))) {
-                                    cp2 = i;
                                 }
+
+                                try {
+                                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, hom);
+
+
+                                    home.setAdapter(adapter4);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < hom1.size(); i++) {
+                                        if (item.get(0).getHome().equals(hom1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    home.setSelection(cp2);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+
                             }
-                            home.setSelection(cp2);
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
+                    final Call<sectorBean> call7 = cr.getBank(SharePreferenceUtils.getInstance().getString("lang"));
 
-                        progress.setVisibility(View.GONE);
+                    call7.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    }
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                ban.clear();
+                                ban1.clear();
 
-                final Call<sectorBean> call7 = cr.getBank(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call7.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    ban.add(response.body().getData().get(i).getTitle());
+                                    ban1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            ban.clear();
-                            ban1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                ban.add(response.body().getData().get(i).getTitle());
-                                ban1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, ban);
-
-
-                            bank.setAdapter(adapter6);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < ban1.size(); i++) {
-                                if (item.get(0).getBank().equals(ban1.get(i))) {
-                                    cp2 = i;
                                 }
-                            }
-                            bank.setSelection(cp2);
 
+                                try {
+                                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, ban);
+
+
+                                    bank.setAdapter(adapter6);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < ban1.size(); i++) {
+                                        if (item.get(0).getBank().equals(ban1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    bank.setSelection(cp2);
+
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
+                    final Call<sectorBean> call71 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
 
-                        progress.setVisibility(View.GONE);
+                    call71.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    }
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                gov.clear();
+                                gov1.clear();
 
-                final Call<sectorBean> call71 = cr.getGovt(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call71.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    gov.add(response.body().getData().get(i).getTitle());
+                                    gov1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            gov.clear();
-                            gov1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                gov.add(response.body().getData().get(i).getTitle());
-                                gov1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, gov);
-
-
-                            govtinsurance.setAdapter(adapter6);
-
-
-                            int sp = 0;
-                            for (int i = 0; i < gov1.size(); i++) {
-
-                                if (item.get(0).getGovt().equals(gov1.get(i))) {
-                                    sp = i;
-                                    othergovt.setText("");
-                                    othergovt.setVisibility(View.GONE);
-                                    break;
-                                } else {
-                                    othergovt.setVisibility(View.VISIBLE);
-                                    othergovt.setText(item.get(0).getGovt());
-                                    sp = gov.size() - 1;
                                 }
 
-                            }
-                            govtinsurance.setSelection(sp);
+                                try {
+                                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, gov);
 
+
+                                    govtinsurance.setAdapter(adapter6);
+
+
+                                    int sp = 0;
+                                    for (int i = 0; i < gov1.size(); i++) {
+
+                                        if (item.get(0).getGovt().equals(gov1.get(i))) {
+                                            sp = i;
+                                            othergovt.setText("");
+                                            othergovt.setVisibility(View.GONE);
+                                            break;
+                                        } else {
+                                            othergovt.setVisibility(View.VISIBLE);
+                                            othergovt.setText(item.get(0).getGovt());
+                                            sp = gov.size() - 1;
+                                        }
+
+                                    }
+                                    govtinsurance.setSelection(sp);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
 
-                        progress.setVisibility(View.GONE);
+                    final Call<sectorBean> call8 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
 
-                    }
+                    call8.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
+                                loc.clear();
+                                loc1.clear();
 
-                final Call<sectorBean> call8 = cr.getLocations(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call8.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    loc.add(response.body().getData().get(i).getTitle());
+                                    loc1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            loc.clear();
-                            loc1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                loc.add(response.body().getData().get(i).getTitle());
-                                loc1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, loc);
-
-
-                            location.setAdapter(adapter);
-
-                            int sp = 0;
-                            for (int i = 0; i < loc1.size(); i++) {
-
-                                if (item.get(0).getLocation().equals(loc1.get(i))) {
-                                    sp = i;
-                                    editTextLoc.setText("");
-                                    editTextLoc.setVisibility(View.GONE);
-                                    break;
-                                } else {
-                                    editTextLoc.setVisibility(View.VISIBLE);
-                                    editTextLoc.setText(item.get(0).getLocation());
-                                    sp = loc.size() - 1;
                                 }
 
-                            }
-                            location.setSelection(sp);
+                                try {
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, loc);
 
+
+                                    location.setAdapter(adapter);
+
+                                    int sp = 0;
+                                    for (int i = 0; i < loc1.size(); i++) {
+
+                                        if (item.get(0).getLocation().equals(loc1.get(i))) {
+                                            sp = i;
+                                            editTextLoc.setText("");
+                                            editTextLoc.setVisibility(View.GONE);
+                                            break;
+                                        } else {
+                                            editTextLoc.setVisibility(View.VISIBLE);
+                                            editTextLoc.setText(item.get(0).getLocation());
+                                            sp = loc.size() - 1;
+                                        }
+
+                                    }
+                                    location.setSelection(sp);
+
+                                } catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
+                    final Call<sectorBean> call9 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
 
-                        progress.setVisibility(View.GONE);
+                    call9.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    }
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                ava.clear();
+                                ava1.clear();
 
-                final Call<sectorBean> call9 = cr.getAvailability(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call9.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    ava.add(response.body().getData().get(i).getTitle());
+                                    ava1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            ava.clear();
-                            ava1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                ava.add(response.body().getData().get(i).getTitle());
-                                ava1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, ava);
-
-
-                            availability.setAdapter(adapter);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < ava1.size(); i++) {
-                                if (item.get(0).getAvailability().equals(ava1.get(i))) {
-                                    cp2 = i;
                                 }
-                            }
-                            availability.setSelection(cp2);
 
+                                try {
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, ava);
+
+
+                                    availability.setAdapter(adapter);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < ava1.size(); i++) {
+                                        if (item.get(0).getAvailability().equals(ava1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    availability.setSelection(cp2);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+
+
+                            }
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
+                    final Call<sectorBean> call82 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
 
-                        progress.setVisibility(View.GONE);
+                    call82.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
 
-                    }
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
 
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                                chi.clear();
+                                chi1.clear();
 
-                final Call<sectorBean> call82 = cr.getChild(SharePreferenceUtils.getInstance().getString("lang"));
+                                for (int i = 0; i < response.body().getData().size(); i++) {
 
-                call82.enqueue(new Callback<sectorBean>() {
-                    @Override
-                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+                                    chi.add(response.body().getData().get(i).getTitle());
+                                    chi1.add(response.body().getData().get(i).getId());
 
-                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
-
-                            chi.clear();
-                            chi1.clear();
-
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-
-                                chi.add(response.body().getData().get(i).getTitle());
-                                chi1.add(response.body().getData().get(i).getId());
-
-                            }
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
-                                    R.layout.spinner_model, chi);
-
-
-                            supply_chain.setAdapter(adapter);
-                            child_labour.setAdapter(adapter);
-
-                            int cp2 = 0;
-                            for (int i = 0; i < chi1.size(); i++) {
-                                if (item.get(0).getChild_labour().equals(chi1.get(i))) {
-                                    cp2 = i;
                                 }
-                            }
-                            child_labour.setSelection(cp2);
 
-                            int cp21 = 0;
-                            for (int i = 0; i < chi1.size(); i++) {
-                                if (item.get(0).getSupply_chain().equals(chi1.get(i))) {
-                                    cp21 = i;
+                                try {
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                            R.layout.spinner_model, chi);
+
+
+                                    supply_chain.setAdapter(adapter);
+                                    child_labour.setAdapter(adapter);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < chi1.size(); i++) {
+                                        if (item.get(0).getChild_labour().equals(chi1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    child_labour.setSelection(cp2);
+
+                                    int cp21 = 0;
+                                    for (int i = 0; i < chi1.size(); i++) {
+                                        if (item.get(0).getSupply_chain().equals(chi1.get(i))) {
+                                            cp21 = i;
+                                        }
+                                    }
+                                    supply_chain.setSelection(cp21);
+                                }catch (Exception e)
+                                {
+                                    e.printStackTrace();
                                 }
+
+
+
                             }
-                            supply_chain.setSelection(cp21);
+
+
+
+                            progress.setVisibility(View.GONE);
 
                         }
 
-
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
 
 /*
                 int sc = 0;
@@ -677,13 +735,20 @@ public class WorkerProfessionalProfile extends Fragment {
 
 
 
-                int chp = 0;
-                for (int i = 0; i < wor.size(); i++) {
-                    if (item.get(0).getWorkers().equals(wor.get(i))) {
-                        chp = i;
+                    int chp = 0;
+                    for (int i = 0; i < wor.size(); i++) {
+                        if (item.get(0).getWorkers().equals(wor.get(i))) {
+                            chp = i;
+                        }
                     }
+                    workers.setSelection(chp);
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
                 }
-                workers.setSelection(chp);
+
+
+
 
 
 

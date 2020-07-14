@@ -718,7 +718,7 @@ public class PostJobContractor extends AppCompatActivity {
         progress.setVisibility(View.VISIBLE);
 
 
-        final Call<sectorBean> call = cr.getSectors3(SharePreferenceUtils.getInstance().getString("lang"));
+        final Call<sectorBean> call = cr.getBrandSector(SharePreferenceUtils.getInstance().getString("lang") , SharePreferenceUtils.getInstance().getString("user_id"));
 
         call.enqueue(new Callback<sectorBean>() {
             @Override

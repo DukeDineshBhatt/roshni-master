@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ public class WorkerJobDetails extends AppCompatActivity {
 
     CheckBox display_name , display_phone , display_person , display_email;
 
+    LinearLayout man;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,7 @@ public class WorkerJobDetails extends AppCompatActivity {
         edit = findViewById(R.id.button9);
 
         display_name = findViewById(R.id.display_name);
+        man = findViewById(R.id.man);
         display_phone = findViewById(R.id.display_phone);
         display_person = findViewById(R.id.display_person);
         display_email = findViewById(R.id.display_email);
@@ -248,6 +252,15 @@ public class WorkerJobDetails extends AppCompatActivity {
                     else
                     {
                         location.setText(item.getLocation());
+                    }
+
+                    if (item.getManDays().length() > 0)
+                    {
+                        man.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        man.setVisibility(View.GONE);
                     }
 
                     experience.setText(item.getExperience1());

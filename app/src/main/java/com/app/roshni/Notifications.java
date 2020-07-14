@@ -236,21 +236,75 @@ public class Notifications extends AppCompatActivity {
 
                     if (SharePreferenceUtils.getInstance().getString("type").equals("worker"))
                     {
-                        Intent intent = new Intent(context , MainActivity.class);
-                        startActivity(intent);
-                        finishAffinity();
+
+                        if (item.getType().equals("worker_job"))
+                        {
+                            Intent intent = new Intent(context , JobDetails.class);
+                            intent.putExtra("jid" , item.getType_id());
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(context , MainActivity.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+
+
                     }
                     else if (SharePreferenceUtils.getInstance().getString("type").equals("brand"))
                     {
-                        Intent intent = new Intent(context , MainActivity2.class);
-                        startActivity(intent);
-                        finishAffinity();
+
+                        if (item.getType().equals("worker_job"))
+                        {
+                            Intent intent = new Intent(context , WorkerApplicants.class);
+                            intent.putExtra("jid" , item.getType_id());
+                            intent.putExtra("title" , item.getTitle());
+                            intent.putExtra("category" , item.getCategory());
+                            intent.putExtra("salary" , item.getSalary());
+                            intent.putExtra("posted" , item.getCreated());
+                            intent.putExtra("sts" , "Active");
+                            startActivity(intent);
+                        }
+                        else if (item.getType().equals("contractor_job"))
+                        {
+                            Intent intent = new Intent(context , ContractorApplicants.class);
+                            intent.putExtra("jid" , item.getType_id());
+                            intent.putExtra("title" , item.getTitle());
+                            intent.putExtra("category" , item.getCategory());
+                            intent.putExtra("salary" , item.getSalary());
+                            intent.putExtra("posted" , item.getCreated());
+                            intent.putExtra("sts" , "Active");
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(context , MainActivity2.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+
+
                     }
                     else if (SharePreferenceUtils.getInstance().getString("type").equals("contractor"))
                     {
-                        Intent intent = new Intent(context , MainActivity3.class);
-                        startActivity(intent);
-                        finishAffinity();
+
+
+                        if (item.getType().equals("worker_job"))
+                        {
+                            Intent intent = new Intent(context , JobDetails2.class);
+                            intent.putExtra("jid" , item.getType_id());
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(context , MainActivity3.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+
+
+
                     }
 
 

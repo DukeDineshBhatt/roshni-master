@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: io.michaelrocks:libphonenumber-android:8.10.7@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2174cc11ab5c83441b9e3b6c6b1a976d/jetified-libphonenumber-android-8.10.7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2174cc11ab5c83441b9e3b6c6b1a976d/jetified-libphonenumber-android-8.10.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1d8ae91227333e4190ff9e7a6e10a9e4/jetified-libphonenumber-android-8.10.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1d8ae91227333e4190ff9e7a6e10a9e4/jetified-libphonenumber-android-8.10.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1d8ae91227333e4190ff9e7a6e10a9e4/jetified-libphonenumber-android-8.10.7/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.michaelrocks/libphonenumber-android/8.10.7/3dc7fd3b170ccd20d4608b64efa77da2ffa040d/libphonenumber-android-8.10.7-javadoc.jar!/" />

@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.qiugang:EditTag:v1.2.4-beta2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/47b80b4cbac09d02c1b0121ce5db1a7a/jetified-EditTag-v1.2.4-beta2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/47b80b4cbac09d02c1b0121ce5db1a7a/jetified-EditTag-v1.2.4-beta2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a02d3ae9b5374480f7d447346463c78e/jetified-EditTag-v1.2.4-beta2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a02d3ae9b5374480f7d447346463c78e/jetified-EditTag-v1.2.4-beta2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a02d3ae9b5374480f7d447346463c78e/jetified-EditTag-v1.2.4-beta2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

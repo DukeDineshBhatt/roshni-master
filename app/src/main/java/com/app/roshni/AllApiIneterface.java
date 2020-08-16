@@ -28,21 +28,21 @@ import retrofit2.http.Part;
 public interface AllApiIneterface {
 
     @Multipart
-    @POST("workersjoint/api/login.php")
+    @POST("api/login.php")
     Call<verifyBean> login(
             @Part("phone") String client,
             @Part("token") String token
     );
 
     @Multipart
-    @POST("workersjoint/api/login2.php")
+    @POST("api/login2.php")
     Call<verifyBean2> login2(
             @Part("username") String username,
             @Part("password") String password
     );
 
     @Multipart
-    @POST("workersjoint/api/register_worker.php")
+    @POST("api/register_worker.php")
     Call<verifyBean> worker_signup(
             @Part("phone") String client,
             @Part("type") String type,
@@ -50,34 +50,34 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/verify.php")
+    @POST("api/verify.php")
     Call<verifyBean> verify(
             @Part("phone") String client,
             @Part("otp") String otp
     );
 
     @Multipart
-    @POST("workersjoint/api/resend.php")
+    @POST("api/resend.php")
     Call<verifyBean> resend(
             @Part("phone") String client
     );
 
     @Multipart
-    @POST("workersjoint/api/createPIN.php")
+    @POST("api/createPIN.php")
     Call<verifyBean> createPIN(
             @Part("user_id") String user_id,
             @Part("pin") String pin
     );
 
     @Multipart
-    @POST("workersjoint/api/verifyPIN.php")
+    @POST("api/verifyPIN.php")
     Call<verifyBean> verifyPIN(
             @Part("user_id") String user_id,
             @Part("pin") String pin
     );
 
     @Multipart
-    @POST("workersjoint/api/update_worker_personal.php")
+    @POST("api/update_worker_personal.php")
     Call<verifyBean> updateWorkerPersonal(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -123,7 +123,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_worker_personal2.php")
+    @POST("api/update_worker_personal2.php")
     Call<verifyBean> updateWorkerPersonal2(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -165,7 +165,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("workersjoint/api/update_brand.php")
+    @POST("api/update_brand.php")
     Call<verifyBean> updateBrand(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -214,7 +214,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_brand2.php")
+    @POST("api/update_brand2.php")
     Call<verifyBean> updateBrand2(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -258,7 +258,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_contractor.php")
+    @POST("api/update_contractor.php")
     Call<verifyBean> update_contractor(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -316,7 +316,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("workersjoint/api/post_job.php")
+    @POST("api/post_job.php")
     Call<verifyBean> postjob(
             @Part("brand_id") String brand_id,
             @Part("title") String title,
@@ -343,7 +343,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_job.php")
+    @POST("api/update_job.php")
     Call<verifyBean> UpdateWorkerJob(
             @Part("id") String id,
             @Part("title") String title,
@@ -370,7 +370,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_job2.php")
+    @POST("api/update_job2.php")
     Call<verifyBean> UpdateContractorJob(
             @Part("id") String id,
             @Part("sector") String sector,
@@ -391,7 +391,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/post_job_contractor.php")
+    @POST("api/post_job_contractor.php")
     Call<verifyBean> post_job_contractor(
             @Part("contractor_id") String contractor_id,
             @Part("sector") String sector,
@@ -412,49 +412,49 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/apply_job.php")
+    @POST("api/apply_job.php")
     Call<verifyBean> apply_job(
             @Part("job_id") String job_id,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/withdrawJob.php")
+    @POST("api/withdrawJob.php")
     Call<verifyBean> withdrawJob(
             @Part("job_id") String job_id,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/apply_job2.php")
+    @POST("api/apply_job2.php")
     Call<verifyBean> apply_job2(
             @Part("job_id") String job_id,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/withdrawJob2.php")
+    @POST("api/withdrawJob2.php")
     Call<verifyBean> withdrawJob2(
             @Part("job_id") String job_id,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/worker_ac_inac.php")
+    @POST("api/worker_ac_inac.php")
     Call<verifyBean> worker_ac_inac(
             @Part("jid") String jid,
             @Part("status") String status
     );
 
     @Multipart
-    @POST("workersjoint/api/contractor_ac_inac.php")
+    @POST("api/contractor_ac_inac.php")
     Call<verifyBean> contractor_ac_inac(
             @Part("jid") String jid,
             @Part("status") String status
     );
 
     @Multipart
-    @POST("workersjoint/api/worker_acept_reject.php")
+    @POST("api/worker_acept_reject.php")
     Call<verifyBean> worker_acept_reject(
             @Part("jid") String jid,
             @Part("id") String id,
@@ -462,7 +462,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/contractor_acept_reject.php")
+    @POST("api/contractor_acept_reject.php")
     Call<verifyBean> contractor_acept_reject(
             @Part("jid") String jid,
             @Part("id") String id,
@@ -470,7 +470,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_worker_professional.php")
+    @POST("api/update_worker_professional.php")
     Call<verifyBean> updateWorkerProfessional(
             @Part("user_id") String user_id,
             @Part("sector") String sector,
@@ -491,7 +491,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/getJobListForWorker.php")
+    @POST("api/getJobListForWorker.php")
     Call<workerJobListBean> getJobListForWorker(
             @Part("user_id") String user_id,
             @Part("date") String date,
@@ -500,7 +500,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/getJobListForContractor.php")
+    @POST("api/getJobListForContractor.php")
     Call<workerJobListBean> getJobListForContractor(
             @Part("user_id") String user_id,
             @Part("date") String date,
@@ -510,7 +510,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("workersjoint/api/getAllWorkerJobs.php")
+    @POST("api/getAllWorkerJobs.php")
     Call<allWorkContrJobBean> getAllWorkerJobs(
             @Part("brand_id") String brand_id,
             @Part("status") String status,
@@ -518,7 +518,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/getAllContractorJobs.php")
+    @POST("api/getAllContractorJobs.php")
     Call<allWorkContrJobBean> getAllContractorJobs(
             @Part("brand_id") String brand_id,
             @Part("status") String status,
@@ -527,7 +527,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("workersjoint/api/getAppliedListForWorker.php")
+    @POST("api/getAppliedListForWorker.php")
     Call<workerJobListBean> getAppliedListForWorker(
             @Part("user_id") String user_id,
             @Part("date") String date,
@@ -535,7 +535,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/getAppliedListForContractor.php")
+    @POST("api/getAppliedListForContractor.php")
     Call<workerJobListBean> getAppliedListForContractor(
             @Part("user_id") String user_id,
             @Part("date") String date,
@@ -543,7 +543,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/getJobDetailsForWorker.php")
+    @POST("api/getJobDetailsForWorker.php")
     Call<workerJobDetailBean> getJobDetailForWorker(
             @Part("user_id") String user_id,
             @Part("jid") String jid,
@@ -551,328 +551,328 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/getJobDetailsForContractor.php")
+    @POST("api/getJobDetailsForContractor.php")
     Call<contractorJobDetailsBean> getJobDetailsForContractor(
             @Part("user_id") String user_id,
             @Part("jid") String jid
     );
 
 
-    @GET("workersjoint/api/getSectors.php")
+    @GET("api/getSectors.php")
     Call<sectorBean> getSectors();
 
     @Multipart
-    @POST("workersjoint/api/getSectors.php")
+    @POST("api/getSectors.php")
     Call<sectorBean> getSectors2(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getSectors3.php")
+    @POST("api/getSectors3.php")
     Call<sectorBean> getSectors3(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getContractorSector.php")
+    @POST("api/getContractorSector.php")
     Call<sectorBean> getContractorSector(
             @Part("lang") String lang,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/getWorkerSector.php")
+    @POST("api/getWorkerSector.php")
     Call<sectorBean> getWorkerSector(
             @Part("lang") String lang,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/getBrandSector.php")
+    @POST("api/getBrandSector.php")
     Call<sectorBean> getBrandSector(
             @Part("lang") String lang,
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/getCerts.php")
+    @POST("api/getCerts.php")
     Call<sectorBean> getCerts(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getChild.php")
+    @POST("api/getChild.php")
     Call<sectorBean> getChild(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getSkillLevel.php")
+    @POST("api/getSkillLevel.php")
     Call<sectorBean> getSkillLevel(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getGender.php")
+    @POST("api/getGender.php")
     Call<sectorBean> getGender(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getCategories.php")
+    @POST("api/getCategories.php")
     Call<sectorBean> getCategories(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getReligion.php")
+    @POST("api/getReligion.php")
     Call<sectorBean> getReligion(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getEducation.php")
+    @POST("api/getEducation.php")
     Call<sectorBean> getEducation(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getMarital.php")
+    @POST("api/getMarital.php")
     Call<sectorBean> getMarital(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getProof.php")
+    @POST("api/getProof.php")
     Call<sectorBean> getProof(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getExperience.php")
+    @POST("api/getExperience.php")
     Call<sectorBean> getExperience(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getGenderPreference.php")
+    @POST("api/getGenderPreference.php")
     Call<sectorBean> getGenderPreference(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getSkillLevelJob.php")
+    @POST("api/getSkillLevelJob.php")
     Call<sectorBean> getSkillLevelJob(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getNature.php")
+    @POST("api/getNature.php")
     Call<sectorBean> getNature(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getPlace.php")
+    @POST("api/getPlace.php")
     Call<sectorBean> getPlace(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getEducationJob.php")
+    @POST("api/getEducationJob.php")
     Call<sectorBean> getEducationJob(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getSalaryType.php")
+    @POST("api/getSalaryType.php")
     Call<sectorBean> getSalaryType(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getEmployment.php")
+    @POST("api/getEmployment.php")
     Call<sectorBean> getEmployment(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getBank.php")
+    @POST("api/getBank.php")
     Call<sectorBean> getBank(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getGovt.php")
+    @POST("api/getGovt.php")
     Call<sectorBean> getGovt(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getAvailability.php")
+    @POST("api/getAvailability.php")
     Call<sectorBean> getAvailability(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getFirmTypes.php")
+    @POST("api/getFirmTypes.php")
     Call<sectorBean> getFirmTypes(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getFirmRegistyrationTypes.php")
+    @POST("api/getFirmRegistyrationTypes.php")
     Call<sectorBean> getFirmRegistyrationTypes(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getRoles.php")
+    @POST("api/getRoles.php")
     Call<skillsBean> getRoles(
             @Part("sector_id") String sector_id,
             @Part("lang") String lang
     );
 
-    @GET("workersjoint/api/getSkills.php")
+    @GET("api/getSkills.php")
     Call<sectorBean> getSkills();
 
     @Multipart
-    @POST("workersjoint/api/getSkills.php")
+    @POST("api/getSkills.php")
     Call<skillsBean> getSkills1(
             @Part("sector_id") String sector_id,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getSkills2.php")
+    @POST("api/getSkills2.php")
     Call<skillsBean> getSkills2(
             @Part("sector_id") String sector_id,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getLocations.php")
+    @POST("api/getLocations.php")
     Call<sectorBean> getLocations(
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getAllWorkers.php")
+    @POST("api/getAllWorkers.php")
     Call<workerListBean> getAllWorkers(
             @Part("user_id") String user_id,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getContWorkers.php")
+    @POST("api/getContWorkers.php")
     Call<contWorkerBeam> getContWorkers(
             @Part("cuid") String cuid
     );
 
     @Multipart
-    @POST("workersjoint/api/getAllConttractors.php")
+    @POST("api/getAllConttractors.php")
     Call<workerListBean> getAllConttractors(
             @Part("user_id") String user_id,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getAppliedWorkers.php")
+    @POST("api/getAppliedWorkers.php")
     Call<workerListBean> getAppliedWorkers(
             @Part("jid") String jid,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getAppliedContractors.php")
+    @POST("api/getAppliedContractors.php")
     Call<workerListBean> getAppliedContractors(
             @Part("jid") String jid,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getWorkerById.php")
+    @POST("api/getWorkerById.php")
     Call<workerListBean> getWorkerById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/getWorkerById.php")
+    @POST("api/getWorkerById.php")
     Call<WorkerByIdListBean> getWorkerById1(
             @Part("id") String id,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getBrandNoti.php")
+    @POST("api/getBrandNoti.php")
     Call<notificationBean> getBrandNoti(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/getContractorNoti.php")
+    @POST("api/getContractorNoti.php")
     Call<notificationBean> getContractorNoti(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/getWorkerNoti.php")
+    @POST("api/getWorkerNoti.php")
     Call<notificationBean> getWorkerNoti(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/getSamples.php")
+    @POST("api/getSamples.php")
     Call<sampleBean> getSamples(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("workersjoint/api/uploadSample.php")
+    @POST("api/uploadSample.php")
     Call<sampleBean> uploadSample(
             @Part("user_id") String user_id,
             @Part MultipartBody.Part file1
     );
 
     @Multipart
-    @POST("workersjoint/api/deleteSample.php")
+    @POST("api/deleteSample.php")
     Call<sampleBean> deleteSample(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/getContractorById.php")
+    @POST("api/getContractorById.php")
     Call<contractorBean> getContractorById(
             @Part("id") String id,
             @Part("lang") String lang
     );
 
     @Multipart
-    @POST("workersjoint/api/getKnowledgeList.php")
+    @POST("api/getKnowledgeList.php")
     Call<knowledgeListBean> getKnowledgeList(
             @Part("type") String type
     );
 
     @Multipart
-    @POST("workersjoint/api/getKnowledgeById.php")
+    @POST("api/getKnowledgeById.php")
     Call<knowledgeDetailsBean> getKnowledgeById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/getBrandById.php")
+    @POST("api/getBrandById.php")
     Call<brandDetailsBean> getBrandById(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/getOngoingSurveys.php")
+    @POST("api/getOngoingSurveys.php")
     Call<OngoingListBean> getOngoingSurvey(
             @Part("officer_id") String officer_id
     );
 
     @Multipart
-    @POST("workersjoint/api/update_worker_professional3.php")
+    @POST("api/update_worker_professional3.php")
     Call<verifyBean> rejectWorkerProfessional(
             @Part("survey_id") String user_id,
             @Part("sector") String sector,
@@ -895,7 +895,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_worker_professional2.php")
+    @POST("api/update_worker_professional2.php")
     Call<verifyBean> updateWorkerProfessional2(
             @Part("survey_id") String user_id,
             @Part("sector") String sector,
@@ -918,7 +918,7 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("workersjoint/api/update_worker_professional4.php")
+    @POST("api/update_worker_professional4.php")
     Call<verifyBean> updateWorkerProfessional4(
             @Part("user_id") String user_id,
             @Part("sector") String sector,
@@ -941,28 +941,28 @@ public interface AllApiIneterface {
 
 
     @Multipart
-    @POST("workersjoint/api/getCompletedSurveys.php")
+    @POST("api/getCompletedSurveys.php")
     Call<CompletedListBean> getCompletedSurvey(
             @Part("officer_id") String officer_id
 
     );
 
     @Multipart
-    @POST("workersjoint/api/submit_contactor.php")
+    @POST("api/submit_contactor.php")
     Call<contractorBean> submit_contactor(
             @Part("survey_id") String survey_id,
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/submit_brand.php")
+    @POST("api/submit_brand.php")
     Call<contractorBean> submit_brand(
             @Part("survey_id") String survey_id,
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/reject_contactor.php")
+    @POST("api/reject_contactor.php")
     Call<contractorBean> reject_contactor(
             @Part("survey_id") String survey_id,
             @Part("reason") String reason,
@@ -970,7 +970,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/reject_brand.php")
+    @POST("api/reject_brand.php")
     Call<contractorBean> reject_brand(
             @Part("survey_id") String survey_id,
             @Part("reason") String reason,
@@ -978,7 +978,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/update_contractor2.php")
+    @POST("api/update_contractor2.php")
     Call<verifyBean> update_contractor2(
             @Part("user_id") String user_id,
             @Part("name") String name,
@@ -1030,7 +1030,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/raiseComplaint.php")
+    @POST("api/raiseComplaint.php")
     Call<contractorBean> raiseComplaint(
             @Part("user_id") String user_id,
             @Part("subject") String subject,
@@ -1038,7 +1038,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/giveFeedback.php")
+    @POST("api/giveFeedback.php")
     Call<contractorBean> giveFeedback(
             @Part("user_id") String user_id,
             @Part("subject") String subject,
@@ -1046,20 +1046,20 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("workersjoint/api/unsubscribe.php")
+    @POST("api/unsubscribe.php")
     Call<contractorBean> unsubscribe(
             @Part("user_id") String user_id,
             @Part("feedback") String feedback
     );
 
     @Multipart
-    @POST("workersjoint/api/gettnc.php")
+    @POST("api/gettnc.php")
     Call<getTncBean> gettnc(
             @Part("id") String id
     );
 
     @Multipart
-    @POST("workersjoint/api/update_tnc.php")
+    @POST("api/update_tnc.php")
     Call<getTncBean> update_tnc(
             @Part("user_id") String user_id,
             @Part("c1") String c1,

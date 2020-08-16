@@ -21,11 +21,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:targetApi="q">
-        <activity android:name=".UpdateWorkerProfessional"></activity>
-        <activity android:name=".UpdateWorkerPersonal" />
-        <activity android:name=".UpdateContractor" />
-        <activity android:name=".UpdateBrand" />
+        <activity
+            android:name=".UpdateWorkerProfessional"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdateWorkerPersonal"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdateContractor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdateBrand"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TermsAndConditions3"
             android:screenOrientation="portrait" />

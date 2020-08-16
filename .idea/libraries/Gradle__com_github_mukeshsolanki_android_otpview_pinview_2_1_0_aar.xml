@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.mukeshsolanki:android-otpview-pinview:2.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ad4d5e420c50f65762d293c1bc0f78d7/jetified-android-otpview-pinview-2.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ad4d5e420c50f65762d293c1bc0f78d7/jetified-android-otpview-pinview-2.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ef8fb14d9abf623a022fd80d171a46b/jetified-android-otpview-pinview-2.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ef8fb14d9abf623a022fd80d171a46b/jetified-android-otpview-pinview-2.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ef8fb14d9abf623a022fd80d171a46b/jetified-android-otpview-pinview-2.1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

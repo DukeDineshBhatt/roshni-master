@@ -4,6 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bebd8c0aa550d062d2e12d05a3d350f4/jetified-countrycodepicker-2.3.3/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bebd8c0aa550d062d2e12d05a3d350f4/jetified-countrycodepicker-2.3.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bebd8c0aa550d062d2e12d05a3d350f4/jetified-countrycodepicker-2.3.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05b9348af21b71874337200a46162a64/jetified-countrycodepicker-2.3.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05b9348af21b71874337200a46162a64/jetified-countrycodepicker-2.3.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05b9348af21b71874337200a46162a64/jetified-countrycodepicker-2.3.3/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

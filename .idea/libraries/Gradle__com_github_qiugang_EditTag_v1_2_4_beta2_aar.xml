@@ -4,8 +4,13 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a02d3ae9b5374480f7d447346463c78e/jetified-EditTag-v1.2.4-beta2/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a02d3ae9b5374480f7d447346463c78e/jetified-EditTag-v1.2.4-beta2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a02d3ae9b5374480f7d447346463c78e/jetified-EditTag-v1.2.4-beta2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c326f72dd649240b03c220321bfb2c0/jetified-EditTag-v1.2.4-beta2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c326f72dd649240b03c220321bfb2c0/jetified-EditTag-v1.2.4-beta2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c326f72dd649240b03c220321bfb2c0/jetified-EditTag-v1.2.4-beta2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.qiugang/EditTag/v1.2.4-beta2/80972bc12f6a9f70c98eb2ee305dcdbd47133d5f/EditTag-v1.2.4-beta2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

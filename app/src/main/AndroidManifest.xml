@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.app.roshni">
+    package="com.workersjoint.app">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".Bean"
+        android:name="com.workersjoint.app.Bean"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -24,181 +24,181 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="q">
         <activity
-            android:name=".UpdateWorkerProfessional"
+            android:name="com.workersjoint.app.UpdateWorkerProfessional"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateWorkerPersonal"
+            android:name="com.workersjoint.app.UpdateWorkerPersonal"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateContractor"
+            android:name="com.workersjoint.app.UpdateContractor"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateBrand"
+            android:name="com.workersjoint.app.UpdateBrand"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TermsAndConditions3"
+            android:name="com.workersjoint.app.TermsAndConditions3"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Feedback"
+            android:name="com.workersjoint.app.Feedback"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Complaint"
+            android:name="com.workersjoint.app.Complaint"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Support"
+            android:name="com.workersjoint.app.Support"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreatePIN2"
+            android:name="com.workersjoint.app.CreatePIN2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OTP3"
+            android:name="com.workersjoint.app.OTP3"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CompletedContractorProfile"
+            android:name="com.workersjoint.app.CompletedContractorProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CompletedBrandProfile"
+            android:name="com.workersjoint.app.CompletedBrandProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CompletedProfile"
+            android:name="com.workersjoint.app.CompletedProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TermsAndConditions2"
+            android:name="com.workersjoint.app.TermsAndConditions2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Profile6"
+            android:name="com.workersjoint.app.Profile6"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Profile5"
+            android:name="com.workersjoint.app.Profile5"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Profile4"
+            android:name="com.workersjoint.app.Profile4"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity4"
+            android:name="com.workersjoint.app.MainActivity4"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.workersjoint.app.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseType"
+            android:name="com.workersjoint.app.ChooseType"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Knowledge"
+            android:name="com.workersjoint.app.Knowledge"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TermsAndConditions"
+            android:name="com.workersjoint.app.TermsAndConditions"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChipTest"
+            android:name="com.workersjoint.app.ChipTest"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Web"
+            android:name="com.workersjoint.app.Web"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EnterPIN"
+            android:name="com.workersjoint.app.EnterPIN"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreatePIN"
+            android:name="com.workersjoint.app.CreatePIN"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FilterContractorJob"
+            android:name="com.workersjoint.app.FilterContractorJob"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContractorApplicantDetails"
+            android:name="com.workersjoint.app.ContractorApplicantDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContractorJobByCompany"
+            android:name="com.workersjoint.app.ContractorJobByCompany"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".JobDetails2"
+            android:name="com.workersjoint.app.JobDetails2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContractorApplicants"
+            android:name="com.workersjoint.app.ContractorApplicants"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateContractorJob"
+            android:name="com.workersjoint.app.UpdateContractorJob"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContractorJobDetails"
+            android:name="com.workersjoint.app.ContractorJobDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SingleContgractor"
+            android:name="com.workersjoint.app.SingleContgractor"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Notifications"
+            android:name="com.workersjoint.app.Notifications"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FilterWorkerJob"
+            android:name="com.workersjoint.app.FilterWorkerJob"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WorkerApplicantDetails"
+            android:name="com.workersjoint.app.WorkerApplicantDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WorkerJobByCompany"
+            android:name="com.workersjoint.app.WorkerJobByCompany"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SingleWorker"
+            android:name="com.workersjoint.app.SingleWorker"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WorkerApplicants"
+            android:name="com.workersjoint.app.WorkerApplicants"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateWorkerJob"
+            android:name="com.workersjoint.app.UpdateWorkerJob"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WorkerJobDetails"
+            android:name="com.workersjoint.app.WorkerJobDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PostJobContractor"
+            android:name="com.workersjoint.app.PostJobContractor"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseJob"
+            android:name="com.workersjoint.app.ChooseJob"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity3"
+            android:name="com.workersjoint.app.MainActivity3"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register3"
+            android:name="com.workersjoint.app.Register3"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".JobDetails"
+            android:name="com.workersjoint.app.JobDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PostJob"
+            android:name="com.workersjoint.app.PostJob"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity2"
+            android:name="com.workersjoint.app.MainActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register2"
+            android:name="com.workersjoint.app.Register2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Sliders"
+            android:name="com.workersjoint.app.Sliders"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UpdateProfile"
+            android:name="com.workersjoint.app.UpdateProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".REgister"
+            android:name="com.workersjoint.app.REgister"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OTP2"
+            android:name="com.workersjoint.app.OTP2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signup"
+            android:name="com.workersjoint.app.Signup"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseAccount"
+            android:name="com.workersjoint.app.ChooseAccount"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OTP"
+            android:name="com.workersjoint.app.OTP"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignupLogin"
+            android:name="com.workersjoint.app.SignupLogin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Splash"
+            android:name="com.workersjoint.app.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -207,7 +207,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.workersjoint.app.MainActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -241,7 +241,7 @@
         </provider>
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.workersjoint.app.MyFirebaseMessagingService"
             android:permission="TODO">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

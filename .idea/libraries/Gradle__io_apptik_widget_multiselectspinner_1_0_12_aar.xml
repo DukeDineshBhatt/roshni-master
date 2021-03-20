@@ -7,6 +7,12 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/50c51b2147cc5b94635b78b07e6bbe5e/jetified-multiselectspinner-1.0.12/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/50c51b2147cc5b94635b78b07e6bbe5e/jetified-multiselectspinner-1.0.12/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/50c51b2147cc5b94635b78b07e6bbe5e/jetified-multiselectspinner-1.0.12/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7a873ae37c596cf66b1692439766f9f2/jetified-multiselectspinner-1.0.12/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7a873ae37c596cf66b1692439766f9f2/jetified-multiselectspinner-1.0.12/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7a873ae37c596cf66b1692439766f9f2/jetified-multiselectspinner-1.0.12/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b0ecbc17139c8588eb290df10b7e204/jetified-multiselectspinner-1.0.12/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b0ecbc17139c8588eb290df10b7e204/jetified-multiselectspinner-1.0.12/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b0ecbc17139c8588eb290df10b7e204/jetified-multiselectspinner-1.0.12/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.apptik.widget/multiselectspinner/1.0.12/7c12585b6bf48ca78b179f464803ba0d5576eb2c/multiselectspinner-1.0.12-javadoc.jar!/" />

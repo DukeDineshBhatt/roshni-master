@@ -34,7 +34,6 @@ import com.workersjoint.app.brandDetailsPOJO.brandDetailsBean;
 import com.workersjoint.app.contractorPOJO.contractorBean;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -204,7 +203,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                         dialog.dismiss();
 
-                        new Thread(new Runnable() {
+                        /*new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
@@ -213,7 +212,7 @@ public class MainActivity2 extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }).start();
+                        }).start();*/
 
                         SharePreferenceUtils.getInstance().deletePref();
 
@@ -359,7 +358,7 @@ public class MainActivity2 extends AppCompatActivity {
                                     Toast.makeText(MainActivity2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                                     dialog.dismiss();
-                                    new Thread(new Runnable() {
+                                    /*new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             try {
@@ -368,7 +367,7 @@ public class MainActivity2 extends AppCompatActivity {
                                                 e.printStackTrace();
                                             }
                                         }
-                                    }).start();
+                                    }).start();*/
 
                                     SharePreferenceUtils.getInstance().deletePref();
 

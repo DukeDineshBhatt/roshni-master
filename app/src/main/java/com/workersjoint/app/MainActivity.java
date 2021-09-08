@@ -33,7 +33,6 @@ import android.widget.Toast;
 
 import com.workersjoint.app.contractorPOJO.contractorBean;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        new Thread(new Runnable() {
+                        /*new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }).start();
+                        }).start();*/
 
                         SharePreferenceUtils.getInstance().deletePref();
 
@@ -341,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                                     dialog.dismiss();
-                                    new Thread(new Runnable() {
+                                    /*new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             try {
@@ -350,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                                                 e.printStackTrace();
                                             }
                                         }
-                                    }).start();
+                                    }).start();*/
 
                                     SharePreferenceUtils.getInstance().deletePref();
 

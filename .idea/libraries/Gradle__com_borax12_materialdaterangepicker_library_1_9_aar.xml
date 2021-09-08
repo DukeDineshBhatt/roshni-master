@@ -13,6 +13,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/585af564ceec76f29b753c7258811218/jetified-library-1.9/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/585af564ceec76f29b753c7258811218/jetified-library-1.9/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/585af564ceec76f29b753c7258811218/jetified-library-1.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3c9169b3b1c29a3c5e3791264cd58e95/transformed/jetified-library-1.9/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3c9169b3b1c29a3c5e3791264cd58e95/transformed/jetified-library-1.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3c9169b3b1c29a3c5e3791264cd58e95/transformed/jetified-library-1.9/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.borax12.materialdaterangepicker/library/1.9/98fa0a15b5e05db7f90f47a80522077a3d38a84d/library-1.9-javadoc.jar!/" />

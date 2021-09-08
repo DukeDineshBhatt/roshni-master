@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -109,7 +108,7 @@ public class MainActivity4 extends AppCompatActivity {
 
                         dialog.dismiss();
 
-                        new Thread(new Runnable() {
+                        /*new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
@@ -118,7 +117,7 @@ public class MainActivity4 extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }).start();
+                        }).start();*/
 
                         SharePreferenceUtils.getInstance().deletePref();
 

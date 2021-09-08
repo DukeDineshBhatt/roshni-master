@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -84,6 +85,16 @@ public class TermsAndConditions extends AppCompatActivity {
 
             }
         });
+
+        chk5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                chk1.setChecked(isChecked);
+                chk2.setChecked(isChecked);
+                chk4.setChecked(isChecked);
+            }
+        });
+
     }
 
     @Override

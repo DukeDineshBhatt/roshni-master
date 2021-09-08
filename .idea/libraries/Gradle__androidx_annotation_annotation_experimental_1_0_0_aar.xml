@@ -1,13 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.annotation:annotation-experimental:1.0.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c3f2eafa7056f154ff889675c2881f92/jetified-annotation-experimental-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/723097fb46b21648d71f4f38fac395a4/jetified-annotation-experimental-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56fe8f1da84ea84043ccb3024dc27f1e/jetified-annotation-experimental-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0012339a61c5351a6c01efe04679a6d4/transformed/jetified-annotation-experimental-1.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8521670a9e7efb7daaaf2facd7ed14e3/transformed/jetified-annotation-experimental-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8521670a9e7efb7daaaf2facd7ed14e3/transformed/jetified-annotation-experimental-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8521670a9e7efb7daaaf2facd7ed14e3/transformed/jetified-annotation-experimental-1.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c821dd017478d5521472cdacaf128848/transformed/jetified-annotation-experimental-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1bc5f8ea4cf3d6ec23e8ee5ef31f2589/jetified-annotation-experimental-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb84b3d81551d99abba7f0476a39aaa7/jetified-annotation-experimental-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb84b3d81551d99abba7f0476a39aaa7/jetified-annotation-experimental-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb84b3d81551d99abba7f0476a39aaa7/jetified-annotation-experimental-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

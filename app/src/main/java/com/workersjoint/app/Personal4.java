@@ -179,10 +179,10 @@ public class Personal4 extends Fragment {
         ski = new ArrayList<>();
         ski1 = new ArrayList<>();
 
-        Places.initialize(Objects.requireNonNull(getContext()).getApplicationContext(), getString(R.string.google_maps_key));
+        Places.initialize(requireContext().getApplicationContext(), getString(R.string.google_maps_key));
         PlacesClient mPlacesClient = Places.createClient(getContext());
 
-        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         getLocationPermission();
 
@@ -393,7 +393,7 @@ public class Personal4 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(Objects.requireNonNull(getActivity()));
+                        .build(requireActivity());
                 startActivityForResult(intent, 12);
 
             }
@@ -423,7 +423,7 @@ public class Personal4 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(Objects.requireNonNull(getActivity()));
+                        .build(requireActivity());
                 startActivityForResult(intent, 14);
 
             }
@@ -740,7 +740,7 @@ public class Personal4 extends Fragment {
                                 e.printStackTrace();
                             }
 
-                            uri = FileProvider.getUriForFile(Objects.requireNonNull(getContext()), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri);
@@ -891,7 +891,7 @@ public class Personal4 extends Fragment {
 
                                                                                                         progress.setVisibility(View.VISIBLE);
 
-                                                                                                        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+                                                                                                        Bean b = (Bean) requireContext().getApplicationContext();
 
                                                                                                         Retrofit retrofit = new Retrofit.Builder()
                                                                                                                 .baseUrl(b.baseurl)
@@ -1114,7 +1114,7 @@ public class Personal4 extends Fragment {
                 Uri gmmIntentUri = Uri.parse(uri);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
+                if (mapIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
                     startActivity(mapIntent);
                 }
 
@@ -1135,12 +1135,12 @@ public class Personal4 extends Fragment {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()).getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(requireContext().getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+            ActivityCompat.requestPermissions(requireActivity(),
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -1163,7 +1163,7 @@ public class Personal4 extends Fragment {
             file = new File(ypath);
 
             try {
-                f1 = new Compressor(Objects.requireNonNull(getContext())).compressToFile(file);
+                f1 = new Compressor(requireContext()).compressToFile(file);
 
                 uri = Uri.fromFile(f1);
 
@@ -1414,7 +1414,7 @@ public class Personal4 extends Fragment {
 
     void setPrevious() {
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -1448,7 +1448,7 @@ public class Personal4 extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                        Dialog dialog = new Dialog(requireActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                         //dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                         //      WindowManager.LayoutParams.MATCH_PARENT);
                         dialog.setContentView(R.layout.zoom_dialog);
@@ -1499,7 +1499,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, gen);
 
 
@@ -1544,7 +1544,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, cat);
 
 
@@ -1589,7 +1589,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, rel);
 
 
@@ -1650,7 +1650,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, edu);
 
 
@@ -1703,7 +1703,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, mar);
 
 
@@ -1808,7 +1808,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, prof);
 
 
@@ -1853,7 +1853,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, cer);
 
 
@@ -1925,7 +1925,7 @@ public class Personal4 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, ski);
 
 

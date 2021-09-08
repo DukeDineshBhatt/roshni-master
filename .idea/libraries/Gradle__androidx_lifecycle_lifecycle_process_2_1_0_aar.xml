@@ -1,14 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.lifecycle:lifecycle-process:2.1.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b48b86132f18ffa4140cd5f347a880a8/jetified-lifecycle-process-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0ed55370f483e74e5d05845c82e9199b/jetified-lifecycle-process-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5eb137d024425e9dc832bc8e87691d3f/jetified-lifecycle-process-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4f14b0824e4cc62e6624835eda69c2a2/jetified-lifecycle-process-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7ede5f60089421685f35bbc776138823/transformed/jetified-lifecycle-process-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bb823c1430e360427fe073c66d75fca1/transformed/jetified-lifecycle-process-2.1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bb823c1430e360427fe073c66d75fca1/transformed/jetified-lifecycle-process-2.1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bb823c1430e360427fe073c66d75fca1/transformed/jetified-lifecycle-process-2.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4ca090d02bcae070f459010d5e2beb03/transformed/jetified-lifecycle-process-2.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4bbabe18e7530611f66c4e1dd06c97f8/jetified-lifecycle-process-2.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fc1381972e241129ee6ccd4bfb3ecef7/jetified-lifecycle-process-2.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fc1381972e241129ee6ccd4bfb3ecef7/jetified-lifecycle-process-2.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fc1381972e241129ee6ccd4bfb3ecef7/jetified-lifecycle-process-2.1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

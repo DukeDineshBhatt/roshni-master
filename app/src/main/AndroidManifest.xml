@@ -199,7 +199,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.workersjoint.app.Splash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true"
+            tools:node="merge">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -242,7 +244,9 @@
 
         <service
             android:name="com.workersjoint.app.MyFirebaseMessagingService"
-            android:permission="TODO">
+            android:permission="TODO"
+            android:exported="true"
+            tools:node="merge">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

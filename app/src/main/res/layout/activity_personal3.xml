@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5f5f5"
@@ -18,30 +19,29 @@
                 android:id="@+id/getdirection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/colorAccent"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/colorAccent"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
                 android:paddingStart="20dp"
+                android:paddingTop="8dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"
                 android:text="GET DIRECTION"
-                android:drawableEnd="@drawable/ic_directions_black_24dp"
-                android:gravity="center_vertical"
-                android:drawablePadding="12dp"
-                android:layout_marginBottom="8dp"
                 android:textColor="#000"
-                android:layout_gravity="center|center_vertical"
-                />
+                app:drawableEndCompat="@drawable/ic_directions_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:textAllCaps="true"
-                android:text="@string/phone_number" />
+                android:text="@string/phone_number"
+                android:textAllCaps="true" />
 
             <EditText
                 android:id="@+id/phone"
@@ -49,15 +49,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:focusable="false"
-                android:longClickable="false"
-                android:enabled="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
+                android:enabled="false"
+                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:longClickable="false"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -77,8 +76,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,8 +111,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="ENTER ID NUMBER"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -180,8 +177,7 @@
                 android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -254,8 +250,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -274,8 +269,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -290,14 +284,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:focusable="false"
-                android:clickable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
+                android:clickable="false"
+                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -313,13 +306,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:focusable="false"
-                android:clickable="false"
                 android:background="@drawable/white_back_round"
+                android:clickable="false"
+                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -338,8 +330,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="number"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
 
             <TextView
@@ -381,8 +372,7 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPostalAddress"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -402,8 +392,7 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -419,13 +408,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:focusable="false"
-                    android:clickable="false"
                     android:background="@drawable/white_back_round"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -440,14 +428,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:focusable="false"
-                    android:clickable="false"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
 
                 <TextView
@@ -467,8 +454,7 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="number"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
 
             </LinearLayout>
@@ -526,12 +512,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/enter_religion"
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
-                android:autofillHints="" />
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -563,12 +548,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
-                android:autofillHints="" />
+                android:visibility="gone" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -696,8 +681,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:textAllCaps="true"
-                    android:text="@string/children_going_to_school_between_6_14_yrs" />
+                    android:text="@string/children_going_to_school_between_6_14_yrs"
+                    android:textAllCaps="true" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -720,8 +705,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:textAllCaps="true"
-                    android:text="@string/children_going_to_school_between_15_18_yrs" />
+                    android:text="@string/children_going_to_school_between_15_18_yrs"
+                    android:textAllCaps="true" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -746,8 +731,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:textAllCaps="true"
-                android:text="@string/certified_by_goodweave" />
+                android:text="@string/certified_by_goodweave"
+                android:textAllCaps="true" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -783,14 +768,13 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textCapSentences"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
+                android:id="@+id/skill_level_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:id="@+id/skill_level_title"
                 android:layout_marginTop="16dp"
                 android:text="@string/skill_level2" />
 
@@ -850,28 +834,25 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textCapSentences"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:weightSum="2"
-                >
-
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical"
+                android:weightSum="2">
 
 
                 <Button
                     android:id="@+id/submit"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="4dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="4dp"
                     android:background="@drawable/blue_back_round"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
@@ -883,11 +864,6 @@
                     android:textColor="#ffffff" />
 
             </LinearLayout>
-
-
-
-
-
 
 
         </LinearLayout>

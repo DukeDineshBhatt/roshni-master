@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +26,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -163,8 +167,29 @@ public class SingleContgractor extends AppCompatActivity {
                 availability.setText(item.getAvailability1());
                 dob.setText(item.getDob());
                 gender.setText(item.getGender1());
-                current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
-                permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
+
+                List<String> adrt = new ArrayList<>();
+                adrt.add(item.getCstreet());
+                adrt.add(item.getCarea());
+                adrt.add(item.getCdistrict());
+                adrt.add(item.getCstate());
+                adrt.add(item.getCpin());
+                adrt.removeAll(Collections.singleton(""));
+                current.setText(TextUtils.join(", ", adrt));
+
+                //current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
+
+                List<String> adrt2 = new ArrayList<>();
+                adrt2.add(item.getPstreet());
+                adrt2.add(item.getParea());
+                adrt2.add(item.getPdistrict());
+                adrt2.add(item.getPstate());
+                adrt2.add(item.getPpin());
+                adrt2.removeAll(Collections.singleton(""));
+                permanent.setText(TextUtils.join(", ", adrt2));
+
+                //current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
+                //permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
                 home_based.setText(item.getHomeUnits());
                 home_location.setText(item.getHomeLocation());
                 male.setText(item.getWorkersMale());

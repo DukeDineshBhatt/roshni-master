@@ -52,6 +52,12 @@ public class CompletedProfessional extends Fragment {
 
     LinearLayout yes;
 
+    List<String> fac_hom;
+    List<String> fac_hom1;
+    String fact_home = "";
+    Spinner factory_home;
+    LinearLayout factory_home_layout;
+    EditText area;
 
     @Nullable
     @Override
@@ -69,6 +75,13 @@ public class CompletedProfessional extends Fragment {
         loc1 = new ArrayList<>();
         sec1 = new ArrayList<>();
         ski1 = new ArrayList<>();
+
+        fac_hom = new ArrayList<>();
+        fac_hom1 = new ArrayList<>();
+
+        factory_home = view.findViewById(R.id.factory_home);
+        factory_home_layout = view.findViewById(R.id.factory_home_layout);
+        area = view.findViewById(R.id.area);
 
         sector = view.findViewById(R.id.sector);
         skills = view.findViewById(R.id.skills);
@@ -123,7 +136,7 @@ public class CompletedProfessional extends Fragment {
         wor.add("19");
         wor.add("20");
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(),
                 R.layout.spinner_model, exp);
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(),
@@ -148,6 +161,33 @@ public class CompletedProfessional extends Fragment {
         home.setAdapter(adapter4);
         workers.setAdapter(adapter5);
 
+        factory_home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i > 0) {
+                    fact_home = fac_hom1.get(i);
+
+                    if (fact_home.equals("3")) {
+
+                        factory_home_layout.setVisibility(View.VISIBLE);
+
+                    } else {
+                        factory_home_layout.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    fact_home = "";
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
 
@@ -159,19 +199,6 @@ public class CompletedProfessional extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(b.baseurl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-
-
-
         setPrevious();
     }
 
@@ -179,7 +206,7 @@ public class CompletedProfessional extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -199,7 +226,7 @@ public class CompletedProfessional extends Fragment {
 
                 employer.setText(item.get(0).getEmployer());
                 looms.setText(item.get(0).getTools());
-
+                area.setText(item.get(0).getArea());
 
                 final Call<sectorBean> call2 = cr.getSectors();
 
@@ -219,7 +246,7 @@ public class CompletedProfessional extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, sec);
 
                             sector.setAdapter(adapter);
@@ -271,7 +298,7 @@ public class CompletedProfessional extends Fragment {
 
                                     }
 
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                                             R.layout.spinner_model, ski);
 
                                     skills.setAdapter(adapter);
@@ -362,7 +389,7 @@ public class CompletedProfessional extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, loc);
 
                             location.setAdapter(adapter);
@@ -398,6 +425,56 @@ public class CompletedProfessional extends Fragment {
                     }
                 });
 
+
+                final Call<sectorBean> call83 = cr.getFactoryHome(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call83.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
+
+                            fac_hom.clear();
+                            fac_hom1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                fac_hom.add(response.body().getData().get(i).getTitle());
+                                fac_hom1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            try {
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
+                                        R.layout.spinner_model, fac_hom);
+
+
+                                factory_home.setAdapter(adapter);
+
+                                int cp2 = 0;
+                                for (int i = 0; i < fac_hom1.size(); i++) {
+                                    if (item.get(0).getFactory_home().equals(fac_hom1.get(i))) {
+                                        cp2 = i;
+                                    }
+                                }
+                                factory_home.setSelection(cp2);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
                 progress.setVisibility(View.GONE);
 

@@ -3,6 +3,7 @@ package com.workersjoint.app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,12 +62,11 @@ public class Completed extends Fragment {
 
         list = new ArrayList<>();
 
-        adapter = new CompletedAdapter(getContext() , list);
+        adapter = new CompletedAdapter(getContext(), list);
         manager = new GridLayoutManager(getContext(), 1);
 
         grid.setAdapter(adapter);
         grid.setLayoutManager(manager);
-
 
 
         return view;
@@ -79,7 +80,7 @@ public class Completed extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -95,12 +96,9 @@ public class Completed extends Fragment {
             @Override
             public void onResponse(@NotNull Call<CompletedListBean> call, @NotNull Response<CompletedListBean> response) {
 
-                if (Objects.requireNonNull(response.body()).getData().size() > 0)
-                {
+                if (Objects.requireNonNull(response.body()).getData().size() > 0) {
                     nodata.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     nodata.setVisibility(View.VISIBLE);
                 }
 
@@ -128,8 +126,7 @@ public class Completed extends Fragment {
             this.list = list;
         }
 
-        public void setData(List<Datum> list)
-        {
+        public void setData(List<Datum> list) {
             this.list = list;
             notifyDataSetChanged();
         }
@@ -152,7 +149,15 @@ public class Completed extends Fragment {
             holder.type.setText(item.getType());
             holder.date.setText(item.getCreated());
             holder.status.setText(item.getStatus());
-            holder.address.setText(item.getCstreet()+" , "+item.getCarea()+" , "+item.getCdistrict()+" , "+item.getCstate()+" , "+item.getCpin());
+            List<String> adrt = new ArrayList<>();
+            adrt.add(item.getCstreet());
+            adrt.add(item.getCarea());
+            adrt.add(item.getCdistrict());
+            adrt.add(item.getCstate());
+            adrt.add(item.getCpin());
+            adrt.removeAll(Collections.singleton(""));
+            holder.address.setText(TextUtils.join(", ", adrt));
+            //holder.address.setText(item.getCstreet()+" , "+item.getCarea()+" , "+item.getCdistrict()+" , "+item.getCstate()+" , "+item.getCpin());
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -160,22 +165,19 @@ public class Completed extends Fragment {
                 public void onClick(View view) {
 
 
-                    if (item.getType().equals("worker")){
+                    if (item.getType().equals("worker")) {
 
-                        Intent intent = new Intent(context , CompletedProfile.class);
+                        Intent intent = new Intent(context, CompletedProfile.class);
                         SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         startActivity(intent);
 
-                    }else if (item.getType().equals("brand"))
-                    {
-                        Intent intent = new Intent(context , CompletedBrandProfile.class);
+                    } else if (item.getType().equals("brand")) {
+                        Intent intent = new Intent(context, CompletedBrandProfile.class);
                         SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
                         startActivity(intent);
 
-                    }
-                    else
-                    {
-                        Intent intent = new Intent(getContext() , CompletedContractorProfile.class);
+                    } else {
+                        Intent intent = new Intent(getContext(), CompletedContractorProfile.class);
                         SharePreferenceUtils.getInstance().saveString("user", item.getProfile_id());
 
                         startActivity(intent);
@@ -184,7 +186,6 @@ public class Completed extends Fragment {
 
                 }
             });
-
 
 
         }

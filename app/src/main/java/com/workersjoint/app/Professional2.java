@@ -53,13 +53,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Professional2 extends Fragment {
 
-    Spinner experience, employment, home, workers, location, bank, govtinsurance, availability , child_labour , supply_chain;
+    Spinner experience, employment, home, workers, location, bank, govtinsurance, availability, child_labour, supply_chain;
 
     EditText sector, skills;
 
-    String sect = "", skil = "", expe = "", empl = "", hhom = "", work = "", loom = "", loca = "", bann = "", govt = "", avai = "" , chla = "", supl = "";
+    String sect = "", skil = "", expe = "", empl = "", hhom = "", work = "", loom = "", loca = "", bann = "", govt = "", avai = "", chla = "", supl = "";
 
-    List<String> exp, exp1, emp, emp1, hom, hom1, wor, loc, ban, ban1, ava, ava1, gov, gov1 , chi , chi1;
+    List<String> exp, exp1, emp, emp1, hom, hom1, wor, loc, ban, ban1, ava, ava1, gov, gov1, chi, chi1;
     List<String> sec1, ski1, loc1;
 
     List<Datum> ski;
@@ -84,6 +84,13 @@ public class Professional2 extends Fragment {
     }
 
     boolean gov_bool = false;
+
+    List<String> fac_hom;
+    List<String> fac_hom1;
+    String fact_home = "";
+    Spinner factory_home;
+    LinearLayout factory_home_layout;
+    EditText area;
 
     @Nullable
     @Override
@@ -112,6 +119,13 @@ public class Professional2 extends Fragment {
         ava1 = new ArrayList<>();
         chi = new ArrayList<>();
         chi1 = new ArrayList<>();
+
+        fac_hom = new ArrayList<>();
+        fac_hom1 = new ArrayList<>();
+
+        factory_home = view.findViewById(R.id.factory_home);
+        factory_home_layout = view.findViewById(R.id.factory_home_layout);
+        area = view.findViewById(R.id.area);
 
         child_labour = view.findViewById(R.id.child_labour);
         supply_chain = view.findViewById(R.id.supply_chain);
@@ -162,7 +176,7 @@ public class Professional2 extends Fragment {
         wor.add("19");
         wor.add("20");
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -229,8 +243,7 @@ public class Professional2 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i > 0)
-                {
+                if (i > 0) {
                     avai = ava1.get(i);
                 }
 
@@ -274,8 +287,7 @@ public class Professional2 extends Fragment {
         home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 0)
-                {
+                if (i > 0) {
                     hhom = hom1.get(i);
 
                     if (hhom.equals("2")) {
@@ -337,7 +349,7 @@ public class Professional2 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
+                final Dialog dialog = new Dialog(requireActivity());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.sector_dialog);
@@ -394,13 +406,11 @@ public class Professional2 extends Fragment {
         });
 
 
-
-
         skills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
+                final Dialog dialog = new Dialog(requireActivity());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.sector_dialog);
@@ -470,6 +480,33 @@ public class Professional2 extends Fragment {
             }
         });
 
+        factory_home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i > 0) {
+                    fact_home = fac_hom1.get(i);
+
+                    if (fact_home.equals("3")) {
+
+                        factory_home_layout.setVisibility(View.VISIBLE);
+
+                    } else {
+                        factory_home_layout.setVisibility(View.GONE);
+                    }
+                } else {
+                    fact_home = "";
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         supply_chain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -492,6 +529,7 @@ public class Professional2 extends Fragment {
             public void onClick(View view) {
 
                 final String emplo = employer.getText().toString();
+                final String arr = area.getText().toString();
                 loom = looms.getText().toString();
                 final String ot = otherwork.getText().toString();
                 if (loc_bool) {
@@ -506,15 +544,12 @@ public class Professional2 extends Fragment {
                 sect = TextUtils.join(",", sec1);
 
 
-
                 if (sect.length() > 0) {
-                    if (avai.length() > 0)
-                    {
-                        if (hhom.length() > 0) {
+                    if (avai.length() > 0) {
+                        if (fact_home.length() > 0) {
 
 
-
-                            new androidx.appcompat.app.AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                            new androidx.appcompat.app.AlertDialog.Builder(requireActivity())
                                     .setTitle(getString(R.string.confirm))
                                     .setMessage(getString(R.string.accept_text))
 
@@ -527,7 +562,7 @@ public class Professional2 extends Fragment {
 
                                             progress.setVisibility(View.VISIBLE);
 
-                                            Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+                                            Bean b = (Bean) requireContext().getApplicationContext();
 
                                             Retrofit retrofit = new Retrofit.Builder()
                                                     .baseUrl(b.baseurl)
@@ -556,7 +591,9 @@ public class Professional2 extends Fragment {
                                                     SharePreferenceUtils.getInstance().getString("id"),
                                                     govt,
                                                     chla,
-                                                    supl
+                                                    supl,
+                                                    arr,
+                                                    fact_home
                                             );
 
                                             call.enqueue(new Callback<verifyBean>() {
@@ -637,15 +674,11 @@ public class Professional2 extends Fragment {
                                     .show();
 
 
-
-
                         } else {
-                            Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Invalid factory/ home worker", Toast.LENGTH_SHORT).show();
                         }
 
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(getContext(), "Invalid availability", Toast.LENGTH_SHORT).show();
                     }
 
@@ -653,7 +686,6 @@ public class Professional2 extends Fragment {
                 } else {
                     Toast.makeText(getContext(), "Invalid sector", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -681,6 +713,7 @@ public class Professional2 extends Fragment {
                         if (value.length() > 0) {
 
                             String emplo = employer.getText().toString();
+                            final String arr = area.getText().toString();
                             loom = looms.getText().toString();
                             String ot = otherwork.getText().toString();
                             if (loc_bool) {
@@ -697,13 +730,12 @@ public class Professional2 extends Fragment {
 
 
                             if (sect.length() > 0) {
-                                if (avai.length() > 0)
-                                {
-                                    if (hhom.length() > 0) {
+                                if (avai.length() > 0) {
+                                    if (fact_home.length() > 0) {
 
                                         progress.setVisibility(View.VISIBLE);
 
-                                        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+                                        Bean b = (Bean) requireContext().getApplicationContext();
 
                                         Retrofit retrofit = new Retrofit.Builder()
                                                 .baseUrl(b.baseurl)
@@ -731,7 +763,9 @@ public class Professional2 extends Fragment {
                                                 SharePreferenceUtils.getInstance().getString("id"),
                                                 govt,
                                                 chla,
-                                                supl
+                                                supl,
+                                                arr,
+                                                fact_home
                                         );
 
                                         call.enqueue(new Callback<verifyBean>() {
@@ -743,7 +777,7 @@ public class Professional2 extends Fragment {
 
                                                     Intent intent = new Intent(getContext(), MainActivity4.class);
                                                     startActivity(intent);
-                                                    Objects.requireNonNull(getActivity()).finish();
+                                                    requireActivity().finish();
 
 
                                                 }
@@ -761,12 +795,10 @@ public class Professional2 extends Fragment {
                                         });
 
                                     } else {
-                                        Toast.makeText(getContext(), "Invalid home based unit", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Invalid factory/ home worker", Toast.LENGTH_SHORT).show();
                                     }
 
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(getContext(), "Invalid availability", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -817,7 +849,7 @@ public class Professional2 extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -837,7 +869,7 @@ public class Professional2 extends Fragment {
 
                 employer.setText(item.get(0).getEmployer());
                 looms.setText(item.get(0).getTools());
-
+                area.setText(item.get(0).getArea());
 
                 sec1 = Arrays.asList(item.get(0).getSectorId().split(","));
                 ski1 = Arrays.asList(item.get(0).getSkillsId().split(","));
@@ -850,7 +882,6 @@ public class Professional2 extends Fragment {
                 } else {
                     otherwork.setVisibility(View.GONE);
                 }
-
 
 
                 final Call<sectorBean> call4 = cr.getExperience(SharePreferenceUtils.getInstance().getString("lang"));
@@ -871,7 +902,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, exp);
 
 
@@ -916,7 +947,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, emp);
 
 
@@ -961,7 +992,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, hom);
 
 
@@ -1006,7 +1037,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, ban);
 
 
@@ -1052,7 +1083,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, gov);
 
 
@@ -1107,7 +1138,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, ava);
 
 
@@ -1162,7 +1193,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, loc);
 
 
@@ -1217,7 +1248,7 @@ public class Professional2 extends Fragment {
 
                             }
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                                     R.layout.spinner_model, chi);
 
 
@@ -1242,6 +1273,51 @@ public class Professional2 extends Fragment {
 
                         }
 
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+                final Call<sectorBean> call84 = cr.getFactoryHome(SharePreferenceUtils.getInstance().getString("lang"));
+
+                call84.enqueue(new Callback<sectorBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+
+                        if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
+
+                            fac_hom.clear();
+                            fac_hom1.clear();
+
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                fac_hom.add(response.body().getData().get(i).getTitle());
+                                fac_hom1.add(response.body().getData().get(i).getId());
+
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                                    R.layout.spinner_model, fac_hom);
+
+
+                            factory_home.setAdapter(adapter);
+
+                            int cp2 = 0;
+                            for (int i = 0; i < fac_hom1.size(); i++) {
+                                if (item.get(0).getFactory_home().equals(fac_hom1.get(i))) {
+                                    cp2 = i;
+                                }
+                            }
+                            factory_home.setSelection(cp2);
+
+
+                        }
 
 
                         progress.setVisibility(View.GONE);

@@ -16,7 +16,6 @@
         android:text="English"
         android:textColor="@color/white"
         app:backgroundTint="#43a047"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button18"
         app:layout_constraintHorizontal_bias="0.5"

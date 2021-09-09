@@ -2,6 +2,7 @@ package com.workersjoint.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -54,7 +58,7 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.bottom_layout , container , false);
 
 
-        jid = Objects.requireNonNull(getArguments()).getString("jid");
+        jid = requireArguments().getString("jid");
 
         person_layout = view.findViewById(R.id.person_layout);
         phone_layout = view.findViewById(R.id.phone_layout);
@@ -105,7 +109,7 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
+        Bean b = (Bean) requireActivity().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -133,7 +137,15 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
                     bid = item.getBrandId();
 
                     company.setText(item.getBrandName());
-                    address.setText(item.getBrandStreet() + ", " + item.getBrandArea() + ", " + item.getBrandDistrict() + ", " + item.getBrandState() + "-" + item.getBrandPin());
+                    List<String> adrt = new ArrayList<>();
+                    adrt.add(item.getBrandStreet());
+                    adrt.add(item.getBrandArea());
+                    adrt.add(item.getBrandDistrict());
+                    adrt.add(item.getBrandState());
+                    adrt.add(item.getBrandPin());
+                    adrt.removeAll(Collections.singleton(""));
+                    address.setText(TextUtils.join(", ", adrt));
+                    //address.setText(item.getBrandStreet() + ", " + item.getBrandArea() + ", " + item.getBrandDistrict() + ", " + item.getBrandState() + "-" + item.getBrandPin());
                     products.setText(item.getProducts());
 
                     if (item.getCertification().equals(getString(R.string.yes1)))
@@ -148,7 +160,15 @@ public class bottomBrand2 extends BottomSheetDialogFragment {
                     reg.setText(item.getReg());
                     person.setText(item.getContactPerson());
                     phone.setText("+" + item.getPhone());
-                    headOffice.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
+                    List<String> adrt2 = new ArrayList<>();
+                    adrt2.add(item.getPstreet());
+                    adrt2.add(item.getParea());
+                    adrt2.add(item.getPdistrict());
+                    adrt2.add(item.getPstate());
+                    adrt2.add(item.getPpin());
+                    adrt2.removeAll(Collections.singleton(""));
+                    headOffice.setText(TextUtils.join(", ", adrt2));
+                    //headOffice.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
                     manufacturing.setText(item.getManufacturingUnits());
                     factory.setText(item.getFactoryOutlet());
                     countries.setText(item.getCountry());

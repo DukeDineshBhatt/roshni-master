@@ -3,6 +3,7 @@ package com.workersjoint.app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,7 +79,7 @@ public class Ongoing extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -149,7 +151,15 @@ public class Ongoing extends Fragment {
             holder.type.setText(item.getType());
             holder.date.setText(item.getCreated());
             holder.status.setText(item.getStatus());
-            holder.address.setText(item.getCstreet()+" , "+item.getCarea()+" , "+item.getCdistrict()+" , "+item.getCstate()+" , "+item.getCpin());
+            List<String> adrt = new ArrayList<>();
+            adrt.add(item.getCstreet());
+            adrt.add(item.getCarea());
+            adrt.add(item.getCdistrict());
+            adrt.add(item.getCstate());
+            adrt.add(item.getCpin());
+            adrt.removeAll(Collections.singleton(""));
+            holder.address.setText(TextUtils.join(", ", adrt));
+            //holder.address.setText(item.getCstreet()+" , "+item.getCarea()+" , "+item.getCdistrict()+" , "+item.getCstate()+" , "+item.getCpin());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

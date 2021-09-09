@@ -128,7 +128,7 @@
                 android:text="@string/policies"
                 android:textSize="16sp"
                 android:typeface="monospace"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView51" />
@@ -143,6 +143,7 @@
                 android:text="@string/terms_amp_conditions"
                 android:textSize="16sp"
                 android:typeface="monospace"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView61" />
@@ -158,6 +159,7 @@
                 android:text="@string/support_help"
                 android:textSize="16sp"
                 android:typeface="monospace"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView62" />
@@ -186,6 +188,7 @@
                 android:gravity="center_vertical"
                 android:padding="18dp"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView59" />

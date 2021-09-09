@@ -3,6 +3,7 @@ package com.workersjoint.app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.workersjoint.app.workerListPOJO.workerListBean;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,7 +71,7 @@ public class contractors extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+        Bean b = (Bean) requireContext().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -148,7 +150,16 @@ public class contractors extends Fragment {
             holder.exp.setText(item.getExperience());
             holder.emp.setText(item.getEmployment());
             holder.reg.setText("Reg: " + item.getCreated());
-            holder.address.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
+
+            List<String> adrt = new ArrayList<>();
+            adrt.add(item.getCstreet());
+            adrt.add(item.getCarea());
+            adrt.add(item.getCdistrict());
+            adrt.add(item.getCstate());
+            adrt.add(item.getCpin());
+            adrt.removeAll(Collections.singleton(""));
+            holder.address.setText(TextUtils.join(", ", adrt));
+            //holder.address.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

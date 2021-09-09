@@ -726,6 +726,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:textAllCaps="true"
+                android:visibility="gone"
                 android:text="@string/certified_by_goodweave" />
 
             <RelativeLayout
@@ -734,6 +735,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
                 android:background="@drawable/white_back_round">
 
                 <Spinner
@@ -750,6 +752,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="@string/certificate_number" />
 
             <EditText
@@ -759,6 +762,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textCapSentences"

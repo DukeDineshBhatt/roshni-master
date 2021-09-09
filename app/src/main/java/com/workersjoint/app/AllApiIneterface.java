@@ -487,7 +487,9 @@ public interface AllApiIneterface {
             @Part("bank") String bank,
             @Part("govt") String govt,
             @Part("child_labour") String child_labour,
-            @Part("supply_chain") String supply_chain
+            @Part("supply_chain") String supply_chain,
+            @Part("area") String area,
+            @Part("factory_home") String factory_home
     );
 
     @Multipart
@@ -897,7 +899,9 @@ public interface AllApiIneterface {
             @Part("id") String id,
             @Part("govt") String govt,
             @Part("child_labour") String child_labour,
-            @Part("supply_chain") String supply_chain
+            @Part("supply_chain") String supply_chain,
+            @Part("area") String area,
+            @Part("factory_home") String factory_home
     );
 
     @Multipart
@@ -919,7 +923,9 @@ public interface AllApiIneterface {
             @Part("id") String id,
             @Part("govt") String govt,
             @Part("child_labour") String child_labour,
-            @Part("supply_chain") String supply_chain
+            @Part("supply_chain") String supply_chain,
+            @Part("area") String area,
+            @Part("factory_home") String factory_home
     );
 
 

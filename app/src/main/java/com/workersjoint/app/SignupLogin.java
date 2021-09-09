@@ -300,7 +300,7 @@ public class SignupLogin extends AppCompatActivity {
 
                                             Intent intent = new Intent(SignupLogin.this, Web.class);
                                             intent.putExtra("title", getString(R.string.contact_us));
-                                            intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
+                                            intent.putExtra("url", "https://workersjoint.org/contact.php");
                                             startActivity(intent);
 
                                         }

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +18,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -110,8 +114,28 @@ public class SingleWorker extends AppCompatActivity {
                 employment.setText(item.getEmployment1());
                 dob.setText(item.getDob());
                 gender.setText(item.getGender1());
-                current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
-                permanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
+
+                List<String> adrt = new ArrayList<>();
+                adrt.add(item.getCstreet());
+                adrt.add(item.getCarea());
+                adrt.add(item.getCdistrict());
+                adrt.add(item.getCstate());
+                adrt.add(item.getCpin());
+                adrt.removeAll(Collections.singleton(""));
+                current.setText(TextUtils.join(", ", adrt));
+
+                //current.setText(item.getCstreet() + ", " + item.getCarea() + ", " + item.getCdistrict() + ", " + item.getCstate() + "-" + item.getCpin());
+
+                List<String> adrt2 = new ArrayList<>();
+                adrt2.add(item.getPstreet());
+                adrt2.add(item.getParea());
+                adrt2.add(item.getPdistrict());
+                adrt2.add(item.getPstate());
+                adrt2.add(item.getPpin());
+                adrt2.removeAll(Collections.singleton(""));
+                permanent.setText(TextUtils.join(", ", adrt2));
+
+                //ermanent.setText(item.getPstreet() + ", " + item.getParea() + ", " + item.getPdistrict() + ", " + item.getPstate() + "-" + item.getPpin());
                 category.setText(item.getCategory1());
                 religion.setText(item.getReligion1());
                 educational.setText(item.getEducational());

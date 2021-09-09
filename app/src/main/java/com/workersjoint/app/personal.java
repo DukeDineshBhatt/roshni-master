@@ -504,7 +504,7 @@ public class personal extends Fragment {
             }
         });
 
-        certified.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*certified.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cert = cer1.get(i);
@@ -529,7 +529,7 @@ public class personal extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
 
         progress.setVisibility(View.VISIBLE);
 
@@ -645,7 +645,7 @@ public class personal extends Fragment {
 
                     }
 
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(),
                             R.layout.spinner_model, rel);
 
 
@@ -1263,7 +1263,7 @@ public class personal extends Fragment {
 
                                                                                                         progress.setVisibility(View.VISIBLE);
 
-                                                                                                        Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+                                                                                                        Bean b = (Bean) requireContext().getApplicationContext();
 
                                                                                                         Retrofit retrofit = new Retrofit.Builder()
                                                                                                                 .baseUrl(b.baseurl)

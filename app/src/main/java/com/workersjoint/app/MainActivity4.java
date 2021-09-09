@@ -139,7 +139,7 @@ public class MainActivity4 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity4.this, Web.class);
                 intent.putExtra("title", getString(R.string.about_us));
-                intent.putExtra("url", "https://mrtecks.com/roshni/about.php");
+                intent.putExtra("url", "https://workersjoint.org/about.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

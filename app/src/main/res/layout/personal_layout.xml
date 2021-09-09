@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f5f5f5"
     android:orientation="vertical">
 
@@ -101,9 +101,9 @@
                         android:layout_centerInParent="true"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        app:backgroundTint="@color/white"
                         android:text="@string/upload_take_photo"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorPrimary"
+                        app:backgroundTint="@color/white" />
 
                 </RelativeLayout>
 
@@ -235,10 +235,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:focusable="false"
-                android:clickable="false"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/white_back_round"
+                android:clickable="false"
+                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
@@ -257,9 +257,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:focusable="false"
-                android:clickable="false"
                 android:background="@drawable/white_back_round"
+                android:clickable="false"
+                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
@@ -359,9 +359,9 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:focusable="false"
-                    android:clickable="false"
                     android:background="@drawable/white_back_round"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
@@ -379,10 +379,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:focusable="false"
-                    android:clickable="false"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/white_back_round"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
@@ -463,11 +463,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/enter_religion"
                 android:inputType="textPostalAddress"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -499,11 +499,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:visibility="gone" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -631,8 +632,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:textAllCaps="true"
-                    android:text="@string/children_going_to_school_between_6_14_yrs" />
+                    android:text="@string/children_going_to_school_between_6_14_yrs"
+                    android:textAllCaps="true" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -655,8 +656,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:textAllCaps="true"
-                    android:text="@string/children_going_to_school_between_15_18_yrs" />
+                    android:text="@string/children_going_to_school_between_15_18_yrs"
+                    android:textAllCaps="true" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -681,8 +682,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:text="@string/certified_by_goodweave"
                 android:textAllCaps="true"
-                android:text="@string/certified_by_goodweave" />
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -690,7 +692,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/white_back_round">
+                android:background="@drawable/white_back_round"
+                android:visibility="gone">
 
                 <Spinner
                     android:id="@+id/certified"
@@ -706,7 +709,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/certificate_number" />
+                android:text="@string/certificate_number"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/certificate_number"
@@ -718,13 +722,14 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textCapSentences"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:visibility="gone" />
 
             <TextView
+                android:id="@+id/skill_level_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:id="@+id/skill_level_title"
                 android:layout_marginTop="16dp"
                 android:text="@string/skill_level2" />
 
@@ -789,20 +794,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:weightSum="2"
-                >
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <Button
                     android:id="@+id/previous"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
                     android:text="@string/previous"
                     android:textColor="@color/white" />
 
@@ -810,16 +814,14 @@
                 <Button
                     android:id="@+id/submit"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="4dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
                     android:text="@string/submit"
                     android:textColor="@color/white" />
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>

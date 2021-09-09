@@ -66,6 +66,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:text="@string/area_domain" />
+
+            <EditText
+                android:id="@+id/area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/white_back_round"
+                android:focusable="false"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/your_experience" />
 
             <RelativeLayout
@@ -122,19 +140,19 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:focusable="false"
                 android:background="@drawable/white_back_round"
+                android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
-
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/owns_a_home_based_unit1" />
+                android:text="@string/are_you_a_factory_worker_or_home_worker"
+                android:textAllCaps="true" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -145,16 +163,15 @@
                 android:background="@drawable/white_back_round">
 
                 <Spinner
-                    android:id="@+id/home"
+                    android:id="@+id/factory_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true" />
 
             </RelativeLayout>
 
-
             <LinearLayout
-                android:id="@+id/yes"
+                android:id="@+id/factory_home_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -164,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/number_of_workers" />
+                    android:text="@string/owns_a_home_based_unit1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -175,36 +192,67 @@
                     android:background="@drawable/white_back_round">
 
                     <Spinner
-                        android:id="@+id/workers"
+                        android:id="@+id/home"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true" />
 
                 </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/number_of_looms" />
 
-                <EditText
-                    android:id="@+id/looms"
+                <LinearLayout
+                    android:id="@+id/yes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/white_back_round"
-                    android:focusable="false"
-                    android:hint="@string/tap_to_enter"
-                    android:inputType="textPostalAddress"
-                    android:padding="10dp" />
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/number_of_workers" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/white_back_round">
+
+                        <Spinner
+                            android:id="@+id/workers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/number_of_looms" />
+
+                    <EditText
+                        android:id="@+id/looms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/white_back_round"
+                        android:focusable="false"
+                        android:hint="@string/tap_to_enter"
+                        android:inputType="textPostalAddress"
+                        android:padding="10dp" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -237,12 +285,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/white_back_round"
                 android:focusable="false"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
-                android:layout_marginBottom="24dp"
                 android:visibility="gone" />
 
         </LinearLayout>

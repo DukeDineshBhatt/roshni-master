@@ -169,7 +169,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity2.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.contact_us));
-                intent.putExtra("url" , "https://mrtecks.com/workersjoint/contact.php");
+                intent.putExtra("url", "https://workersjoint.org/contact.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -237,7 +237,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity2.this , Web.class);
                 intent.putExtra("title" ,  getString(R.string.about_us));
-                intent.putExtra("url" , "https://mrtecks.com/workersjoint/about.php");
+                intent.putExtra("url", "https://workersjoint.org/about.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -293,7 +293,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity2.this , Support.class);
                 intent.putExtra("title" , getString(R.string.support_help));
-                intent.putExtra("url" , "https://mrtecks.com/workersjoint/support.php");
+                intent.putExtra("url", "https://workersjoint.org/contact.php");
                 startActivity(intent);
                 drawer.closeDrawer(GravityCompat.START);
 

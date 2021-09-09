@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.mabbas007:TagsEditText:1.0.5@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ad1c8a223bd2d83dba547adfc1e2233/jetified-TagsEditText-1.0.5/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ad1c8a223bd2d83dba547adfc1e2233/jetified-TagsEditText-1.0.5/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ad1c8a223bd2d83dba547adfc1e2233/jetified-TagsEditText-1.0.5/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/10c5a73fcd4dfcbfb543d651947cfaad/transformed/jetified-TagsEditText-1.0.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/10c5a73fcd4dfcbfb543d651947cfaad/transformed/jetified-TagsEditText-1.0.5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/10c5a73fcd4dfcbfb543d651947cfaad/transformed/jetified-TagsEditText-1.0.5/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -3,9 +3,10 @@
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/75ae2c524ad8fbff0af31322a43e65ec/transformed/jetified-libphonenumber-android-8.10.7/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb41a0bd80465e1ccb21f4a71885a3bb/jetified-libphonenumber-android-8.10.7/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f0778789d337e61f916c50cfb4f641a/jetified-libphonenumber-android-8.10.7/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f0778789d337e61f916c50cfb4f641a/jetified-libphonenumber-android-8.10.7/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f0778789d337e61f916c50cfb4f641a/jetified-libphonenumber-android-8.10.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/44805ecdd9aa8df4ec3e4341f84e2f68/transformed/jetified-libphonenumber-android-8.10.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/44805ecdd9aa8df4ec3e4341f84e2f68/transformed/jetified-libphonenumber-android-8.10.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/44805ecdd9aa8df4ec3e4341f84e2f68/transformed/jetified-libphonenumber-android-8.10.7/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.michaelrocks/libphonenumber-android/8.10.7/3dc7fd3b170ccd20d4608b64efa77da2ffa040d/libphonenumber-android-8.10.7-javadoc.jar!/" />

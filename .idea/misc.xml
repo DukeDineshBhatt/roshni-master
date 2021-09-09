@@ -4,14 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/ic_menu.xml" value="0.3828125" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/white_back_round.xml" value="0.3828125" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_main.xml" value="0.3582427536231884" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_personal3.xml" value="0.25" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_terms_and_conditions.xml" value="0.30027173913043476" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_worker_personal.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_worker_professional.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_personal.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_prof.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/professional_layout3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/spinner_model.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

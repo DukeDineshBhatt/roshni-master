@@ -153,7 +153,7 @@
     <string name="your_experience">तुम्हारा अनुभव</string>
     <string name="your_employment_status">आपकी रोजगार स्थिति</string>
     <string name="your_employer_previous_current">अपने नियोक्ता (पूर्व / उत्तर)</string>
-    <string name="owns_a_home_based_unit1">घर आधारित इकाई का स्वामित्व  <font color="red">*</font></string>
+    <string name="owns_a_home_based_unit1">घर आधारित इकाई का स्वामित्व</string>
     <string name="number_of_workers">कामगारों की संख्या</string>
     <string name="number_of_looms">उत्पादन मशीनरी</string>
     <string name="preferred_location_for_work">काम की चुनी हुई जगह</string>

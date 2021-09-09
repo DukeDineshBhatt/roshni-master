@@ -3,9 +3,10 @@
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c8e6f676d4f0faa93011342ab7b78159/transformed/jetified-compressor-2.1.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ffd2230be2e0acad37caf996d74a9696/jetified-compressor-2.1.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f3e6942261704ab391e39740632d6439/jetified-compressor-2.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f3e6942261704ab391e39740632d6439/jetified-compressor-2.1.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f3e6942261704ab391e39740632d6439/jetified-compressor-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b46582a3e7111d5d9c5ec31de165e787/transformed/jetified-compressor-2.1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b46582a3e7111d5d9c5ec31de165e787/transformed/jetified-compressor-2.1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b46582a3e7111d5d9c5ec31de165e787/transformed/jetified-compressor-2.1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -153,7 +153,7 @@
     <string name="your_experience">YOUR EXPERIENCE</string>
     <string name="your_employment_status">YOUR EMPLOYMENT STATUS</string>
     <string name="your_employer_previous_current">YOUR EMPLOYER (PREVIOUS/ CURRENT)</string>
-    <string name="owns_a_home_based_unit1">OWNS A HOME BASED UNIT <font color="red">*</font></string>
+    <string name="owns_a_home_based_unit1">OWNS A HOME BASED UNIT</string>
     <string name="number_of_workers">NUMBER OF WORKERS</string>
     <string name="number_of_looms">PRODUCTION MACHINERIES / TOOLS</string>
     <string name="preferred_location_for_work">PREFERRED LOCATION FOR WORK</string>
@@ -279,4 +279,6 @@
     <string name="is_the_production_child_labour_free">Is the production Child Labour Free?</string>
     <string name="is_the_unit_or_worker_part_of_roshni_supply_chain">Is the unit or worker part of Roshni Supply Chain?</string>
     <string name="go_back_text">Are you sure you want to go back ?</string>
+    <string name="area_domain">AREA/ DOMAIN</string>
+    <string name="are_you_a_factory_worker_or_home_worker">Are you a factory worker or home worker? <font color="red">*</font></string>
 </resources>

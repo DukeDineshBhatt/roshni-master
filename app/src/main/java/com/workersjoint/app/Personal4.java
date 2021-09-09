@@ -383,7 +383,6 @@ public class Personal4 extends Fragment {
         });*/
 
 
-
         cdistrict.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

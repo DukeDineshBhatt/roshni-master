@@ -144,13 +144,7 @@
                         android:layout_centerInParent="true"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/white_back_round"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingStart="20dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="8dp"
+                        app:backgroundTint="@color/white"
                         android:text="@string/upload_take_photo"
                         android:textColor="@color/colorPrimary" />
 
@@ -731,6 +725,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="@string/certified_by_goodweave"
                 android:textAllCaps="true" />
 
@@ -740,6 +735,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
                 android:background="@drawable/white_back_round">
 
                 <Spinner
@@ -756,6 +752,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="@string/certificate_number" />
 
             <EditText
@@ -765,6 +762,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textCapSentences"
@@ -853,15 +851,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/blue_back_round"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:paddingStart="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="8dp"
                     android:text="@string/submit"
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

@@ -200,6 +200,12 @@ public class WorkerByIdData {
     @SerializedName("supply_chain")
     @Expose
     private String supply_chain;
+    @SerializedName("area")
+    @Expose
+    private String area;
+    @SerializedName("factory_home")
+    @Expose
+    private String factory_home;
 
     public String getUserId() {
         return userId;
@@ -719,5 +725,21 @@ public class WorkerByIdData {
 
     public void setSupply_chain(String supply_chain) {
         this.supply_chain = supply_chain;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public String getFactory_home() {
+        return factory_home;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public void setFactory_home(String factory_home) {
+        this.factory_home = factory_home;
     }
 }

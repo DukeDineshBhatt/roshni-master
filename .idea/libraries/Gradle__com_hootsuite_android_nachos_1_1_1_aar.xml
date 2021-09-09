@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.hootsuite.android:nachos:1.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d017365229ebb4ad1ca6425bbc5a1eb3/jetified-nachos-1.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d017365229ebb4ad1ca6425bbc5a1eb3/jetified-nachos-1.1.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d017365229ebb4ad1ca6425bbc5a1eb3/jetified-nachos-1.1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3c3b488729ef022f8d2b453093e9fccb/transformed/jetified-nachos-1.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3c3b488729ef022f8d2b453093e9fccb/transformed/jetified-nachos-1.1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3c3b488729ef022f8d2b453093e9fccb/transformed/jetified-nachos-1.1.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hootsuite.android/nachos/1.1.1/a23e1aa9eeb7cd94f36cebb14df21e302418b5c9/nachos-1.1.1-javadoc.jar!/" />

@@ -607,6 +607,12 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("api/getFactoryHome.php")
+    Call<sectorBean> getFactoryHome(
+            @Part("lang") String lang
+    );
+
+    @Multipart
     @POST("api/getSkillLevel.php")
     Call<sectorBean> getSkillLevel(
             @Part("lang") String lang
@@ -936,7 +942,9 @@ public interface AllApiIneterface {
             @Part("id") String id,
             @Part("govt") String govt,
             @Part("child_labour") String child_labour,
-            @Part("supply_chain") String supply_chain
+            @Part("supply_chain") String supply_chain,
+            @Part("area") String area,
+            @Part("factory_home") String factory_home
     );
 
 

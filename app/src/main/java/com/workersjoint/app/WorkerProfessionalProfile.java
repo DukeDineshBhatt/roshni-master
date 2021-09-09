@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,18 +36,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WorkerProfessionalProfile extends Fragment {
 
-    Spinner experience, employment, home, workers, location , bank , govtinsurance , availability , child_labour , supply_chain;
+    Spinner experience, employment, home, workers, location, bank, govtinsurance, availability, child_labour, supply_chain;
 
-    String sect, skil, expe, empl, hhom, work, loom, loca , bann;
+    String sect, skil, expe, empl, hhom, work, loom, loca, bann;
 
-    List<String> sec, ski, exp , exp1, emp , emp1, hom , hom1, wor, loc , ban , ban1 , ava , ava1 , gov , gov1 , chi , chi1;
+    List<String> sec, ski, exp, exp1, emp, emp1, hom, hom1, wor, loc, ban, ban1, ava, ava1, gov, gov1, chi, chi1;
     List<String> sec1, ski1, loc1;
 
     ProgressBar progress;
 
     String user_id;
 
-    EditText employer,editTextLoc , skills , looms , otherwork , othergovt , sector;
+    EditText employer, editTextLoc, skills, looms, otherwork, othergovt, sector;
     TextView txtStatus;
 
 
@@ -55,6 +56,13 @@ public class WorkerProfessionalProfile extends Fragment {
     Button submit;
 
     SwipeRefreshLayout swipe;
+
+    List<String> fac_hom;
+    List<String> fac_hom1;
+    String fact_home = "";
+    Spinner factory_home;
+    LinearLayout factory_home_layout;
+    EditText area;
 
     @Nullable
     @Override
@@ -84,6 +92,13 @@ public class WorkerProfessionalProfile extends Fragment {
 
         chi = new ArrayList<>();
         chi1 = new ArrayList<>();
+
+        fac_hom = new ArrayList<>();
+        fac_hom1 = new ArrayList<>();
+
+        factory_home = view.findViewById(R.id.factory_home);
+        factory_home_layout = view.findViewById(R.id.factory_home_layout);
+        area = view.findViewById(R.id.area);
 
         submit = view.findViewById(R.id.submit);
         child_labour = view.findViewById(R.id.child_labour);
@@ -158,9 +173,7 @@ public class WorkerProfessionalProfile extends Fragment {
         });
 
 
-
-
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<>(requireActivity(),
                 R.layout.spinner_model, wor);
 
 
@@ -174,13 +187,13 @@ public class WorkerProfessionalProfile extends Fragment {
         govtinsurance.setEnabled(false);
         child_labour.setEnabled(false);
         supply_chain.setEnabled(false);
-
+        factory_home.setEnabled(false);
 
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity() , UpdateWorkerProfessional.class);
+                Intent intent = new Intent(getActivity(), UpdateWorkerProfessional.class);
                 startActivity(intent);
             }
         });
@@ -188,6 +201,33 @@ public class WorkerProfessionalProfile extends Fragment {
         workers.setAdapter(adapter5);
 
 
+        factory_home.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i > 0) {
+                    fact_home = fac_hom1.get(i);
+
+                    if (fact_home.equals("3")) {
+
+                        factory_home_layout.setVisibility(View.VISIBLE);
+
+                    } else {
+                        factory_home_layout.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    fact_home = "";
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         //setPrevious();
@@ -206,7 +246,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) Objects.requireNonNull(getActivity()).getApplicationContext();
+        Bean b = (Bean) requireActivity().getApplicationContext();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(b.baseurl)
@@ -216,7 +256,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
         final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id , SharePreferenceUtils.getInstance().getString("lang"));
+        Call<WorkerByIdListBean> call = cr.getWorkerById1(user_id, SharePreferenceUtils.getInstance().getString("lang"));
         call.enqueue(new Callback<WorkerByIdListBean>() {
             @Override
             public void onResponse(@NotNull Call<WorkerByIdListBean> call, @NotNull Response<WorkerByIdListBean> response) {
@@ -254,13 +294,11 @@ public class WorkerProfessionalProfile extends Fragment {
                     sector.setText(item.get(0).getSector());
                     looms.setText(item.get(0).getTools());
                     otherwork.setText(item.get(0).getOtherwork());
+                    area.setText(item.get(0).getArea());
 
-                    if (item.get(0).getOtherwork().length() > 0)
-                    {
+                    if (item.get(0).getOtherwork().length() > 0) {
                         otherwork.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
+                    } else {
                         otherwork.setVisibility(View.GONE);
                     }
 
@@ -284,7 +322,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, exp);
 
 
@@ -297,15 +335,12 @@ public class WorkerProfessionalProfile extends Fragment {
                                         }
                                     }
                                     experience.setSelection(cp2);
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -338,7 +373,7 @@ public class WorkerProfessionalProfile extends Fragment {
 
                                 try {
 
-                                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter3 = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, emp);
 
 
@@ -351,14 +386,12 @@ public class WorkerProfessionalProfile extends Fragment {
                                         }
                                     }
                                     employment.setSelection(cp2);
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -390,7 +423,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, hom);
 
 
@@ -403,15 +436,12 @@ public class WorkerProfessionalProfile extends Fragment {
                                         }
                                     }
                                     home.setSelection(cp2);
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -443,7 +473,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, ban);
 
 
@@ -457,15 +487,12 @@ public class WorkerProfessionalProfile extends Fragment {
                                     }
                                     bank.setSelection(cp2);
 
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -497,7 +524,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter6 = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, gov);
 
 
@@ -520,16 +547,12 @@ public class WorkerProfessionalProfile extends Fragment {
 
                                     }
                                     govtinsurance.setSelection(sp);
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
-
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -562,7 +585,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, loc);
 
 
@@ -585,15 +608,12 @@ public class WorkerProfessionalProfile extends Fragment {
                                     }
                                     location.setSelection(sp);
 
-                                } catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -625,7 +645,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, ava);
 
 
@@ -638,16 +658,12 @@ public class WorkerProfessionalProfile extends Fragment {
                                         }
                                     }
                                     availability.setSelection(cp2);
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
-
                             }
-
 
 
                             progress.setVisibility(View.GONE);
@@ -679,7 +695,7 @@ public class WorkerProfessionalProfile extends Fragment {
                                 }
 
                                 try {
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
                                             R.layout.spinner_model, chi);
 
 
@@ -701,15 +717,63 @@ public class WorkerProfessionalProfile extends Fragment {
                                         }
                                     }
                                     supply_chain.setSelection(cp21);
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
 
-
                             }
 
+
+                            progress.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<sectorBean> call, @NotNull Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                    final Call<sectorBean> call83 = cr.getFactoryHome(SharePreferenceUtils.getInstance().getString("lang"));
+
+                    call83.enqueue(new Callback<sectorBean>() {
+                        @Override
+                        public void onResponse(@NotNull Call<sectorBean> call, @NotNull Response<sectorBean> response) {
+
+                            if (Objects.requireNonNull(response.body()).getStatus().equals("1")) {
+
+                                fac_hom.clear();
+                                fac_hom1.clear();
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+
+                                    fac_hom.add(response.body().getData().get(i).getTitle());
+                                    fac_hom1.add(response.body().getData().get(i).getId());
+
+                                }
+
+                                try {
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
+                                            R.layout.spinner_model, fac_hom);
+
+
+                                    factory_home.setAdapter(adapter);
+
+                                    int cp2 = 0;
+                                    for (int i = 0; i < fac_hom1.size(); i++) {
+                                        if (item.get(0).getFactory_home().equals(fac_hom1.get(i))) {
+                                            cp2 = i;
+                                        }
+                                    }
+                                    factory_home.setSelection(cp2);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
 
 
                             progress.setVisibility(View.GONE);
@@ -742,11 +806,6 @@ public class WorkerProfessionalProfile extends Fragment {
                 skills.setSelection(cp);*/
 
 
-
-
-
-
-
                     int chp = 0;
                     for (int i = 0; i < wor.size(); i++) {
                         if (item.get(0).getWorkers().equals(wor.get(i))) {
@@ -754,16 +813,9 @@ public class WorkerProfessionalProfile extends Fragment {
                         }
                     }
                     workers.setSelection(chp);
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
-
-
-
 
 
                 progress.setVisibility(View.GONE);

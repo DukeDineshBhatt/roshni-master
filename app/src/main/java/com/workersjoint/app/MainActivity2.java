@@ -620,7 +620,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                             Intent intent = new Intent(MainActivity2.this, Web.class);
                             intent.putExtra("title", getString(R.string.contact_us));
-                            intent.putExtra("url", "https://mrtecks.com/workersjoint/contact.php");
+                            intent.putExtra("url", "https://workersjoint.org/contact.php");
                             startActivity(intent);
                             finishAffinity();
 

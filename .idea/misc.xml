@@ -3,17 +3,131 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/blue_stroke_round.xml" value="0.3828125" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/green_back_round.xml" value="0.3828125" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/ic_filter_tool_black_shape.xml" value="0.3828125" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/ic_menu.xml" value="0.3828125" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/white_back_round.xml" value="0.3828125" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/drawable/white_back_round1.xml" value="0.3828125" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_chip_test.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_choose_account.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_choose_job.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_choose_type.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_complaint.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_completed_brand_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_completed_contractor_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_completed_personal.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_completed_professional.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_completed_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_completeed.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_contractor_applicant_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_contractor_applicants.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_contractor_job_by_company.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_contractor_job_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_create_p_i_n2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_create_pin.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_enter_pin.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_feedback.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_filter_contractor_job.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_filter_worker_job.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_job_details.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_job_details2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_knowledge.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_login.xml" value="0.302536231884058" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_main.xml" value="0.3582427536231884" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_main2.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_main3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_main4.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_notifications.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_o_t_p3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_ongoing.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_otp.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_otp2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_personal.xml" value="0.302536231884058" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_personal3.xml" value="0.25" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_post_job.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_post_job_contractor.xml" value="0.3030563925957813" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_profile4.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_profile5.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_profile6.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_register2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_register3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_signup.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_signup_login.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_single_contgractor.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_single_worker.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_sliders.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_support.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_terms_and_conditions.xml" value="0.30027173913043476" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_terms_and_conditions3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_brand.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_contractor.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_contractor_job.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_worker_job.xml" value="0.302536231884058" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_worker_personal.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_update_worker_professional.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_web.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_applicant_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_applicants.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_job_by_company.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_job_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_personal.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/activity_worker_prof.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/applied_jobs_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/apply_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/bottom_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/brand_layout.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/brand_layout2.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/brand_layout3.xml" value="0.2959226565783943" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/brand_layout4.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/chip.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contr_samp_prof.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contr_samp_prof2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contr_samp_prof3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contractor_layout.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contractor_layout2.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contractor_personal_profile.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/contractor_personal_profile2.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/date_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/dob_popup.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/drawer_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/drawer_layout2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/first.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/job_list_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/jobs_brand_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/jobs_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/jobs_layout1.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/jobs_layout2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/jobs_layout3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/jobs_wworker_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/language_dialog.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/notification_list_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/ongoing_list_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/other_dialog.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/page_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/personal_layout.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/professional_layout.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/professional_layout2.xml" value="0.302536231884058" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/professional_layout3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/profile_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/quit_dialog_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/sample_list_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/sample_list_model2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/samples_layout.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/samples_layout2.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/sector_dialog.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/sector_list_model.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/spinner_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/three.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/two.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/unsubscribe_dialog.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/worker_active_list_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/worker_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/worker_list_model.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mukul/StudioProjects/roshni-master/app/src/main/res/layout/zoom_dialog.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

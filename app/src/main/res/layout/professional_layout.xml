@@ -33,8 +33,7 @@
                 android:longClickable="false"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_select"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
 
             <TextView
@@ -55,8 +54,7 @@
                 android:longClickable="false"
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_select"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <EditText
                 android:id="@+id/otherwork"
@@ -69,8 +67,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="text"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
 
             <TextView
@@ -160,8 +157,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
 
             <TextView
@@ -236,8 +232,7 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPostalAddress"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
 
             </LinearLayout>
@@ -325,8 +320,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPostalAddress"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -385,8 +379,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="text"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
 
             <LinearLayout
@@ -406,16 +399,9 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/blue_back_round"
-                    android:minWidth="0dp"
                     android:layout_marginEnd="4dp"
-                    android:minHeight="0dp"
-                    android:paddingStart="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="8dp"
                     android:text="@string/previous"
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/white" />
 
 
                 <Button
@@ -425,15 +411,8 @@
                     android:layout_marginStart="4dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/blue_back_round"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:paddingStart="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="8dp"
                     android:text="@string/submit"
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

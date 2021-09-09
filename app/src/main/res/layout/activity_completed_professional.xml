@@ -126,8 +126,7 @@
                 android:background="@drawable/white_back_round"
                 android:hint="@string/tap_to_enter"
                 android:inputType="textPersonName"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
 
             <TextView
@@ -201,8 +200,7 @@
                     android:focusable="false"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textPostalAddress"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
 
             </LinearLayout>
@@ -245,8 +243,7 @@
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
                 android:layout_marginBottom="24dp"
-                android:visibility="gone"
-                android:autofillHints="" />
+                android:visibility="gone" />
 
         </LinearLayout>
 

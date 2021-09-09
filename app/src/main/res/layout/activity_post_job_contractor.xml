@@ -145,8 +145,7 @@
                     android:background="@drawable/white_back_round"
                     android:hint="@string/tap_to_enter"
                     android:inputType="textCapSentences"
-                    android:padding="10dp"
-                    android:autofillHints="" />
+                    android:padding="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -307,15 +306,8 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/submit"
                     android:id="@+id/submit"
-                    android:background="@drawable/blue_back_round"
-                    android:minWidth="0dp"
-                    android:textColor="#ffffff"
-                    android:minHeight="0dp"
-                    android:paddingStart="20dp"
+                    android:textColor="@color/white"
                     android:layout_marginTop="24dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="8dp"
                     android:layout_marginBottom="24dp"
                     />
 

@@ -110,6 +110,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:clickable="true"
+            app:backgroundTint="@color/colorAccent"
+            app:maxImageSize="18dp"
             app:srcCompat="@drawable/ic_add"
             android:focusable="true" />
 

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -114,7 +115,9 @@ public class personal3 extends Fragment {
     private List<String> gen, cat, rel, edu, mar, chi, prof, agg;
 
     private Uri uri;
+    private Uri uri2;
     private File f1;
+    private File f2;
 
     private boolean che = false;
 
@@ -154,6 +157,9 @@ public class personal3 extends Fragment {
 
     String same = "0";
 
+    Button uploadid;
+    ImageView id_proof;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -168,10 +174,10 @@ public class personal3 extends Fragment {
         prof = new ArrayList<>();
         agg = new ArrayList<>();
 
-        Places.initialize(Objects.requireNonNull(getContext()).getApplicationContext(), getString(R.string.google_maps_key));
+        Places.initialize(requireContext().getApplicationContext(), getString(R.string.google_maps_key));
         PlacesClient mPlacesClient = Places.createClient(getContext());
 
-        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         getLocationPermission();
 
@@ -234,6 +240,8 @@ public class personal3 extends Fragment {
         editTxtProof = view.findViewById(R.id.editTxtProf);
         editTxtRelg = view.findViewById(R.id.editTxtRelg);
         editTxtedu = view.findViewById(R.id.editTxtedu);
+        uploadid = view.findViewById(R.id.uploadid);
+        id_proof = view.findViewById(R.id.id_proof);
 
         progress = view.findViewById(R.id.progress);
 
@@ -317,7 +325,7 @@ public class personal3 extends Fragment {
         prof.add("Passport");
         prof.add("Bank passbook");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                 R.layout.spinner_model, gen);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(),
@@ -378,7 +386,7 @@ public class personal3 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(Objects.requireNonNull(getActivity()));
+                        .build(requireActivity());
                 startActivityForResult(intent, 12);
 
             }
@@ -408,7 +416,7 @@ public class personal3 extends Fragment {
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
                         .setTypeFilter(TypeFilter.REGIONS)
-                        .build(Objects.requireNonNull(getActivity()));
+                        .build(requireActivity());
                 startActivityForResult(intent, 14);
 
             }
@@ -641,7 +649,7 @@ public class personal3 extends Fragment {
                                 e.printStackTrace();
                             }
 
-                            uri = FileProvider.getUriForFile(Objects.requireNonNull(getContext()), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri);
@@ -660,6 +668,56 @@ public class personal3 extends Fragment {
             }
         });
 
+        uploadid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
 
         dob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -801,9 +859,20 @@ public class personal3 extends Fragment {
                                                                         e1.printStackTrace();
                                                                     }
 
+                                                                    MultipartBody.Part body2 = null;
+                                                                    try {
+
+                                                                        RequestBody reqFile12 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                                                        body2 = MultipartBody.Part.createFormData("id_photo", f2.getName(), reqFile12);
+
+
+                                                                    } catch (Exception e1) {
+                                                                        e1.printStackTrace();
+                                                                    }
+
                                                                     progress.setVisibility(View.VISIBLE);
 
-                                                                    Bean b = (Bean) Objects.requireNonNull(getContext()).getApplicationContext();
+                                                                    Bean b = (Bean) requireContext().getApplicationContext();
 
                                                                     Retrofit retrofit = new Retrofit.Builder()
                                                                             .baseUrl(b.baseurl)
@@ -849,7 +918,8 @@ public class personal3 extends Fragment {
                                                                             "",
                                                                             "",
                                                                             "",
-                                                                            body
+                                                                            body,
+                                                                            body2
                                                                     );
 
                                                                     call.enqueue(new Callback<verifyBean>() {
@@ -1015,7 +1085,7 @@ public class personal3 extends Fragment {
             file = new File(ypath);
 
             try {
-                f1 = new Compressor(Objects.requireNonNull(getContext())).compressToFile(file);
+                f1 = new Compressor(requireContext()).compressToFile(file);
 
                 uri = Uri.fromFile(f1);
 
@@ -1056,6 +1126,62 @@ public class personal3 extends Fragment {
             }
 
             image.setImageURI(uri);
+        }
+
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+
+            Log.d("uri", String.valueOf(uri2));
+
+            String ypath = getPath(getContext(), uri2);
+            assert ypath != null;
+
+
+            File file;
+            file = new File(ypath);
+
+            try {
+                f2 = new Compressor(requireContext()).compressToFile(file);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("path1", ypath);
+
+            id_proof.setImageURI(uri2);
+
+
+            /*f1 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image.setImageBitmap(bmp);*/
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri2));
+
+            try {
+
+                f2 = new Compressor(getContext()).compressToFile(f2);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+            id_proof.setImageURI(uri2);
         }
 
         if (requestCode == 11) {
@@ -1286,6 +1412,7 @@ public class personal3 extends Fragment {
 
         ImageLoader loader = ImageLoader.getInstance();
         loader.displayImage(SharePreferenceUtils.getInstance().getString("photo"), image, options);
+
         dob.setText(SharePreferenceUtils.getInstance().getString("dob"));
         ppin.setText(SharePreferenceUtils.getInstance().getString("ppin"));
         pstate.setText(SharePreferenceUtils.getInstance().getString("pstate"));
@@ -1401,12 +1528,12 @@ public class personal3 extends Fragment {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()).getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(requireContext().getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+            ActivityCompat.requestPermissions(requireActivity(),
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }

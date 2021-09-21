@@ -106,8 +106,10 @@ public class Personal4 extends Fragment {
 
     private String gend = "", cate = "", reli = "", educ = "", mari = "", chil = "", belo = "", sixt = "", fift = "", goin = "", goin2 = "", id = "", prf = "", anua = "";
 
-    private File f1;
     private Uri uri;
+    private Uri uri2;
+    private File f1;
+    private File f2;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
@@ -151,6 +153,8 @@ public class Personal4 extends Fragment {
     String cert = "", skil = "";
 
     EditText phone;
+    Button uploadid;
+    ImageView id_proof;
 
     @Nullable
     @Override
@@ -239,6 +243,8 @@ public class Personal4 extends Fragment {
         certificate_number = view.findViewById(R.id.certificate_number);
         annual = view.findViewById(R.id.annual);
         other_sources = view.findViewById(R.id.other_sources);
+        uploadid = view.findViewById(R.id.uploadid);
+        id_proof = view.findViewById(R.id.id_proof);
 
         name = view.findViewById(R.id.editText);
         age = view.findViewById(R.id.age);
@@ -758,6 +764,56 @@ public class Personal4 extends Fragment {
             }
         });
 
+        uploadid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
 
         dob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -888,6 +944,17 @@ public class Personal4 extends Fragment {
                                                                                                             e1.printStackTrace();
                                                                                                         }
 
+                                                                                                        MultipartBody.Part body2 = null;
+                                                                                                        try {
+
+                                                                                                            RequestBody reqFile12 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                                                                                            body2 = MultipartBody.Part.createFormData("id_photo", f2.getName(), reqFile12);
+
+
+                                                                                                        } catch (Exception e1) {
+                                                                                                            e1.printStackTrace();
+                                                                                                        }
+
                                                                                                         progress.setVisibility(View.VISIBLE);
 
                                                                                                         Bean b = (Bean) requireContext().getApplicationContext();
@@ -936,7 +1003,8 @@ public class Personal4 extends Fragment {
                                                                                                                 cno,
                                                                                                                 anua,
                                                                                                                 oth,
-                                                                                                                body
+                                                                                                                body,
+                                                                                                                body2
                                                                                                         );
 
                                                                                                         call.enqueue(new Callback<verifyBean>() {
@@ -1190,6 +1258,62 @@ public class Personal4 extends Fragment {
             image.setImageURI(uri);
         }
 
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+
+            Log.d("uri", String.valueOf(uri2));
+
+            String ypath = getPath(getContext(), uri2);
+            assert ypath != null;
+
+
+            File file;
+            file = new File(ypath);
+
+            try {
+                f2 = new Compressor(requireContext()).compressToFile(file);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("path1", ypath);
+
+            id_proof.setImageURI(uri2);
+
+
+            /*f1 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            ImageLoader loader = ImageLoader.getInstance();
+
+            Bitmap bmp = loader.loadImageSync(String.valueOf(uri));
+
+            Log.d("bitmap", String.valueOf(bmp));
+
+            image.setImageBitmap(bmp);*/
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri2));
+
+            try {
+
+                f2 = new Compressor(getContext()).compressToFile(f2);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+            id_proof.setImageURI(uri2);
+        }
+
         if (requestCode == 11) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
@@ -1441,7 +1565,7 @@ public class Personal4 extends Fragment {
 
                 final ImageLoader loader = ImageLoader.getInstance();
                 loader.displayImage(item.get(0).getPhoto(), image, options);
-
+                loader.displayImage(item.get(0).getId_photo(), id_proof, options);
 
                 image.setOnClickListener(new View.OnClickListener() {
                     @Override

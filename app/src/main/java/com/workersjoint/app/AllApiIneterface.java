@@ -161,7 +161,8 @@ public interface AllApiIneterface {
             @Part("certification_number") String certification_number,
             @Part("annual_income") String annual_income,
             @Part("other_source") String other_source,
-            @Part MultipartBody.Part file1
+            @Part MultipartBody.Part file1,
+            @Part MultipartBody.Part file2
     );
 
 

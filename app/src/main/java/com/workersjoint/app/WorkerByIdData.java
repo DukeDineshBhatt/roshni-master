@@ -206,6 +206,9 @@ public class WorkerByIdData {
     @SerializedName("factory_home")
     @Expose
     private String factory_home;
+    @SerializedName("id_photo")
+    @Expose
+    private String id_photo;
 
     public String getUserId() {
         return userId;
@@ -741,5 +744,13 @@ public class WorkerByIdData {
 
     public void setFactory_home(String factory_home) {
         this.factory_home = factory_home;
+    }
+
+    public String getId_photo() {
+        return id_photo;
+    }
+
+    public void setId_photo(String id_photo) {
+        this.id_photo = id_photo;
     }
 }

@@ -115,6 +115,7 @@ public interface AllApiIneterface {
             @Part("annual_income") String annual_income,
             @Part("other_source") String other_source,
             @Part MultipartBody.Part file1,
+            @Part MultipartBody.Part file2,
             @Part("c1") String c1,
             @Part("c2") String c2,
             @Part("c3") String c3,
